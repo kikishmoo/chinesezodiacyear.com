@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} | {{ site.name }}</title>
+  <meta name="description" content="{{ description }}">
+  {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <!-- Open Graph -->
+  <meta property="og:type" content="{{ ogType | default('website') }}">
+  <meta property="og:title" content="{{ ogTitle | default(title) }}">
+  <meta property="og:description" content="{{ ogDescription | default(description) }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:locale" content="en_US">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ ogTitle | default(title) }}">
+  <meta name="twitter:description" content="{{ ogDescription | default(description) }}">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script>(function(){var t=localStorage.getItem('czy-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+  {% if ogType == "article" %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title }}","description":"{{ description }}","url":"{{ site.url }}{{ page.url }}","publisher":{"@type":"Organization","name":"{{ site.name }}"}}</script>
+  {% endif %}
+  {% if breadcrumbs %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{% for crumb in breadcrumbs %}{"@type":"ListItem","position":{{ loop.index }},"name":"{{ crumb.label }}"{% if crumb.url %},"item":"{{ site.url }}{{ crumb.url }}"{% endif %}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
+  {% endif %}
+  {% if faq %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for item in faq %}{"@type":"Question","name":"{{ item.q }}","acceptedAnswer":{"@type":"Answer","text":"{{ item.a }}"}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
+  {% endif %}
+  {% if page.url == "/" %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name }}","alternateName":"ChineseZodiacYear.com","url":"{{ site.url }}/","description":"{{ site.description }}","potentialAction":{"@type":"SearchAction","target":"{{ site.url }}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/","description":"Authoritative resource for Chinese zodiac, BaZi four pillars, feng shui, and Chinese cultural traditions rooted in classical pre-Qing scholarship."}</script>
+  {% endif %}
+</head>
+<body>
+  {% include "partials/header.njk" %}
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/newsletter.njk" %}
+  {% include "partials/footer.njk" %}
+
+  <script src="/site.js"></script>
+</body>
+</html>

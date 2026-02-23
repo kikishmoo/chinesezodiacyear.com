@@ -1,0 +1,54 @@
+{
+  "primary": [
+    { "label": "Home", "url": "/", "page": "index" },
+    { "label": "Zodiac", "url": "/zodiac/", "page": "zodiac" },
+    { "label": "BaZi", "url": "/bazi/", "page": "bazi" },
+    { "label": "Feng Shui", "url": "/fengshui/", "page": "fengshui" },
+    { "label": "Calendar", "url": "/calendar/", "page": "calendar" },
+    { "label": "Spring Festival", "url": "/spring-festival/", "page": "spring-festival" },
+    { "label": "Five Elements", "url": "/wuxing/", "page": "wuxing" }
+  ],
+  "more": [
+    { "label": "Qi Men Dun Jia", "url": "/qimen/", "page": "qimen" },
+    { "label": "Yi Jing", "url": "/yijing/", "page": "yijing" },
+    { "label": "Chinese Medicine", "url": "/tcm/", "page": "tcm" },
+    { "label": "Martial Arts", "url": "/martial-arts/", "page": "martial-arts" },
+    { "label": "Tea Culture", "url": "/tea-culture/", "page": "tea-culture" },
+    { "label": "Compatibility", "url": "/compatibility/", "page": "compatibility" }
+  ],
+  "secondary": [
+    { "label": "News", "url": "/news/", "page": "news" },
+    { "label": "Directory", "url": "/directory/", "page": "directory" }
+  ],
+  "footer": [
+    {
+      "heading": "Encyclopedia",
+      "links": [
+        { "label": "Zodiac Animals", "url": "/zodiac/" },
+        { "label": "BaZi & Four Pillars", "url": "/bazi/" },
+        { "label": "Feng Shui", "url": "/fengshui/" },
+        { "label": "Chinese Calendar", "url": "/calendar/" },
+        { "label": "Spring Festival", "url": "/spring-festival/" },
+        { "label": "Five Elements", "url": "/wuxing/" }
+      ]
+    },
+    {
+      "heading": "Community",
+      "links": [
+        { "label": "News & Articles", "url": "/news/" },
+        { "label": "Directory", "url": "/directory/" },
+        { "label": "About Us", "url": "/about/" },
+        { "label": "Contribute", "url": "/about/#contribute" }
+      ]
+    },
+    {
+      "heading": "Resources",
+      "links": [
+        { "label": "Zodiac Calculator", "url": "/#calculator" },
+        { "label": "Sitemap", "url": "/sitemap.xml" },
+        { "label": "Privacy Policy", "url": "/about/#privacy" },
+        { "label": "Terms of Use", "url": "/about/#terms" }
+      ]
+    }
+  ]
+}

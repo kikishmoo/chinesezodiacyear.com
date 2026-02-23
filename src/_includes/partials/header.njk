@@ -1,0 +1,27 @@
+<!-- ===== HEADER ===== -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="/" class="site-logo" aria-label="{{ site.name }} — Home">
+      <div class="logo-seal" aria-hidden="true">生肖</div>
+      Chinese Zodiac <span>Year</span>
+    </a>
+    <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="theme-icon-light">&#9788;</span><span class="theme-icon-dark">&#9790;</span></button>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <nav class="main-nav" role="navigation" aria-label="Primary">
+      {%- for item in nav.primary %}
+      <a href="{{ item.url }}"{% if page.fileSlug == item.page %} class="active"{% endif %}>{{ item.label }}</a>
+      {%- endfor %}
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle">More &#9662;</button>
+        <div class="nav-dropdown-menu">
+          {%- for item in nav.more %}
+          <a href="{{ item.url }}"{% if page.fileSlug == item.page %} class="active"{% endif %}>{{ item.label }}</a>
+          {%- endfor %}
+        </div>
+      </div>
+      {%- for item in nav.secondary %}
+      <a href="{{ item.url }}"{% if page.fileSlug == item.page %} class="active"{% endif %}>{{ item.label }}</a>
+      {%- endfor %}
+    </nav>
+  </div>
+</header>

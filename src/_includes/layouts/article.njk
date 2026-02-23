@@ -1,0 +1,66 @@
+---js
+{
+  layout: "layouts/base.njk"
+}
+---
+{% include "partials/breadcrumbs.njk" %}
+{% include "partials/hero.njk" %}
+
+<div class="article-layout">
+  <article class="article-content">
+    {% if showShareButtons !== false %}
+      {% include "partials/share-buttons.njk" %}
+    {% endif %}
+
+    {{ content | safe }}
+
+    {% if faq %}
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        {%- for item in faq %}
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">{{ item.q }}</button>
+          <div class="faq-answer">
+            <p>{{ item.a }}</p>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </article>
+
+  {% if sidebar !== false %}
+  <aside class="article-sidebar">
+    {% if toc %}
+    <div class="sidebar-widget">
+      <h4>Contents</h4>
+      <ul class="toc-list">
+        {%- for item in toc %}
+        <li><a href="#{{ item.id }}">{{ item.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if relatedArticles %}
+    <div class="sidebar-widget">
+      <h4>Related Articles</h4>
+      {%- for item in relatedArticles %}
+      <a href="{{ item.url }}" style="display:block;margin-bottom:0.5rem;">{{ item.label }}</a>
+      {%- endfor %}
+    </div>
+    {% endif %}
+
+    {% if sidebarExplore %}
+    <div class="sidebar-widget">
+      <h4>Explore</h4>
+      {%- for item in sidebarExplore %}
+      <a href="{{ item.url }}" style="display:block;margin-bottom:0.5rem;">{{ item.label }}</a>
+      {%- endfor %}
+    </div>
+    {% endif %}
+  </aside>
+  {% endif %}
+</div>

@@ -1,0 +1,9 @@
+{% if heroOverline or heroTitle or heroSubtitle %}
+<section class="page-hero">
+  <div class="page-hero-content">
+    {% if heroOverline %}<span class="overline">{{ heroOverline }}</span>{% endif %}
+    <h1>{{ heroTitle | default(title) }}</h1>
+    {% if heroSubtitle %}<p class="subtitle">{{ heroSubtitle }}</p>{% endif %}
+  </div>
+</section>
+{% endif %}

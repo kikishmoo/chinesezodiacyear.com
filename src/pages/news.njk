@@ -1,0 +1,134 @@
+---
+layout: "layouts/base.njk"
+title: "News & Articles — Chinese Zodiac, Feng Shui & Culture"
+description: "Latest articles on Chinese zodiac predictions, feng shui guidance, BaZi analysis, cultural heritage, and traditional Chinese astrology news."
+permalink: "/news/"
+ogType: "website"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "News & Articles"
+---
+{% include "partials/breadcrumbs.njk" %}
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">Latest</span>
+    <h1>News &amp; Articles</h1>
+    <p class="subtitle">Analysis, commentary, and guides on Chinese zodiac, feng shui, BaZi, and cultural traditions</p>
+  </div>
+</section>
+
+<div class="news-layout">
+    <div class="news-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="zodiac">Zodiac</button>
+      <button class="filter-btn" data-filter="culture">Culture</button>
+      <button class="filter-btn" data-filter="fengshui">Feng Shui</button>
+      <button class="filter-btn" data-filter="bazi">BaZi</button>
+      <button class="filter-btn" data-filter="business">Business</button>
+    </div>
+
+    <div class="articles-grid">
+
+      {%- for article in collections.articles %}
+      <article class="article-card" data-category="{{ article.data.category }}">
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-tag tag-{{ article.data.category }}">{{ article.data.categoryLabel }}</span>
+            <time datetime="{{ article.data.date | isoDate }}">{{ article.data.date | readableDate }}</time>
+          </div>
+          <h2><a href="{{ article.url }}">{{ article.data.title }}</a></h2>
+          <p>{{ article.data.description }}</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+      {%- endfor %}
+
+      <!-- Placeholder articles (will be replaced as CMS content is published) -->
+      <article class="article-card" data-category="culture">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-culture">Culture</span><time datetime="2026-02-15">Feb 15, 2026</time></div>
+          <h2><a href="/spring-festival/">Spring Festival 2026: Traditions Worth Preserving</a></h2>
+          <p>As the Year of the Fire Horse dawns, we look at the pre-Qing customs that remain at the heart of the celebration &mdash; from the reunion dinner to the Lantern Festival on the fifteenth day.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="fengshui">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-fengshui">Feng Shui</span><time datetime="2026-02-10">Feb 10, 2026</time></div>
+          <h2><a href="/fengshui/">Flying Stars for 2026: Annual Energy Shifts</a></h2>
+          <p>The annual Flying Star chart for the Fire Horse year places the Five Yellow in the West. Learn which sectors to activate, which to suppress, and how to read the Xuan Kong chart for your home.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="bazi">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-bazi">BaZi</span><time datetime="2026-02-05">Feb 5, 2026</time></div>
+          <h2><a href="/bazi/">Understanding the Day Master: Your BaZi Core Identity</a></h2>
+          <p>The Day Master (日主) is the anchor of every Four Pillars chart. This guide explains all ten Day Masters from Jiǎ Wood to Guǐ Water, their temperaments, strengths, and vulnerabilities in classical analysis.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="zodiac">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-zodiac">Zodiac</span><time datetime="2026-01-28">Jan 28, 2026</time></div>
+          <h2><a href="/zodiac/">The Jade Emperor&rsquo;s Race: Origins of the Twelve Animals</a></h2>
+          <p>How did the Rat outsmart the Ox? Why is there no Cat? The folk legend of the Great Race explains the animal order &mdash; and reveals deeper cosmological reasoning from Han Dynasty astronomy.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="fengshui">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-fengshui">Feng Shui</span><time datetime="2026-01-20">Jan 20, 2026</time></div>
+          <h2><a href="/fengshui/">The Luopan Decoded: Navigating the Compass Rings</a></h2>
+          <p>The Luopan is a portable encyclopaedia of Chinese cosmology. We break down the Heaven Pool, the 24 Mountains ring, the trigram layers, and how classical geomancers read each concentric band.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+      <!-- Hidden articles revealed by Load More -->
+      <article class="article-card hidden-article" data-category="culture">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-culture">Culture</span><time datetime="2026-01-15">Jan 15, 2026</time></div>
+          <h2><a href="/calendar/">The 24 Solar Terms: UNESCO Heritage and Agricultural Wisdom</a></h2>
+          <p>Recognised as Intangible Cultural Heritage, the 24 Solar Terms have guided Chinese agriculture for millennia. From Lìchūn to Dàhán, each marks a precise shift in the natural world.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="bazi">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-bazi">BaZi</span><time datetime="2026-01-10">Jan 10, 2026</time></div>
+          <h2><a href="/bazi/">The Ten Gods of BaZi: Mapping Life&rsquo;s Dynamics</a></h2>
+          <p>Rob Wealth, Hurting Officer, Direct Officer &mdash; the Ten Gods describe how the five elements interact with the Day Master to reveal patterns of wealth, authority, creativity, and support.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="business">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-business">Business</span><time datetime="2026-01-05">Jan 5, 2026</time></div>
+          <h2><a href="#">Date Selection for Business: Classical Methods for Modern Enterprise</a></h2>
+          <p>Chinese date selection (擇日) applies the sexagenary cycle and twelve day officers to identify auspicious days for openings, contracts, and launches. Here is how the classical system works.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="zodiac">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-zodiac">Zodiac</span><time datetime="2025-12-28">Dec 28, 2025</time></div>
+          <h2><a href="/compatibility/">Zodiac Compatibility: The Six Harmonies and Six Clashes</a></h2>
+          <p>Beyond simple compatibility tables, classical astrology uses the Six Harmonies (六合), Three Harmonies (三合), Six Clashes (六衝), and Harms to map inter-animal dynamics with precision.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="load-more-wrap"><button class="btn btn-outline load-more-btn" id="load-more-btn">Load More Articles</button></div>
+</div>
