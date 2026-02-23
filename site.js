@@ -188,15 +188,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* --- Newsletter Form (placeholder behavior) --- */
-  const newsletterForm = document.getElementById('newsletter-form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+  /* --- Newsletter Form (Beehiiv Integration) --- */
+  document.querySelectorAll('.newsletter-form').forEach(form => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = newsletterForm.querySelector('input[type="email"]');
-      if (email && email.value) {
-        newsletterForm.innerHTML = '<p style="color:var(--bright-gold);font-size:1.1rem;">Thank you for subscribing!</p>';
-      }
+      const emailInput = form.querySelector('input[type="email"]');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (!emailInput || !emailInput.value) return;
+
+      const email = emailInput.value;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Subscribing\u2026';
+
+      // Beehiiv subscribe via hidden iframe (avoids CORS on static hosting)
+      const pubId = '9e7042b6-5250-429a-8f20-97b63322cd64';
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.name = 'beehiiv-frame-' + Date.now();
+      document.body.appendChild(iframe);
+
+      // Create a temporary form targeting the iframe
+      const proxyForm = document.createElement('form');
+      proxyForm.method = 'POST';
+      proxyForm.action = 'https://embeds.beehiiv.com/forms/' + pubId;
+      proxyForm.target = iframe.name;
+      proxyForm.style.display = 'none';
+      const input = document.createElement('input');
+      input.name = 'email';
+      input.value = email;
+      proxyForm.appendChild(input);
+      document.body.appendChild(proxyForm);
+      proxyForm.submit();
+
+      setTimeout(() => {
+        form.innerHTML = '<p style="color:var(--bright-gold);font-size:1.1rem;">Thank you for subscribing! Check your inbox.</p>';
+        try { document.body.removeChild(iframe); document.body.removeChild(proxyForm); } catch(ex) {}
+      }, 1500);
+    });
+  });
+
+  /* --- Dark Mode Toggle --- */
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('czy-theme', next);
     });
   }
+
+  /* --- Social Share URL Population --- */
+  document.querySelectorAll('.share-buttons').forEach(container => {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+    container.querySelectorAll('a[data-share]').forEach(btn => {
+      const type = btn.dataset.share;
+      switch (type) {
+        case 'twitter':
+          btn.href = 'https://twitter.com/intent/tweet?url=' + url + '&text=' + title; break;
+        case 'facebook':
+          btn.href = 'https://www.facebook.com/sharer/sharer.php?u=' + url; break;
+        case 'linkedin':
+          btn.href = 'https://www.linkedin.com/shareArticle?mini=true&url=' + url + '&title=' + title; break;
+        case 'email':
+          btn.href = 'mailto:?subject=' + title + '&body=' + url; break;
+      }
+    });
+  });
 });

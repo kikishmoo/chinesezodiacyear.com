@@ -1355,3 +1355,181 @@ blockquote {
 .mb-md { margin-bottom: var(--sp-md); }
 .mb-lg { margin-bottom: var(--sp-lg); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+/* ============================================
+   Dark Mode
+   ============================================ */
+
+/* --- Theme Toggle Button --- */
+.theme-toggle {
+  background: none;
+  border: 1px solid rgba(212,160,23,0.25);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--imperial-gold);
+  font-size: 0.95rem;
+  transition: background 0.3s, border-color 0.3s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.theme-toggle:hover {
+  background: rgba(212,160,23,0.1);
+  border-color: var(--imperial-gold);
+}
+.theme-icon-dark { display: none; }
+[data-theme="dark"] .theme-icon-light { display: none; }
+[data-theme="dark"] .theme-icon-dark { display: inline; }
+
+/* --- Dark Mode Variable Overrides --- */
+[data-theme="dark"] {
+  --ivory: #141414;
+  --cream: #1A1A1A;
+  --parchment: #222222;
+}
+
+[data-theme="dark"] body {
+  background: #111111;
+  color: #D5D0C8;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5 {
+  color: #F0EBE1;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] li {
+  color: #C5C0B8;
+}
+
+[data-theme="dark"] a {
+  color: var(--bright-gold);
+}
+
+[data-theme="dark"] .site-header {
+  background: rgba(10,10,10,0.97);
+}
+
+[data-theme="dark"] .page-hero,
+[data-theme="dark"] .home-hero {
+  background: linear-gradient(135deg, #0A0A0A 0%, #1A0A0A 50%, #0A0A0A 100%);
+}
+
+[data-theme="dark"] .breadcrumbs {
+  background: #1A1A1A;
+  border-bottom-color: rgba(212,160,23,0.1);
+}
+[data-theme="dark"] .breadcrumbs a,
+[data-theme="dark"] .breadcrumbs span {
+  color: #888;
+}
+
+[data-theme="dark"] .article-content {
+  color: #C5C0B8;
+}
+
+[data-theme="dark"] .article-card,
+[data-theme="dark"] .zodiac-card,
+[data-theme="dark"] .feature-item,
+[data-theme="dark"] .sidebar-widget,
+[data-theme="dark"] .directory-card,
+[data-theme="dark"] .listing-card {
+  background: #1E1E1E;
+  border-color: rgba(212,160,23,0.12);
+}
+
+[data-theme="dark"] .article-card:hover,
+[data-theme="dark"] .feature-item:hover {
+  border-color: rgba(212,160,23,0.3);
+}
+
+[data-theme="dark"] .faq-item {
+  border-color: rgba(212,160,23,0.1);
+}
+[data-theme="dark"] .faq-question {
+  color: #E0DBD1;
+}
+[data-theme="dark"] .faq-answer {
+  color: #B0ABA3;
+}
+
+[data-theme="dark"] .elements-table th {
+  background: #1A1A1A;
+  color: var(--bright-gold);
+  border-color: rgba(212,160,23,0.15);
+}
+[data-theme="dark"] .elements-table td {
+  background: #141414;
+  border-color: rgba(255,250,240,0.06);
+  color: #C5C0B8;
+}
+[data-theme="dark"] .elements-table tr:nth-child(even) td {
+  background: #1A1A1A;
+}
+
+[data-theme="dark"] .calc-section {
+  background: #1A1A1A;
+}
+[data-theme="dark"] .calc-input,
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .directory-search,
+[data-theme="dark"] .newsletter-input {
+  background: #252525;
+  color: #E0DBD1;
+  border-color: rgba(212,160,23,0.2);
+}
+[data-theme="dark"] .calc-result {
+  background: #1E1E1E;
+  color: #E0DBD1;
+}
+
+[data-theme="dark"] .newsletter-section {
+  background: linear-gradient(135deg, #0A0A0A 0%, #1A0808 50%, #0A0A0A 100%);
+}
+
+[data-theme="dark"] .site-footer {
+  background: #0A0A0A;
+}
+
+[data-theme="dark"] .filter-btn {
+  color: #B0ABA3;
+  border-color: rgba(212,160,23,0.15);
+}
+[data-theme="dark"] .filter-btn.active {
+  background: var(--deep-red);
+  color: white;
+}
+
+[data-theme="dark"] .gold-rule {
+  background: linear-gradient(90deg, transparent, rgba(212,160,23,0.3), transparent);
+}
+
+[data-theme="dark"] .toc-list a {
+  color: #B0ABA3;
+}
+[data-theme="dark"] .toc-list a:hover {
+  color: var(--bright-gold);
+}
+
+[data-theme="dark"] .related-link {
+  color: #B0ABA3;
+  border-bottom-color: rgba(212,160,23,0.1);
+}
+[data-theme="dark"] .related-link:hover {
+  color: var(--bright-gold);
+}
+
+/* --- Dark mode responsive --- */
+@media (max-width: 900px) {
+  [data-theme="dark"] .main-nav {
+    background: rgba(10,10,10,0.98);
+  }
+}
