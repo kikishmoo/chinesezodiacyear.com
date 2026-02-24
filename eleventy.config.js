@@ -53,6 +53,7 @@ export default function(eleventyConfig) {
   eleventyConfig.addWatchTarget("src/site.js");
 
   return {
+    pathPrefix: "/chinesezodiacyear.com/",
     dir: {
       input: "src",
       output: "_site",
