@@ -34,7 +34,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for item in faq %}{"@type":"Question","name":"{{ item.q }}","acceptedAnswer":{"@type":"Answer","text":"{{ item.a }}"}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
   {% endif %}
   {% if page.url == "/" %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name }}","alternateName":"ChineseZodiacYear.com","url":"{{ site.url }}/","description":"{{ site.description }}","potentialAction":{"@type":"SearchAction","target":"{{ site.url }}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name }}","alternateName":"ChineseZodiac","url":"{{ site.url }}/","description":"{{ site.description }}","potentialAction":{"@type":"SearchAction","target":"{{ site.url }}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/","description":"Authoritative resource for Chinese zodiac, BaZi four pillars, feng shui, and Chinese cultural traditions rooted in classical pre-Qing scholarship."}</script>
   {% endif %}
 </head>

@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <strong>Heavenly Stem:</strong> ${stem}<br>
           <strong>Traits:</strong> ${zodiac.traits}
         </p>
-        <p style="margin-top:1rem;"><a href="zodiac.html" style="font-weight:600;">Read more about the ${zodiac.animal} &rarr;</a></p>
+        <p style="margin-top:1rem;"><a href="/zodiac/" style="font-weight:600;">Read more about the ${zodiac.animal} &rarr;</a></p>
       `;
       calcResult.classList.add('show');
       calcResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -183,10 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --- Active Nav Highlight --- */
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const currentPath = window.location.pathname;
   document.querySelectorAll('.main-nav a').forEach(link => {
     const href = link.getAttribute('href');
-    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+    if (href === currentPath || href === currentPath.replace(/\/$/, '') || (currentPath === '/' && href === '/')) {
       link.classList.add('active');
     }
   });
@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         html += '</div>';
       });
 
-      html += '<p style="margin-top:1.5rem;font-size:0.9rem;color:var(--graphite);text-align:center;">For a comprehensive analysis, a full <a href="bazi.html">BaZi chart</a> comparison is recommended.</p>';
+      html += '<p style="margin-top:1.5rem;font-size:0.9rem;color:var(--graphite);text-align:center;">For a comprehensive analysis, a full <a href="/bazi/">BaZi chart</a> comparison is recommended.</p>';
 
       compatResult.innerHTML = html;
       compatResult.classList.add('show');

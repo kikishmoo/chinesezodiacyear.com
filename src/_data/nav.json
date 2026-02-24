@@ -4,7 +4,7 @@
     { "label": "Zodiac", "url": "/zodiac/", "page": "zodiac" },
     { "label": "BaZi", "url": "/bazi/", "page": "bazi" },
     { "label": "Feng Shui", "url": "/fengshui/", "page": "fengshui" },
-    { "label": "Calendar", "url": "/calendar/", "page": "calendar" },
+    { "label": "Chinese Calendar", "url": "/calendar/", "page": "calendar" },
     { "label": "Spring Festival", "url": "/spring-festival/", "page": "spring-festival" },
     { "label": "Five Elements", "url": "/wuxing/", "page": "wuxing" }
   ],
