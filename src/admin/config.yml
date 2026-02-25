@@ -103,3 +103,53 @@ collections:
           - { label: "Label", name: "label", widget: "string" }
           - { label: "URL", name: "url", widget: "string" }
       - { label: "Body", name: "body", widget: "code", default_language: "html", output_code_only: true }
+
+  - name: "readings"
+    label: "Zodiac Readings"
+    folder: "src/readings"
+    create: true
+    slug: "{{slug}}"
+    extension: "njk"
+    format: "frontmatter"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "layouts/article.njk" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Category", name: "category", widget: "hidden", default: "readings" }
+      - { label: "OG Type", name: "ogType", widget: "hidden", default: "article" }
+      - { label: "Reading Type", name: "readingType", widget: "select", options: ["yearly", "monthly", "weekly", "daily"] }
+      - { label: "Animal", name: "animal", widget: "select", options: ["rat", "ox", "tiger", "rabbit", "dragon", "snake", "horse", "goat", "monkey", "rooster", "dog", "pig"] }
+      - { label: "Animal Emoji", name: "animalEmoji", widget: "string" }
+      - { label: "Year", name: "year", widget: "number" }
+      - { label: "Permalink", name: "permalink", widget: "string" }
+      - { label: "Hero Overline", name: "heroOverline", widget: "string" }
+      - { label: "Hero Title", name: "heroTitle", widget: "string" }
+      - { label: "Hero Subtitle", name: "heroSubtitle", widget: "text", required: false }
+      - label: "Breadcrumbs"
+        name: "breadcrumbs"
+        widget: "list"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string", required: false }
+      - label: "Table of Contents"
+        name: "toc"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "ID", name: "id", widget: "string" }
+          - { label: "Label", name: "label", widget: "string" }
+      - label: "FAQ"
+        name: "faq"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Question", name: "q", widget: "string" }
+          - { label: "Answer", name: "a", widget: "text" }
+      - label: "Related Articles"
+        name: "relatedArticles"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Body", name: "body", widget: "code", default_language: "html", output_code_only: true }

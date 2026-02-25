@@ -6,6 +6,8 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/site.js");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/admin");
+  eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
+  eleventyConfig.addPassthroughCopy("src/cities.json");
 
   // HTML Base Plugin for URL handling
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
@@ -21,6 +23,20 @@ export default function(eleventyConfig) {
   eleventyConfig.addCollection("encyclopedia", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/pages/*.njk").filter(item => {
       return item.data.category === "encyclopedia";
+    });
+  });
+
+  // Readings collection — all readings sorted by animal name
+  eleventyConfig.addCollection("readings", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/readings/*").sort((a, b) => {
+      return (a.data.animal || '').localeCompare(b.data.animal || '');
+    });
+  });
+
+  // Yearly readings sub-collection
+  eleventyConfig.addCollection("yearlyReadings", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/readings/*").filter(item => {
+      return item.data.readingType === "yearly";
     });
   });
 
@@ -53,7 +69,7 @@ export default function(eleventyConfig) {
   eleventyConfig.addWatchTarget("src/site.js");
 
   return {
-    pathPrefix: "/chinesezodiacyear.com/",
+    pathPrefix: "/",
     dir: {
       input: "src",
       output: "_site",

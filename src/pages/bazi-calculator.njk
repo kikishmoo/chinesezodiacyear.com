@@ -1,0 +1,174 @@
+---
+layout: "layouts/article.njk"
+title: "BaZi Calculator — Four Pillars of Destiny Reading"
+description: "Free BaZi (八字) calculator using True Solar Time. Enter your birthday, time, and location to generate your Four Pillars chart with Heavenly Stems, Earthly Branches, and elemental analysis."
+keywords: "BaZi calculator, Four Pillars of Destiny, eight characters, Chinese astrology calculator, birth chart, Heavenly Stems, Earthly Branches, True Solar Time"
+permalink: "/bazi-calculator/"
+ogType: "website"
+category: "tools"
+heroOverline: "Interactive Tool"
+heroTitle: "BaZi Calculator"
+heroSubtitle: "Generate your Four Pillars of Destiny chart using True Solar Time for maximum accuracy"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Tools"
+  - label: "BaZi Calculator"
+toc:
+  - id: "calculator"
+    label: "Calculator"
+  - id: "what-is-bazi"
+    label: "What Is BaZi?"
+  - id: "four-pillars"
+    label: "The Four Pillars"
+  - id: "true-solar-time"
+    label: "True Solar Time"
+  - id: "how-to-read"
+    label: "Reading Your Chart"
+  - id: "faq"
+    label: "FAQ"
+faq:
+  - q: "What is BaZi?"
+    a: "BaZi (八字, 'eight characters') is the Chinese system of destiny analysis based on the year, month, day, and hour of birth. Each 'pillar' contains a Heavenly Stem and Earthly Branch, together forming eight characters that map a person's energetic blueprint."
+  - q: "Why does the calculator ask for my birth location?"
+    a: "Birth location is needed to calculate True Solar Time (真太阳时). Clock time zones are political constructs — a city on the western edge of a time zone experiences solar noon significantly later than one on the eastern edge. True Solar Time adjusts for this difference, which can change the Hour Pillar of your chart."
+  - q: "What if I don't know my birth time?"
+    a: "You can check the 'Unknown birth time' option to generate a three-pillar chart (Year, Month, Day). While the Hour Pillar adds significant detail, a three-pillar reading still provides valuable insight into your Day Master and elemental balance."
+  - q: "What is the Day Master?"
+    a: "The Day Master (日主) is the Heavenly Stem of your Day Pillar — it represents your core self. There are ten possible Day Masters (five elements × yin/yang), and the relationships between your Day Master and all other elements in your chart determine your personality, strengths, and life trajectory."
+  - q: "How accurate is this calculator?"
+    a: "The calculator uses True Solar Time correction and classical Chinese calendar conversion to determine your four pillars. The astronomical calculations are accurate for dates from 1900 to 2100. For professional-grade readings that include Ten Gods analysis and luck period calculations, consult a qualified BaZi practitioner from our directory."
+relatedArticles:
+  - label: "BaZi — Four Pillars"
+    url: "/bazi/"
+  - label: "Five Elements"
+    url: "/wuxing/"
+  - label: "Chinese Calendar"
+    url: "/calendar/"
+  - label: "Zodiac Animals"
+    url: "/zodiac/"
+---
+
+    <section id="calculator" class="bazi-calculator-section">
+      <div class="calc-container">
+        <span class="overline">Enter Your Details</span>
+        <h2>Generate Your BaZi Chart</h2>
+        <p class="subtitle" style="margin:0.5rem auto 1.5rem;">Enter your birthday, birth time, and location for a True Solar Time calculation. Birth time and location are optional but recommended for the most accurate Hour Pillar.</p>
+
+        <form id="bazi-calc-form" class="bazi-form" aria-label="BaZi calculator">
+          <div class="bazi-form-grid">
+            <div class="bazi-field">
+              <label for="bazi-year">Birth Year</label>
+              <input type="number" id="bazi-year" placeholder="e.g. 1990" min="1900" max="2100" required>
+            </div>
+            <div class="bazi-field">
+              <label for="bazi-month">Month</label>
+              <select id="bazi-month" required>
+                <option value="">Select</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+            <div class="bazi-field">
+              <label for="bazi-day">Day</label>
+              <input type="number" id="bazi-day" placeholder="1–31" min="1" max="31" required>
+            </div>
+            <div class="bazi-field">
+              <label for="bazi-hour">Hour</label>
+              <input type="number" id="bazi-hour" placeholder="0–23" min="0" max="23">
+            </div>
+            <div class="bazi-field">
+              <label for="bazi-minute">Minute</label>
+              <input type="number" id="bazi-minute" placeholder="0–59" min="0" max="59">
+            </div>
+            <div class="bazi-field bazi-field-wide">
+              <label for="bazi-city">Birth City</label>
+              <div class="city-search-wrap">
+                <input type="text" id="bazi-city" placeholder="Start typing a city name…" autocomplete="off">
+                <div id="city-suggestions" class="city-suggestions" hidden></div>
+              </div>
+              <input type="hidden" id="bazi-lat">
+              <input type="hidden" id="bazi-lng">
+              <input type="hidden" id="bazi-tz">
+            </div>
+          </div>
+
+          <div class="bazi-form-options">
+            <label class="bazi-checkbox">
+              <input type="checkbox" id="bazi-no-time">
+              <span>Unknown birth time (generate 3-pillar chart)</span>
+            </label>
+            <div class="bazi-field" style="display:inline-flex;gap:1rem;align-items:center;">
+              <label><input type="radio" name="bazi-sex" value="male" checked> Male</label>
+              <label><input type="radio" name="bazi-sex" value="female"> Female</label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="margin-top:1.5rem;">Calculate BaZi</button>
+        </form>
+
+        <div id="bazi-result" class="bazi-result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="what-is-bazi">
+      <h2>What Is BaZi?</h2>
+      <p><strong>BaZi</strong> (<span class="chinese-char">八字</span>), literally "eight characters," is the classical Chinese system of destiny analysis. It maps the energetic configuration of the cosmos at the moment of birth using four pillars — Year, Month, Day, and Hour — each composed of a Heavenly Stem (<span class="chinese-char">天干</span>) and an Earthly Branch (<span class="chinese-char">地支</span>). Together, these eight characters form a blueprint that Chinese metaphysicians have used for over a thousand years to understand personality, predict life trends, and guide decision-making.</p>
+      <p>The system was developed during the <strong>Tang Dynasty</strong> (618–907 CE) by the scholar Li Xuzhong (<span class="chinese-char">李虛中</span>), who used three pillars (Year, Month, Day). It was refined in the <strong>Song Dynasty</strong> by Xu Ziping (<span class="chinese-char">徐子平</span>), who added the Hour Pillar and established the Day Master as the chart's focal point — the framework still used today. For a comprehensive introduction, see our <a href="/bazi/">BaZi encyclopedia article</a>.</p>
+    </section>
+
+    <section id="four-pillars">
+      <h2>The Four Pillars Explained</h2>
+      <table class="elements-table">
+        <thead>
+          <tr><th>Pillar</th><th>Chinese</th><th>Represents</th><th>Influences</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Year</strong></td><td>年柱</td><td>Ancestral energy, social context</td><td>Grandparents, early childhood, outer social image</td></tr>
+          <tr><td><strong>Month</strong></td><td>月柱</td><td>Parents, upbringing, career house</td><td>Parents, education, career path, ages ~17–32</td></tr>
+          <tr><td><strong>Day</strong></td><td>日柱</td><td>Self and spouse</td><td>Core personality (Day Master), marriage, ages ~33–48</td></tr>
+          <tr><td><strong>Hour</strong></td><td>時柱</td><td>Children, later life</td><td>Children, aspirations, legacy, ages ~49+</td></tr>
+        </tbody>
+      </table>
+      <p>Each pillar's Heavenly Stem carries one of the <a href="/wuxing/">five elements</a> in either Yin or Yang polarity, while its Earthly Branch contains one to three "hidden stems" — additional elemental influences within the branch. A full BaZi analysis examines the interactions between all these elements: which support each other (generating cycle), which conflict (overcoming cycle), and how they combine or clash.</p>
+    </section>
+
+    <section id="true-solar-time">
+      <h2>Why True Solar Time Matters</h2>
+      <p>Modern clock time is a political convenience — time zones span vast geographic areas, and daylight saving time shifts the clock artificially. But BaZi's Hour Pillar is based on the <strong>sun's actual position</strong> relative to the birth location. Two people born at the same clock time in cities 1,500 km apart within the same time zone may have different Hour Pillars.</p>
+      <p><strong>True Solar Time</strong> (<span class="chinese-char">真太陽時</span>) corrects for the difference between clock time and the sun's actual transit. This calculation accounts for:</p>
+      <ul>
+        <li><strong>Longitude offset</strong> — the difference between a location's longitude and its time zone's reference meridian</li>
+        <li><strong>Equation of Time</strong> — the natural variation in solar noon caused by Earth's elliptical orbit and axial tilt</li>
+        <li><strong>Daylight Saving Time</strong> — subtracting any artificial DST offset</li>
+      </ul>
+      <p>Our calculator performs this correction automatically when you provide your birth city, using the city's geographic coordinates and time zone data.</p>
+    </section>
+
+    <section id="how-to-read">
+      <h2>Reading Your Chart</h2>
+      <p>The most important element in your chart is the <strong>Day Master</strong> (<span class="chinese-char">日主</span>) — the Heavenly Stem of your Day Pillar. It represents your core self and serves as the reference point for all other chart analysis. The ten possible Day Masters are:</p>
+      <ul>
+        <li><strong>甲 Jiǎ (Yang Wood)</strong> — tall tree: principled, competitive, straight-forward</li>
+        <li><strong>乙 Yǐ (Yin Wood)</strong> — flower/vine: flexible, diplomatic, artistic</li>
+        <li><strong>丙 Bǐng (Yang Fire)</strong> — sun: generous, warm, attention-seeking</li>
+        <li><strong>丁 Dīng (Yin Fire)</strong> — candle: perceptive, passionate, fluctuating</li>
+        <li><strong>戊 Wù (Yang Earth)</strong> — mountain: reliable, stubborn, protective</li>
+        <li><strong>己 Jǐ (Yin Earth)</strong> — garden soil: nurturing, detail-oriented, worrying</li>
+        <li><strong>庚 Gēng (Yang Metal)</strong> — sword/axe: decisive, righteous, confrontational</li>
+        <li><strong>辛 Xīn (Yin Metal)</strong> — jewellery: refined, sensitive, precise</li>
+        <li><strong>壬 Rén (Yang Water)</strong> — ocean: adventurous, restless, philosophical</li>
+        <li><strong>癸 Guǐ (Yin Water)</strong> — dew/rain: intuitive, imaginative, quiet</li>
+      </ul>
+      <p>The balance of elements supporting, controlling, and draining your Day Master determines whether you are considered "strong" or "weak" — which in turn determines which elements are favourable and unfavourable for you. This is the foundation of all BaZi life analysis.</p>
+    </section>

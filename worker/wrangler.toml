@@ -1,0 +1,6 @@
+name = "bazi-calculator"
+main = "bazi-worker.js"
+compatibility_date = "2024-09-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://kikishmoo.github.io,https://chinesezodiacyear.com,https://www.chinesezodiacyear.com"

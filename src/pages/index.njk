@@ -40,9 +40,27 @@ ogType: "website"
       <div class="calc-container">
         <span class="overline">Interactive Tool</span>
         <h2 id="calc-heading">What Is Your Chinese Zodiac?</h2>
-        <p class="subtitle" style="margin:0.5rem auto;">Enter your birth year to discover your zodiac animal, element, and heavenly stem.</p>
+        <p class="subtitle" style="margin:0.5rem auto;">Enter your birthday to discover your zodiac animal, element, and heavenly stem. Month and day are optional but recommended for accurate results near Chinese New Year.</p>
         <form id="zodiac-calc-form" class="calc-form" aria-label="Zodiac calculator">
-          <input type="number" id="birth-year" class="calc-input" placeholder="e.g. 1990" min="1900" max="2100" required aria-label="Birth year">
+          <div class="calc-row">
+            <input type="number" id="birth-year" class="calc-input" placeholder="Year" min="1900" max="2100" required aria-label="Birth year">
+            <select id="birth-month" class="calc-input calc-input-sm" aria-label="Birth month (optional)">
+              <option value="">Month</option>
+              <option value="1">Jan</option>
+              <option value="2">Feb</option>
+              <option value="3">Mar</option>
+              <option value="4">Apr</option>
+              <option value="5">May</option>
+              <option value="6">Jun</option>
+              <option value="7">Jul</option>
+              <option value="8">Aug</option>
+              <option value="9">Sep</option>
+              <option value="10">Oct</option>
+              <option value="11">Nov</option>
+              <option value="12">Dec</option>
+            </select>
+            <input type="number" id="birth-day" class="calc-input calc-input-sm" placeholder="Day" min="1" max="31" aria-label="Birth day (optional)">
+          </div>
           <button type="submit" class="btn btn-primary">Discover</button>
         </form>
         <div id="calc-result" class="calc-result" aria-live="polite"></div>
@@ -94,6 +112,34 @@ ogType: "website"
           <p>Wood, Fire, Earth, Metal, Water — the generating and overcoming cycles that govern all things.</p>
           <a href="/wuxing/">Read more &rarr;</a>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== 2026 READINGS ===== -->
+    <section class="content-section" style="background:var(--cream);background-image:var(--paper-noise);" aria-labelledby="readings-heading">
+      <div class="section-header">
+        <span class="overline">2026 Forecasts</span>
+        <h2 id="readings-heading">Year of the Fire Horse Readings</h2>
+        <p class="subtitle">What does the Bing Wu year hold for your zodiac sign?</p>
+      </div>
+
+      <div class="reading-grid" style="max-width:900px;margin:0 auto;">
+        <a href="/readings/2026-rat/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F400;</span><span class="reading-card-cn">&#40736;</span><span class="reading-card-name">Rat</span></a>
+        <a href="/readings/2026-ox/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F402;</span><span class="reading-card-cn">&#29275;</span><span class="reading-card-name">Ox</span></a>
+        <a href="/readings/2026-tiger/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F405;</span><span class="reading-card-cn">&#34382;</span><span class="reading-card-name">Tiger</span></a>
+        <a href="/readings/2026-rabbit/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F407;</span><span class="reading-card-cn">&#20820;</span><span class="reading-card-name">Rabbit</span></a>
+        <a href="/readings/2026-dragon/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F409;</span><span class="reading-card-cn">&#40845;</span><span class="reading-card-name">Dragon</span></a>
+        <a href="/readings/2026-snake/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F40D;</span><span class="reading-card-cn">&#34503;</span><span class="reading-card-name">Snake</span></a>
+        <a href="/readings/2026-horse/" class="reading-card reading-card-featured animate-on-scroll"><span class="reading-card-emoji">&#x1F40E;</span><span class="reading-card-cn">&#39340;</span><span class="reading-card-name">Horse</span></a>
+        <a href="/readings/2026-goat/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F410;</span><span class="reading-card-cn">&#32650;</span><span class="reading-card-name">Goat</span></a>
+        <a href="/readings/2026-monkey/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F412;</span><span class="reading-card-cn">&#29492;</span><span class="reading-card-name">Monkey</span></a>
+        <a href="/readings/2026-rooster/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F413;</span><span class="reading-card-cn">&#38622;</span><span class="reading-card-name">Rooster</span></a>
+        <a href="/readings/2026-dog/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F415;</span><span class="reading-card-cn">&#29399;</span><span class="reading-card-name">Dog</span></a>
+        <a href="/readings/2026-pig/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F416;</span><span class="reading-card-cn">&#35948;</span><span class="reading-card-name">Pig</span></a>
+      </div>
+
+      <div class="text-center mt-xl">
+        <a href="/readings/" class="btn btn-primary">All 2026 Readings &rarr;</a>
       </div>
     </section>
 

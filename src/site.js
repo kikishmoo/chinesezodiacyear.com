@@ -62,6 +62,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const elements = ['Wood', 'Wood', 'Fire', 'Fire', 'Earth', 'Earth', 'Metal', 'Metal', 'Water', 'Water'];
   const heavenlyStems = ['Jia 甲', 'Yi 乙', 'Bing 丙', 'Ding 丁', 'Wu 戊', 'Ji 己', 'Geng 庚', 'Xin 辛', 'Ren 壬', 'Gui 癸'];
 
+  /* Lichun (立春) dates: month and day for each year 1900-2100.
+     Lichun marks the true start of the Chinese zodiac year in BaZi tradition.
+     Format: year: [month, day] — almost always February 3, 4, or 5. */
+  const lichunDates = {
+    1900:[2,4],1901:[2,4],1902:[2,5],1903:[2,5],1904:[2,5],1905:[2,4],1906:[2,4],1907:[2,5],1908:[2,5],1909:[2,4],
+    1910:[2,4],1911:[2,5],1912:[2,5],1913:[2,4],1914:[2,4],1915:[2,5],1916:[2,5],1917:[2,4],1918:[2,4],1919:[2,5],
+    1920:[2,5],1921:[2,4],1922:[2,4],1923:[2,5],1924:[2,5],1925:[2,4],1926:[2,4],1927:[2,5],1928:[2,5],1929:[2,4],
+    1930:[2,4],1931:[2,5],1932:[2,5],1933:[2,4],1934:[2,4],1935:[2,5],1936:[2,5],1937:[2,4],1938:[2,4],1939:[2,5],
+    1940:[2,5],1941:[2,4],1942:[2,4],1943:[2,5],1944:[2,5],1945:[2,4],1946:[2,4],1947:[2,5],1948:[2,5],1949:[2,4],
+    1950:[2,4],1951:[2,4],1952:[2,5],1953:[2,4],1954:[2,4],1955:[2,4],1956:[2,5],1957:[2,4],1958:[2,4],1959:[2,4],
+    1960:[2,5],1961:[2,4],1962:[2,4],1963:[2,4],1964:[2,5],1965:[2,4],1966:[2,4],1967:[2,4],1968:[2,5],1969:[2,4],
+    1970:[2,4],1971:[2,4],1972:[2,5],1973:[2,4],1974:[2,4],1975:[2,4],1976:[2,5],1977:[2,4],1978:[2,4],1979:[2,4],
+    1980:[2,5],1981:[2,4],1982:[2,4],1983:[2,4],1984:[2,4],1985:[2,4],1986:[2,4],1987:[2,4],1988:[2,4],1989:[2,4],
+    1990:[2,4],1991:[2,4],1992:[2,4],1993:[2,4],1994:[2,4],1995:[2,4],1996:[2,4],1997:[2,4],1998:[2,4],1999:[2,4],
+    2000:[2,4],2001:[2,4],2002:[2,4],2003:[2,4],2004:[2,4],2005:[2,4],2006:[2,4],2007:[2,4],2008:[2,4],2009:[2,4],
+    2010:[2,4],2011:[2,4],2012:[2,4],2013:[2,4],2014:[2,4],2015:[2,4],2016:[2,4],2017:[2,3],2018:[2,4],2019:[2,4],
+    2020:[2,4],2021:[2,3],2022:[2,4],2023:[2,4],2024:[2,4],2025:[2,3],2026:[2,4],2027:[2,4],2028:[2,4],2029:[2,3],
+    2030:[2,4],2031:[2,4],2032:[2,4],2033:[2,3],2034:[2,4],2035:[2,4],2036:[2,4],2037:[2,4],2038:[2,4],2039:[2,4],
+    2040:[2,4],2041:[2,3],2042:[2,4],2043:[2,4],2044:[2,4],2045:[2,3],2046:[2,4],2047:[2,4],2048:[2,4],2049:[2,3],
+    2050:[2,4],2051:[2,4],2052:[2,4],2053:[2,3],2054:[2,4],2055:[2,4],2056:[2,4],2057:[2,3],2058:[2,4],2059:[2,4],
+    2060:[2,4],2061:[2,3],2062:[2,4],2063:[2,4],2064:[2,4],2065:[2,3],2066:[2,4],2067:[2,4],2068:[2,4],2069:[2,3],
+    2070:[2,4],2071:[2,4],2072:[2,4],2073:[2,3],2074:[2,4],2075:[2,4],2076:[2,4],2077:[2,3],2078:[2,4],2079:[2,4],
+    2080:[2,4],2081:[2,3],2082:[2,4],2083:[2,4],2084:[2,4],2085:[2,3],2086:[2,4],2087:[2,4],2088:[2,4],2089:[2,3],
+    2090:[2,4],2091:[2,4],2092:[2,4],2093:[2,3],2094:[2,4],2095:[2,4],2096:[2,4],2097:[2,3],2098:[2,4],2099:[2,4],
+    2100:[2,4]
+  };
+
+  /** Returns the zodiac year adjusted for Lichun boundary.
+      If birthday is before Lichun of that year, the zodiac year is previous year. */
+  function getZodiacYear(year, month, day) {
+    if (!month || !day) return year; // no month/day → fall back to year-only
+    const lc = lichunDates[year];
+    if (!lc) return year; // outside table range
+    const lcMonth = lc[0], lcDay = lc[1];
+    if (month < lcMonth || (month === lcMonth && day < lcDay)) {
+      return year - 1;
+    }
+    return year;
+  }
+
   function getZodiac(year) {
     const idx = ((year - 4) % 12 + 12) % 12;
     return zodiacData[idx];
@@ -83,15 +123,43 @@ document.addEventListener('DOMContentLoaded', () => {
     calcForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const yearInput = document.getElementById('birth-year');
+      const monthSelect = document.getElementById('birth-month');
+      const dayInput = document.getElementById('birth-day');
       const year = parseInt(yearInput.value);
+      const month = monthSelect ? parseInt(monthSelect.value) || 0 : 0;
+      const day = dayInput ? parseInt(dayInput.value) || 0 : 0;
+
       if (isNaN(year) || year < 1900 || year > 2100) {
         alert('Please enter a valid year between 1900 and 2100.');
         return;
       }
-      const zodiac = getZodiac(year);
-      const element = getElement(year);
-      const stem = getHeavenlyStem(year);
+
+      // Determine zodiac year using Lichun boundary when birthday is provided
+      const zodiacYear = getZodiacYear(year, month, day);
+      const yearOnlyZodiac = getZodiac(year);
+      const zodiac = getZodiac(zodiacYear);
+      const element = getElement(zodiacYear);
+      const stem = getHeavenlyStem(zodiacYear);
       const elementClass = 'element-' + element.toLowerCase();
+
+      // Check if Lichun adjustment changed the result
+      const lichunAdjusted = (month && day && zodiacYear !== year);
+
+      let lichunNote = '';
+      if (lichunAdjusted) {
+        const lc = lichunDates[year];
+        const lcDateStr = 'February ' + lc[1];
+        lichunNote = `
+          <div class="lichun-note">
+            <strong>Lichun Adjustment (立春):</strong> Your birthday falls before Lichun (${lcDateStr}, ${year}), the traditional start of the Chinese zodiac year in BaZi astrology. Based on your birth year alone, you would be a ${yearOnlyZodiac.animal} (${yearOnlyZodiac.cn}). However, since you were born before the solar new year transition, your zodiac animal is the ${zodiac.animal} (${zodiac.cn}) of ${zodiacYear}. This follows the classical BaZi convention used in Four Pillars of Destiny calculations, where the year pillar changes at Lichun rather than at Chinese New Year.
+          </div>`;
+      } else if (month && day && month <= 2) {
+        // Birthday is in Jan/Feb but after Lichun — reassure the user
+        lichunNote = `
+          <div class="lichun-note lichun-note-ok">
+            <strong>Lichun Check (立春):</strong> Your birthday falls on or after Lichun for ${year}, so your zodiac animal matches the year. No adjustment needed.
+          </div>`;
+      }
 
       calcResult.innerHTML = `
         <div class="calc-result-animal">${zodiac.emoji}</div>
@@ -101,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <strong>Heavenly Stem:</strong> ${stem}<br>
           <strong>Traits:</strong> ${zodiac.traits}
         </p>
+        ${lichunNote}
         <p style="margin-top:1rem;"><a href="${basePath}/zodiac/" style="font-weight:600;">Read more about the ${zodiac.animal} &rarr;</a></p>
       `;
       calcResult.classList.add('show');
@@ -369,4 +438,191 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  /* --- BaZi Calculator --- */
+  const baziForm = document.getElementById('bazi-form');
+  const baziResult = document.getElementById('bazi-result');
+  const baziCityInput = document.getElementById('bazi-city');
+  const citySuggestions = document.getElementById('city-suggestions');
+  const unknownTimeCheck = document.getElementById('bazi-unknown-time');
+
+  let citiesData = null;
+  let selectedCity = null;
+
+  // Load cities data lazily when BaZi form exists
+  if (baziForm) {
+    fetch(basePath + '/cities.json')
+      .then(r => r.json())
+      .then(data => { citiesData = data; })
+      .catch(() => { /* cities won't autocomplete, user can still submit */ });
+
+    // Unknown time checkbox toggles hour/minute fields
+    if (unknownTimeCheck) {
+      unknownTimeCheck.addEventListener('change', () => {
+        const hourField = document.getElementById('bazi-hour');
+        const minField = document.getElementById('bazi-minute');
+        if (unknownTimeCheck.checked) {
+          hourField.disabled = true; hourField.value = '';
+          minField.disabled = true; minField.value = '';
+        } else {
+          hourField.disabled = false;
+          minField.disabled = false;
+        }
+      });
+    }
+
+    // City autocomplete
+    if (baziCityInput && citySuggestions) {
+      let acTimeout;
+      baziCityInput.addEventListener('input', () => {
+        clearTimeout(acTimeout);
+        acTimeout = setTimeout(() => {
+          const q = baziCityInput.value.trim().toLowerCase();
+          if (q.length < 2 || !citiesData) {
+            citySuggestions.hidden = true;
+            return;
+          }
+          const matches = citiesData.filter(c =>
+            c.c.toLowerCase().includes(q) || c.co.toLowerCase().includes(q)
+          ).slice(0, 8);
+          if (matches.length === 0) {
+            citySuggestions.hidden = true;
+            return;
+          }
+          citySuggestions.innerHTML = matches.map((c, i) =>
+            '<div class="city-option" data-idx="' + i + '">' + c.c + ', ' + c.co + '</div>'
+          ).join('');
+          citySuggestions.hidden = false;
+          citySuggestions._matches = matches;
+        }, 200);
+      });
+
+      citySuggestions.addEventListener('click', (e) => {
+        const opt = e.target.closest('.city-option');
+        if (!opt) return;
+        const idx = parseInt(opt.dataset.idx);
+        const city = citySuggestions._matches[idx];
+        selectedCity = city;
+        baziCityInput.value = city.c + ', ' + city.co;
+        citySuggestions.hidden = true;
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!baziCityInput.contains(e.target) && !citySuggestions.contains(e.target)) {
+          citySuggestions.hidden = true;
+        }
+      });
+    }
+
+    // BaZi form submit
+    baziForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const year = parseInt(document.getElementById('bazi-year').value);
+      const month = parseInt(document.getElementById('bazi-month').value);
+      const day = parseInt(document.getElementById('bazi-day').value);
+      const hour = document.getElementById('bazi-hour').value;
+      const minute = document.getElementById('bazi-minute').value;
+      const sex = document.getElementById('bazi-sex').value;
+
+      if (!year || !month || !day) {
+        alert('Please enter your birth year, month, and day.');
+        return;
+      }
+
+      // Show loading state
+      baziResult.innerHTML = '<div class="bazi-loading">Calculating your BaZi chart</div>';
+      baziResult.classList.add('show');
+      baziResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const payload = {
+        year, month, day,
+        hour: hour !== '' ? parseInt(hour) : null,
+        minute: minute !== '' ? parseInt(minute) : null,
+        lat: selectedCity ? selectedCity.la : null,
+        lng: selectedCity ? selectedCity.lo : null,
+        tz: selectedCity ? selectedCity.tz : null,
+        sex
+      };
+
+      try {
+        // TODO: Update this URL once the Cloudflare Worker is deployed
+        const WORKER_URL = 'https://bazi-calculator.YOUR_SUBDOMAIN.workers.dev';
+        const resp = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!resp.ok) throw new Error('Server error: ' + resp.status);
+        const data = await resp.json();
+        if (data.error) throw new Error(data.error);
+        renderBaziChart(data);
+      } catch (err) {
+        baziResult.innerHTML = '<div class="bazi-error"><strong>Error:</strong> ' + err.message +
+          '<br><small>The BaZi calculation service may be temporarily unavailable. Please try again later.</small></div>';
+      }
+    });
+  }
+
+  function renderBaziChart(data) {
+    if (!baziResult) return;
+    const pillars = data.pillars || {};
+    const names = ['hour', 'day', 'month', 'year'];
+    const labels = ['Hour Pillar', 'Day Pillar', 'Month Pillar', 'Year Pillar'];
+    const cnLabels = ['时柱', '日柱', '月柱', '年柱'];
+
+    let html = '';
+
+    // Day Master section
+    if (data.dayMaster) {
+      const dm = data.dayMaster;
+      html += '<div class="bazi-day-master">';
+      html += '<h4>Your Day Master (日主)</h4>';
+      html += '<span style="font-family:var(--font-chinese);font-size:2.4rem;color:var(--deep-red);">' + dm.stem + '</span>';
+      html += '<p style="margin:0.5rem 0 0;">' + dm.pinyin + ' — ' + dm.yinYang + ' ' + dm.element + '</p>';
+      html += '</div>';
+    }
+
+    // Four Pillars grid
+    html += '<div class="bazi-pillars">';
+    names.forEach((name, i) => {
+      const p = pillars[name] || {};
+      html += '<div class="bazi-pillar">';
+      html += '<div class="pillar-label">' + labels[i] + '<br><span style="font-family:var(--font-chinese);">' + cnLabels[i] + '</span></div>';
+      if (p.stem) {
+        const elClass = p.stemElement ? 'element-' + p.stemElement.toLowerCase() : '';
+        html += '<div class="pillar-stem">' + p.stem + '</div>';
+        html += '<div class="pillar-branch">' + p.branch + '</div>';
+        html += '<div class="pillar-pinyin">' + (p.stemPinyin || '') + ' ' + (p.branchPinyin || '') + '</div>';
+        if (p.stemElement) html += '<span class="pillar-element ' + elClass + '">' + p.stemElement + '</span>';
+        if (p.branchAnimal) html += '<div class="pillar-animal">' + p.branchAnimal + '</div>';
+      } else {
+        html += '<div style="color:var(--stone);font-size:0.9rem;padding:1rem 0;">Not available</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+
+    // True Solar Time note
+    if (data.trueSolarTime) {
+      const tst = data.trueSolarTime;
+      html += '<div class="lichun-note lichun-note-ok" style="max-width:100%;">';
+      html += '<strong>True Solar Time:</strong> Your birth time was adjusted to ' +
+        String(tst.hour).padStart(2, '0') + ':' + String(tst.minute).padStart(2, '0') +
+        ' (true solar time) for accurate Hour Pillar calculation.';
+      html += '</div>';
+    }
+
+    // Reading text
+    if (data.rawExcerpt) {
+      html += '<div style="margin-top:var(--sp-xl);">';
+      html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
+      html += '<div class="bazi-reading-text">' + data.rawExcerpt.substring(0, 2000) + '</div>';
+      html += '</div>';
+    }
+
+    html += '<p style="margin-top:var(--sp-xl);font-size:0.85rem;color:var(--stone);text-align:center;">For a comprehensive reading, consult a qualified BaZi practitioner. <a href="' + basePath + '/directory/">Find one in our directory.</a></p>';
+
+    baziResult.innerHTML = html;
+  }
 });

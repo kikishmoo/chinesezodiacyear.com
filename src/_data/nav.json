@@ -9,6 +9,8 @@
     { "label": "Five Elements", "url": "/wuxing/", "page": "wuxing" }
   ],
   "more": [
+    { "label": "BaZi Calculator", "url": "/bazi-calculator/", "page": "bazi-calculator" },
+    { "label": "Asian New Year", "url": "/asian-new-year/", "page": "asian-new-year" },
     { "label": "Qi Men Dun Jia", "url": "/qimen/", "page": "qimen" },
     { "label": "Yi Jing", "url": "/yijing/", "page": "yijing" },
     { "label": "Chinese Medicine", "url": "/tcm/", "page": "tcm" },
@@ -17,6 +19,7 @@
     { "label": "Compatibility", "url": "/compatibility/", "page": "compatibility" }
   ],
   "secondary": [
+    { "label": "Readings", "url": "/readings/", "page": "readings" },
     { "label": "News", "url": "/news/", "page": "news" },
     { "label": "Directory", "url": "/directory/", "page": "directory" }
   ],
@@ -29,7 +32,8 @@
         { "label": "Feng Shui", "url": "/fengshui/" },
         { "label": "Chinese Calendar", "url": "/calendar/" },
         { "label": "Spring Festival", "url": "/spring-festival/" },
-        { "label": "Five Elements", "url": "/wuxing/" }
+        { "label": "Five Elements", "url": "/wuxing/" },
+        { "label": "Asian New Year", "url": "/asian-new-year/" }
       ]
     },
     {
@@ -45,6 +49,8 @@
       "heading": "Resources",
       "links": [
         { "label": "Zodiac Calculator", "url": "/#calculator" },
+        { "label": "BaZi Calculator", "url": "/bazi-calculator/" },
+        { "label": "2026 Readings", "url": "/readings/" },
         { "label": "Sitemap", "url": "/sitemap.xml" },
         { "label": "Privacy Policy", "url": "/about/#privacy" },
         { "label": "Terms of Use", "url": "/about/#terms" }
