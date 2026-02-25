@@ -20,6 +20,8 @@
     { "label": "Chinese Medicine", "url": "/tcm/", "page": "tcm" },
     { "label": "Martial Arts", "url": "/martial-arts/", "page": "martial-arts" },
     { "label": "Tea Culture", "url": "/tea-culture/", "page": "tea-culture" },
+    { "label": "Wuxia", "url": "/wuxia/", "page": "wuxia" },
+    { "label": "Chinamaxxing", "url": "/chinamaxxing/", "page": "chinamaxxing" },
     { "label": "Compatibility", "url": "/compatibility/", "page": "compatibility" }
   ],
   "secondary": [
@@ -41,7 +43,9 @@
         { "label": "Folk Arts", "url": "/folk-arts/" },
         { "label": "Hanfu & Silk Road", "url": "/hanfu/" },
         { "label": "Dynasties", "url": "/dynasties/" },
-        { "label": "Taoism", "url": "/taoism/" }
+        { "label": "Taoism", "url": "/taoism/" },
+        { "label": "Wuxia", "url": "/wuxia/" },
+        { "label": "Chinamaxxing", "url": "/chinamaxxing/" }
       ]
     },
     {

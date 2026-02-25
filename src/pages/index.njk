@@ -25,7 +25,7 @@ ogType: "website"
           <div class="wheel-animal" title="Pig">豬</div>
         </div>
 
-        <h1 id="hero-heading">Chinese Zodiac<em>Encyclopedia &middot; Directory &middot; News</em></h1>
+        <h1 id="hero-heading">Chinese Zodiac<em>Encyclopedia &middot; Readings &middot; Directory &middot; News</em></h1>
         <p class="subtitle">Classical scholarship on the twelve zodiac animals, BaZi destiny readings, feng shui, and the living traditions of Chinese culture — rooted in authentic pre-Qing sources.</p>
 
         <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
@@ -64,6 +64,42 @@ ogType: "website"
           <button type="submit" class="btn btn-primary">Discover</button>
         </form>
         <div id="calc-result" class="calc-result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ===== TRIVIA GAME ===== -->
+    <section class="trivia-section" id="trivia" aria-labelledby="trivia-heading">
+      <div class="trivia-container">
+        <span class="overline">Test Your Knowledge</span>
+        <h2 id="trivia-heading">Chinese History &amp; Culture Trivia</h2>
+        <p class="subtitle" style="margin:0.5rem auto 1.5rem;">Challenge yourself with 10 questions drawn from Chinese history, philosophy, and tradition &mdash; all sourced from pre-Qing classical scholarship.</p>
+
+        <div id="trivia-game" class="trivia-game">
+          <div class="trivia-progress-bar">
+            <div id="trivia-progress-fill" class="trivia-progress-fill" style="width:10%"></div>
+          </div>
+          <div class="trivia-progress-text">Question <span id="trivia-current">1</span> of <span id="trivia-total">10</span></div>
+          <div id="trivia-question" class="trivia-question">Loading&hellip;</div>
+          <div id="trivia-options" class="trivia-options"></div>
+          <div id="trivia-feedback" class="trivia-feedback" hidden></div>
+          <button id="trivia-next" class="btn btn-gold" hidden>Next Question</button>
+        </div>
+
+        <div id="trivia-result" class="trivia-result" hidden>
+          <div id="trivia-score-icon" class="trivia-score-icon"></div>
+          <h3 id="trivia-score-title"></h3>
+          <p id="trivia-score-text"></p>
+          <div class="trivia-score-bar">
+            <div id="trivia-score-fill" class="trivia-score-fill"></div>
+          </div>
+          <p id="trivia-high-score" class="trivia-high-score"></p>
+          <button id="trivia-restart" class="btn btn-gold">Play Again</button>
+        </div>
+
+        <div id="trivia-start" class="trivia-start">
+          <p>10 random questions. 4 choices each. How well do you know Chinese civilisation?</p>
+          <button id="trivia-begin" class="btn btn-gold">Start Trivia</button>
+        </div>
       </div>
     </section>
 
@@ -194,6 +230,7 @@ ogType: "website"
 
         <div class="text-center mt-xl">
           <a href="/news/" class="btn btn-outline">All Articles &rarr;</a>
+          <a href="https://chinesenewyear.wiki" target="_blank" rel="noopener" class="btn btn-outline" style="margin-left:0.5rem;">ChineseNewYear.wiki &rarr;</a>
         </div>
       </div>
     </section>

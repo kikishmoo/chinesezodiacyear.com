@@ -626,3 +626,218 @@ document.addEventListener('DOMContentLoaded', () => {
     baziResult.innerHTML = html;
   }
 });
+
+/* ============================================
+   TRIVIA GAME
+   ============================================ */
+(function() {
+  const triviaGame = document.getElementById('trivia-game');
+  if (!triviaGame) return;
+
+  const QUESTIONS = [
+    // --- Zodiac ---
+    { q: "How many animals are in the Chinese zodiac cycle?", o: ["12", "10", "8", "14"], a: 0, e: "The Chinese zodiac consists of 12 animals in a repeating cycle. The system originated during the Qin Dynasty from animal worship traditions." },
+    { q: "Which animal is first in the Chinese zodiac cycle?", o: ["Rat", "Dragon", "Ox", "Tiger"], a: 0, e: "The Rat is first. According to the Jade Emperor legend, the clever Rat rode on the Ox's back and jumped ahead at the finish line." },
+    { q: "Which zodiac animal is associated with the Earthly Branch '子' (Zǐ)?", o: ["Rat", "Ox", "Tiger", "Rabbit"], a: 0, e: "子 (Zǐ) corresponds to the Rat, the first of the twelve Earthly Branches paired with zodiac animals." },
+    { q: "How many years does it take for the full sexagenary (Stem-Branch) cycle to complete?", o: ["60 years", "12 years", "10 years", "100 years"], a: 0, e: "The sexagenary cycle combines 10 Heavenly Stems and 12 Earthly Branches, producing 60 unique combinations before repeating." },
+
+    // --- Five Elements ---
+    { q: "In the Wu Xing generating cycle, which element does Wood produce?", o: ["Fire", "Water", "Metal", "Earth"], a: 0, e: "In the generating (相生) cycle: Wood feeds Fire, Fire creates Earth (ash), Earth bears Metal, Metal collects Water, Water nourishes Wood." },
+    { q: "Which element overcomes Water in Wu Xing theory?", o: ["Earth", "Fire", "Metal", "Wood"], a: 0, e: "Earth overcomes Water (土克水) — think of an earthen dam containing a river. This is from the overcoming (相克) cycle." },
+    { q: "The five elements theory was systematised during which period?", o: ["Warring States", "Han Dynasty", "Shang Dynasty", "Tang Dynasty"], a: 0, e: "Wu Xing theory was systematised during the Warring States period (475-221 BCE), notably by Zou Yan (鄒衍), though its roots extend earlier." },
+
+    // --- Dynasties ---
+    { q: "Which dynasty is credited with unifying China's writing system, weights, and measures?", o: ["Qin Dynasty", "Han Dynasty", "Zhou Dynasty", "Shang Dynasty"], a: 0, e: "The Qin Dynasty (221-206 BCE) under Qin Shi Huang standardised Chinese script, measurements, currency, and road widths across the newly unified empire." },
+    { q: "During which dynasty did the Silk Road trade routes first flourish?", o: ["Han Dynasty", "Tang Dynasty", "Song Dynasty", "Qin Dynasty"], a: 0, e: "The Han Dynasty (206 BCE-220 CE) established the Silk Road after Zhang Qian's diplomatic missions to Central Asia opened trade routes westward." },
+    { q: "The Tang Dynasty capital Chang'an was the world's largest city. Which modern city occupies its site?", o: ["Xi'an", "Beijing", "Luoyang", "Nanjing"], a: 0, e: "Chang'an, capital of the Tang Dynasty, corresponds to modern Xi'an in Shaanxi province. At its peak it had over one million residents." },
+    { q: "Which dynasty invented movable-type printing?", o: ["Song Dynasty", "Tang Dynasty", "Han Dynasty", "Ming Dynasty"], a: 0, e: "Bi Sheng (畢昇) invented movable ceramic type during the Northern Song Dynasty (around 1040 CE), centuries before Gutenberg." },
+    { q: "Oracle bone script, the earliest known Chinese writing, dates from which dynasty?", o: ["Shang Dynasty", "Xia Dynasty", "Zhou Dynasty", "Qin Dynasty"], a: 0, e: "Oracle bone inscriptions (甲骨文) from the Shang Dynasty (c. 1600-1046 BCE) are the earliest verified Chinese writing, used for divination." },
+
+    // --- Calendar & Astronomy ---
+    { q: "How many Heavenly Stems (天干) are there?", o: ["10", "12", "8", "5"], a: 0, e: "There are 10 Heavenly Stems (甲乙丙丁戊己庚辛壬癸), each associated with a Yin or Yang aspect of the five elements." },
+    { q: "How many solar terms (節氣) divide the Chinese agricultural year?", o: ["24", "12", "36", "48"], a: 0, e: "The 24 solar terms (二十四節氣) divide the year based on the sun's position along the ecliptic. They were formalised during the Han Dynasty." },
+    { q: "The Taosi archaeological site in Shanxi contained what world-first astronomical feature?", o: ["Large-scale observatory with gnomon", "Star chart carved in jade", "Bronze armillary sphere", "Solar eclipse record"], a: 0, e: "Taosi (陶寺, c. 2300-1900 BCE) contained a gnomon (圭表) observatory — one of the world's earliest large-scale facilities for measuring solar positions." },
+
+    // --- Feng Shui ---
+    { q: "What does 'feng shui' (風水) literally translate to?", o: ["Wind-water", "Mountain-river", "Heaven-earth", "Yin-yang"], a: 0, e: "Feng shui (風水) literally means 'wind-water.' The practice is over 3,500 years old and was used in ancient city planning for capitals like Chang'an and Luoyang." },
+    { q: "The luopan (羅盤) is the primary tool of which practice?", o: ["Feng shui", "BaZi", "Qi Men Dun Jia", "Acupuncture"], a: 0, e: "The luopan is the feng shui compass, containing concentric rings encoding cosmological data used by Compass School practitioners." },
+
+    // --- BaZi ---
+    { q: "BaZi (八字) literally means 'eight characters.' What are these eight characters?", o: ["Four Heavenly Stems + four Earthly Branches", "Eight trigrams", "Eight celestial animals", "Eight compass directions"], a: 0, e: "BaZi consists of four pillars (year, month, day, hour), each containing one Heavenly Stem and one Earthly Branch — totalling eight characters." },
+    { q: "Which pillar in BaZi represents the 'Day Master' (日主)?", o: ["Day Pillar", "Year Pillar", "Month Pillar", "Hour Pillar"], a: 0, e: "The Day Pillar's Heavenly Stem is the Day Master (日主/日元), representing the self. It is the reference point for interpreting the entire chart." },
+
+    // --- Spring Festival ---
+    { q: "The character 年 (nián) originally meant what in classical Chinese?", o: ["Grain ripening / harvest", "A fearsome beast", "New beginning", "Winter solstice"], a: 0, e: "According to the Shuowen Jiezi (《說文解字》), 年 means 'grain ripening' (穀熟也). The Nian beast story is a modern invention (earliest source: 1933)." },
+    { q: "桃符 (peachwood charms) are the historical predecessors of which Spring Festival tradition?", o: ["Spring couplets (春聯)", "Red envelopes", "Firecrackers", "Lanterns"], a: 0, e: "桃符 were inscribed with protective deity names (神荼 and 郁壘) and hung on doors. They evolved into spring couplets (春聯) by the Ming Dynasty." },
+    { q: "The tradition of 守歲 (staying up on New Year's Eve) is documented since which dynasty?", o: ["Jin Dynasty", "Han Dynasty", "Tang Dynasty", "Song Dynasty"], a: 0, e: "守歲 (shǒu suì) — staying awake through New Year's Eve — has been documented since the Jin Dynasty (266-420 CE)." },
+    { q: "Burning bamboo to ward off mountain spirits was the precursor to what Spring Festival tradition?", o: ["Firecrackers (爆竹)", "Bonfire festivals", "Incense burning", "Dragon dance"], a: 0, e: "Burning bamboo (爆竹 literally means 'exploding bamboo') to drive away 山臊/山魈 mountain spirits is documented in the 6th-century《荊楚歲時記》." },
+
+    // --- Literature & Philosophy ---
+    { q: "Which text is considered the foundational classic of Daoist philosophy?", o: ["Dao De Jing (道德經)", "Zhuangzi (莊子)", "Yi Jing (易經)", "Liezi (列子)"], a: 0, e: "The Dao De Jing (道德經), attributed to Laozi, is the foundational text of Daoism. Its 81 chapters explore the Dao, De (virtue), and Wu Wei (non-action)." },
+    { q: "The concept of 無為 (Wú Wéi) is best translated as:", o: ["Effortless action / non-forcing", "Complete inaction", "Meditation technique", "Moral cultivation"], a: 0, e: "無為 means 'effortless action' or 'non-forcing' — acting in harmony with the natural flow rather than through forceful effort. It does NOT mean doing nothing." },
+    { q: "The Eight Immortals (八仙) are figures from which tradition?", o: ["Daoism", "Buddhism", "Confucianism", "Chinese folk religion only"], a: 0, e: "The Eight Immortals (八仙 Bāxiān) are legendary Daoist figures, each with distinct supernatural powers. They appear in literature from the Tang-Song period onward." },
+    { q: "《水滸傳》(Water Margin) features how many heroic outlaws?", o: ["108", "36", "72", "64"], a: 0, e: "Water Margin by Shi Nai'an features 108 heroes of Liangshan Marsh — 36 Heavenly Spirits and 72 Earthly Fiends." },
+    { q: "Sima Qian's 《史記》(Records of the Grand Historian) was written during which dynasty?", o: ["Western Han", "Eastern Han", "Qin", "Tang"], a: 0, e: "Sima Qian (司馬遷) completed the Shiji around 94 BCE during the Western Han Dynasty. It is the first comprehensive Chinese historical text." },
+
+    // --- Martial Arts ---
+    { q: "The character 武 (wǔ, martial) is composed of which two components?", o: ["止 (stop) + 戈 (weapon)", "力 (force) + 刀 (blade)", "人 (person) + 弓 (bow)", "手 (hand) + 矛 (spear)"], a: 0, e: "武 combines 止 (to stop) and 戈 (a weapon), embodying the paradox that the highest martial achievement is the ability to stop conflict." },
+    { q: "Xingyiquan (形意拳) directly maps its five core techniques to which system?", o: ["Wu Xing (Five Elements)", "Ba Gua (Eight Trigrams)", "Twelve Zodiac Animals", "Yin-Yang theory"], a: 0, e: "Xingyiquan's five fist techniques correspond to Metal (splitting), Water (drilling), Wood (crushing), Fire (pounding), and Earth (crossing)." },
+
+    // --- Folk Arts ---
+    { q: "Southern lion dance (南獅) is historically connected to which institutions in Guangdong?", o: ["Martial arts schools (武館)", "Buddhist temples", "Imperial courts", "Trading guilds"], a: 0, e: "Southern lion dance (南獅) was traditionally maintained by martial arts schools (武館) in Canton. The lion's movements are grounded in southern kung fu techniques." },
+    { q: "英歌舞 (Yīnggē dance) is a folk art tradition from which region?", o: ["Chaoshan (潮汕)", "Beijing", "Sichuan", "Shanghai"], a: 0, e: "Yingge dance (英歌舞) is a vigorous folk performance art from the Chaoshan region of Guangdong, featuring rhythmic drumming and martial arts-inspired choreography." },
+
+    // --- Hanfu & Culture ---
+    { q: "The defining structural feature of Hanfu is:", o: ["Cross-collar, right-side wrapping (交領右衽)", "Mandarin collar", "Side-button closure", "Wrap-around sash only"], a: 0, e: "Hanfu's defining feature is the cross-collar wrapping to the right (交領右衽 jiāolǐng yòurèn). This right-over-left wrapping distinguished Chinese dress for millennia." },
+    { q: "The term 漢字文化圈 (Hànzì Wénhuà Quān) refers to:", o: ["The East Asian cultural sphere using Chinese characters", "A calligraphy school", "A type of feng shui compass", "An ancient trade route"], a: 0, e: "漢字文化圈 (Sinosphere / Chinese character cultural sphere) refers to the civilisations — China, Japan, Korea, Vietnam — that adopted Chinese writing, Confucian governance, and cultural practices." }
+  ];
+
+  const TOTAL = 10;
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let score = 0;
+  let answered = false;
+
+  const els = {
+    game: triviaGame,
+    start: document.getElementById('trivia-start'),
+    result: document.getElementById('trivia-result'),
+    question: document.getElementById('trivia-question'),
+    options: document.getElementById('trivia-options'),
+    feedback: document.getElementById('trivia-feedback'),
+    next: document.getElementById('trivia-next'),
+    current: document.getElementById('trivia-current'),
+    total: document.getElementById('trivia-total'),
+    progressFill: document.getElementById('trivia-progress-fill'),
+    scoreIcon: document.getElementById('trivia-score-icon'),
+    scoreTitle: document.getElementById('trivia-score-title'),
+    scoreText: document.getElementById('trivia-score-text'),
+    scoreFill: document.getElementById('trivia-score-fill'),
+    highScore: document.getElementById('trivia-high-score'),
+    restart: document.getElementById('trivia-restart'),
+    begin: document.getElementById('trivia-begin')
+  };
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function startGame() {
+    currentQuestions = shuffle(QUESTIONS).slice(0, TOTAL);
+    currentIndex = 0;
+    score = 0;
+    answered = false;
+    els.start.hidden = true;
+    els.result.hidden = true;
+    els.game.hidden = false;
+    els.total.textContent = TOTAL;
+    showQuestion();
+  }
+
+  function showQuestion() {
+    answered = false;
+    const q = currentQuestions[currentIndex];
+    els.current.textContent = currentIndex + 1;
+    els.progressFill.style.width = ((currentIndex + 1) / TOTAL * 100) + '%';
+    els.question.textContent = q.q;
+    els.feedback.hidden = true;
+    els.next.hidden = true;
+
+    // Shuffle options while tracking correct answer
+    const indices = [0, 1, 2, 3];
+    const shuffled = shuffle(indices);
+
+    els.options.innerHTML = '';
+    shuffled.forEach(function(origIdx) {
+      const btn = document.createElement('button');
+      btn.className = 'trivia-option';
+      btn.textContent = q.o[origIdx];
+      btn.setAttribute('data-idx', origIdx);
+      btn.addEventListener('click', function() { selectAnswer(origIdx, btn); });
+      els.options.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(idx, btn) {
+    if (answered) return;
+    answered = true;
+    const q = currentQuestions[currentIndex];
+    const isCorrect = idx === q.a;
+    if (isCorrect) score++;
+
+    // Mark all buttons
+    const buttons = els.options.querySelectorAll('.trivia-option');
+    buttons.forEach(function(b) {
+      b.disabled = true;
+      const bIdx = parseInt(b.getAttribute('data-idx'));
+      if (bIdx === q.a) b.classList.add('correct');
+      else if (b === btn && !isCorrect) b.classList.add('wrong');
+    });
+
+    // Show feedback
+    els.feedback.hidden = false;
+    els.feedback.className = 'trivia-feedback ' + (isCorrect ? 'correct-feedback' : 'wrong-feedback');
+    els.feedback.innerHTML = (isCorrect ? '<strong>Correct!</strong> ' : '<strong>Incorrect.</strong> The answer is: <em>' + q.o[q.a] + '</em>. ') + q.e;
+
+    // Show next or finish
+    if (currentIndex < TOTAL - 1) {
+      els.next.hidden = false;
+      els.next.textContent = 'Next Question';
+    } else {
+      els.next.hidden = false;
+      els.next.textContent = 'See Results';
+    }
+  }
+
+  function nextQuestion() {
+    if (currentIndex < TOTAL - 1) {
+      currentIndex++;
+      showQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    els.game.hidden = true;
+    els.result.hidden = false;
+    const pct = Math.round(score / TOTAL * 100);
+    els.scoreFill.style.width = pct + '%';
+
+    let icon, title;
+    if (pct === 100) { icon = '🏆'; title = 'Perfect Score — Scholar of the Imperial Academy!'; }
+    else if (pct >= 80) { icon = '🎓'; title = 'Excellent — Worthy of a Jinshi Degree!'; }
+    else if (pct >= 60) { icon = '📚'; title = 'Well Done — A Diligent Student of the Classics'; }
+    else if (pct >= 40) { icon = '🔖'; title = 'Not Bad — Keep Studying the Ancient Texts'; }
+    else { icon = '📜'; title = 'The Journey of a Thousand Li Begins with a Single Step'; }
+
+    els.scoreIcon.textContent = icon;
+    els.scoreTitle.textContent = title;
+    els.scoreText.textContent = 'You scored ' + score + ' out of ' + TOTAL + ' (' + pct + '%)';
+
+    // High score
+    const key = 'czy-trivia-high';
+    const prev = parseInt(localStorage.getItem(key) || '0');
+    if (score > prev) {
+      localStorage.setItem(key, score);
+      els.highScore.textContent = 'New high score!';
+    } else {
+      els.highScore.textContent = 'High score: ' + Math.max(prev, score) + '/' + TOTAL;
+    }
+  }
+
+  // Event listeners
+  els.begin.addEventListener('click', startGame);
+  els.next.addEventListener('click', nextQuestion);
+  els.restart.addEventListener('click', startGame);
+
+  // Initial state — show start screen, hide game and result
+  els.game.hidden = true;
+  els.result.hidden = true;
+  els.start.hidden = false;
+})();
