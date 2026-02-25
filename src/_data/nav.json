@@ -10,7 +10,11 @@
   ],
   "more": [
     { "label": "BaZi Calculator", "url": "/bazi-calculator/", "page": "bazi-calculator" },
-    { "label": "Asian New Year", "url": "/asian-new-year/", "page": "asian-new-year" },
+    { "label": "Chinese NY Influence", "url": "/chinese-new-year-influence/", "page": "asian-new-year" },
+    { "label": "Folk Arts", "url": "/folk-arts/", "page": "folk-arts" },
+    { "label": "Hanfu & Silk Road", "url": "/hanfu/", "page": "hanfu" },
+    { "label": "Dynasties", "url": "/dynasties/", "page": "dynasties" },
+    { "label": "Taoism", "url": "/taoism/", "page": "taoism" },
     { "label": "Qi Men Dun Jia", "url": "/qimen/", "page": "qimen" },
     { "label": "Yi Jing", "url": "/yijing/", "page": "yijing" },
     { "label": "Chinese Medicine", "url": "/tcm/", "page": "tcm" },
@@ -33,7 +37,11 @@
         { "label": "Chinese Calendar", "url": "/calendar/" },
         { "label": "Spring Festival", "url": "/spring-festival/" },
         { "label": "Five Elements", "url": "/wuxing/" },
-        { "label": "Asian New Year", "url": "/asian-new-year/" }
+        { "label": "Chinese NY Influence", "url": "/chinese-new-year-influence/" },
+        { "label": "Folk Arts", "url": "/folk-arts/" },
+        { "label": "Hanfu & Silk Road", "url": "/hanfu/" },
+        { "label": "Dynasties", "url": "/dynasties/" },
+        { "label": "Taoism", "url": "/taoism/" }
       ]
     },
     {
@@ -51,6 +59,7 @@
         { "label": "Zodiac Calculator", "url": "/#calculator" },
         { "label": "BaZi Calculator", "url": "/bazi-calculator/" },
         { "label": "2026 Readings", "url": "/readings/" },
+        { "label": "ChineseNewYear.wiki", "url": "https://chinesenewyear.wiki", "external": true },
         { "label": "Sitemap", "url": "/sitemap.xml" },
         { "label": "Privacy Policy", "url": "/about/#privacy" },
         { "label": "Terms of Use", "url": "/about/#terms" }

@@ -1380,6 +1380,284 @@ select.calc-input {
   margin-top: var(--sp-2xl);
 }
 
+/* --- News & Directory Layout (Phase 1A fix) --- */
+.news-layout,
+.directory-layout {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--sp-2xl) var(--sp-lg);
+}
+
+.news-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-xl);
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--sp-lg);
+}
+
+.directory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--sp-lg);
+  margin-top: var(--sp-xl);
+}
+
+.directory-card {
+  background: #fff;
+  border: 1px solid rgba(196,153,43,0.08);
+  border-radius: 4px;
+  padding: var(--sp-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.directory-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.directory-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: var(--sp-sm);
+  color: var(--deep-red);
+}
+
+.directory-card p {
+  font-size: 0.9rem;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
+.listing-card {
+  background: #fff;
+  border: 1px solid rgba(196,153,43,0.08);
+  border-radius: 4px;
+  padding: var(--sp-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.listing-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.directory-search {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border: 1px solid var(--parchment);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ink-black);
+  margin-bottom: var(--sp-lg);
+}
+
+.directory-search:focus {
+  outline: none;
+  border-color: var(--imperial-gold);
+  box-shadow: 0 0 0 3px rgba(196,153,43,0.12);
+}
+
+/* --- Pinyin class --- */
+.pinyin {
+  font-style: italic;
+  font-family: var(--font-body);
+  font-size: 0.95em;
+}
+
+/* --- Pullquote --- */
+.pullquote {
+  border-left: 4px solid var(--imperial-gold);
+  border-right: 4px solid var(--imperial-gold);
+  margin: var(--sp-xl) auto;
+  padding: var(--sp-lg) var(--sp-xl);
+  max-width: 640px;
+  text-align: center;
+  font-family: var(--font-accent);
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--charcoal);
+  position: relative;
+}
+
+.pullquote::before,
+.pullquote::after {
+  content: '✦';
+  display: block;
+  color: var(--imperial-gold);
+  font-size: 0.9rem;
+  letter-spacing: 0.5em;
+}
+
+.pullquote::before {
+  margin-bottom: var(--sp-sm);
+}
+
+.pullquote::after {
+  margin-top: var(--sp-sm);
+}
+
+/* --- Source Box (primary source citations) --- */
+.source-box {
+  border-left: 4px solid var(--vermillion);
+  background: rgba(185,64,50,0.03);
+  padding: var(--sp-md) var(--sp-lg);
+  margin: var(--sp-lg) 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.source-box cite {
+  display: block;
+  margin-top: var(--sp-sm);
+  font-family: var(--font-accent);
+  color: var(--graphite);
+  font-size: 0.88rem;
+}
+
+/* --- Historical Note (corrections / scholarly notes) --- */
+.historical-note {
+  border-left: 4px solid var(--jade);
+  background: rgba(91,140,106,0.04);
+  padding: var(--sp-md) var(--sp-lg);
+  margin: var(--sp-lg) 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  position: relative;
+  padding-left: calc(var(--sp-lg) + 1.8rem);
+}
+
+.historical-note::before {
+  content: '\1F4DC';
+  position: absolute;
+  left: var(--sp-md);
+  top: var(--sp-md);
+  font-size: 1.2rem;
+}
+
+/* --- Cloud Divider --- */
+.cloud-divider {
+  text-align: center;
+  margin: var(--sp-2xl) 0;
+  color: var(--imperial-gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.8em;
+  opacity: 0.5;
+}
+
+.cloud-divider::before {
+  content: '\2601 \2726 \2601';
+}
+
+/* --- Ornamental Border --- */
+.ornamental-border {
+  border: 2px double var(--imperial-gold);
+  padding: var(--sp-lg);
+  border-radius: 2px;
+  margin: var(--sp-xl) 0;
+}
+
+/* --- Chinese Border Top --- */
+.chinese-border-top {
+  border-top: 3px solid var(--vermillion);
+  position: relative;
+  padding-top: var(--sp-lg);
+  margin-top: var(--sp-xl);
+}
+
+.chinese-border-top::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--imperial-gold);
+}
+
+/* --- Info Card Grid --- */
+.info-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--sp-lg);
+  margin: var(--sp-xl) 0;
+}
+
+.info-card {
+  background: #fff;
+  border: 1px solid rgba(196,153,43,0.1);
+  border-radius: 4px;
+  padding: var(--sp-lg);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.info-card-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--sp-sm);
+}
+
+.info-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: var(--sp-sm);
+  color: var(--deep-red);
+}
+
+.info-card p {
+  font-size: 0.88rem;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
+/* --- Guardian Deity entries --- */
+.guardian-deity {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-md);
+  padding: var(--sp-md) 0;
+  border-bottom: 1px solid rgba(196,153,43,0.08);
+}
+
+.guardian-deity:last-child { border-bottom: none; }
+
+.guardian-deity-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  width: 2.5rem;
+  text-align: center;
+}
+
+.guardian-deity h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.guardian-deity p {
+  font-size: 0.88rem;
+  color: var(--graphite);
+  line-height: 1.5;
+}
+
 /* --- Animations --- */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
@@ -2056,6 +2334,51 @@ select.calc-input {
 }
 [data-theme="dark"] .bazi-day-master {
   background: rgba(196,153,43,0.06);
+}
+
+/* Dark mode: new decorative elements */
+[data-theme="dark"] .pullquote {
+  border-left-color: rgba(196,153,43,0.4);
+  border-right-color: rgba(196,153,43,0.4);
+  color: #C0B8A8;
+}
+
+[data-theme="dark"] .source-box {
+  border-left-color: var(--vermillion);
+  background: rgba(185,64,50,0.06);
+  color: #C0B8A8;
+}
+[data-theme="dark"] .source-box cite {
+  color: #888070;
+}
+
+[data-theme="dark"] .historical-note {
+  border-left-color: var(--jade-muted);
+  background: rgba(91,140,106,0.06);
+  color: #C0B8A8;
+}
+
+[data-theme="dark"] .info-card {
+  background: #1E1A16;
+  border-color: rgba(196,153,43,0.1);
+}
+[data-theme="dark"] .info-card:hover {
+  border-color: rgba(196,153,43,0.25);
+}
+
+[data-theme="dark"] .guardian-deity {
+  border-bottom-color: rgba(196,153,43,0.06);
+}
+
+[data-theme="dark"] .ornamental-border {
+  border-color: rgba(196,153,43,0.3);
+}
+
+[data-theme="dark"] .chinese-border-top {
+  border-top-color: var(--vermillion);
+}
+[data-theme="dark"] .chinese-border-top::before {
+  background: rgba(196,153,43,0.3);
 }
 
 /* --- Dark mode responsive --- */

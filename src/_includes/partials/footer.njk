@@ -9,7 +9,7 @@
     <div class="footer-col">
       <h5>{{ col.heading }}</h5>
       {%- for link in col.links %}
-      <a href="{{ link.url }}">{{ link.label }}</a>
+      <a href="{{ link.url }}"{% if link.external %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>
       {%- endfor %}
     </div>
     {%- endfor %}
