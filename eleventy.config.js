@@ -8,6 +8,7 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
   eleventyConfig.addPassthroughCopy("src/cities.json");
+  eleventyConfig.addPassthroughCopy("src/img");
 
   // HTML Base Plugin for URL handling
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);

@@ -27,7 +27,8 @@
   "secondary": [
     { "label": "Readings", "url": "/readings/", "page": "readings" },
     { "label": "News", "url": "/news/", "page": "news" },
-    { "label": "Directory", "url": "/directory/", "page": "directory" }
+    { "label": "Directory", "url": "/directory/", "page": "directory" },
+    { "label": "Donate", "url": "/donate/", "page": "donate" }
   ],
   "footer": [
     {
@@ -54,6 +55,7 @@
         { "label": "News & Articles", "url": "/news/" },
         { "label": "Directory", "url": "/directory/" },
         { "label": "About Us", "url": "/about/" },
+        { "label": "Donate", "url": "/donate/" },
         { "label": "Contribute", "url": "/about/#contribute" }
       ]
     },
