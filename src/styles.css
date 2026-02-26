@@ -320,6 +320,11 @@ blockquote {
     padding: var(--sp-md) 0;
     border-bottom: 2px solid var(--imperial-gold);
     box-shadow: 0 4px 16px rgba(26,21,16,0.3);
+    max-height: calc(100vh - var(--header-height));
+    max-height: calc(100dvh - var(--header-height));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   .main-nav.open { display: flex; }
   .main-nav a { padding: 0.75rem var(--sp-lg); }

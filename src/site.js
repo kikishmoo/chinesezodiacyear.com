@@ -18,13 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.querySelector('.nav-toggle');
   const mainNav = document.querySelector('.main-nav');
   if (navToggle && mainNav) {
+    const toggleBodyScroll = (lock) => {
+      document.body.style.overflow = lock ? 'hidden' : '';
+    };
     navToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', mainNav.classList.contains('open'));
+      const isOpen = mainNav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+      toggleBodyScroll(isOpen);
     });
     document.addEventListener('click', (e) => {
       if (!navToggle.contains(e.target) && !mainNav.contains(e.target)) {
         mainNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        toggleBodyScroll(false);
       }
     });
   }
