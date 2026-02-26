@@ -20,9 +20,10 @@
   --charcoal: #2C2620;
   --graphite: #5A4F42;
   --stone: #7A6F62;
-  --ivory: #FAF6EE;
-  --cream: #F5EDE0;
-  --parchment: #EDE4D3;
+  --ivory: #F8F4EC;
+  --cream: #F3EBDC;
+  --parchment: #EBE2D1;
+  --warm-brown: #6B5A50;
   --jade: #5B8C6A;
   --jade-light: #7BA098;
   --jade-muted: #6D9A7E;
@@ -33,6 +34,7 @@
 
   /* Typography */
   --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-editorial: 'DM Serif Display', 'Playfair Display', 'Noto Serif SC', Georgia, serif;
   --font-body: 'Source Sans 3', 'Noto Sans SC', Helvetica, Arial, sans-serif;
   --font-accent: 'Cormorant Garamond', 'Noto Serif SC', serif;
   --font-chinese: 'Noto Serif SC', 'SimSun', 'STSong', serif;
@@ -47,7 +49,7 @@
   --sp-3xl: 6rem;
 
   /* Layout */
-  --max-width: 1200px;
+  --max-width: 1320px;
   --max-width-narrow: 800px;
   --header-height: 64px;
 
@@ -106,9 +108,9 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--ink-black);
 }
 
-h1 { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.02em; }
-h2 { font-size: clamp(1.6rem, 3.5vw, 2.5rem); letter-spacing: -0.01em; }
-h3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: -0.03em; }
+h2 { font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.015em; }
+h3 { font-size: clamp(1.35rem, 2.8vw, 2rem); }
 h4 { font-size: 1.25rem; }
 
 p { margin-bottom: 1rem; max-width: 72ch; }
@@ -344,7 +346,7 @@ blockquote {
 .page-hero {
   background: linear-gradient(175deg, var(--charcoal) 0%, var(--ink-black) 40%, #1E1510 100%);
   color: var(--ivory);
-  padding: var(--sp-3xl) var(--sp-lg);
+  padding: calc(var(--sp-3xl) + 1rem) var(--sp-lg) calc(var(--sp-3xl) + 2rem);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -387,7 +389,7 @@ blockquote {
 
 /* --- Home Hero --- */
 .home-hero {
-  min-height: 85vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -737,13 +739,22 @@ select.calc-input {
 
 .card-image-placeholder {
   width: 100%;
-  height: 200px;
+  height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
-  background: linear-gradient(135deg, rgba(185,64,50,0.08), rgba(196,153,43,0.1));
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, rgba(185,64,50,0.08), rgba(196,153,43,0.12));
   color: var(--imperial-gold);
+  position: relative;
+}
+.card-image-placeholder::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--vermillion), var(--imperial-gold), var(--vermillion));
+  opacity: 0.4;
 }
 
 .card-body {
@@ -781,8 +792,8 @@ select.calc-input {
 .tag-bazi { background: #E8E0D0; color: #6A5A30; }
 
 .card-title {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-family: var(--font-editorial);
+  font-size: 1.3rem;
   margin-bottom: var(--sp-sm);
   line-height: 1.3;
 }
@@ -840,7 +851,8 @@ select.calc-input {
   margin-top: var(--sp-2xl);
   margin-bottom: var(--sp-md);
   padding-bottom: var(--sp-sm);
-  border-bottom: 2px solid var(--vermillion);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--vermillion), var(--imperial-gold) 60%, transparent) 1;
 }
 
 .article-content h3 {
@@ -852,6 +864,17 @@ select.calc-input {
 .article-content p {
   margin-bottom: var(--sp-md);
   color: var(--charcoal);
+}
+
+/* Editorial drop-cap */
+.article-content > section:first-child > p:first-of-type::first-letter {
+  font-family: var(--font-editorial);
+  font-size: 3.8em;
+  float: left;
+  line-height: 0.78;
+  margin-right: 0.06em;
+  margin-top: 0.05em;
+  color: var(--deep-red);
 }
 
 .article-content ul, .article-content ol {
@@ -1552,13 +1575,23 @@ select.calc-input {
   text-align: center;
   margin: var(--sp-2xl) 0;
   color: var(--imperial-gold);
-  font-size: 0.85rem;
+  font-size: 1rem;
   letter-spacing: 0.8em;
   opacity: 0.5;
+  position: relative;
 }
 
 .cloud-divider::before {
-  content: '\2601 \2726 \2601';
+  content: '\2726';
+}
+.cloud-divider::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--imperial-gold) 30%, var(--imperial-gold) 70%, transparent);
+  margin: var(--sp-sm) auto 0;
+  opacity: 0.5;
 }
 
 /* --- Ornamental Border --- */
@@ -1698,8 +1731,8 @@ select.calc-input {
 
 .feature-item {
   background: #fff;
-  border-radius: 4px;
-  padding: var(--sp-lg);
+  border-radius: 6px;
+  padding: var(--sp-xl) var(--sp-lg);
   text-align: center;
   box-shadow: var(--shadow-sm);
   transition: transform 0.3s, box-shadow 0.3s;
@@ -1725,8 +1758,8 @@ select.calc-input {
 .feature-item:hover::after { opacity: 1; }
 
 .feature-icon {
-  font-size: 2.5rem;
-  margin-bottom: var(--sp-sm);
+  font-size: 3rem;
+  margin-bottom: var(--sp-md);
   display: block;
 }
 
@@ -1781,6 +1814,130 @@ select.calc-input {
   .site-header, .site-footer, .newsletter-section, .share-buttons, .nav-toggle { display: none; }
   body { font-size: 12pt; background: white; }
   .article-layout { grid-template-columns: 1fr; }
+}
+
+/* --- Magazine Card Grid (Colossal-style mixed sizes) --- */
+.card-grid-magazine {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--sp-xl);
+}
+.card-grid-magazine .article-card:first-child {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+.card-grid-magazine .article-card:first-child .card-image-placeholder {
+  height: 100%;
+  min-height: 280px;
+}
+.card-grid-magazine .article-card:nth-child(2),
+.card-grid-magazine .article-card:nth-child(3) {
+  grid-column: span 3;
+}
+@media (max-width: 900px) {
+  .card-grid-magazine { grid-template-columns: 1fr; }
+  .card-grid-magazine .article-card:first-child,
+  .card-grid-magazine .article-card:nth-child(2),
+  .card-grid-magazine .article-card:nth-child(3) {
+    grid-column: span 1; grid-row: span 1;
+  }
+  .card-grid-magazine .article-card:first-child .card-image-placeholder {
+    height: 240px; min-height: auto;
+  }
+}
+
+/* --- Elegant Background Section --- */
+.section-elegant-bg {
+  background-color: var(--cream);
+  background-image: var(--paper-noise),
+    radial-gradient(ellipse at 10% 90%, rgba(185,64,50,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 10%, rgba(196,153,43,0.04) 0%, transparent 50%);
+}
+
+/* --- Hero Chinese Name (Shengxiao) --- */
+.hero-chinese-name {
+  font-family: var(--font-chinese);
+  font-size: 0.5em;
+  color: var(--bright-gold);
+  display: inline-block;
+  vertical-align: baseline;
+  margin-left: 0.3em;
+  opacity: 0.85;
+}
+.hero-pinyin {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 0.72em;
+  color: rgba(250,246,238,0.45);
+  display: block;
+  margin-top: 0.1em;
+  letter-spacing: 0.08em;
+}
+
+/* --- Famous Person Card (Zodiac Calculator) --- */
+.famous-person-card {
+  display: block;
+  margin-top: var(--sp-xl);
+  padding: var(--sp-lg);
+  background: linear-gradient(135deg, rgba(196,153,43,0.04), rgba(185,64,50,0.03));
+  border: 1px solid rgba(196,153,43,0.15);
+  border-radius: 6px;
+  text-align: left;
+  border-left: 3px solid var(--imperial-gold);
+}
+.famous-person-label {
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--imperial-gold);
+  margin-bottom: var(--sp-sm);
+}
+.famous-person-emoji {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+.famous-person-info h4 {
+  font-family: var(--font-editorial);
+  font-size: 1.1rem;
+  color: var(--deep-red);
+  margin-bottom: 0.25rem;
+}
+.famous-person-dates {
+  font-size: 0.82rem;
+  color: var(--stone);
+  font-style: italic;
+  margin-bottom: 0.5rem !important;
+}
+.famous-person-story {
+  font-size: 0.9rem;
+  color: var(--graphite);
+  line-height: 1.6;
+  margin-bottom: 0 !important;
+}
+
+/* --- Ornate Section Divider --- */
+.section-divider-ornate {
+  text-align: center;
+  margin: var(--sp-2xl) auto;
+  position: relative;
+}
+.section-divider-ornate::before {
+  content: '\2766';
+  display: block;
+  font-size: 1.5rem;
+  color: var(--imperial-gold);
+  opacity: 0.5;
+}
+.section-divider-ornate::after {
+  content: '';
+  display: block;
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--imperial-gold), transparent);
+  margin: var(--sp-sm) auto 0;
+  opacity: 0.4;
 }
 
 /* --- Utility --- */
@@ -2542,6 +2699,55 @@ select.calc-input {
   margin-bottom: var(--sp-md);
 }
 
+/* --- Trivia Timer --- */
+.trivia-timer {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--sp-md);
+}
+.trivia-timer-svg {
+  width: 56px;
+  height: 56px;
+  transform: rotate(-90deg);
+}
+.trivia-timer-track {
+  fill: none;
+  stroke: rgba(185,64,50,0.1);
+  stroke-width: 4;
+}
+.trivia-timer-fill {
+  fill: none;
+  stroke: var(--vermillion);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 125.66;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear, stroke 0.3s;
+}
+.trivia-timer-fill.warning {
+  stroke: var(--persimmon);
+}
+.trivia-timer-fill.danger {
+  stroke: var(--cinnabar);
+  animation: timerPulse 0.5s ease-in-out infinite;
+}
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.trivia-timer-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--deep-red);
+}
+
 /* --- Trivia dark mode --- */
 [data-theme="dark"] .trivia-section {
   background: linear-gradient(170deg, #1A1510 0%, #231C14 50%, #1A1510 100%);
@@ -2570,6 +2776,26 @@ select.calc-input {
 }
 [data-theme="dark"] .trivia-feedback.wrong-feedback {
   background: rgba(185,64,50,0.1);
+}
+[data-theme="dark"] .trivia-timer-track { stroke: rgba(196,153,43,0.15); }
+[data-theme="dark"] .trivia-timer-text { color: var(--ivory); }
+
+/* --- Dark Mode: New Phase 1 Classes --- */
+[data-theme="dark"] .famous-person-card {
+  background: rgba(196,153,43,0.04);
+  border-color: rgba(196,153,43,0.15);
+}
+[data-theme="dark"] .famous-person-info h4 { color: var(--bright-gold); }
+[data-theme="dark"] .famous-person-dates { color: rgba(250,246,238,0.5); }
+[data-theme="dark"] .famous-person-story { color: rgba(250,246,238,0.7); }
+[data-theme="dark"] .article-content > section:first-child > p:first-of-type::first-letter {
+  color: var(--bright-gold);
+}
+[data-theme="dark"] .section-elegant-bg {
+  background-color: #1A1510;
+  background-image: var(--paper-noise),
+    radial-gradient(ellipse at 10% 90%, rgba(185,64,50,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 10%, rgba(196,153,43,0.06) 0%, transparent 50%);
 }
 
 /* ============================================

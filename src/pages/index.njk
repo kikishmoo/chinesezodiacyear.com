@@ -25,7 +25,7 @@ ogType: "website"
           <div class="wheel-animal" title="Pig">豬</div>
         </div>
 
-        <h1 id="hero-heading">Chinese Zodiac<em>Encyclopedia &middot; Readings &middot; Directory &middot; News</em></h1>
+        <h1 id="hero-heading">Chinese Zodiac <span class="hero-chinese-name">生肖 <span class="hero-pinyin">Sh&#275;ngxi&#224;o</span></span><em>Encyclopedia &middot; Readings &middot; Directory &middot; News</em></h1>
         <p class="subtitle">Classical scholarship on the twelve zodiac animals, BaZi destiny readings, feng shui, and the living traditions of Chinese culture — rooted in authentic pre-Qing sources.</p>
 
         <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
@@ -79,6 +79,13 @@ ogType: "website"
             <div id="trivia-progress-fill" class="trivia-progress-fill" style="width:10%"></div>
           </div>
           <div class="trivia-progress-text">Question <span id="trivia-current">1</span> of <span id="trivia-total">10</span></div>
+          <div class="trivia-timer" id="trivia-timer">
+            <svg class="trivia-timer-svg" viewBox="0 0 48 48">
+              <circle class="trivia-timer-track" cx="24" cy="24" r="20" />
+              <circle class="trivia-timer-fill" id="trivia-timer-circle" cx="24" cy="24" r="20" />
+            </svg>
+            <span class="trivia-timer-text" id="trivia-timer-text">22</span>
+          </div>
           <div id="trivia-question" class="trivia-question">Loading&hellip;</div>
           <div id="trivia-options" class="trivia-options"></div>
           <div id="trivia-feedback" class="trivia-feedback" hidden></div>
