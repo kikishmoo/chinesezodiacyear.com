@@ -14,10 +14,14 @@
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="{{ ogImage | default(site.url + '/img/og-default.png') }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ ogTitle | default(title) }}">
   <meta name="twitter:description" content="{{ ogDescription | default(description) }}">
+  <meta name="twitter:image" content="{{ ogImage | default(site.url + '/img/og-default.png') }}">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +29,7 @@
   <link rel="stylesheet" href="/styles.css">
   <script>(function(){var t=localStorage.getItem('czy-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
   {% if ogType == "article" %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title }}","description":"{{ description }}","url":"{{ site.url }}{{ page.url }}","publisher":{"@type":"Organization","name":"{{ site.name }}"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title }}","description":"{{ description }}","url":"{{ site.url }}{{ page.url }}","image":"{{ ogImage | default(site.url + '/img/og-default.png') }}","datePublished":"{{ datePublished | default('2025-01-01') }}","dateModified":"{{ dateModified | default(datePublished) | default('2025-01-01') }}","author":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/"},"publisher":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/","logo":{"@type":"ImageObject","url":"{{ site.url }}/img/og-default.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ page.url }}"},"inLanguage":"en"}</script>
   {% endif %}
   {% if breadcrumbs %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{% for crumb in breadcrumbs %}{"@type":"ListItem","position":{{ loop.index }},"name":"{{ crumb.label }}"{% if crumb.url %},"item":"{{ site.url }}{{ crumb.url }}"{% endif %}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
