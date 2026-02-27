@@ -1,0 +1,117 @@
+{
+  "premiumReadings": [
+    {
+      "id": "basic",
+      "name": "Basic Reading",
+      "price": 29,
+      "description": "Your zodiac animal and element analysis with a personalized PDF report.",
+      "features": [
+        "Zodiac animal personality profile",
+        "Birth element analysis",
+        "2026 year outlook",
+        "5-page PDF report"
+      ],
+      "delivery": "3–5 business days",
+      "stripeLink": "https://buy.stripe.com/PLACEHOLDER_BASIC",
+      "featured": false
+    },
+    {
+      "id": "detailed",
+      "name": "Detailed Reading",
+      "price": 79,
+      "description": "Full Four Pillars (BaZi) chart analysis with comprehensive PDF report and video walkthrough.",
+      "features": [
+        "Complete Four Pillars chart",
+        "Day Master analysis",
+        "Ten Gods interpretation",
+        "Five Elements balance",
+        "Career and relationship insights",
+        "20-page PDF report",
+        "15-minute video walkthrough"
+      ],
+      "delivery": "5–7 business days",
+      "stripeLink": "https://buy.stripe.com/PLACEHOLDER_DETAILED",
+      "featured": true
+    },
+    {
+      "id": "comprehensive",
+      "name": "Comprehensive Reading",
+      "price": 149,
+      "description": "Everything in the Detailed reading plus compatibility analysis, feng shui recommendations, and extended video consultation.",
+      "features": [
+        "Everything in Detailed Reading",
+        "Compatibility analysis (partner/business)",
+        "Feng shui home recommendations",
+        "Lucky directions and colors",
+        "10-year fortune forecast",
+        "40-page PDF report",
+        "30-minute video consultation"
+      ],
+      "delivery": "7–10 business days",
+      "stripeLink": "https://buy.stripe.com/PLACEHOLDER_COMPREHENSIVE",
+      "featured": false
+    }
+  ],
+  "digitalProducts": [
+    {
+      "id": "fire-horse-2026",
+      "name": "2026 Fire Horse Annual Forecast",
+      "subtitle": "Complete zodiac predictions for the Year of the Fire Horse",
+      "price": 9.99,
+      "category": "forecasts",
+      "featured": true,
+      "features": ["All 12 animal forecasts", "Monthly breakdowns", "Lucky dates calendar"],
+      "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/PLACEHOLDER"
+    },
+    {
+      "id": "compatibility-guide",
+      "name": "Ultimate Zodiac Compatibility Guide",
+      "subtitle": "Love, friendship, and business compatibility for all 144 pairings",
+      "price": 14.99,
+      "category": "guides",
+      "featured": false,
+      "features": ["144 pairing analyses", "Compatibility scores", "Relationship advice"],
+      "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/PLACEHOLDER"
+    },
+    {
+      "id": "bazi-starter",
+      "name": "BaZi Starter Kit",
+      "subtitle": "Learn to read your own Four Pillars chart step by step",
+      "price": 19.99,
+      "category": "education",
+      "featured": false,
+      "features": ["Beginner-friendly guide", "Practice worksheets", "Reference charts"],
+      "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/PLACEHOLDER"
+    },
+    {
+      "id": "fengshui-checklist",
+      "name": "Feng Shui Home Checklist",
+      "subtitle": "Room-by-room guide to harmonize your living space",
+      "price": 12.99,
+      "category": "guides",
+      "featured": false,
+      "features": ["Room-by-room checklist", "Bagua map guide", "Cure recommendations"],
+      "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/PLACEHOLDER"
+    },
+    {
+      "id": "calendar-2026",
+      "name": "Chinese Calendar 2026–2027",
+      "subtitle": "Auspicious dates, lunar phases, and festival guide",
+      "price": 7.99,
+      "category": "calendars",
+      "featured": false,
+      "features": ["Auspicious date finder", "Lunar phase tracker", "Festival reminders"],
+      "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/PLACEHOLDER"
+    },
+    {
+      "id": "five-elements-workbook",
+      "name": "Five Elements Balance Workbook",
+      "subtitle": "Discover your elemental constitution and restore balance",
+      "price": 16.99,
+      "category": "education",
+      "featured": false,
+      "features": ["Self-assessment quiz", "Balance exercises", "Seasonal living guide"],
+      "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/PLACEHOLDER"
+    }
+  ]
+}

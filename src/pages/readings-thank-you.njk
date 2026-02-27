@@ -1,0 +1,61 @@
+---
+layout: "layouts/base.njk"
+title: "Thank You for Your Order"
+description: "Your premium reading order has been received. Here is what happens next."
+keywords: "BaZi reading confirmation, order received, premium reading"
+ogType: "website"
+permalink: "/readings-thank-you/"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Shop"
+    url: "/shop/"
+  - label: "Thank You"
+---
+{% include "partials/breadcrumbs.njk" %}
+
+<div class="article-layout">
+  <article class="article-content">
+    <section class="hero" style="text-align:center">
+      <h1>Thank You for Your Order</h1>
+      <p>Your premium reading request has been received. Our practitioners are excited to begin your personalized analysis.</p>
+    </section>
+
+    <section>
+      <h2>What Happens Next</h2>
+      <div class="info-grid" style="counter-reset:steps">
+        <div class="info-card">
+          <h3>1. Confirmation Email</h3>
+          <p>You will receive an email confirmation at the address you provided during checkout. Check your spam folder if you do not see it within a few minutes.</p>
+        </div>
+        <div class="info-card">
+          <h3>2. Analysis Begins</h3>
+          <p>Our practitioners will calculate your Four Pillars chart and begin the detailed analysis based on classical BaZi methodology rooted in pre-Qing traditions.</p>
+        </div>
+        <div class="info-card">
+          <h3>3. Report Delivery</h3>
+          <p>Your personalized PDF report (and video walkthrough, if included in your tier) will be delivered to your email within the timeframe listed for your chosen reading level.</p>
+        </div>
+        <div class="info-card">
+          <h3>4. Follow-Up</h3>
+          <p>After reviewing your report, feel free to reach out with any questions. We want to make sure you get the most from your reading.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="callout-box callout-box--jade">
+      <p><strong>Didn't receive a confirmation?</strong> Check your spam or promotions folder. If you still don't see it after 30 minutes, contact us at <strong>readings@chinesezodiacyear.com</strong> and we will sort it out.</p>
+    </div>
+
+    <section style="text-align:center;margin-top:var(--sp-2xl)">
+      <h2>While You Wait</h2>
+      <p>Explore more about the systems behind your reading:</p>
+      <div style="display:flex;gap:var(--sp-md);justify-content:center;flex-wrap:wrap;margin-top:var(--sp-lg)">
+        <a href="/bazi/" class="btn btn-primary">Learn About BaZi</a>
+        <a href="/zodiac/" class="btn btn-outline">Zodiac Encyclopedia</a>
+        <a href="/wuxing/" class="btn btn-outline">Five Elements</a>
+        <a href="/" class="btn btn-outline">Back to Home</a>
+      </div>
+    </section>
+  </article>
+</div>

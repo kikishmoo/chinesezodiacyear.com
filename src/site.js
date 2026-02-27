@@ -1151,3 +1151,35 @@ document.addEventListener('DOMContentLoaded', () => {
   els.start.hidden = false;
   if (els.timer) els.timer.style.display = 'none';
 })();
+
+/* --- Shop Product Filters --- */
+(function() {
+  var filters = document.querySelectorAll('.shop-filter-btn');
+  var cards = document.querySelectorAll('.product-card[data-category]');
+  if (!filters.length) return;
+
+  filters.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filters.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var cat = btn.getAttribute('data-filter');
+      cards.forEach(function(card) {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.classList.remove('product-card--hidden');
+        } else {
+          card.classList.add('product-card--hidden');
+        }
+      });
+    });
+  });
+})();
+
+/* --- AdSense Init --- */
+(function() {
+  var ads = document.querySelectorAll('.adsbygoogle');
+  if (ads.length && window.adsbygoogle) {
+    ads.forEach(function() {
+      try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+    });
+  }
+})();

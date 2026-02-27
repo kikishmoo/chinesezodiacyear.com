@@ -1,0 +1,124 @@
+---
+layout: "layouts/base.njk"
+title: "Premium BaZi & Zodiac Readings — Personalized Astrology Reports"
+description: "Order a personalized Chinese astrology reading — zodiac analysis, Four Pillars BaZi chart, feng shui recommendations."
+keywords: "BaZi reading, Chinese astrology reading, Four Pillars reading, personalized zodiac report, feng shui consultation"
+ogType: "website"
+permalink: "/premium-readings/"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Shop"
+    url: "/shop/"
+  - label: "Premium Readings"
+---
+{% include "partials/breadcrumbs.njk" %}
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">Personalized Reports</span>
+    <h1>Premium Personalized Readings</h1>
+    <p class="subtitle">Expert-crafted astrology reports based on classical BaZi methodology, tailored to your exact birth data and delivered as beautifully formatted documents.</p>
+  </div>
+</section>
+
+<div class="article-layout">
+  <article class="article-content">
+
+    <section id="how-it-works">
+      <h2>How It Works</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>1. Choose Your Reading</h3>
+          <p>Pick the reading level that fits your needs — from a focused zodiac snapshot to a comprehensive life analysis with feng shui recommendations.</p>
+        </div>
+        <div class="info-card">
+          <h3>2. Share Your Details</h3>
+          <p>After checkout, provide your birth date, time (if known), and birth city so we can calculate your full Four Pillars chart using true solar time.</p>
+        </div>
+        <div class="info-card">
+          <h3>3. Receive Your Report</h3>
+          <p>A qualified practitioner prepares your personalized reading and delivers the PDF report (and video walkthrough, if included) to your email.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="gold-rule">
+
+    <section id="pricing">
+      <h2>Choose Your Reading</h2>
+
+      <div class="pricing-grid">
+        {%- for item in shop.premiumReadings %}
+        <div class="pricing-card{% if item.featured %} pricing-card--featured{% endif %}">
+          {% if item.featured %}<span class="pricing-badge">Most Popular</span>{% endif %}
+          <h3>{{ item.name }}</h3>
+          <div class="pricing-amount"><span class="pricing-currency">$</span>{{ item.price }}</div>
+          <p>{{ item.description }}</p>
+          <ul class="pricing-features">
+            {%- for feature in item.features %}
+            <li>{{ feature }}</li>
+            {%- endfor %}
+          </ul>
+          <div class="pricing-delivery">Delivery: {{ item.delivery }}</div>
+          <a href="{{ item.stripeLink }}" class="btn {% if item.id == 'basic' %}btn-primary{% elif item.featured %}btn-gold{% else %}btn-outline{% endif %}">Order Now</a>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <hr class="gold-rule">
+
+    <div class="callout-box callout-box--jade">
+      <h3 style="margin-bottom:var(--sp-sm)">What You'll Need</h3>
+      <p>To prepare your personalized chart, we will need the following after checkout:</p>
+      <ul style="margin-top:var(--sp-sm);margin-bottom:0">
+        <li><strong>Exact birth date</strong> — day, month, and year</li>
+        <li><strong>Birth time</strong> — as precise as possible (if known)</li>
+        <li><strong>Birth city / location</strong> — for accurate solar time calculation</li>
+      </ul>
+    </div>
+
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What information do I need to provide?</button>
+          <div class="faq-answer">
+            <p>After completing your purchase, you will receive a short intake form asking for your exact birth date (day, month, year), birth time (as precise as possible), and birth city or location. The birth time and location allow us to calculate accurate solar time for your Four Pillars chart.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How long until I receive my reading?</button>
+          <div class="faq-answer">
+            <p>Delivery times vary by tier: Basic readings are delivered within 3&ndash;5 business days, Detailed readings within 5&ndash;7 business days, and Comprehensive readings within 7&ndash;10 business days. Every report is individually prepared by a qualified practitioner, not auto-generated.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Who performs the readings?</button>
+          <div class="faq-answer">
+            <p>All readings are performed by practitioners trained in classical BaZi methodology rooted in pre-Qing sources, particularly the Xu Ziping tradition. Each practitioner has a minimum of five years of study and practice in Chinese metaphysical arts.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What if I don't know my birth time?</button>
+          <div class="faq-answer">
+            <p>We can still prepare a reading without an exact birth time. The Year, Month, and Day pillars provide substantial insight on their own. The Hour pillar adds depth but is not strictly required. Simply note on the intake form that your birth time is unknown, and your practitioner will adapt the analysis accordingly.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What is your refund policy?</button>
+          <div class="faq-answer">
+            <p>If you are unsatisfied with your reading, please contact us within 14 days of delivery. We offer a full refund if work has not yet begun on your report. If your reading has already been completed and delivered, we will work with you to address any concerns or provide clarifications at no additional cost.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="callout-box">
+      <h3 style="margin-bottom:var(--sp-sm)">Have Questions?</h3>
+      <p>We are happy to help you choose the right reading. Email us at <a href="mailto:readings@chinesezodiacyear.com">readings@chinesezodiacyear.com</a> and we will get back to you promptly.</p>
+    </div>
+
+  </article>
+</div>

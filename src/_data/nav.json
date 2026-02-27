@@ -28,6 +28,7 @@
     { "label": "Readings", "url": "/readings/", "page": "readings" },
     { "label": "News", "url": "/news/", "page": "news" },
     { "label": "Directory", "url": "/directory/", "page": "directory" },
+    { "label": "Shop", "url": "/shop/", "page": "shop" },
     { "label": "Donate", "url": "/donate/", "page": "donate" }
   ],
   "footer": [
@@ -65,6 +66,8 @@
         { "label": "Zodiac Calculator", "url": "/#calculator" },
         { "label": "BaZi Calculator", "url": "/bazi-calculator/" },
         { "label": "2026 Readings", "url": "/readings/" },
+        { "label": "Shop", "url": "/shop/" },
+        { "label": "Affiliate Disclosure", "url": "/affiliate-disclosure/" },
         { "label": "ChineseNewYear.wiki", "url": "https://chinesenewyear.wiki", "external": true },
         { "label": "Sitemap", "url": "/sitemap.xml" },
         { "label": "Privacy Policy", "url": "/about/#privacy" },

@@ -1,0 +1,111 @@
+---
+layout: "layouts/base.njk"
+title: "Shop — Digital Resources & Premium Readings"
+description: "Chinese zodiac digital products, BaZi starter kits, feng shui guides, and premium personalized readings."
+keywords: "Chinese zodiac shop, BaZi reading, feng shui guide, zodiac forecast, premium reading"
+ogType: "website"
+permalink: "/shop/"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "Shop"
+---
+{% include "partials/breadcrumbs.njk" %}
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">Resources</span>
+    <h1>Shop</h1>
+    <p class="subtitle">Digital guides, forecasts, and personalized readings rooted in classical Chinese metaphysical traditions.</p>
+  </div>
+</section>
+
+<div class="article-layout">
+  <article class="article-content">
+
+    <section class="shop-section" id="readings">
+      <h2>Premium Personalized Readings</h2>
+      <p>Our practitioners prepare detailed BaZi and zodiac reports using classical methodology — each one individually crafted for your birth data.</p>
+
+      <div class="shop-readings-preview">
+        {%- for item in shop.premiumReadings %}
+        <div class="shop-reading-card{% if item.featured %} shop-reading-card--featured{% endif %}">
+          <h3>{{ item.name }}</h3>
+          <div class="pricing-amount"><span class="pricing-currency">$</span>{{ item.price }}</div>
+          <p>{{ item.description }}</p>
+          <div class="pricing-delivery">Delivery: {{ item.delivery }}</div>
+          <a href="/premium-readings/" class="btn {% if item.featured %}btn-gold{% else %}btn-outline{% endif %} btn-sm">Learn More</a>
+        </div>
+        {%- endfor %}
+      </div>
+
+      <p style="text-align:center;margin-top:var(--sp-lg)"><a href="/premium-readings/" class="btn btn-primary">View All Reading Options &rarr;</a></p>
+    </section>
+
+    <hr class="gold-rule">
+
+    <section class="shop-section" id="products">
+      <h2>Digital Products</h2>
+      <p>Downloadable guides, forecasts, and workbooks to deepen your understanding of Chinese astrology and metaphysics.</p>
+
+      <div class="shop-filters">
+        <button class="shop-filter-btn active" data-filter="all">All</button>
+        <button class="shop-filter-btn" data-filter="forecasts">Forecasts</button>
+        <button class="shop-filter-btn" data-filter="guides">Guides</button>
+        <button class="shop-filter-btn" data-filter="education">Education</button>
+        <button class="shop-filter-btn" data-filter="calendars">Calendars</button>
+      </div>
+
+      <div class="shop-products-grid">
+        {%- for item in shop.digitalProducts %}
+        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}">
+          <h3>{{ item.name }}</h3>
+          <p class="product-subtitle">{{ item.subtitle }}</p>
+          <ul class="product-features">
+            {%- for feature in item.features %}
+            <li>{{ feature }}</li>
+            {%- endfor %}
+          </ul>
+          <div class="product-footer">
+            <span class="product-price">${{ item.price }}</span>
+            <a href="{{ item.gumroadUrl }}" target="_blank" rel="noopener" class="btn btn-gold btn-sm">Buy Now</a>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <hr class="gold-rule">
+
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What format are the digital products in?</button>
+          <div class="faq-answer">
+            <p>All digital products are delivered as PDF files that can be viewed on any device — computer, tablet, or phone. Some products also include supplementary worksheets or reference charts as separate PDFs.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How do I access my purchase after buying?</button>
+          <div class="faq-answer">
+            <p>After completing your purchase through Gumroad, you will receive an email with a download link. You can also access your purchases at any time through your Gumroad library. The download link does not expire.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What is your refund policy?</button>
+          <div class="faq-answer">
+            <p>We offer a 30-day refund policy on all digital products. If you are unsatisfied for any reason, contact us and we will process a full refund. For premium readings, please see the <a href="/premium-readings/#faq">premium readings FAQ</a> for specific terms.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Is my payment information secure?</button>
+          <div class="faq-answer">
+            <p>All payments are processed securely through Stripe (for premium readings) or Gumroad (for digital products). We never store your credit card information. Both platforms use industry-standard encryption and are PCI DSS compliant.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </article>
+</div>

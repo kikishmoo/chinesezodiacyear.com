@@ -61,6 +61,35 @@
       {%- endfor %}
     </div>
     {% endif %}
+
+    {% if sidebarProducts %}
+    <div class="sidebar-widget sidebar-affiliate-widget">
+      <h4>Recommended Reading</h4>
+      {%- for product in sidebarProducts %}
+      <div class="sidebar-product">
+        <a href="{{ product.url }}" target="_blank" rel="nofollow sponsored noopener" class="sidebar-product-title">{{ product.title }}</a>
+        <p class="sidebar-product-author">{{ product.author }}</p>
+      </div>
+      {%- endfor %}
+      <p class="sidebar-affiliate-note">Affiliate links — <a href="/affiliate-disclosure/">disclosure</a></p>
+    </div>
+    {% endif %}
+
+    {% if sidebarShopPromo !== false %}
+    <div class="sidebar-widget sidebar-shop-widget">
+      <h4>Digital Resources</h4>
+      <p style="font-size:0.9rem;margin-bottom:var(--sp-sm)">Zodiac forecasts, BaZi guides, feng shui checklists, and more.</p>
+      <a href="/shop/" class="btn btn-gold btn-sm" style="width:100%;text-align:center">Browse Shop</a>
+    </div>
+    {% endif %}
+
+    {% if site.adsenseEnabled and sidebarAd !== false %}
+    <div class="sidebar-widget sidebar-ad-widget">
+      {% set slot = sidebarAdSlot %}
+      {% set format = "auto" %}
+      {% include "partials/ad-unit.njk" %}
+    </div>
+    {% endif %}
   </aside>
   {% endif %}
 </div>

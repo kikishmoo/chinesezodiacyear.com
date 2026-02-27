@@ -1,0 +1,12 @@
+{# Conditional ad unit — only renders when adsenseEnabled is true in site.json #}
+{% if site.adsenseEnabled %}
+<div class="ad-container">
+  <span class="ad-label">Advertisement</span>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="{{ site.adsenseId }}"
+       {% if slot %}data-ad-slot="{{ slot }}"{% endif %}
+       data-ad-format="{{ format | default('auto') }}"
+       data-full-width-responsive="true"></ins>
+</div>
+{% endif %}
