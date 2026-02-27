@@ -897,7 +897,15 @@ select.calc-input {
   position: sticky;
   top: calc(var(--header-height) + var(--sp-lg));
   align-self: start;
+  max-height: calc(100vh - var(--header-height) - var(--sp-2xl));
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(196,153,43,0.3) transparent;
 }
+.article-sidebar::-webkit-scrollbar { width: 5px; }
+.article-sidebar::-webkit-scrollbar-track { background: transparent; }
+.article-sidebar::-webkit-scrollbar-thumb { background: rgba(196,153,43,0.3); border-radius: 3px; }
+.article-sidebar::-webkit-scrollbar-thumb:hover { background: rgba(196,153,43,0.5); }
 
 .sidebar-widget {
   background: #fff;
@@ -3492,6 +3500,21 @@ select.calc-input {
   text-decoration: underline;
 }
 
+/* --- Sidebar Affiliate Disclosure --- */
+.sidebar-affiliate-disclosure {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--stone);
+  margin-bottom: var(--sp-lg);
+  padding: var(--sp-sm) var(--sp-md);
+  background: rgba(91,140,106,0.06);
+  border-left: 2px solid var(--jade);
+  border-radius: 2px;
+}
+.sidebar-affiliate-disclosure p { margin: 0; color: var(--stone); }
+.sidebar-affiliate-disclosure strong { color: var(--charcoal); font-size: 0.72rem; }
+.sidebar-affiliate-disclosure a { color: var(--jade); text-decoration: underline; }
+
 /* --- Shop Promo Widget --- */
 .sidebar-shop-widget {
   background: linear-gradient(135deg, var(--cream) 0%, var(--parchment) 100%);
@@ -3899,6 +3922,13 @@ select.calc-input {
   color: #888070;
   border-top-color: rgba(196,153,43,0.06);
 }
+[data-theme="dark"] .sidebar-affiliate-disclosure {
+  background: rgba(91,140,106,0.08);
+  border-left-color: rgba(91,140,106,0.4);
+}
+[data-theme="dark"] .sidebar-affiliate-disclosure p,
+[data-theme="dark"] .sidebar-affiliate-disclosure strong { color: #888070; }
+[data-theme="dark"] .sidebar-affiliate-disclosure a { color: rgba(91,140,106,0.8); }
 [data-theme="dark"] .sidebar-shop-widget {
   background: linear-gradient(135deg, #1E1A16 0%, #252018 100%);
   border-color: rgba(196,153,43,0.15);
