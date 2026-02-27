@@ -7,6 +7,9 @@
   <meta name="description" content="{{ description }}">
   {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  {% if site.adsenseEnabled %}
+  <meta name="google-adsense-account" content="{{ site.adsenseId }}">
+  {% endif %}
   <!-- Open Graph -->
   <meta property="og:type" content="{{ ogType | default('website') }}">
   <meta property="og:title" content="{{ ogTitle | default(title) }}">
