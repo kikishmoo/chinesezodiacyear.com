@@ -4,7 +4,7 @@
   "description": "Encyclopedia, directory, and news platform for Chinese zodiac, BaZi, feng shui, and traditional Chinese culture.",
   "tagline": "Rooted in tradition. Built for the future.",
   "year": 2026,
-  "adsenseEnabled": false,
-  "adsenseId": "ca-pub-XXXXXXXXXXXXXXXX",
+  "adsenseEnabled": true,
+  "adsenseId": "ca-pub-8962379324362674",
   "amazonTag": "kikigreene-20"
 }
