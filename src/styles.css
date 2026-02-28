@@ -1989,6 +1989,39 @@ select.calc-input {
    ============================================ */
 
 /* --- Theme Toggle Button --- */
+.header-toggles {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.lang-toggle {
+  background: none;
+  border: 1px solid rgba(196,153,43,0.35);
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--pale-gold);
+  font-family: var(--font-chinese);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: background 0.3s, border-color 0.3s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.lang-toggle:hover {
+  background: rgba(250,246,238,0.1);
+  border-color: var(--bright-gold);
+}
+.lang-label-simp { display: none; }
+[data-lang="simp"] .lang-label-trad { display: none; }
+[data-lang="simp"] .lang-label-simp { display: inline; }
+
 .theme-toggle {
   background: none;
   border: 1px solid rgba(196,153,43,0.35);
@@ -2308,6 +2341,11 @@ select.calc-input {
   .reading-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* --- Simplified Chinese Font Override --- */
+[data-lang="simp"] {
+  --font-chinese: 'Noto Serif SC', 'SimSun', 'STSong', serif;
 }
 
 /* --- Dark Mode Variable Overrides --- */
