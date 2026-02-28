@@ -25,6 +25,8 @@
   <meta name="twitter:title" content="{{ ogTitle | default(title) }}">
   <meta name="twitter:description" content="{{ ogDescription | default(description) }}">
   <meta name="twitter:image" content="{{ ogImage | default(site.url + '/img/og-default.png') }}">
+  {% if site.twitterHandle %}<meta name="twitter:site" content="{{ site.twitterHandle }}">
+  <meta name="twitter:creator" content="{{ site.twitterHandle }}">{% endif %}
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

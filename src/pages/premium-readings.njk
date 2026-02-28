@@ -133,3 +133,7 @@ faq:
 
   </article>
 </div>
+
+{%- for item in shop.premiumReadings %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ item.name }}","description":"{{ item.description }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ item.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ site.url }}/premium-readings/"}}</script>
+{%- endfor %}

@@ -118,3 +118,7 @@ faq:
 
   </article>
 </div>
+
+{%- for item in shop.digitalProducts %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ item.name }}","description":"{{ item.subtitle }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ item.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ item.gumroadUrl }}"}}</script>
+{%- endfor %}
