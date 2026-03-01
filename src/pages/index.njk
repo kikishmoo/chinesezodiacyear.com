@@ -25,12 +25,31 @@ ogType: "website"
           <div class="wheel-animal" title="Pig">豬</div>
         </div>
 
+        <div class="lang-en">
         <h1 id="hero-heading">Chinese Zodiac <span class="hero-chinese-name">生肖 <span class="hero-pinyin">Sh&#275;ngxi&#224;o</span></span><em>Encyclopedia &middot; Readings &middot; Directory &middot; News</em></h1>
         <p class="subtitle">Classical scholarship on the twelve zodiac animals, BaZi destiny readings, feng shui, and the living traditions of Chinese culture — rooted in authentic pre-Qing sources.</p>
-
         <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
           <a href="#calculator" class="btn btn-gold">Find Your Zodiac</a>
           <a href="/zodiac/" class="btn btn-outline" style="border-color:rgba(255,250,240,0.3);color:var(--ivory);">Explore the Encyclopedia</a>
+        </div>
+        </div>
+
+        <div class="lang-tc">
+        <h1>中國生肖 <span class="hero-chinese-name">生肖 <span class="hero-pinyin">Sh&#275;ngxi&#224;o</span></span><em>百科 &middot; 運程 &middot; 名錄 &middot; 資訊</em></h1>
+        <p class="subtitle">以正統清代以前經典文獻為根基，涵蓋十二生肖、八字命理、風水及中華文化活態傳統的學術資源。</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
+          <a href="#calculator" class="btn btn-gold">查詢您的生肖</a>
+          <a href="/zodiac/" class="btn btn-outline" style="border-color:rgba(255,250,240,0.3);color:var(--ivory);">瀏覽百科全書</a>
+        </div>
+        </div>
+
+        <div class="lang-sc">
+        <h1>中国生肖 <span class="hero-chinese-name">生肖 <span class="hero-pinyin">Sh&#275;ngxi&#224;o</span></span><em>百科 &middot; 运程 &middot; 名录 &middot; 资讯</em></h1>
+        <p class="subtitle">以正统清代以前经典文献为根基，涵盖十二生肖、八字命理、风水及中华文化活态传统的学术资源。</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
+          <a href="#calculator" class="btn btn-gold">查询您的生肖</a>
+          <a href="/zodiac/" class="btn btn-outline" style="border-color:rgba(255,250,240,0.3);color:var(--ivory);">浏览百科全书</a>
+        </div>
         </div>
       </div>
     </section>
@@ -38,9 +57,21 @@ ogType: "website"
     <!-- ===== ZODIAC CALCULATOR ===== -->
     <section class="calc-section" id="calculator" aria-labelledby="calc-heading">
       <div class="calc-container">
+        <div class="lang-en">
         <span class="overline">Interactive Tool</span>
         <h2 id="calc-heading">What Is Your Chinese Zodiac?</h2>
         <p class="subtitle" style="margin:0.5rem auto;">Enter your birthday to discover your zodiac animal, element, and heavenly stem. Month and day are optional but recommended for accurate results near Chinese New Year.</p>
+        </div>
+        <div class="lang-tc">
+        <span class="overline">互動工具</span>
+        <h2>您的中國生肖是什麼？</h2>
+        <p class="subtitle" style="margin:0.5rem auto;">輸入您的出生日期以查詢您的生肖動物、五行元素和天干。月份和日期為選填，但建議填寫以獲得農曆新年前後的準確結果。</p>
+        </div>
+        <div class="lang-sc">
+        <span class="overline">互动工具</span>
+        <h2>您的中国生肖是什么？</h2>
+        <p class="subtitle" style="margin:0.5rem auto;">输入您的出生日期以查询您的生肖动物、五行元素和天干。月份和日期为选填，但建议填写以获得农历新年前后的准确结果。</p>
+        </div>
         <form id="zodiac-calc-form" class="calc-form" aria-label="Zodiac calculator">
           <div class="calc-row">
             <input type="number" id="birth-year" class="calc-input" placeholder="Year" min="1900" max="2100" required aria-label="Birth year">
@@ -61,7 +92,7 @@ ogType: "website"
             </select>
             <input type="number" id="birth-day" class="calc-input calc-input-sm" placeholder="Day" min="1" max="31" aria-label="Birth day (optional)">
           </div>
-          <button type="submit" class="btn btn-primary">Discover</button>
+          <button type="submit" class="btn btn-primary"><span class="lang-en">Discover</span><span class="lang-tc">查詢</span><span class="lang-sc">查询</span></button>
         </form>
         <div id="calc-result" class="calc-result" aria-live="polite"></div>
       </div>
@@ -70,9 +101,21 @@ ogType: "website"
     <!-- ===== TRIVIA GAME ===== -->
     <section class="trivia-section" id="trivia" aria-labelledby="trivia-heading">
       <div class="trivia-container">
+        <div class="lang-en">
         <span class="overline">Test Your Knowledge</span>
         <h2 id="trivia-heading">Chinese History &amp; Culture Trivia</h2>
         <p class="subtitle" style="margin:0.5rem auto 1.5rem;">Challenge yourself with 10 questions drawn from Chinese history, philosophy, and tradition &mdash; all sourced from pre-Qing classical scholarship.</p>
+        </div>
+        <div class="lang-tc">
+        <span class="overline">測試您的知識</span>
+        <h2>中國歷史與文化問答</h2>
+        <p class="subtitle" style="margin:0.5rem auto 1.5rem;">挑戰自我，回答取自中國歷史、哲學與傳統的十道題目——均源自清代以前的經典學術研究。</p>
+        </div>
+        <div class="lang-sc">
+        <span class="overline">测试您的知识</span>
+        <h2>中国历史与文化问答</h2>
+        <p class="subtitle" style="margin:0.5rem auto 1.5rem;">挑战自我，回答取自中国历史、哲学与传统的十道题目——均源自清代以前的经典学术研究。</p>
+        </div>
 
         <div id="trivia-game" class="trivia-game">
           <div class="trivia-progress-bar">
@@ -104,164 +147,222 @@ ogType: "website"
         </div>
 
         <div id="trivia-start" class="trivia-start">
-          <p>10 random questions. 4 choices each. How well do you know Chinese civilisation?</p>
-          <button id="trivia-begin" class="btn btn-gold">Start Trivia</button>
+          <div class="lang-en"><p>10 random questions. 4 choices each. How well do you know Chinese civilisation?</p></div>
+          <div class="lang-tc"><p>十道隨機題目，每題四個選項。您對中華文明了解多少？</p></div>
+          <div class="lang-sc"><p>十道随机题目，每题四个选项。您对中华文明了解多少？</p></div>
+          <button id="trivia-begin" class="btn btn-gold"><span class="lang-en">Start Trivia</span><span class="lang-tc">開始問答</span><span class="lang-sc">开始问答</span></button>
         </div>
       </div>
     </section>
 
     <!-- ===== FEATURED ENCYCLOPEDIA ===== -->
     <section class="content-section" aria-labelledby="explore-heading">
+      <div class="lang-en">
       <div class="section-header">
         <span class="overline">Encyclopedia</span>
         <h2 id="explore-heading">Explore Classical Chinese Knowledge</h2>
         <p class="subtitle">In-depth articles grounded in traditional scholarship from before the Qing Dynasty.</p>
       </div>
+      </div>
+      <div class="lang-tc">
+      <div class="section-header">
+        <span class="overline">百科全書</span>
+        <h2>探索經典中華知識</h2>
+        <p class="subtitle">以清代以前傳統學術為根基的深度文章。</p>
+      </div>
+      </div>
+      <div class="lang-sc">
+      <div class="section-header">
+        <span class="overline">百科全书</span>
+        <h2>探索经典中华知识</h2>
+        <p class="subtitle">以清代以前传统学术为根基的深度文章。</p>
+      </div>
+      </div>
 
       <div class="image-grid image-grid--featured" style="margin-bottom:var(--sp-2xl);">
         <figure>
           <img src="https://images.unsplash.com/photo-1565113342417-a741cd42d2d2?w=800&h=600&fit=crop" alt="Traditional Chinese zodiac stone carving with dragon motif" loading="lazy">
-          <figcaption>The twelve zodiac animals — a 2,000-year-old tradition</figcaption>
+          <figcaption><span class="lang-en">The twelve zodiac animals — a 2,000-year-old tradition</span><span class="lang-tc">十二生肖——兩千年的傳統</span><span class="lang-sc">十二生肖——两千年的传统</span></figcaption>
         </figure>
         <figure>
           <img src="https://images.unsplash.com/photo-1641997825980-cbaf406765db?w=400&h=290&fit=crop" alt="Traditional Chinese tea ceremony with ceramic teapot" loading="lazy">
-          <figcaption>Classical culture and scholarly traditions</figcaption>
+          <figcaption><span class="lang-en">Classical culture and scholarly traditions</span><span class="lang-tc">經典文化與學術傳統</span><span class="lang-sc">经典文化与学术传统</span></figcaption>
         </figure>
         <figure>
           <img src="https://images.unsplash.com/photo-1769582132855-143960566a04?w=400&h=290&fit=crop" alt="Red lanterns hanging over a traditional Chinese street" loading="lazy">
-          <figcaption>Living cultural traditions</figcaption>
+          <figcaption><span class="lang-en">Living cultural traditions</span><span class="lang-tc">活態文化傳統</span><span class="lang-sc">活态文化传统</span></figcaption>
         </figure>
       </div>
 
       <div class="feature-box stagger-children">
         <div class="feature-item animate-on-scroll">
           <span class="feature-icon">🐉</span>
-          <h3>The Twelve Animals</h3>
-          <p>Origins, personality profiles, compatibility, and the legends behind each zodiac sign.</p>
-          <a href="/zodiac/">Read more &rarr;</a>
+          <h3><span class="lang-en">The Twelve Animals</span><span class="lang-tc">十二生肖</span><span class="lang-sc">十二生肖</span></h3>
+          <p><span class="lang-en">Origins, personality profiles, compatibility, and the legends behind each zodiac sign.</span><span class="lang-tc">各生肖的起源、性格特徵、配對相性與傳說故事。</span><span class="lang-sc">各生肖的起源、性格特征、配对相性与传说故事。</span></p>
+          <a href="/zodiac/"><span class="lang-en">Read more &rarr;</span><span class="lang-tc">閱讀更多 &rarr;</span><span class="lang-sc">阅读更多 &rarr;</span></a>
         </div>
         <div class="feature-item animate-on-scroll">
           <span class="feature-icon">🏛️</span>
-          <h3>BaZi &amp; Four Pillars</h3>
-          <p>The classical system of destiny analysis using year, month, day, and hour pillars.</p>
-          <a href="/bazi/">Read more &rarr;</a>
+          <h3><span class="lang-en">BaZi &amp; Four Pillars</span><span class="lang-tc">八字與四柱</span><span class="lang-sc">八字与四柱</span></h3>
+          <p><span class="lang-en">The classical system of destiny analysis using year, month, day, and hour pillars.</span><span class="lang-tc">以年、月、日、時四柱進行命理分析的經典體系。</span><span class="lang-sc">以年、月、日、时四柱进行命理分析的经典体系。</span></p>
+          <a href="/bazi/"><span class="lang-en">Read more &rarr;</span><span class="lang-tc">閱讀更多 &rarr;</span><span class="lang-sc">阅读更多 &rarr;</span></a>
         </div>
         <div class="feature-item animate-on-scroll">
           <span class="feature-icon">🧭</span>
-          <h3>Feng Shui</h3>
-          <p>Ancient geomancy of wind and water — from landform reading to compass school methods.</p>
-          <a href="/fengshui/">Read more &rarr;</a>
+          <h3><span class="lang-en">Feng Shui</span><span class="lang-tc">風水</span><span class="lang-sc">风水</span></h3>
+          <p><span class="lang-en">Ancient geomancy of wind and water — from landform reading to compass school methods.</span><span class="lang-tc">風水古法——從巒頭形勢到羅盤理氣之術。</span><span class="lang-sc">风水古法——从峦头形势到罗盘理气之术。</span></p>
+          <a href="/fengshui/"><span class="lang-en">Read more &rarr;</span><span class="lang-tc">閱讀更多 &rarr;</span><span class="lang-sc">阅读更多 &rarr;</span></a>
         </div>
         <div class="feature-item animate-on-scroll">
           <span class="feature-icon">📅</span>
-          <h3>Chinese Calendar</h3>
-          <p>The sexagenary cycle, heavenly stems, earthly branches, and the lunisolar system.</p>
-          <a href="/calendar/">Read more &rarr;</a>
+          <h3><span class="lang-en">Chinese Calendar</span><span class="lang-tc">中國曆法</span><span class="lang-sc">中国历法</span></h3>
+          <p><span class="lang-en">The sexagenary cycle, heavenly stems, earthly branches, and the lunisolar system.</span><span class="lang-tc">六十甲子、天干、地支與陰陽合曆體系。</span><span class="lang-sc">六十甲子、天干、地支与阴阳合历体系。</span></p>
+          <a href="/calendar/"><span class="lang-en">Read more &rarr;</span><span class="lang-tc">閱讀更多 &rarr;</span><span class="lang-sc">阅读更多 &rarr;</span></a>
         </div>
         <div class="feature-item animate-on-scroll">
           <span class="feature-icon">🏮</span>
-          <h3>Spring Festival</h3>
-          <p>History and traditions of Chinese New Year — the world's oldest continuous celebration.</p>
-          <a href="/spring-festival/">Read more &rarr;</a>
+          <h3><span class="lang-en">Spring Festival</span><span class="lang-tc">春節</span><span class="lang-sc">春节</span></h3>
+          <p><span class="lang-en">History and traditions of Chinese New Year — the world's oldest continuous celebration.</span><span class="lang-tc">中國農曆新年的歷史與傳統——世界上最悠久的持續慶典。</span><span class="lang-sc">中国农历新年的历史与传统——世界上最悠久的持续庆典。</span></p>
+          <a href="/spring-festival/"><span class="lang-en">Read more &rarr;</span><span class="lang-tc">閱讀更多 &rarr;</span><span class="lang-sc">阅读更多 &rarr;</span></a>
         </div>
         <div class="feature-item animate-on-scroll">
           <span class="feature-icon">🔥</span>
-          <h3>Wu Xing — Five Elements</h3>
-          <p>Wood, Fire, Earth, Metal, Water — the generating and overcoming cycles that govern all things.</p>
-          <a href="/wuxing/">Read more &rarr;</a>
+          <h3><span class="lang-en">Wu Xing — Five Elements</span><span class="lang-tc">五行</span><span class="lang-sc">五行</span></h3>
+          <p><span class="lang-en">Wood, Fire, Earth, Metal, Water — the generating and overcoming cycles that govern all things.</span><span class="lang-tc">木、火、土、金、水——主宰萬物的相生相剋循環。</span><span class="lang-sc">木、火、土、金、水——主宰万物的相生相克循环。</span></p>
+          <a href="/wuxing/"><span class="lang-en">Read more &rarr;</span><span class="lang-tc">閱讀更多 &rarr;</span><span class="lang-sc">阅读更多 &rarr;</span></a>
         </div>
       </div>
 
       <div class="callout-box callout-box--jade" style="margin:var(--sp-xl) auto;max-width:800px;">
         <span class="callout-box-icon">🐉</span>
         <div class="callout-box-content">
+          <div class="lang-en">
           <h4>Grew Up Watching Jackie Chan Adventures?</h4>
           <p>The twelve zodiac talismans from <em><span class="chinese-char">成龍歷險記</span></em> (2000–2005) were many people's first encounter with the Chinese zodiac, Daoist magic, and the concept of chi. Dive deeper into the real traditions behind the show — from the <a href="/zodiac/">twelve zodiac animals</a> to <a href="/taoism/">Daoist philosophy</a> and <a href="/wuxia/#jackie-chan-adventures">the full story of wuxia</a>.</p>
+          </div>
+          <div class="lang-tc">
+          <h4>是看《成龍歷險記》長大的嗎？</h4>
+          <p>《成龍歷險記》（2000–2005）中的十二生肖符咒是許多人首次接觸中國生肖、道教法術和「氣」概念的契機。深入了解節目背後的真實傳統——從<a href="/zodiac/">十二生肖</a>到<a href="/taoism/">道家哲學</a>及<a href="/wuxia/#jackie-chan-adventures">武俠的完整故事</a>。</p>
+          </div>
+          <div class="lang-sc">
+          <h4>是看《成龙历险记》长大的吗？</h4>
+          <p>《成龙历险记》（2000–2005）中的十二生肖符咒是许多人首次接触中国生肖、道教法术和"气"概念的契机。深入了解节目背后的真实传统——从<a href="/zodiac/">十二生肖</a>到<a href="/taoism/">道家哲学</a>及<a href="/wuxia/#jackie-chan-adventures">武侠的完整故事</a>。</p>
+          </div>
         </div>
       </div>
 
-      <div class="visual-divider">More to Explore</div>
+      <div class="visual-divider"><span class="lang-en">More to Explore</span><span class="lang-tc">更多探索</span><span class="lang-sc">更多探索</span></div>
 
       <div class="info-grid" style="margin-top:0;">
         <div class="info-card animate-on-scroll">
           <span class="info-card-icon">⚔️</span>
-          <div class="info-card-value">Wuxia</div>
-          <div class="info-card-label">Martial Heroes</div>
-          <div class="info-card-desc">The literary tradition of swordsmen, honour, and jianghu.</div>
-          <a href="/wuxia/" style="font-size:0.85rem;">Explore &rarr;</a>
+          <div class="info-card-value"><span class="lang-en">Wuxia</span><span class="lang-tc">武俠</span><span class="lang-sc">武侠</span></div>
+          <div class="info-card-label"><span class="lang-en">Martial Heroes</span><span class="lang-tc">武俠英雄</span><span class="lang-sc">武侠英雄</span></div>
+          <div class="info-card-desc"><span class="lang-en">The literary tradition of swordsmen, honour, and jianghu.</span><span class="lang-tc">劍客、俠義與江湖的文學傳統。</span><span class="lang-sc">剑客、侠义与江湖的文学传统。</span></div>
+          <a href="/wuxia/" style="font-size:0.85rem;"><span class="lang-en">Explore &rarr;</span><span class="lang-tc">探索 &rarr;</span><span class="lang-sc">探索 &rarr;</span></a>
         </div>
         <div class="info-card animate-on-scroll">
           <span class="info-card-icon">👘</span>
-          <div class="info-card-value">Hanfu</div>
-          <div class="info-card-label">Traditional Dress</div>
-          <div class="info-card-desc">3,000 years of Chinese clothing from Zhou to Ming.</div>
-          <a href="/hanfu/" style="font-size:0.85rem;">Explore &rarr;</a>
+          <div class="info-card-value"><span class="lang-en">Hanfu</span><span class="lang-tc">漢服</span><span class="lang-sc">汉服</span></div>
+          <div class="info-card-label"><span class="lang-en">Traditional Dress</span><span class="lang-tc">傳統服飾</span><span class="lang-sc">传统服饰</span></div>
+          <div class="info-card-desc"><span class="lang-en">3,000 years of Chinese clothing from Zhou to Ming.</span><span class="lang-tc">從周至明，三千年的中華服飾。</span><span class="lang-sc">从周至明，三千年的中华服饰。</span></div>
+          <a href="/hanfu/" style="font-size:0.85rem;"><span class="lang-en">Explore &rarr;</span><span class="lang-tc">探索 &rarr;</span><span class="lang-sc">探索 &rarr;</span></a>
         </div>
         <div class="info-card animate-on-scroll">
           <span class="info-card-icon">🏯</span>
-          <div class="info-card-value">Dynasties</div>
-          <div class="info-card-label">Imperial History</div>
-          <div class="info-card-desc">From Xia to Ming — the dynastic epochs that shaped China.</div>
-          <a href="/dynasties/" style="font-size:0.85rem;">Explore &rarr;</a>
+          <div class="info-card-value"><span class="lang-en">Dynasties</span><span class="lang-tc">朝代</span><span class="lang-sc">朝代</span></div>
+          <div class="info-card-label"><span class="lang-en">Imperial History</span><span class="lang-tc">帝國歷史</span><span class="lang-sc">帝国历史</span></div>
+          <div class="info-card-desc"><span class="lang-en">From Xia to Ming — the dynastic epochs that shaped China.</span><span class="lang-tc">從夏到明——塑造中國的歷代王朝。</span><span class="lang-sc">从夏到明——塑造中国的历代王朝。</span></div>
+          <a href="/dynasties/" style="font-size:0.85rem;"><span class="lang-en">Explore &rarr;</span><span class="lang-tc">探索 &rarr;</span><span class="lang-sc">探索 &rarr;</span></a>
         </div>
         <div class="info-card animate-on-scroll">
           <span class="info-card-icon">☯️</span>
-          <div class="info-card-value">Taoism</div>
-          <div class="info-card-label">Philosophy</div>
-          <div class="info-card-desc">The Dao, Wu Wei, and the roots of Chinese thought.</div>
-          <a href="/taoism/" style="font-size:0.85rem;">Explore &rarr;</a>
+          <div class="info-card-value"><span class="lang-en">Taoism</span><span class="lang-tc">道教</span><span class="lang-sc">道教</span></div>
+          <div class="info-card-label"><span class="lang-en">Philosophy</span><span class="lang-tc">哲學</span><span class="lang-sc">哲学</span></div>
+          <div class="info-card-desc"><span class="lang-en">The Dao, Wu Wei, and the roots of Chinese thought.</span><span class="lang-tc">道、無為，與中國思想的根源。</span><span class="lang-sc">道、无为，与中国思想的根源。</span></div>
+          <a href="/taoism/" style="font-size:0.85rem;"><span class="lang-en">Explore &rarr;</span><span class="lang-tc">探索 &rarr;</span><span class="lang-sc">探索 &rarr;</span></a>
         </div>
         <div class="info-card animate-on-scroll">
           <span class="info-card-icon">🍵</span>
-          <div class="info-card-value">Tea</div>
-          <div class="info-card-label">Culture</div>
-          <div class="info-card-desc">The art and ceremony of Chinese tea through the ages.</div>
-          <a href="/tea-culture/" style="font-size:0.85rem;">Explore &rarr;</a>
+          <div class="info-card-value"><span class="lang-en">Tea</span><span class="lang-tc">茶</span><span class="lang-sc">茶</span></div>
+          <div class="info-card-label"><span class="lang-en">Culture</span><span class="lang-tc">文化</span><span class="lang-sc">文化</span></div>
+          <div class="info-card-desc"><span class="lang-en">The art and ceremony of Chinese tea through the ages.</span><span class="lang-tc">歷代中華茶藝與茶道。</span><span class="lang-sc">历代中华茶艺与茶道。</span></div>
+          <a href="/tea-culture/" style="font-size:0.85rem;"><span class="lang-en">Explore &rarr;</span><span class="lang-tc">探索 &rarr;</span><span class="lang-sc">探索 &rarr;</span></a>
         </div>
         <div class="info-card animate-on-scroll">
           <span class="info-card-icon">🎭</span>
-          <div class="info-card-value">Folk Arts</div>
-          <div class="info-card-label">Traditions</div>
-          <div class="info-card-desc">Paper cutting, opera, lanterns, and intangible heritage.</div>
-          <a href="/folk-arts/" style="font-size:0.85rem;">Explore &rarr;</a>
+          <div class="info-card-value"><span class="lang-en">Folk Arts</span><span class="lang-tc">民間藝術</span><span class="lang-sc">民间艺术</span></div>
+          <div class="info-card-label"><span class="lang-en">Traditions</span><span class="lang-tc">傳統</span><span class="lang-sc">传统</span></div>
+          <div class="info-card-desc"><span class="lang-en">Paper cutting, opera, lanterns, and intangible heritage.</span><span class="lang-tc">剪紙、戲曲、燈籠與非物質文化遺產。</span><span class="lang-sc">剪纸、戏曲、灯笼与非物质文化遗产。</span></div>
+          <a href="/folk-arts/" style="font-size:0.85rem;"><span class="lang-en">Explore &rarr;</span><span class="lang-tc">探索 &rarr;</span><span class="lang-sc">探索 &rarr;</span></a>
         </div>
       </div>
     </section>
 
     <!-- ===== 2026 READINGS ===== -->
     <section class="content-section" style="background:var(--cream);background-image:var(--paper-noise);" aria-labelledby="readings-heading">
+      <div class="lang-en">
       <div class="section-header">
         <span class="overline">2026 Forecasts</span>
         <h2 id="readings-heading">Year of the Fire Horse Readings</h2>
         <p class="subtitle">What does the Bing Wu year hold for your zodiac sign?</p>
       </div>
+      </div>
+      <div class="lang-tc">
+      <div class="section-header">
+        <span class="overline">2026年運程</span>
+        <h2>火馬年生肖運程</h2>
+        <p class="subtitle">丙午年對您的生肖有何影響？</p>
+      </div>
+      </div>
+      <div class="lang-sc">
+      <div class="section-header">
+        <span class="overline">2026年运程</span>
+        <h2>火马年生肖运程</h2>
+        <p class="subtitle">丙午年对您的生肖有何影响？</p>
+      </div>
+      </div>
 
       <div class="reading-grid" style="max-width:900px;margin:0 auto;">
-        <a href="/readings/2026-rat/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F400;</span><span class="reading-card-cn">&#40736;</span><span class="reading-card-name">Rat</span></a>
-        <a href="/readings/2026-ox/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F402;</span><span class="reading-card-cn">&#29275;</span><span class="reading-card-name">Ox</span></a>
-        <a href="/readings/2026-tiger/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F405;</span><span class="reading-card-cn">&#34382;</span><span class="reading-card-name">Tiger</span></a>
-        <a href="/readings/2026-rabbit/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F407;</span><span class="reading-card-cn">&#20820;</span><span class="reading-card-name">Rabbit</span></a>
-        <a href="/readings/2026-dragon/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F409;</span><span class="reading-card-cn">&#40845;</span><span class="reading-card-name">Dragon</span></a>
-        <a href="/readings/2026-snake/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F40D;</span><span class="reading-card-cn">&#34503;</span><span class="reading-card-name">Snake</span></a>
-        <a href="/readings/2026-horse/" class="reading-card reading-card-featured animate-on-scroll"><span class="reading-card-emoji">&#x1F40E;</span><span class="reading-card-cn">&#39340;</span><span class="reading-card-name">Horse</span></a>
-        <a href="/readings/2026-goat/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F410;</span><span class="reading-card-cn">&#32650;</span><span class="reading-card-name">Goat</span></a>
-        <a href="/readings/2026-monkey/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F412;</span><span class="reading-card-cn">&#29492;</span><span class="reading-card-name">Monkey</span></a>
-        <a href="/readings/2026-rooster/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F413;</span><span class="reading-card-cn">&#38622;</span><span class="reading-card-name">Rooster</span></a>
-        <a href="/readings/2026-dog/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F415;</span><span class="reading-card-cn">&#29399;</span><span class="reading-card-name">Dog</span></a>
-        <a href="/readings/2026-pig/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F416;</span><span class="reading-card-cn">&#35948;</span><span class="reading-card-name">Pig</span></a>
+        <a href="/readings/2026-rat/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F400;</span><span class="reading-card-cn">&#40736;</span><span class="reading-card-name"><span class="lang-en">Rat</span><span class="lang-tc">鼠</span><span class="lang-sc">鼠</span></span></a>
+        <a href="/readings/2026-ox/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F402;</span><span class="reading-card-cn">&#29275;</span><span class="reading-card-name"><span class="lang-en">Ox</span><span class="lang-tc">牛</span><span class="lang-sc">牛</span></span></a>
+        <a href="/readings/2026-tiger/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F405;</span><span class="reading-card-cn">&#34382;</span><span class="reading-card-name"><span class="lang-en">Tiger</span><span class="lang-tc">虎</span><span class="lang-sc">虎</span></span></a>
+        <a href="/readings/2026-rabbit/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F407;</span><span class="reading-card-cn">&#20820;</span><span class="reading-card-name"><span class="lang-en">Rabbit</span><span class="lang-tc">兔</span><span class="lang-sc">兔</span></span></a>
+        <a href="/readings/2026-dragon/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F409;</span><span class="reading-card-cn">&#40845;</span><span class="reading-card-name"><span class="lang-en">Dragon</span><span class="lang-tc">龍</span><span class="lang-sc">龙</span></span></a>
+        <a href="/readings/2026-snake/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F40D;</span><span class="reading-card-cn">&#34503;</span><span class="reading-card-name"><span class="lang-en">Snake</span><span class="lang-tc">蛇</span><span class="lang-sc">蛇</span></span></a>
+        <a href="/readings/2026-horse/" class="reading-card reading-card-featured animate-on-scroll"><span class="reading-card-emoji">&#x1F40E;</span><span class="reading-card-cn">&#39340;</span><span class="reading-card-name"><span class="lang-en">Horse</span><span class="lang-tc">馬</span><span class="lang-sc">马</span></span></a>
+        <a href="/readings/2026-goat/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F410;</span><span class="reading-card-cn">&#32650;</span><span class="reading-card-name"><span class="lang-en">Goat</span><span class="lang-tc">羊</span><span class="lang-sc">羊</span></span></a>
+        <a href="/readings/2026-monkey/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F412;</span><span class="reading-card-cn">&#29492;</span><span class="reading-card-name"><span class="lang-en">Monkey</span><span class="lang-tc">猴</span><span class="lang-sc">猴</span></span></a>
+        <a href="/readings/2026-rooster/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F413;</span><span class="reading-card-cn">&#38622;</span><span class="reading-card-name"><span class="lang-en">Rooster</span><span class="lang-tc">雞</span><span class="lang-sc">鸡</span></span></a>
+        <a href="/readings/2026-dog/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F415;</span><span class="reading-card-cn">&#29399;</span><span class="reading-card-name"><span class="lang-en">Dog</span><span class="lang-tc">狗</span><span class="lang-sc">狗</span></span></a>
+        <a href="/readings/2026-pig/" class="reading-card animate-on-scroll"><span class="reading-card-emoji">&#x1F416;</span><span class="reading-card-cn">&#35948;</span><span class="reading-card-name"><span class="lang-en">Pig</span><span class="lang-tc">豬</span><span class="lang-sc">猪</span></span></a>
       </div>
 
       <div class="text-center mt-xl">
-        <a href="/readings/" class="btn btn-primary">All 2026 Readings &rarr;</a>
+        <a href="/readings/" class="btn btn-primary"><span class="lang-en">All 2026 Readings &rarr;</span><span class="lang-tc">所有2026年運程 &rarr;</span><span class="lang-sc">所有2026年运程 &rarr;</span></a>
       </div>
     </section>
 
     <!-- ===== LATEST NEWS ===== -->
     <section class="content-section" style="background:var(--parchment);" aria-labelledby="news-heading">
       <div class="container">
+        <div class="lang-en">
         <div class="section-header">
           <span class="overline">Latest</span>
           <h2 id="news-heading">News &amp; Articles</h2>
+        </div>
+        </div>
+        <div class="lang-tc">
+        <div class="section-header">
+          <span class="overline">最新</span>
+          <h2>新聞與文章</h2>
+        </div>
+        </div>
+        <div class="lang-sc">
+        <div class="section-header">
+          <span class="overline">最新</span>
+          <h2>新闻与文章</h2>
+        </div>
         </div>
 
         <div class="card-grid-magazine stagger-children">
@@ -269,12 +370,12 @@ ogType: "website"
             <img class="card-image" src="https://images.unsplash.com/photo-1714038275138-7e26730276eb?w=800&h=500&fit=crop" alt="Chinese New Year fireworks celebration — symbolising the 2026 Fire Horse year" loading="lazy">
             <div class="card-body">
               <div class="card-meta">
-                <span class="card-tag tag-zodiac">Zodiac</span>
+                <span class="card-tag tag-zodiac"><span class="lang-en">Zodiac</span><span class="lang-tc">生肖</span><span class="lang-sc">生肖</span></span>
                 <time datetime="2026-02-16">Feb 16, 2026</time>
               </div>
-              <h3 class="card-title"><a href="/article-2026-horse/">2026: Year of the Fire Horse — What It Means for Every Sign</a></h3>
-              <p class="card-excerpt">The Fire Horse year returns for the first time since 1966. Discover what this powerful and volatile energy signifies across all twelve zodiac animals.</p>
-              <div class="card-footer">5 min read &middot; By Editorial Staff</div>
+              <h3 class="card-title"><a href="/article-2026-horse/"><span class="lang-en">2026: Year of the Fire Horse — What It Means for Every Sign</span><span class="lang-tc">2026火馬年——各生肖運勢全解析</span><span class="lang-sc">2026火马年——各生肖运势全解析</span></a></h3>
+              <p class="card-excerpt"><span class="lang-en">The Fire Horse year returns for the first time since 1966. Discover what this powerful and volatile energy signifies across all twelve zodiac animals.</span><span class="lang-tc">火馬年自1966年以來首次回歸。了解這股強大而多變的能量對十二生肖的影響。</span><span class="lang-sc">火马年自1966年以来首次回归。了解这股强大而多变的能量对十二生肖的影响。</span></p>
+              <div class="card-footer"><span class="lang-en">5 min read &middot; By Editorial Staff</span><span class="lang-tc">5分鐘閱讀 &middot; 編輯部</span><span class="lang-sc">5分钟阅读 &middot; 编辑部</span></div>
             </div>
           </article>
 
@@ -282,12 +383,12 @@ ogType: "website"
             <img class="card-image" src="https://images.unsplash.com/photo-1771685199465-0bd1d1f46b8d?w=400&h=200&fit=crop" alt="Traditional Chinese temple with red lanterns during Spring Festival" loading="lazy">
             <div class="card-body">
               <div class="card-meta">
-                <span class="card-tag tag-culture">Culture</span>
+                <span class="card-tag tag-culture"><span class="lang-en">Culture</span><span class="lang-tc">文化</span><span class="lang-sc">文化</span></span>
                 <time datetime="2026-02-10">Feb 10, 2026</time>
               </div>
-              <h3 class="card-title"><a href="/spring-festival/">Spring Festival Traditions: Ancient to Pre-Qing</a></h3>
-              <p class="card-excerpt">From Shang Dynasty sacrificial rites to Ming household celebrations.</p>
-              <div class="card-footer">8 min read</div>
+              <h3 class="card-title"><a href="/spring-festival/"><span class="lang-en">Spring Festival Traditions: Ancient to Pre-Qing</span><span class="lang-tc">春節傳統：從遠古到清代以前</span><span class="lang-sc">春节传统：从远古到清代以前</span></a></h3>
+              <p class="card-excerpt"><span class="lang-en">From Shang Dynasty sacrificial rites to Ming household celebrations.</span><span class="lang-tc">從商代祭祀典禮到明代家庭慶典。</span><span class="lang-sc">从商代祭祀典礼到明代家庭庆典。</span></p>
+              <div class="card-footer"><span class="lang-en">8 min read</span><span class="lang-tc">8分鐘閱讀</span><span class="lang-sc">8分钟阅读</span></div>
             </div>
           </article>
 
@@ -295,18 +396,18 @@ ogType: "website"
             <img class="card-image" src="https://images.unsplash.com/photo-1769776400503-6ad467d68ac3?w=400&h=200&fit=crop" alt="Antique brass compass for geomantic readings" loading="lazy">
             <div class="card-body">
               <div class="card-meta">
-                <span class="card-tag tag-fengshui">Feng Shui</span>
+                <span class="card-tag tag-fengshui"><span class="lang-en">Feng Shui</span><span class="lang-tc">風水</span><span class="lang-sc">风水</span></span>
                 <time datetime="2026-01-28">Jan 28, 2026</time>
               </div>
-              <h3 class="card-title"><a href="/fengshui/">Classical Feng Shui: Pre-Qing Methods</a></h3>
-              <p class="card-excerpt">The original Form School and Compass School that shaped imperial China.</p>
-              <div class="card-footer">10 min read</div>
+              <h3 class="card-title"><a href="/fengshui/"><span class="lang-en">Classical Feng Shui: Pre-Qing Methods</span><span class="lang-tc">經典風水：清代以前的方法</span><span class="lang-sc">经典风水：清代以前的方法</span></a></h3>
+              <p class="card-excerpt"><span class="lang-en">The original Form School and Compass School that shaped imperial China.</span><span class="lang-tc">塑造中華帝國的原始巒頭派與理氣派。</span><span class="lang-sc">塑造中华帝国的原始峦头派与理气派。</span></p>
+              <div class="card-footer"><span class="lang-en">10 min read</span><span class="lang-tc">10分鐘閱讀</span><span class="lang-sc">10分钟阅读</span></div>
             </div>
           </article>
         </div>
 
         <div class="text-center mt-xl">
-          <a href="/news/" class="btn btn-outline">All Articles &rarr;</a>
+          <a href="/news/" class="btn btn-outline"><span class="lang-en">All Articles &rarr;</span><span class="lang-tc">所有文章 &rarr;</span><span class="lang-sc">所有文章 &rarr;</span></a>
           <a href="https://chinesenewyear.wiki" target="_blank" rel="noopener" class="btn btn-outline" style="margin-left:0.5rem;">ChineseNewYear.wiki &rarr;</a>
         </div>
       </div>
@@ -314,40 +415,56 @@ ogType: "website"
 
     <!-- ===== DIRECTORY PREVIEW ===== -->
     <section class="content-section" aria-labelledby="dir-heading">
+      <div class="lang-en">
       <div class="section-header">
         <span class="overline">Directory</span>
         <h2 id="dir-heading">Find Practitioners &amp; Organizations</h2>
         <p class="subtitle">Browse our curated directory of feng shui consultants, BaZi readers, cultural centres, and related businesses.</p>
       </div>
+      </div>
+      <div class="lang-tc">
+      <div class="section-header">
+        <span class="overline">名錄</span>
+        <h2>尋找從業者與機構</h2>
+        <p class="subtitle">瀏覽我們精選的風水顧問、八字命理師、文化中心及相關企業名錄。</p>
+      </div>
+      </div>
+      <div class="lang-sc">
+      <div class="section-header">
+        <span class="overline">名录</span>
+        <h2>寻找从业者与机构</h2>
+        <p class="subtitle">浏览我们精选的风水顾问、八字命理师、文化中心及相关企业名录。</p>
+      </div>
+      </div>
 
       <div class="info-grid">
         <div class="info-card">
           <span class="info-card-icon">🧭</span>
-          <div class="info-card-value">Feng Shui</div>
-          <div class="info-card-label">Consultants</div>
-          <div class="info-card-desc">Classical and contemporary practitioners worldwide.</div>
+          <div class="info-card-value"><span class="lang-en">Feng Shui</span><span class="lang-tc">風水</span><span class="lang-sc">风水</span></div>
+          <div class="info-card-label"><span class="lang-en">Consultants</span><span class="lang-tc">顧問</span><span class="lang-sc">顾问</span></div>
+          <div class="info-card-desc"><span class="lang-en">Classical and contemporary practitioners worldwide.</span><span class="lang-tc">全球經典與現代風水從業者。</span><span class="lang-sc">全球经典与现代风水从业者。</span></div>
         </div>
         <div class="info-card">
           <span class="info-card-icon">📜</span>
-          <div class="info-card-value">BaZi</div>
-          <div class="info-card-label">Practitioners</div>
-          <div class="info-card-desc">Four Pillars destiny readers and Chinese astrology experts.</div>
+          <div class="info-card-value"><span class="lang-en">BaZi</span><span class="lang-tc">八字</span><span class="lang-sc">八字</span></div>
+          <div class="info-card-label"><span class="lang-en">Practitioners</span><span class="lang-tc">命理師</span><span class="lang-sc">命理师</span></div>
+          <div class="info-card-desc"><span class="lang-en">Four Pillars destiny readers and Chinese astrology experts.</span><span class="lang-tc">四柱命理師與中國星相專家。</span><span class="lang-sc">四柱命理师与中国星相专家。</span></div>
         </div>
         <div class="info-card">
           <span class="info-card-icon">🏛️</span>
-          <div class="info-card-value">Cultural</div>
-          <div class="info-card-label">Organizations</div>
-          <div class="info-card-desc">Museums, societies, and educational institutions.</div>
+          <div class="info-card-value"><span class="lang-en">Cultural</span><span class="lang-tc">文化</span><span class="lang-sc">文化</span></div>
+          <div class="info-card-label"><span class="lang-en">Organizations</span><span class="lang-tc">機構</span><span class="lang-sc">机构</span></div>
+          <div class="info-card-desc"><span class="lang-en">Museums, societies, and educational institutions.</span><span class="lang-tc">博物館、學會與教育機構。</span><span class="lang-sc">博物馆、学会与教育机构。</span></div>
         </div>
         <div class="info-card">
           <span class="info-card-icon">🛍️</span>
-          <div class="info-card-value">Products</div>
-          <div class="info-card-label">Shops</div>
-          <div class="info-card-desc">Zodiac gifts, feng shui tools, and traditional arts.</div>
+          <div class="info-card-value"><span class="lang-en">Products</span><span class="lang-tc">產品</span><span class="lang-sc">产品</span></div>
+          <div class="info-card-label"><span class="lang-en">Shops</span><span class="lang-tc">商店</span><span class="lang-sc">商店</span></div>
+          <div class="info-card-desc"><span class="lang-en">Zodiac gifts, feng shui tools, and traditional arts.</span><span class="lang-tc">生肖禮品、風水工具與傳統藝術品。</span><span class="lang-sc">生肖礼品、风水工具与传统艺术品。</span></div>
         </div>
       </div>
 
       <div class="text-center mt-xl">
-        <a href="/directory/" class="btn btn-primary">Browse Directory &rarr;</a>
+        <a href="/directory/" class="btn btn-primary"><span class="lang-en">Browse Directory &rarr;</span><span class="lang-tc">瀏覽名錄 &rarr;</span><span class="lang-sc">浏览名录 &rarr;</span></a>
       </div>
     </section>

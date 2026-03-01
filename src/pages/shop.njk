@@ -21,6 +21,7 @@ faq:
 ---
 {% include "partials/breadcrumbs.njk" %}
 
+<div class="lang-en">
 <section class="page-hero">
   <div class="page-hero-content">
     <span class="overline">Resources</span>
@@ -117,6 +118,207 @@ faq:
     </section>
 
   </article>
+</div>
+</div>
+
+<div class="lang-tc">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">資源</span>
+    <h1>商店</h1>
+    <p class="subtitle">以經典中國玄學傳統為根基的電子指南、運程預測與個人化解讀。</p>
+  </div>
+</section>
+
+<div class="article-layout">
+  <article class="article-content">
+
+    <section class="shop-section">
+      <h2>付費個人化解讀</h2>
+      <p>我們的命理師以經典方法編寫詳盡的八字及生肖報告——每份均根據您的出生資料量身定制。</p>
+
+      <div class="shop-readings-preview">
+        {%- for item in shop.premiumReadings %}
+        <div class="shop-reading-card{% if item.featured %} shop-reading-card--featured{% endif %}">
+          <h3>{{ item.name }}</h3>
+          <div class="pricing-amount"><span class="pricing-currency">$</span>{{ item.price }}</div>
+          <p>{{ item.description }}</p>
+          <div class="pricing-delivery">交付時間：{{ item.delivery }}</div>
+          <a href="/premium-readings/" class="btn {% if item.featured %}btn-gold{% else %}btn-outline{% endif %} btn-sm">了解更多</a>
+        </div>
+        {%- endfor %}
+      </div>
+
+      <p style="text-align:center;margin-top:var(--sp-lg)"><a href="/premium-readings/" class="btn btn-primary">查看所有解讀方案 &rarr;</a></p>
+    </section>
+
+    <hr class="gold-rule">
+
+    <section class="shop-section">
+      <h2>電子產品</h2>
+      <p>可下載的指南、運程預測與練習冊，助您深入了解中國命理與玄學。</p>
+
+      <div class="shop-filters">
+        <button class="shop-filter-btn active" data-filter="all">全部</button>
+        <button class="shop-filter-btn" data-filter="forecasts">運程</button>
+        <button class="shop-filter-btn" data-filter="guides">指南</button>
+        <button class="shop-filter-btn" data-filter="education">教學</button>
+        <button class="shop-filter-btn" data-filter="calendars">曆法</button>
+      </div>
+
+      <div class="shop-products-grid">
+        {%- for item in shop.digitalProducts %}
+        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}">
+          <h3>{{ item.name }}</h3>
+          <p class="product-subtitle">{{ item.subtitle }}</p>
+          <ul class="product-features">
+            {%- for feature in item.features %}
+            <li>{{ feature }}</li>
+            {%- endfor %}
+          </ul>
+          <div class="product-footer">
+            <span class="product-price">${{ item.price }}</span>
+            <a href="{{ item.gumroadUrl }}" target="_blank" rel="noopener" class="btn btn-gold btn-sm">立即購買</a>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <hr class="gold-rule">
+
+    <section>
+      <h2>常見問題</h2>
+      <div class="faq-section">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">電子產品的格式是什麼？</button>
+          <div class="faq-answer">
+            <p>所有電子產品均以PDF格式交付，可在任何裝置上瀏覽——電腦、平板或手機。部分產品還包含補充練習表或參考圖表作為獨立PDF。</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">購買後如何取得產品？</button>
+          <div class="faq-answer">
+            <p>透過Gumroad完成購買後，您將收到一封附有下載連結的電子郵件。您亦可隨時透過Gumroad帳戶存取已購產品。下載連結永不過期。</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">退款政策是什麼？</button>
+          <div class="faq-answer">
+            <p>我們為所有電子產品提供30天退款政策。如因任何原因不滿意，請聯繫我們，我們將全額退款。付費解讀的具體條款請參閱<a href="/premium-readings/#faq">付費解讀常見問題</a>。</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">我的付款資訊安全嗎？</button>
+          <div class="faq-answer">
+            <p>所有付款均透過PayPal（付費解讀）或Gumroad（電子產品）安全處理。我們絕不儲存您的信用卡資訊。兩個平台均使用行業標準加密且符合PCI DSS規範。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </article>
+</div>
+</div>
+
+<div class="lang-sc">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">资源</span>
+    <h1>商店</h1>
+    <p class="subtitle">以经典中国玄学传统为根基的电子指南、运程预测与个人化解读。</p>
+  </div>
+</section>
+
+<div class="article-layout">
+  <article class="article-content">
+
+    <section class="shop-section">
+      <h2>付费个人化解读</h2>
+      <p>我们的命理师以经典方法编写详尽的八字及生肖报告——每份均根据您的出生资料量身定制。</p>
+
+      <div class="shop-readings-preview">
+        {%- for item in shop.premiumReadings %}
+        <div class="shop-reading-card{% if item.featured %} shop-reading-card--featured{% endif %}">
+          <h3>{{ item.name }}</h3>
+          <div class="pricing-amount"><span class="pricing-currency">$</span>{{ item.price }}</div>
+          <p>{{ item.description }}</p>
+          <div class="pricing-delivery">交付时间：{{ item.delivery }}</div>
+          <a href="/premium-readings/" class="btn {% if item.featured %}btn-gold{% else %}btn-outline{% endif %} btn-sm">了解更多</a>
+        </div>
+        {%- endfor %}
+      </div>
+
+      <p style="text-align:center;margin-top:var(--sp-lg)"><a href="/premium-readings/" class="btn btn-primary">查看所有解读方案 &rarr;</a></p>
+    </section>
+
+    <hr class="gold-rule">
+
+    <section class="shop-section">
+      <h2>电子产品</h2>
+      <p>可下载的指南、运程预测与练习册，助您深入了解中国命理与玄学。</p>
+
+      <div class="shop-filters">
+        <button class="shop-filter-btn active" data-filter="all">全部</button>
+        <button class="shop-filter-btn" data-filter="forecasts">运程</button>
+        <button class="shop-filter-btn" data-filter="guides">指南</button>
+        <button class="shop-filter-btn" data-filter="education">教学</button>
+        <button class="shop-filter-btn" data-filter="calendars">历法</button>
+      </div>
+
+      <div class="shop-products-grid">
+        {%- for item in shop.digitalProducts %}
+        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}">
+          <h3>{{ item.name }}</h3>
+          <p class="product-subtitle">{{ item.subtitle }}</p>
+          <ul class="product-features">
+            {%- for feature in item.features %}
+            <li>{{ feature }}</li>
+            {%- endfor %}
+          </ul>
+          <div class="product-footer">
+            <span class="product-price">${{ item.price }}</span>
+            <a href="{{ item.gumroadUrl }}" target="_blank" rel="noopener" class="btn btn-gold btn-sm">立即购买</a>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <hr class="gold-rule">
+
+    <section>
+      <h2>常见问题</h2>
+      <div class="faq-section">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">电子产品的格式是什么？</button>
+          <div class="faq-answer">
+            <p>所有电子产品均以PDF格式交付，可在任何设备上浏览——电脑、平板或手机。部分产品还包含补充练习表或参考图表作为独立PDF。</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">购买后如何获取产品？</button>
+          <div class="faq-answer">
+            <p>通过Gumroad完成购买后，您将收到一封附有下载链接的电子邮件。您也可随时通过Gumroad账户访问已购产品。下载链接永不过期。</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">退款政策是什么？</button>
+          <div class="faq-answer">
+            <p>我们为所有电子产品提供30天退款政策。如因任何原因不满意，请联系我们，我们将全额退款。付费解读的具体条款请参阅<a href="/premium-readings/#faq">付费解读常见问题</a>。</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">我的付款信息安全吗？</button>
+          <div class="faq-answer">
+            <p>所有付款均通过PayPal（付费解读）或Gumroad（电子产品）安全处理。我们绝不存储您的信用卡信息。两个平台均使用行业标准加密且符合PCI DSS规范。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </article>
+</div>
 </div>
 
 {%- for item in shop.digitalProducts %}
