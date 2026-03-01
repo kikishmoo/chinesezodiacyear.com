@@ -1184,66 +1184,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })();
 
-/* --- Traditional / Simplified Chinese Toggle --- */
+/* --- Three-Language Toggle (EN / TC / SC) --- */
 (function() {
-  /* Mapping: Traditional → Simplified (only chars that differ) */
-  var T2S = '亂乱來来侶侣俠侠倫伦傳传傷伤儉俭儺傩兌兑兒儿內内則则剛刚劇剧劍剑劑剂動动勢势吳吴呂吕問问啟启嚴严國国園园圓圆圖图團团報报塵尘壓压壘垒壺壶壽寿夢梦媧娲媽妈孫孙學学寧宁寶宝專专對对崑昆崙仑巒峦師师帶带幣币廟庙廣广張张彌弥後后復复惡恶慶庆應应戰战戲戏掃扫採采擇择擊击數数於于昇升時时晉晋曆历曬晒書书會会東东棗枣楊杨極极槍枪樁桩樂乐樓楼樞枢樸朴橫横權权歲岁歷历殺杀氣气沖冲涼凉淨净淵渊湯汤溫温滯滞滸浒滿满漢汉濁浊濟济灣湾為为烏乌無无煉炼熱热燈灯營营爭争爺爷獅狮獸兽畢毕畫画異异當当療疗發发盤盘硯砚禎祯禦御禪禅禮礼種种穀谷筆笔節节籠笼紅红納纳紙纸結结絕绝絡络絲丝經经綠绿綢绸維维綱纲線线縵缦繡绣繫系纓缨羅罗義义聖圣聞闻聯联聲声聶聂脈脉腎肾腸肠膽胆臉脸臘腊臥卧臨临與与興兴舉举舊旧荊荆莊庄華华萬万蓮莲蕭萧薩萨藍蓝藝艺藥药蘇苏處处虛虚號号蟄蛰術术衛卫衝冲補补襖袄視视觀观記记診诊詠咏詣诣詩诗詮诠話话語语說说論论諸诸謎谜護护讀读變变讓让豐丰豬猪財财貧贫貫贯買买賓宾賢贤質质趙赵蹺跷軻轲軾轼輔辅轎轿辭辞辮辫農农遊游運运過过達达遙遥遲迟遷迁鄒邹鄭郑醫医針针鈐钤鉤钩銀银銅铜銓铨鋪铺錄录錢钱錦锦鍾钟鏞镛鐘钟鐵铁鑽钻長长門门開开閏闰間间關关陰阴陳陈陸陆陽阳險险隱隐雜杂雞鸡離离雲云電电靈灵韓韩韻韵領领頭头顯显風风颯飒飄飘飛飞飯饭餃饺養养餘余館馆馬马騫骞驚惊髮发鬥斗鬱郁魚鱼魯鲁鳳凤鳴鸣鴨鸭鵰雕黃黄點点齋斋齡龄龍龙';
+  var CYCLE = ['en', 'tc', 'sc'];
 
-  var t2s = {}, s2t = {};
-  for (var i = 0; i < T2S.length; i += 2) {
-    t2s[T2S[i]] = T2S[i + 1];
-    s2t[T2S[i + 1]] = T2S[i];
-  }
-
-  function convert(text, map) {
-    var out = '';
-    for (var i = 0; i < text.length; i++) {
-      out += map[text[i]] || text[i];
-    }
-    return out;
-  }
-
-  function applyLang(lang) {
-    /* Convert all .chinese-char spans */
-    var els = document.querySelectorAll('.chinese-char');
-    var map = lang === 'simp' ? t2s : s2t;
-    els.forEach(function(el) {
-      el.textContent = convert(el.textContent, map);
-    });
-
-    /* Convert .chinese-name elements */
-    var names = document.querySelectorAll('.chinese-name');
-    names.forEach(function(el) {
-      /* Only convert the Chinese characters, preserve pinyin */
-      el.textContent = convert(el.textContent, map);
-    });
-
-    /* Convert logo seal */
-    var seal = document.querySelector('.logo-seal');
-    if (seal) seal.textContent = convert(seal.textContent, map);
-
-    /* Convert BaZi pillar labels if present */
-    var pillarLabels = document.querySelectorAll('.pillar-label span[style*="font-chinese"]');
-    pillarLabels.forEach(function(el) {
-      el.textContent = convert(el.textContent, map);
-    });
-
+  function setLang(lang) {
     document.documentElement.setAttribute('data-lang', lang);
     localStorage.setItem('czy-lang', lang);
+    /* Update html lang attribute for accessibility */
+    var htmlLang = lang === 'en' ? 'en' : (lang === 'tc' ? 'zh-Hant' : 'zh-Hans');
+    document.documentElement.setAttribute('lang', htmlLang);
   }
 
-  /* On page load: apply stored preference */
-  var stored = localStorage.getItem('czy-lang');
-  if (stored === 'simp') {
-    applyLang('simp');
-  }
-
-  /* Toggle button */
+  /* Toggle button cycles: en → tc → sc → en */
   var langBtn = document.querySelector('.lang-toggle');
   if (langBtn) {
     langBtn.addEventListener('click', function() {
-      var current = document.documentElement.getAttribute('data-lang');
-      applyLang(current === 'simp' ? 'trad' : 'simp');
+      var current = document.documentElement.getAttribute('data-lang') || 'en';
+      var idx = CYCLE.indexOf(current);
+      var next = CYCLE[(idx + 1) % 3];
+      setLang(next);
     });
   }
 })();

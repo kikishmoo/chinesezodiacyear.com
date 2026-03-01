@@ -12,7 +12,7 @@
         "5-page PDF report"
       ],
       "delivery": "3–5 business days",
-      "stripeLink": "https://buy.stripe.com/test_6oU6oH7P9atKf2yaI5ew800",
+      "paypalLink": "https://paypal.me/kikipeiqili/29",
       "featured": false
     },
     {
@@ -30,7 +30,7 @@
         "15-minute video walkthrough"
       ],
       "delivery": "5–7 business days",
-      "stripeLink": "https://buy.stripe.com/test_8x29ATfhBfO48EabM9ew801",
+      "paypalLink": "https://paypal.me/kikipeiqili/79",
       "featured": true
     },
     {
@@ -48,7 +48,7 @@
         "30-minute video consultation"
       ],
       "delivery": "7–10 business days",
-      "stripeLink": "https://buy.stripe.com/test_28E8wP2uP1Xe4nUdUhew802",
+      "paypalLink": "https://paypal.me/kikipeiqili/149",
       "featured": false
     }
   ],

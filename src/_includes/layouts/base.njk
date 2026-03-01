@@ -35,7 +35,7 @@
   {% if site.adsenseEnabled %}
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsenseId }}" crossorigin="anonymous"></script>
   {% endif %}
-  <script>(function(){var t=localStorage.getItem('czy-theme');if(t)document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('czy-lang');if(l)document.documentElement.setAttribute('data-lang',l)})()</script>
+  <script>(function(){var t=localStorage.getItem('czy-theme');if(t)document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('czy-lang')||'en';document.documentElement.setAttribute('data-lang',l)})()</script>
   {% if ogType == "article" %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title }}","description":"{{ description }}","url":"{{ site.url }}{{ page.url }}","image":"{{ ogImage | default(site.url + '/img/og-default.png') }}","datePublished":"{{ datePublished | default('2025-01-01') }}","dateModified":"{{ dateModified | default(datePublished) | default('2025-01-01') }}","author":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/"},"publisher":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/","logo":{"@type":"ImageObject","url":"{{ site.url }}/img/og-default.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ page.url }}"},"inLanguage":"en"}</script>
   {% endif %}

@@ -2000,7 +2000,7 @@ select.calc-input {
   background: none;
   border: 1px solid rgba(196,153,43,0.35);
   border-radius: 4px;
-  width: 32px;
+  min-width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
@@ -2008,19 +2008,38 @@ select.calc-input {
   cursor: pointer;
   color: var(--pale-gold);
   font-family: var(--font-chinese);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 700;
   transition: background 0.3s, border-color 0.3s;
   flex-shrink: 0;
   line-height: 1;
+  padding: 0 6px;
+  letter-spacing: 0.02em;
 }
 .lang-toggle:hover {
   background: rgba(250,246,238,0.1);
   border-color: var(--bright-gold);
 }
-.lang-label-simp { display: none; }
-[data-lang="simp"] .lang-label-trad { display: none; }
-[data-lang="simp"] .lang-label-simp { display: inline; }
+/* 3-state toggle labels: EN / 繁體 / 简体 */
+.lang-label-en,
+.lang-label-tc,
+.lang-label-sc { display: none; }
+[data-lang="en"] .lang-label-en,
+:not([data-lang]) .lang-label-en { display: inline; }
+[data-lang="tc"] .lang-label-tc { display: inline; }
+[data-lang="sc"] .lang-label-sc { display: inline; }
+
+/* --- i18n Content Blocks --- */
+.lang-en, .lang-tc, .lang-sc { display: none; }
+[data-lang="en"] .lang-en,
+:not([data-lang]) .lang-en { display: block; }
+[data-lang="tc"] .lang-tc { display: block; }
+[data-lang="sc"] .lang-sc { display: block; }
+/* Inline variants for spans */
+[data-lang="en"] span.lang-en,
+:not([data-lang]) span.lang-en { display: inline; }
+[data-lang="tc"] span.lang-tc { display: inline; }
+[data-lang="sc"] span.lang-sc { display: inline; }
 
 .theme-toggle {
   background: none;
@@ -2343,8 +2362,11 @@ select.calc-input {
   }
 }
 
-/* --- Simplified Chinese Font Override --- */
-[data-lang="simp"] {
+/* --- Chinese Font Overrides by Language --- */
+[data-lang="tc"] {
+  --font-chinese: 'Noto Serif TC', 'PMingLiU', 'STSong', serif;
+}
+[data-lang="sc"] {
   --font-chinese: 'Noto Serif SC', 'SimSun', 'STSong', serif;
 }
 
