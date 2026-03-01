@@ -4,11 +4,11 @@
     { "label": "Zodiac", "url": "/zodiac/", "page": "zodiac" },
     { "label": "BaZi", "url": "/bazi/", "page": "bazi" },
     { "label": "Feng Shui", "url": "/fengshui/", "page": "fengshui" },
-    { "label": "Chinese Calendar", "url": "/calendar/", "page": "calendar" },
-    { "label": "Spring Festival", "url": "/spring-festival/", "page": "spring-festival" },
-    { "label": "Five Elements", "url": "/wuxing/", "page": "wuxing" }
+    { "label": "Calendar", "url": "/calendar/", "page": "calendar" },
+    { "label": "Spring Festival", "url": "/spring-festival/", "page": "spring-festival" }
   ],
   "more": [
+    { "label": "Five Elements", "url": "/wuxing/", "page": "wuxing" },
     { "label": "BaZi Calculator", "url": "/bazi-calculator/", "page": "bazi-calculator" },
     { "label": "Chinese NY Influence", "url": "/chinese-new-year-influence/", "page": "asian-new-year" },
     { "label": "Folk Arts", "url": "/folk-arts/", "page": "folk-arts" },
