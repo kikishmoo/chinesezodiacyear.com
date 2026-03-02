@@ -3,8 +3,8 @@ backend:
   repo: kikishmoo/chinesezodiacyear.com
   branch: main
 
-media_folder: "src/images"
-public_folder: "/images"
+media_folder: "src/img"
+public_folder: "/img"
 
 collections:
   - name: "articles"
