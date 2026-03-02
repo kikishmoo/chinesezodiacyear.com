@@ -8,10 +8,17 @@
     "serve": "npx @11ty/eleventy --serve --port=8080",
     "dev": "npx @11ty/eleventy --serve --port=8080"
   },
-  "keywords": ["chinese-zodiac", "bazi", "fengshui", "eleventy"],
+  "keywords": [
+    "chinese-zodiac",
+    "bazi",
+    "fengshui",
+    "eleventy"
+  ],
   "author": "Chinese Zodiac Year",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "clean-css": "^5.3.3",
+    "terser": "^5.46.0"
   }
 }

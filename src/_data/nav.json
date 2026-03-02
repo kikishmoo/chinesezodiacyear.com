@@ -1,77 +1,83 @@
 {
   "primary": [
-    { "label": "Home", "url": "/", "page": "index" },
-    { "label": "Zodiac", "url": "/zodiac/", "page": "zodiac" },
-    { "label": "BaZi", "url": "/bazi/", "page": "bazi" },
-    { "label": "Feng Shui", "url": "/fengshui/", "page": "fengshui" },
-    { "label": "Calendar", "url": "/calendar/", "page": "calendar" },
-    { "label": "Spring Festival", "url": "/spring-festival/", "page": "spring-festival" }
+    { "label": "Home", "labelTc": "首頁", "labelSc": "首页", "url": "/", "page": "index" },
+    { "label": "Zodiac", "labelTc": "生肖", "labelSc": "生肖", "url": "/zodiac/", "page": "zodiac" },
+    { "label": "BaZi", "labelTc": "八字", "labelSc": "八字", "url": "/bazi/", "page": "bazi" },
+    { "label": "Feng Shui", "labelTc": "風水", "labelSc": "风水", "url": "/fengshui/", "page": "fengshui" },
+    { "label": "Calendar", "labelTc": "曆法", "labelSc": "历法", "url": "/calendar/", "page": "calendar" },
+    { "label": "Spring Festival", "labelTc": "春節", "labelSc": "春节", "url": "/spring-festival/", "page": "spring-festival" }
   ],
   "more": [
-    { "label": "Five Elements", "url": "/wuxing/", "page": "wuxing" },
-    { "label": "BaZi Calculator", "url": "/bazi-calculator/", "page": "bazi-calculator" },
-    { "label": "Chinese NY Influence", "url": "/chinese-new-year-influence/", "page": "asian-new-year" },
-    { "label": "Folk Arts", "url": "/folk-arts/", "page": "folk-arts" },
-    { "label": "Hanfu & Silk Road", "url": "/hanfu/", "page": "hanfu" },
-    { "label": "Dynasties", "url": "/dynasties/", "page": "dynasties" },
-    { "label": "Taoism", "url": "/taoism/", "page": "taoism" },
-    { "label": "Qi Men Dun Jia", "url": "/qimen/", "page": "qimen" },
-    { "label": "Yi Jing", "url": "/yijing/", "page": "yijing" },
-    { "label": "Chinese Medicine", "url": "/tcm/", "page": "tcm" },
-    { "label": "Martial Arts", "url": "/martial-arts/", "page": "martial-arts" },
-    { "label": "Tea Culture", "url": "/tea-culture/", "page": "tea-culture" },
-    { "label": "Wuxia", "url": "/wuxia/", "page": "wuxia" },
-    { "label": "Chinamaxxing", "url": "/chinamaxxing/", "page": "chinamaxxing" },
-    { "label": "Compatibility", "url": "/compatibility/", "page": "compatibility" }
+    { "label": "Five Elements", "labelTc": "五行", "labelSc": "五行", "url": "/wuxing/", "page": "wuxing" },
+    { "label": "BaZi Calculator", "labelTc": "八字計算器", "labelSc": "八字计算器", "url": "/bazi-calculator/", "page": "bazi-calculator" },
+    { "label": "Chinese NY Influence", "labelTc": "中國新年影響", "labelSc": "中国新年影响", "url": "/chinese-new-year-influence/", "page": "asian-new-year" },
+    { "label": "Folk Arts", "labelTc": "民間藝術", "labelSc": "民间艺术", "url": "/folk-arts/", "page": "folk-arts" },
+    { "label": "Hanfu & Silk Road", "labelTc": "漢服與絲綢之路", "labelSc": "汉服与丝绸之路", "url": "/hanfu/", "page": "hanfu" },
+    { "label": "Dynasties", "labelTc": "朝代", "labelSc": "朝代", "url": "/dynasties/", "page": "dynasties" },
+    { "label": "Taoism", "labelTc": "道教", "labelSc": "道教", "url": "/taoism/", "page": "taoism" },
+    { "label": "Qi Men Dun Jia", "labelTc": "奇門遁甲", "labelSc": "奇门遁甲", "url": "/qimen/", "page": "qimen" },
+    { "label": "Yi Jing", "labelTc": "易經", "labelSc": "易经", "url": "/yijing/", "page": "yijing" },
+    { "label": "Chinese Medicine", "labelTc": "中醫", "labelSc": "中医", "url": "/tcm/", "page": "tcm" },
+    { "label": "Martial Arts", "labelTc": "武術", "labelSc": "武术", "url": "/martial-arts/", "page": "martial-arts" },
+    { "label": "Tea Culture", "labelTc": "茶文化", "labelSc": "茶文化", "url": "/tea-culture/", "page": "tea-culture" },
+    { "label": "Wuxia", "labelTc": "武俠", "labelSc": "武侠", "url": "/wuxia/", "page": "wuxia" },
+    { "label": "Chinamaxxing", "labelTc": "Chinamaxxing", "labelSc": "Chinamaxxing", "url": "/chinamaxxing/", "page": "chinamaxxing" },
+    { "label": "Compatibility", "labelTc": "配對", "labelSc": "配对", "url": "/compatibility/", "page": "compatibility" }
   ],
   "secondary": [
-    { "label": "Readings", "url": "/readings/", "page": "readings" },
-    { "label": "News", "url": "/news/", "page": "news" },
-    { "label": "Directory", "url": "/directory/", "page": "directory" },
-    { "label": "Shop", "url": "/shop/", "page": "shop" },
-    { "label": "Donate", "url": "/donate/", "page": "donate" }
+    { "label": "Readings", "labelTc": "運程", "labelSc": "运程", "url": "/readings/", "page": "readings" },
+    { "label": "News", "labelTc": "資訊", "labelSc": "资讯", "url": "/news/", "page": "news" },
+    { "label": "Directory", "labelTc": "名錄", "labelSc": "名录", "url": "/directory/", "page": "directory" },
+    { "label": "Shop", "labelTc": "商店", "labelSc": "商店", "url": "/shop/", "page": "shop" },
+    { "label": "Donate", "labelTc": "捐助", "labelSc": "捐助", "url": "/donate/", "page": "donate" }
   ],
   "footer": [
     {
       "heading": "Encyclopedia",
+      "headingTc": "百科",
+      "headingSc": "百科",
       "links": [
-        { "label": "Zodiac Animals", "url": "/zodiac/" },
-        { "label": "BaZi & Four Pillars", "url": "/bazi/" },
-        { "label": "Feng Shui", "url": "/fengshui/" },
-        { "label": "Chinese Calendar", "url": "/calendar/" },
-        { "label": "Spring Festival", "url": "/spring-festival/" },
-        { "label": "Five Elements", "url": "/wuxing/" },
-        { "label": "Chinese NY Influence", "url": "/chinese-new-year-influence/" },
-        { "label": "Folk Arts", "url": "/folk-arts/" },
-        { "label": "Hanfu & Silk Road", "url": "/hanfu/" },
-        { "label": "Dynasties", "url": "/dynasties/" },
-        { "label": "Taoism", "url": "/taoism/" },
-        { "label": "Wuxia", "url": "/wuxia/" },
-        { "label": "Chinamaxxing", "url": "/chinamaxxing/" }
+        { "label": "Zodiac Animals", "labelTc": "生肖動物", "labelSc": "生肖动物", "url": "/zodiac/" },
+        { "label": "BaZi & Four Pillars", "labelTc": "八字與四柱", "labelSc": "八字与四柱", "url": "/bazi/" },
+        { "label": "Feng Shui", "labelTc": "風水", "labelSc": "风水", "url": "/fengshui/" },
+        { "label": "Chinese Calendar", "labelTc": "中國曆法", "labelSc": "中国历法", "url": "/calendar/" },
+        { "label": "Spring Festival", "labelTc": "春節", "labelSc": "春节", "url": "/spring-festival/" },
+        { "label": "Five Elements", "labelTc": "五行", "labelSc": "五行", "url": "/wuxing/" },
+        { "label": "Chinese NY Influence", "labelTc": "中國新年影響", "labelSc": "中国新年影响", "url": "/chinese-new-year-influence/" },
+        { "label": "Folk Arts", "labelTc": "民間藝術", "labelSc": "民间艺术", "url": "/folk-arts/" },
+        { "label": "Hanfu & Silk Road", "labelTc": "漢服與絲綢之路", "labelSc": "汉服与丝绸之路", "url": "/hanfu/" },
+        { "label": "Dynasties", "labelTc": "朝代", "labelSc": "朝代", "url": "/dynasties/" },
+        { "label": "Taoism", "labelTc": "道教", "labelSc": "道教", "url": "/taoism/" },
+        { "label": "Wuxia", "labelTc": "武俠", "labelSc": "武侠", "url": "/wuxia/" },
+        { "label": "Chinamaxxing", "labelTc": "Chinamaxxing", "labelSc": "Chinamaxxing", "url": "/chinamaxxing/" }
       ]
     },
     {
       "heading": "Community",
+      "headingTc": "社群",
+      "headingSc": "社群",
       "links": [
-        { "label": "News & Articles", "url": "/news/" },
-        { "label": "Directory", "url": "/directory/" },
-        { "label": "About Us", "url": "/about/" },
-        { "label": "Donate", "url": "/donate/" },
-        { "label": "Contribute", "url": "/about/#contribute" }
+        { "label": "News & Articles", "labelTc": "新聞與文章", "labelSc": "新闻与文章", "url": "/news/" },
+        { "label": "Directory", "labelTc": "名錄", "labelSc": "名录", "url": "/directory/" },
+        { "label": "About Us", "labelTc": "關於我們", "labelSc": "关于我们", "url": "/about/" },
+        { "label": "Donate", "labelTc": "捐助", "labelSc": "捐助", "url": "/donate/" },
+        { "label": "Contribute", "labelTc": "投稿", "labelSc": "投稿", "url": "/about/#contribute" }
       ]
     },
     {
       "heading": "Resources",
+      "headingTc": "資源",
+      "headingSc": "资源",
       "links": [
-        { "label": "Zodiac Calculator", "url": "/#calculator" },
-        { "label": "BaZi Calculator", "url": "/bazi-calculator/" },
-        { "label": "2026 Readings", "url": "/readings/" },
-        { "label": "Shop", "url": "/shop/" },
-        { "label": "Affiliate Disclosure", "url": "/affiliate-disclosure/" },
-        { "label": "ChineseNewYear.wiki", "url": "https://chinesenewyear.wiki", "external": true },
-        { "label": "Sitemap", "url": "/sitemap.xml" },
-        { "label": "Privacy Policy", "url": "/about/#privacy" },
-        { "label": "Terms of Use", "url": "/about/#terms" }
+        { "label": "Zodiac Calculator", "labelTc": "生肖計算器", "labelSc": "生肖计算器", "url": "/#calculator" },
+        { "label": "BaZi Calculator", "labelTc": "八字計算器", "labelSc": "八字计算器", "url": "/bazi-calculator/" },
+        { "label": "2026 Readings", "labelTc": "2026年運程", "labelSc": "2026年运程", "url": "/readings/" },
+        { "label": "Shop", "labelTc": "商店", "labelSc": "商店", "url": "/shop/" },
+        { "label": "Affiliate Disclosure", "labelTc": "聯盟揭露", "labelSc": "联盟揭露", "url": "/affiliate-disclosure/" },
+        { "label": "ChineseNewYear.wiki", "labelTc": "ChineseNewYear.wiki", "labelSc": "ChineseNewYear.wiki", "url": "https://chinesenewyear.wiki", "external": true },
+        { "label": "Sitemap", "labelTc": "網站地圖", "labelSc": "网站地图", "url": "/sitemap.xml" },
+        { "label": "Privacy Policy", "labelTc": "隱私政策", "labelSc": "隐私政策", "url": "/about/#privacy" },
+        { "label": "Terms of Use", "labelTc": "使用條款", "labelSc": "使用条款", "url": "/about/#terms" }
       ]
     }
   ]

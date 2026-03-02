@@ -2,20 +2,24 @@
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">{{ site.name }}</div>
-      <p class="footer-desc">An independent editorial platform dedicated to preserving and sharing authentic Chinese astrological and cultural knowledge, grounded in classical pre-Qing scholarship.</p>
+      <div class="footer-brand"><span class="lang-en">{{ site.name }}</span><span class="lang-tc">中國生肖</span><span class="lang-sc">中国生肖</span></div>
+      <p class="footer-desc">
+        <span class="lang-en">An independent editorial platform dedicated to preserving and sharing authentic Chinese astrological and cultural knowledge, grounded in classical pre-Qing scholarship.</span>
+        <span class="lang-tc">一個獨立的編輯平台，致力於保存和分享以正統清代以前學術為根基的中華星象與文化知識。</span>
+        <span class="lang-sc">一个独立的编辑平台，致力于保存和分享以正统清代以前学术为根基的中华星象与文化知识。</span>
+      </p>
     </div>
     {%- for col in nav.footer %}
     <div class="footer-col">
-      <h5>{{ col.heading }}</h5>
+      <h5><span class="lang-en">{{ col.heading }}</span><span class="lang-tc">{{ col.headingTc | default(col.heading) }}</span><span class="lang-sc">{{ col.headingSc | default(col.heading) }}</span></h5>
       {%- for link in col.links %}
-      <a href="{{ link.url }}"{% if link.external %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>
+      <a href="{{ link.url }}"{% if link.external %} target="_blank" rel="noopener"{% endif %}><span class="lang-en">{{ link.label }}</span><span class="lang-tc">{{ link.labelTc | default(link.label) }}</span><span class="lang-sc">{{ link.labelSc | default(link.label) }}</span></a>
       {%- endfor %}
     </div>
     {%- endfor %}
   </div>
   <div class="footer-bottom">
     <span>&copy; {{ site.year }} ChineseZodiacYear.com</span>
-    <span>{{ site.tagline }}</span>
+    <span><span class="lang-en">{{ site.tagline }}</span><span class="lang-tc">植根傳統，面向未來。</span><span class="lang-sc">植根传统，面向未来。</span></span>
   </div>
 </footer>

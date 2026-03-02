@@ -7,6 +7,11 @@
   <meta name="description" content="{{ description }}">
   {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <!-- Hreflang for trilingual content -->
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="zh-Hant" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="zh-Hans" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ page.url }}">
   {% if site.adsenseEnabled %}
   <meta name="google-adsense-account" content="{{ site.adsenseId }}">
   {% endif %}
@@ -48,6 +53,11 @@
   {% if page.url == "/" %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name }}","alternateName":"ChineseZodiac","url":"{{ site.url }}/","description":"{{ site.description }}","potentialAction":{"@type":"SearchAction","target":"{{ site.url }}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/","description":"Authoritative resource for Chinese zodiac, BaZi four pillars, feng shui, and Chinese cultural traditions rooted in classical pre-Qing scholarship."}</script>
+  {% endif %}
+  {% if site.ga4Id %}
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4Id }}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','{{ site.ga4Id }}');</script>
   {% endif %}
 </head>
 <body>

@@ -1,9 +1,11 @@
 import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
+import CleanCSS from 'clean-css';
+import { minify as terserMinify } from 'terser';
+import { readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
 
 export default function(eleventyConfig) {
   // Pass through static assets
-  eleventyConfig.addPassthroughCopy("src/styles.css");
-  eleventyConfig.addPassthroughCopy("src/site.js");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/ads.txt");
   eleventyConfig.addPassthroughCopy("src/admin");
@@ -69,6 +71,37 @@ export default function(eleventyConfig) {
   // Watch targets
   eleventyConfig.addWatchTarget("src/styles.css");
   eleventyConfig.addWatchTarget("src/site.js");
+
+  // Minify CSS and JS after build
+  eleventyConfig.on('eleventy.after', async () => {
+    const outputDir = '_site';
+
+    // Minify CSS
+    try {
+      const cssPath = join(outputDir, 'styles.css');
+      const cssInput = readFileSync(join('src', 'styles.css'), 'utf8');
+      const cssOutput = new CleanCSS({ level: 2 }).minify(cssInput);
+      if (cssOutput.styles) {
+        writeFileSync(cssPath, cssOutput.styles);
+        console.log('[Minify] styles.css:', (cssInput.length / 1024).toFixed(1) + 'KB →', (cssOutput.styles.length / 1024).toFixed(1) + 'KB');
+      }
+    } catch (e) {
+      console.error('[Minify] CSS error:', e.message);
+    }
+
+    // Minify JS
+    try {
+      const jsPath = join(outputDir, 'site.js');
+      const jsInput = readFileSync(join('src', 'site.js'), 'utf8');
+      const jsOutput = await terserMinify(jsInput, { compress: true, mangle: true });
+      if (jsOutput.code) {
+        writeFileSync(jsPath, jsOutput.code);
+        console.log('[Minify] site.js:', (jsInput.length / 1024).toFixed(1) + 'KB →', (jsOutput.code.length / 1024).toFixed(1) + 'KB');
+      }
+    } catch (e) {
+      console.error('[Minify] JS error:', e.message);
+    }
+  });
 
   return {
     pathPrefix: "/",
