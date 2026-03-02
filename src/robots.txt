@@ -1,11 +1,11 @@
 # robots.txt for ChineseZodiacYear.com
-# https://www.chinesezodiacyear.com/robots.txt
+# https://chinesezodiacyear.com/robots.txt
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.chinesezodiacyear.com/sitemap.xml
+Sitemap: https://chinesezodiacyear.com/sitemap.xml
 
 # Crawl-delay suggestion (optional, respected by some crawlers)
 Crawl-delay: 1
