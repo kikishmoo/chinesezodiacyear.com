@@ -2025,19 +2025,19 @@ select.calc-input {
 .lang-label-tc,
 .lang-label-sc { display: none; }
 [data-lang="en"] .lang-label-en,
-:not([data-lang]) .lang-label-en { display: inline; }
+html:not([data-lang]) .lang-label-en { display: inline; }
 [data-lang="tc"] .lang-label-tc { display: inline; }
 [data-lang="sc"] .lang-label-sc { display: inline; }
 
 /* --- i18n Content Blocks --- */
 .lang-en, .lang-tc, .lang-sc { display: none; }
 [data-lang="en"] .lang-en,
-:not([data-lang]) .lang-en { display: block; }
+html:not([data-lang]) .lang-en { display: block; }
 [data-lang="tc"] .lang-tc { display: block; }
 [data-lang="sc"] .lang-sc { display: block; }
 /* Inline variants for spans */
 [data-lang="en"] span.lang-en,
-:not([data-lang]) span.lang-en { display: inline; }
+html:not([data-lang]) span.lang-en { display: inline; }
 [data-lang="tc"] span.lang-tc { display: inline; }
 [data-lang="sc"] span.lang-sc { display: inline; }
 
