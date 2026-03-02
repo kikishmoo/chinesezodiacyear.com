@@ -727,12 +727,29 @@ select.calc-input {
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(196,153,43,0.1);
+  position: relative;
+  cursor: pointer;
 }
 
 .article-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
   border-color: rgba(196,153,43,0.25);
+}
+
+/* Stretched link — makes entire article card clickable */
+.article-card-body h2 a::after,
+.card-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Ensure inner interactive elements sit above the stretched link if needed */
+.article-card-body h2 a,
+.card-title a {
+  position: relative;
 }
 
 .card-image {
