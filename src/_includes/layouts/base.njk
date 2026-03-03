@@ -15,6 +15,11 @@
   {% if site.adsenseEnabled %}
   <meta name="google-adsense-account" content="{{ site.adsenseId }}">
   {% endif %}
+  {% if site.pinterestVerification %}<meta name="p:domain_verify" content="{{ site.pinterestVerification }}">{% endif %}
+  {% if site.bingVerification %}<meta name="msvalidate.01" content="{{ site.bingVerification }}">{% endif %}
+  <!-- Pinterest Rich Pins -->
+  <meta property="og:locale:alternate" content="zh_TW">
+  <meta property="og:locale:alternate" content="zh_CN">
   <!-- Open Graph -->
   <meta property="og:type" content="{{ ogType | default('website') }}">
   <meta property="og:title" content="{{ ogTitle | default(title) }}">

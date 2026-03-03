@@ -41,3 +41,10 @@ Allow: /
 
 User-agent: Bytespider
 Allow: /
+
+# Allow Pinterest crawler for Rich Pins
+User-agent: Pinterest
+Allow: /
+
+User-agent: Pinterestbot
+Allow: /

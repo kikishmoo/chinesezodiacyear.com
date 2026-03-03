@@ -8,6 +8,7 @@ export default function(eleventyConfig) {
   // Pass through static assets
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/ads.txt");
+  eleventyConfig.addPassthroughCopy("src/czy2026indexnow.txt");
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
   eleventyConfig.addPassthroughCopy("src/cities.json");
