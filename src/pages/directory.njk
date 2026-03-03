@@ -12,6 +12,7 @@ breadcrumbs:
 ---
 {% include "partials/breadcrumbs.njk" %}
 
+<div class="lang-en">
 <section class="page-hero">
   <div class="page-hero-content">
     <span class="overline">Community</span>
@@ -57,4 +58,103 @@ breadcrumbs:
       <p>Are you a feng shui consultant, BaZi practitioner, TCM clinic, or cultural organisation? <a href="/about/">Contact us</a> to be included in our directory.</p>
     </div>
 
+</div>
+</div>
+
+<div class="lang-tc">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">社群</span>
+    <h1>專業名錄</h1>
+    <p class="subtitle">風水師、八字命理師、文化機構、中醫診所、武術學校等專業資源</p>
+  </div>
+</section>
+
+<div class="directory-layout">
+    <div class="directory-controls">
+      <input type="text" id="directory-search-tc" class="directory-search" placeholder="按名稱、地點或專業搜尋&hellip;">
+      <div class="directory-filters">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="fengshui">風水</button>
+        <button class="filter-btn" data-filter="bazi">八字</button>
+        <button class="filter-btn" data-filter="culture">文化機構</button>
+        <button class="filter-btn" data-filter="products">產品與商店</button>
+        <button class="filter-btn" data-filter="tcm">中醫</button>
+        <button class="filter-btn" data-filter="martial-arts">武術</button>
+      </div>
+    </div>
+
+    <div class="directory-grid">
+
+      {% for item in directory.listings %}
+      <div class="directory-card{% if item.featured %} directory-card--featured{% endif %}" data-category="{{ item.category }}">
+        <div class="directory-card-header">
+          <h3>{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener nofollow">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %}</h3>
+          <span class="directory-badge badge-{{ item.category }}">{{ item.badge }}</span>
+        </div>
+        <p>{{ item.description }}</p>
+        <div class="directory-details">
+          <span class="directory-location">{{ item.location }}</span>
+          <span class="directory-specialties">{{ item.specialties | join(" · ") }}</span>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="directory-cta">
+      <h3>登錄您的機構</h3>
+      <p>您是風水師、八字命理師、中醫診所或文化機構嗎？<a href="/about/">聯繫我們</a>以加入名錄。</p>
+    </div>
+
+</div>
+</div>
+
+<div class="lang-sc">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">社群</span>
+    <h1>专业名录</h1>
+    <p class="subtitle">风水师、八字命理师、文化机构、中医诊所、武术学校等专业资源</p>
+  </div>
+</section>
+
+<div class="directory-layout">
+    <div class="directory-controls">
+      <input type="text" id="directory-search-sc" class="directory-search" placeholder="按名称、地点或专业搜索&hellip;">
+      <div class="directory-filters">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="fengshui">风水</button>
+        <button class="filter-btn" data-filter="bazi">八字</button>
+        <button class="filter-btn" data-filter="culture">文化机构</button>
+        <button class="filter-btn" data-filter="products">产品与商店</button>
+        <button class="filter-btn" data-filter="tcm">中医</button>
+        <button class="filter-btn" data-filter="martial-arts">武术</button>
+      </div>
+    </div>
+
+    <div class="directory-grid">
+
+      {% for item in directory.listings %}
+      <div class="directory-card{% if item.featured %} directory-card--featured{% endif %}" data-category="{{ item.category }}">
+        <div class="directory-card-header">
+          <h3>{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener nofollow">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %}</h3>
+          <span class="directory-badge badge-{{ item.category }}">{{ item.badge }}</span>
+        </div>
+        <p>{{ item.description }}</p>
+        <div class="directory-details">
+          <span class="directory-location">{{ item.location }}</span>
+          <span class="directory-specialties">{{ item.specialties | join(" · ") }}</span>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="directory-cta">
+      <h3>登录您的机构</h3>
+      <p>您是风水师、八字命理师、中医诊所或文化机构吗？<a href="/about/">联系我们</a>以加入名录。</p>
+    </div>
+
+</div>
 </div>

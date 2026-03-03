@@ -3,23 +3,45 @@
     {
       "id": "basic",
       "name": "Basic Reading",
+      "name_tc": "基本解讀",
+      "name_sc": "基本解读",
       "price": 29,
       "description": "Your zodiac animal and element analysis with a personalized PDF report.",
+      "description_tc": "您的生肖與五行分析，附個人化PDF報告。",
+      "description_sc": "您的生肖与五行分析，附个人化PDF报告。",
       "features": [
         "Zodiac animal personality profile",
         "Birth element analysis",
         "2026 year outlook",
         "5-page PDF report"
       ],
+      "features_tc": [
+        "生肖性格解析",
+        "出生五行分析",
+        "2026年運勢展望",
+        "5頁PDF報告"
+      ],
+      "features_sc": [
+        "生肖性格解析",
+        "出生五行分析",
+        "2026年运势展望",
+        "5页PDF报告"
+      ],
       "delivery": "3–5 business days",
+      "delivery_tc": "3至5個工作天",
+      "delivery_sc": "3至5个工作日",
       "paypalLink": "https://paypal.me/kikipeiqili/29",
       "featured": false
     },
     {
       "id": "detailed",
       "name": "Detailed Reading",
+      "name_tc": "詳細解讀",
+      "name_sc": "详细解读",
       "price": 79,
       "description": "Full Four Pillars (BaZi) chart analysis with comprehensive PDF report and video walkthrough.",
+      "description_tc": "完整四柱（八字）命盤分析，附詳盡PDF報告及視頻講解。",
+      "description_sc": "完整四柱（八字）命盘分析，附详尽PDF报告及视频讲解。",
       "features": [
         "Complete Four Pillars chart",
         "Day Master analysis",
@@ -29,15 +51,39 @@
         "20-page PDF report",
         "15-minute video walkthrough"
       ],
+      "features_tc": [
+        "完整四柱命盤",
+        "日主分析",
+        "十神解讀",
+        "五行平衡",
+        "事業與感情分析",
+        "20頁PDF報告",
+        "15分鐘視頻講解"
+      ],
+      "features_sc": [
+        "完整四柱命盘",
+        "日主分析",
+        "十神解读",
+        "五行平衡",
+        "事业与感情分析",
+        "20页PDF报告",
+        "15分钟视频讲解"
+      ],
       "delivery": "5–7 business days",
+      "delivery_tc": "5至7個工作天",
+      "delivery_sc": "5至7个工作日",
       "paypalLink": "https://paypal.me/kikipeiqili/79",
       "featured": true
     },
     {
       "id": "comprehensive",
       "name": "Comprehensive Reading",
+      "name_tc": "全面解讀",
+      "name_sc": "全面解读",
       "price": 149,
       "description": "Everything in the Detailed reading plus compatibility analysis, feng shui recommendations, and extended video consultation.",
+      "description_tc": "包含詳細解讀所有內容，另加配對分析、風水建議及延長視頻諮詢。",
+      "description_sc": "包含详细解读所有内容，另加配对分析、风水建议及延长视频咨询。",
       "features": [
         "Everything in Detailed Reading",
         "Compatibility analysis (partner/business)",
@@ -47,7 +93,27 @@
         "40-page PDF report",
         "30-minute video consultation"
       ],
+      "features_tc": [
+        "包含詳細解讀全部內容",
+        "配對分析（伴侶／生意夥伴）",
+        "家居風水建議",
+        "吉利方位與顏色",
+        "10年運程預測",
+        "40頁PDF報告",
+        "30分鐘視頻諮詢"
+      ],
+      "features_sc": [
+        "包含详细解读全部内容",
+        "配对分析（伴侣／生意伙伴）",
+        "家居风水建议",
+        "吉利方位与颜色",
+        "10年运程预测",
+        "40页PDF报告",
+        "30分钟视频咨询"
+      ],
       "delivery": "7–10 business days",
+      "delivery_tc": "7至10個工作天",
+      "delivery_sc": "7至10个工作日",
       "paypalLink": "https://paypal.me/kikipeiqili/149",
       "featured": false
     }
@@ -56,61 +122,97 @@
     {
       "id": "fire-horse-2026",
       "name": "2026 Fire Horse Annual Forecast",
+      "name_tc": "2026丙午年運程",
+      "name_sc": "2026丙午年运程",
       "subtitle": "Complete zodiac predictions for the Year of the Fire Horse",
+      "subtitle_tc": "火馬年十二生肖完整運勢預測",
+      "subtitle_sc": "火马年十二生肖完整运势预测",
       "price": 9.99,
       "category": "forecasts",
       "featured": true,
       "features": ["All 12 animal forecasts", "Monthly breakdowns", "Lucky dates calendar"],
+      "features_tc": ["十二生肖運程", "每月運勢分析", "吉日曆表"],
+      "features_sc": ["十二生肖运程", "每月运势分析", "吉日历表"],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/ktryqq"
     },
     {
       "id": "compatibility-guide",
       "name": "Ultimate Zodiac Compatibility Guide",
+      "name_tc": "生肖配對終極指南",
+      "name_sc": "生肖配对终极指南",
       "subtitle": "Love, friendship, and business compatibility for all 144 pairings",
+      "subtitle_tc": "144種配對的愛情、友情與商業合作分析",
+      "subtitle_sc": "144种配对的爱情、友情与商业合作分析",
       "price": 14.99,
       "category": "guides",
       "featured": false,
       "features": ["144 pairing analyses", "Compatibility scores", "Relationship advice"],
+      "features_tc": ["144種配對分析", "配對指數", "感情建議"],
+      "features_sc": ["144种配对分析", "配对指数", "感情建议"],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/zrrnxt"
     },
     {
       "id": "bazi-starter",
       "name": "BaZi Starter Kit",
+      "name_tc": "八字入門套件",
+      "name_sc": "八字入门套件",
       "subtitle": "Learn to read your own Four Pillars chart step by step",
+      "subtitle_tc": "逐步學習解讀自己的四柱命盤",
+      "subtitle_sc": "逐步学习解读自己的四柱命盘",
       "price": 19.99,
       "category": "education",
       "featured": false,
       "features": ["Beginner-friendly guide", "Practice worksheets", "Reference charts"],
+      "features_tc": ["初學者指南", "練習工作紙", "參考圖表"],
+      "features_sc": ["初学者指南", "练习工作纸", "参考图表"],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/vxbdv"
     },
     {
       "id": "fengshui-checklist",
       "name": "Feng Shui Home Checklist",
+      "name_tc": "家居風水清單",
+      "name_sc": "家居风水清单",
       "subtitle": "Room-by-room guide to harmonize your living space",
+      "subtitle_tc": "逐房指南，調和您的居住空間",
+      "subtitle_sc": "逐房指南，调和您的居住空间",
       "price": 12.99,
       "category": "guides",
       "featured": false,
       "features": ["Room-by-room checklist", "Bagua map guide", "Cure recommendations"],
+      "features_tc": ["逐房清單", "八宮圖指南", "化煞建議"],
+      "features_sc": ["逐房清单", "八宫图指南", "化煞建议"],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/vfewk"
     },
     {
       "id": "calendar-2026",
       "name": "Chinese Calendar 2026–2027",
+      "name_tc": "中國農曆 2026–2027",
+      "name_sc": "中国农历 2026–2027",
       "subtitle": "Auspicious dates, lunar phases, and festival guide",
+      "subtitle_tc": "吉日、月相與節慶指南",
+      "subtitle_sc": "吉日、月相与节庆指南",
       "price": 3.99,
       "category": "calendars",
       "featured": false,
       "features": ["Auspicious date finder", "Lunar phase tracker", "Festival reminders"],
+      "features_tc": ["吉日查詢", "月相追蹤", "節慶提醒"],
+      "features_sc": ["吉日查询", "月相追踪", "节庆提醒"],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/ukvqqr"
     },
     {
       "id": "five-elements-workbook",
       "name": "Five Elements Balance Workbook",
+      "name_tc": "五行平衡練習冊",
+      "name_sc": "五行平衡练习册",
       "subtitle": "Discover your elemental constitution and restore balance",
+      "subtitle_tc": "探索您的五行體質，恢復平衡",
+      "subtitle_sc": "探索您的五行体质，恢复平衡",
       "price": 16.99,
       "category": "education",
       "featured": false,
       "features": ["Self-assessment quiz", "Balance exercises", "Seasonal living guide"],
+      "features_tc": ["自我評估測試", "平衡練習", "四季養生指南"],
+      "features_sc": ["自我评估测试", "平衡练习", "四季养生指南"],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/ngzmx"
     }
   ]

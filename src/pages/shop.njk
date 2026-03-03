@@ -140,10 +140,10 @@ faq:
       <div class="shop-readings-preview">
         {%- for item in shop.premiumReadings %}
         <div class="shop-reading-card{% if item.featured %} shop-reading-card--featured{% endif %}">
-          <h3>{{ item.name }}</h3>
+          <h3>{{ item.name_tc if item.name_tc else item.name }}</h3>
           <div class="pricing-amount"><span class="pricing-currency">$</span>{{ item.price }}</div>
-          <p>{{ item.description }}</p>
-          <div class="pricing-delivery">交付時間：{{ item.delivery }}</div>
+          <p>{{ item.description_tc if item.description_tc else item.description }}</p>
+          <div class="pricing-delivery">交付時間：{{ item.delivery_tc if item.delivery_tc else item.delivery }}</div>
           <a href="/premium-readings/" class="btn {% if item.featured %}btn-gold{% else %}btn-outline{% endif %} btn-sm">了解更多</a>
         </div>
         {%- endfor %}
@@ -169,10 +169,11 @@ faq:
       <div class="shop-products-grid">
         {%- for item in shop.digitalProducts %}
         <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}">
-          <h3>{{ item.name }}</h3>
-          <p class="product-subtitle">{{ item.subtitle }}</p>
+          <h3>{{ item.name_tc if item.name_tc else item.name }}</h3>
+          <p class="product-subtitle">{{ item.subtitle_tc if item.subtitle_tc else item.subtitle }}</p>
           <ul class="product-features">
-            {%- for feature in item.features %}
+            {%- set tcFeatures = item.features_tc if item.features_tc else item.features %}
+            {%- for feature in tcFeatures %}
             <li>{{ feature }}</li>
             {%- endfor %}
           </ul>
@@ -240,10 +241,10 @@ faq:
       <div class="shop-readings-preview">
         {%- for item in shop.premiumReadings %}
         <div class="shop-reading-card{% if item.featured %} shop-reading-card--featured{% endif %}">
-          <h3>{{ item.name }}</h3>
+          <h3>{{ item.name_sc if item.name_sc else item.name }}</h3>
           <div class="pricing-amount"><span class="pricing-currency">$</span>{{ item.price }}</div>
-          <p>{{ item.description }}</p>
-          <div class="pricing-delivery">交付时间：{{ item.delivery }}</div>
+          <p>{{ item.description_sc if item.description_sc else item.description }}</p>
+          <div class="pricing-delivery">交付时间：{{ item.delivery_sc if item.delivery_sc else item.delivery }}</div>
           <a href="/premium-readings/" class="btn {% if item.featured %}btn-gold{% else %}btn-outline{% endif %} btn-sm">了解更多</a>
         </div>
         {%- endfor %}
@@ -269,10 +270,11 @@ faq:
       <div class="shop-products-grid">
         {%- for item in shop.digitalProducts %}
         <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}">
-          <h3>{{ item.name }}</h3>
-          <p class="product-subtitle">{{ item.subtitle }}</p>
+          <h3>{{ item.name_sc if item.name_sc else item.name }}</h3>
+          <p class="product-subtitle">{{ item.subtitle_sc if item.subtitle_sc else item.subtitle }}</p>
           <ul class="product-features">
-            {%- for feature in item.features %}
+            {%- set scFeatures = item.features_sc if item.features_sc else item.features %}
+            {%- for feature in scFeatures %}
             <li>{{ feature }}</li>
             {%- endfor %}
           </ul>

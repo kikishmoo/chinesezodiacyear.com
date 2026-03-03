@@ -12,6 +12,7 @@ breadcrumbs:
 ---
 {% include "partials/breadcrumbs.njk" %}
 
+<div class="lang-en">
 <section class="page-hero">
   <div class="page-hero-content">
     <span class="overline">Latest</span>
@@ -132,4 +133,249 @@ breadcrumbs:
     </div>
 
     <div class="load-more-wrap"><button class="btn btn-outline load-more-btn" id="load-more-btn">Load More Articles</button></div>
+</div>
+</div>
+
+<div class="lang-tc">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">最新</span>
+    <h1>新聞與文章</h1>
+    <p class="subtitle">中國生肖、風水、八字及文化傳統的分析、評論與指南</p>
+  </div>
+</section>
+
+<div class="news-layout">
+    <div class="news-filters">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="zodiac">生肖</button>
+      <button class="filter-btn" data-filter="culture">文化</button>
+      <button class="filter-btn" data-filter="fengshui">風水</button>
+      <button class="filter-btn" data-filter="bazi">八字</button>
+      <button class="filter-btn" data-filter="business">商業</button>
+    </div>
+
+    <div class="articles-grid">
+
+      {%- for article in collections.articles %}
+      <article class="article-card" data-category="{{ article.data.category }}">
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-tag tag-{{ article.data.category }}">{{ article.data.categoryLabel }}</span>
+            <time datetime="{{ article.data.date | isoDate }}">{{ article.data.date | readableDate }}</time>
+          </div>
+          <h2><a href="{{ article.url }}">{{ article.data.title }}</a></h2>
+          <p>{{ article.data.description }}</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+      {%- endfor %}
+
+      <article class="article-card" data-category="culture">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-culture">文化</span><time datetime="2026-02-15">2026年2月15日</time></div>
+          <h2><a href="/spring-festival/">2026春節：值得傳承的傳統</a></h2>
+          <p>丙午火馬年來臨之際，我們回顧歷經千年的春節習俗——從團年飯到正月十五元宵節。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="fengshui">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-fengshui">風水</span><time datetime="2026-02-10">2026年2月10日</time></div>
+          <h2><a href="/fengshui/">2026玄空飛星：年度能量變化</a></h2>
+          <p>火馬年飛星圖五黃煞落於西方。了解哪些方位宜催旺、哪些宜化煞，以及如何解讀家宅玄空飛星圖。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="bazi">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-bazi">八字</span><time datetime="2026-02-05">2026年2月5日</time></div>
+          <h2><a href="/bazi/">認識日主：八字命理的核心</a></h2>
+          <p>日主是四柱命盤的核心。本文詳解甲木至癸水十個日主的性格、優勢與弱點。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="zodiac">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-zodiac">生肖</span><time datetime="2026-01-28">2026年1月28日</time></div>
+          <h2><a href="/zodiac/">玉帝賽跑：十二生肖的起源</a></h2>
+          <p>老鼠如何智勝牛？為何沒有貓？大賽傳說解釋了動物排序——並揭示了漢代天文學的深層宇宙觀。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="fengshui">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-fengshui">風水</span><time datetime="2026-01-20">2026年1月20日</time></div>
+          <h2><a href="/fengshui/">羅盤解密：解讀風水羅盤各層</a></h2>
+          <p>羅盤是中國宇宙學的便攜百科全書。我們逐層講解天池、二十四山、八卦層及古代堪輿師的解讀方法。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="culture">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-culture">文化</span><time datetime="2026-01-15">2026年1月15日</time></div>
+          <h2><a href="/calendar/">二十四節氣：UNESCO非遺與農業智慧</a></h2>
+          <p>二十四節氣已獲聯合國教科文組織認定為非物質文化遺產，數千年來指導中國農業。從立春到大寒，每個節氣標誌著自然界的精確變化。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="bazi">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-bazi">八字</span><time datetime="2026-01-10">2026年1月10日</time></div>
+          <h2><a href="/bazi/">八字十神：解讀命運的動態</a></h2>
+          <p>劫財、傷官、正官——十神描述五行如何與日主互動，揭示財富、權力、創造力與助力的模式。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="business">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-business">商業</span><time datetime="2026-01-05">2026年1月5日</time></div>
+          <h2><a href="/calendar/">商業擇日：現代企業的傳統方法</a></h2>
+          <p>中國擇日學（擇日）運用干支紀年與十二建除來選定開張、簽約及啟動的吉日。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="zodiac">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-zodiac">生肖</span><time datetime="2025-12-28">2025年12月28日</time></div>
+          <h2><a href="/compatibility/">生肖配對：六合與六沖</a></h2>
+          <p>超越簡單的配對表，經典命理學運用六合、三合、六沖與相害來精確解讀生肖之間的關係。</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="load-more-wrap"><button class="btn btn-outline load-more-btn" id="load-more-btn">載入更多文章</button></div>
+</div>
+</div>
+
+<div class="lang-sc">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">最新</span>
+    <h1>新闻与文章</h1>
+    <p class="subtitle">中国生肖、风水、八字及文化传统的分析、评论与指南</p>
+  </div>
+</section>
+
+<div class="news-layout">
+    <div class="news-filters">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="zodiac">生肖</button>
+      <button class="filter-btn" data-filter="culture">文化</button>
+      <button class="filter-btn" data-filter="fengshui">风水</button>
+      <button class="filter-btn" data-filter="bazi">八字</button>
+      <button class="filter-btn" data-filter="business">商业</button>
+    </div>
+
+    <div class="articles-grid">
+
+      {%- for article in collections.articles %}
+      <article class="article-card" data-category="{{ article.data.category }}">
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-tag tag-{{ article.data.category }}">{{ article.data.categoryLabel }}</span>
+            <time datetime="{{ article.data.date | isoDate }}">{{ article.data.date | readableDate }}</time>
+          </div>
+          <h2><a href="{{ article.url }}">{{ article.data.title }}</a></h2>
+          <p>{{ article.data.description }}</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+      {%- endfor %}
+
+      <article class="article-card" data-category="culture">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-culture">文化</span><time datetime="2026-02-15">2026年2月15日</time></div>
+          <h2><a href="/spring-festival/">2026春节：值得传承的传统</a></h2>
+          <p>丙午火马年来临之际，我们回顾历经千年的春节习俗——从团年饭到正月十五元宵节。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="fengshui">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-fengshui">风水</span><time datetime="2026-02-10">2026年2月10日</time></div>
+          <h2><a href="/fengshui/">2026玄空飞星：年度能量变化</a></h2>
+          <p>火马年飞星图五黄煞落于西方。了解哪些方位宜催旺、哪些宜化煞，以及如何解读家宅玄空飞星图。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="bazi">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-bazi">八字</span><time datetime="2026-02-05">2026年2月5日</time></div>
+          <h2><a href="/bazi/">认识日主：八字命理的核心</a></h2>
+          <p>日主是四柱命盘的核心。本文详解甲木至癸水十个日主的性格、优势与弱点。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="zodiac">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-zodiac">生肖</span><time datetime="2026-01-28">2026年1月28日</time></div>
+          <h2><a href="/zodiac/">玉帝赛跑：十二生肖的起源</a></h2>
+          <p>老鼠如何智胜牛？为何没有猫？大赛传说解释了动物排序——并揭示了汉代天文学的深层宇宙观。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="fengshui">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-fengshui">风水</span><time datetime="2026-01-20">2026年1月20日</time></div>
+          <h2><a href="/fengshui/">罗盘解密：解读风水罗盘各层</a></h2>
+          <p>罗盘是中国宇宙学的便携百科全书。我们逐层讲解天池、二十四山、八卦层及古代堪舆师的解读方法。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="culture">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-culture">文化</span><time datetime="2026-01-15">2026年1月15日</time></div>
+          <h2><a href="/calendar/">二十四节气：UNESCO非遗与农业智慧</a></h2>
+          <p>二十四节气已获联合国教科文组织认定为非物质文化遗产，数千年来指导中国农业。从立春到大寒，每个节气标志着自然界的精确变化。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="bazi">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-bazi">八字</span><time datetime="2026-01-10">2026年1月10日</time></div>
+          <h2><a href="/bazi/">八字十神：解读命运的动态</a></h2>
+          <p>劫财、伤官、正官——十神描述五行如何与日主互动，揭示财富、权力、创造力与助力的模式。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="business">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-business">商业</span><time datetime="2026-01-05">2026年1月5日</time></div>
+          <h2><a href="/calendar/">商业择日：现代企业的传统方法</a></h2>
+          <p>中国择日学（择日）运用干支纪年与十二建除来选定开张、签约及启动的吉日。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+      <article class="article-card hidden-article" data-category="zodiac">
+        <div class="article-card-body">
+          <div class="article-meta"><span class="article-tag tag-zodiac">生肖</span><time datetime="2025-12-28">2025年12月28日</time></div>
+          <h2><a href="/compatibility/">生肖配对：六合与六冲</a></h2>
+          <p>超越简单的配对表，经典命理学运用六合、三合、六冲与相害来精确解读生肖之间的关系。</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="load-more-wrap"><button class="btn btn-outline load-more-btn" id="load-more-btn">加载更多文章</button></div>
+</div>
 </div>
