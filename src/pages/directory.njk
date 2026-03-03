@@ -1,8 +1,8 @@
 ---
 layout: "layouts/base.njk"
-title: "Directory — Feng Shui & BaZi Practitioners"
-description: "Directory of feng shui consultants, BaZi practitioners, and Chinese cultural organizations worldwide. Find classical tradition professionals."
-keywords: "feng shui consultant directory, BaZi practitioner, Chinese astrology services, cultural organizations, zodiac professionals"
+title: "Directory — Feng Shui, BaZi & Chinese Culture Practitioners"
+description: "Directory of feng shui consultants, BaZi practitioners, TCM clinics, martial arts schools, and Chinese cultural organizations worldwide."
+keywords: "feng shui consultant directory, BaZi practitioner, TCM clinic, martial arts school, Chinese cultural organizations, zodiac professionals"
 ogType: "website"
 permalink: "/directory/"
 breadcrumbs:
@@ -16,113 +16,45 @@ breadcrumbs:
   <div class="page-hero-content">
     <span class="overline">Community</span>
     <h1>Professional Directory</h1>
-    <p class="subtitle">Feng shui consultants, BaZi practitioners, cultural organisations, and zodiac-related services</p>
+    <p class="subtitle">Feng shui consultants, BaZi practitioners, cultural organisations, TCM clinics, martial arts schools, and more</p>
   </div>
 </section>
 
 <div class="directory-layout">
     <div class="directory-controls">
-      <input type="text" class="directory-search" placeholder="Search listings by name, location, or speciality&hellip;">
+      <input type="text" id="directory-search" class="directory-search" placeholder="Search listings by name, location, or speciality&hellip;">
       <div class="directory-filters">
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="fengshui">Feng Shui</button>
         <button class="filter-btn" data-filter="bazi">BaZi</button>
         <button class="filter-btn" data-filter="culture">Cultural Orgs</button>
         <button class="filter-btn" data-filter="products">Products &amp; Shops</button>
+        <button class="filter-btn" data-filter="tcm">TCM</button>
+        <button class="filter-btn" data-filter="martial-arts">Martial Arts</button>
       </div>
     </div>
 
     <div class="directory-grid">
 
-      <div class="directory-card" data-category="fengshui">
-        <div class="directory-card-header"><h3>International Feng Shui Guild (IFSG)</h3><span class="directory-badge">Organisation</span></div>
-        <p>Global professional body for feng shui practitioners. Maintains ethical standards, offers certification programmes, and connects clients with qualified consultants trained in classical methods.</p>
-        <div class="directory-details"><span>Worldwide</span><span>Feng Shui &middot; Certification</span></div>
+      {% for item in directory.listings %}
+      <div class="directory-card{% if item.featured %} directory-card--featured{% endif %}" data-category="{{ item.category }}">
+        <div class="directory-card-header">
+          <h3>{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener nofollow">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %}</h3>
+          <span class="directory-badge badge-{{ item.category }}">{{ item.badge }}</span>
+        </div>
+        <p>{{ item.description }}</p>
+        <div class="directory-details">
+          <span class="directory-location">{{ item.location }}</span>
+          <span class="directory-specialties">{{ item.specialties | join(" · ") }}</span>
+        </div>
       </div>
-
-      <div class="directory-card" data-category="fengshui">
-        <div class="directory-card-header"><h3>Mastery Academy of Chinese Metaphysics</h3><span class="directory-badge">Education</span></div>
-        <p>Founded by Joey Yap, offering courses in classical feng shui, BaZi, Qi Men Dun Jia, and Yi Jing. Programmes range from introductory workshops to advanced master practitioner certification.</p>
-        <div class="directory-details"><span>Kuala Lumpur, Malaysia</span><span>Feng Shui &middot; BaZi &middot; Training</span></div>
-      </div>
-
-      <div class="directory-card" data-category="bazi">
-        <div class="directory-card-header"><h3>Imperial Harvest</h3><span class="directory-badge">Consultancy</span></div>
-        <p>BaZi and feng shui consultancy combining classical Four Pillars analysis with jadeite and agarwood recommendations. Known for integrating traditional metaphysics with contemporary applications.</p>
-        <div class="directory-details"><span>Singapore</span><span>BaZi &middot; Feng Shui &middot; Jadeite</span></div>
-      </div>
-
-      <div class="directory-card" data-category="fengshui">
-        <div class="directory-card-header"><h3>American Feng Shui Institute</h3><span class="directory-badge">Education</span></div>
-        <p>Teaches classical compass-school feng shui rooted in the San Yuan and San He systems. Courses cover Luopan reading, Flying Stars (Xuan Kong), and landscape form assessment.</p>
-        <div class="directory-details"><span>Los Angeles, USA</span><span>Feng Shui &middot; San Yuan &middot; Education</span></div>
-      </div>
-
-      <div class="directory-card" data-category="bazi">
-        <div class="directory-card-header"><h3>Dato Joey Yap Consulting Group</h3><span class="directory-badge">Consultancy</span></div>
-        <p>One of the world&rsquo;s largest Chinese metaphysics consultancies offering personal BaZi readings, corporate feng shui audits, and date selection for business events and property acquisitions.</p>
-        <div class="directory-details"><span>Kuala Lumpur, Malaysia</span><span>BaZi &middot; Feng Shui &middot; Corporate</span></div>
-      </div>
-
-      <div class="directory-card" data-category="culture">
-        <div class="directory-card-header"><h3>Chinese Cultural Centre (Singapore)</h3><span class="directory-badge">Cultural</span></div>
-        <p>Government-supported centre promoting Chinese heritage through exhibitions, festivals, and educational programmes. Hosts annual zodiac celebrations and traditional arts workshops.</p>
-        <div class="directory-details"><span>Singapore</span><span>Culture &middot; Heritage &middot; Education</span></div>
-      </div>
-
-      <div class="directory-card" data-category="culture">
-        <div class="directory-card-header"><h3>China Institute</h3><span class="directory-badge">Cultural</span></div>
-        <p>Founded in 1926, America&rsquo;s oldest bicultural organisation focused on China. Offers exhibitions on traditional arts, language programmes, and public lectures on Chinese philosophy and history.</p>
-        <div class="directory-details"><span>New York, USA</span><span>Culture &middot; Education &middot; Arts</span></div>
-      </div>
-
-      <div class="directory-card" data-category="fengshui">
-        <div class="directory-card-header"><h3>Feng Shui Society (UK)</h3><span class="directory-badge">Organisation</span></div>
-        <p>UK-based professional body for feng shui practitioners. Provides a register of accredited consultants, publishes educational resources, and hosts annual conferences on classical and contemporary practice.</p>
-        <div class="directory-details"><span>London, UK</span><span>Feng Shui &middot; Accreditation</span></div>
-      </div>
-
-      <div class="directory-card" data-category="products">
-        <div class="directory-card-header"><h3>Mandarin Arts</h3><span class="directory-badge">Retail</span></div>
-        <p>Specialist retailer of traditional Chinese art, calligraphy supplies, and zodiac-themed gifts. Carries feng shui remedies, Luopan compasses, and handcrafted Chinese New Year decorations.</p>
-        <div class="directory-details"><span>London, UK</span><span>Zodiac Gifts &middot; Feng Shui Supplies</span></div>
-      </div>
-
-      <div class="directory-card" data-category="bazi">
-        <div class="directory-card-header"><h3>BaZi Mastery Centre</h3><span class="directory-badge">Education</span></div>
-        <p>Dedicated to classical Xu Ziping methodology. Courses cover the Ten Gods, Day Master analysis, luck pillar reading, and advanced chart interpretation following pre-Qing textual sources.</p>
-        <div class="directory-details"><span>Online &middot; Global</span><span>BaZi &middot; Classical Method</span></div>
-      </div>
-
-      <div class="directory-card" data-category="culture">
-        <div class="directory-card-header"><h3>Asia Society</h3><span class="directory-badge">Cultural</span></div>
-        <p>International organisation with centres across Asia, America, and Europe. Promotes cross-cultural understanding through exhibitions, performances, and educational initiatives including Chinese calendar events.</p>
-        <div class="directory-details"><span>New York &middot; Hong Kong &middot; Global</span><span>Culture &middot; Arts &middot; Education</span></div>
-      </div>
-
-      <div class="directory-card" data-category="products">
-        <div class="directory-card-header"><h3>Lillian Too&rsquo;s World of Feng Shui</h3><span class="directory-badge">Retail</span></div>
-        <p>Online retailer and educational platform offering feng shui enhancers, zodiac forecasts, and annual Flying Star guides. Features a comprehensive library of feng shui articles and tools.</p>
-        <div class="directory-details"><span>Kuala Lumpur, Malaysia</span><span>Feng Shui Products &middot; Education</span></div>
-      </div>
-
-      <div class="directory-card" data-category="fengshui">
-        <div class="directory-card-header"><h3>Raymond Lo Feng Shui &amp; Destiny</h3><span class="directory-badge">Consultancy</span></div>
-        <p>Grand Master Raymond Lo offers feng shui and BaZi consultancy with decades of practice in the Flying Star and Four Pillars systems. Known for annual forecasts based on the Five Elements.</p>
-        <div class="directory-details"><span>Hong Kong</span><span>Feng Shui &middot; BaZi &middot; Five Elements</span></div>
-      </div>
-
-      <div class="directory-card" data-category="culture">
-        <div class="directory-card-header"><h3>Confucius Institute</h3><span class="directory-badge">Cultural</span></div>
-        <p>Global network of cultural centres offering Chinese language instruction, cultural programmes, and events celebrating traditional festivals including zodiac year celebrations and calligraphy workshops.</p>
-        <div class="directory-details"><span>Worldwide</span><span>Language &middot; Culture &middot; Education</span></div>
-      </div>
+      {% endfor %}
 
     </div>
 
     <div class="directory-cta">
       <h3>List Your Organisation</h3>
-      <p>Are you a feng shui consultant, BaZi practitioner, or cultural organisation? <a href="/about/">Contact us</a> to be included in our directory.</p>
+      <p>Are you a feng shui consultant, BaZi practitioner, TCM clinic, or cultural organisation? <a href="/about/">Contact us</a> to be included in our directory.</p>
     </div>
 
 </div>

@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- Directory Filter --- */
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const listingCards = document.querySelectorAll('.listing-card[data-category]');
+  const listingCards = document.querySelectorAll('.directory-card[data-category]');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));

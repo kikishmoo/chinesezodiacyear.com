@@ -1526,31 +1526,149 @@ select.calc-input {
   box-shadow: var(--shadow-md);
 }
 
+.directory-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-sm);
+}
+
 .directory-card h3 {
   font-family: var(--font-display);
   font-size: 1.1rem;
-  margin-bottom: var(--sp-sm);
+  margin: 0;
   color: var(--deep-red);
+  line-height: 1.3;
+}
+
+.directory-card h3 a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.directory-card h3 a:hover {
+  border-bottom-color: var(--deep-red);
+}
+
+.directory-badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+/* Badge colour variants */
+.badge-fengshui {
+  background: rgba(76,135,100,0.1);
+  color: #3d6b50;
+}
+.badge-bazi {
+  background: rgba(185,64,50,0.08);
+  color: var(--deep-red);
+}
+.badge-culture {
+  background: rgba(196,153,43,0.1);
+  color: #9a7a20;
+}
+.badge-products {
+  background: rgba(139,90,43,0.1);
+  color: #7a5020;
+}
+.badge-tcm {
+  background: rgba(60,120,140,0.1);
+  color: #2e6e80;
+}
+.badge-martial-arts {
+  background: rgba(100,60,120,0.1);
+  color: #5a3570;
 }
 
 .directory-card p {
   font-size: 0.9rem;
   color: var(--graphite);
   line-height: 1.6;
+  margin-bottom: var(--sp-sm);
 }
 
-.listing-card {
-  background: #fff;
-  border: 1px solid rgba(196,153,43,0.08);
-  border-radius: 4px;
-  padding: var(--sp-lg);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.3s, box-shadow 0.3s;
+.directory-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  padding-top: var(--sp-sm);
+  border-top: 1px solid rgba(196,153,43,0.08);
+  font-size: 0.8rem;
+  color: var(--stone);
 }
 
-.listing-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+.directory-location::before {
+  content: "\25C9 ";
+  color: var(--imperial-gold);
+  font-size: 0.7em;
+}
+
+.directory-specialties {
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Featured listing (future paid/sponsored) */
+.directory-card--featured {
+  border-color: rgba(196,153,43,0.35);
+  border-width: 2px;
+  box-shadow: 0 2px 12px rgba(196,153,43,0.12);
+}
+
+.directory-card--featured::before {
+  content: "Featured";
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--imperial-gold);
+  margin-bottom: var(--sp-sm);
+}
+
+/* CTA box at bottom of directory */
+.directory-cta {
+  margin-top: var(--sp-2xl);
+  padding: var(--sp-xl);
+  text-align: center;
+  background: rgba(196,153,43,0.04);
+  border: 1px dashed rgba(196,153,43,0.2);
+  border-radius: 6px;
+}
+
+.directory-cta h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--deep-red);
+  margin-bottom: var(--sp-sm);
+}
+
+.directory-cta p {
+  font-size: 0.92rem;
+  color: var(--graphite);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.directory-cta a {
+  color: var(--deep-red);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .directory-search {
@@ -2468,10 +2586,70 @@ html:not([data-lang]) span.lang-en { display: inline; }
 [data-theme="dark"] .feature-item,
 [data-theme="dark"] .sidebar-widget,
 [data-theme="dark"] .directory-card,
-[data-theme="dark"] .listing-card {
+[data-theme="dark"] .directory-card--featured {
   background: #1C1814;
   background-image: var(--paper-noise);
   border-color: rgba(191,147,40,0.08);
+}
+
+[data-theme="dark"] .directory-card--featured {
+  border-color: rgba(196,153,43,0.3);
+}
+
+[data-theme="dark"] .directory-card h3,
+[data-theme="dark"] .directory-card h3 a {
+  color: #D4A66A;
+}
+
+[data-theme="dark"] .directory-card p {
+  color: #B0A898;
+}
+
+[data-theme="dark"] .directory-details {
+  border-top-color: rgba(196,153,43,0.08);
+  color: #8A8070;
+}
+
+[data-theme="dark"] .directory-badge {
+  opacity: 0.9;
+}
+
+[data-theme="dark"] .badge-fengshui {
+  background: rgba(76,135,100,0.15);
+  color: #6ab58a;
+}
+[data-theme="dark"] .badge-bazi {
+  background: rgba(185,64,50,0.12);
+  color: #d47060;
+}
+[data-theme="dark"] .badge-culture {
+  background: rgba(196,153,43,0.12);
+  color: #c4a040;
+}
+[data-theme="dark"] .badge-products {
+  background: rgba(139,90,43,0.15);
+  color: #c49050;
+}
+[data-theme="dark"] .badge-tcm {
+  background: rgba(60,120,140,0.15);
+  color: #5ab0c5;
+}
+[data-theme="dark"] .badge-martial-arts {
+  background: rgba(100,60,120,0.15);
+  color: #a070c0;
+}
+
+[data-theme="dark"] .directory-cta {
+  background: rgba(196,153,43,0.04);
+  border-color: rgba(196,153,43,0.12);
+}
+
+[data-theme="dark"] .directory-cta h3 {
+  color: #D4A66A;
+}
+
+[data-theme="dark"] .directory-cta p {
+  color: #B0A898;
 }
 
 [data-theme="dark"] .article-card:hover,

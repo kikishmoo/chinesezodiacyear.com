@@ -1,0 +1,334 @@
+{
+  "listings": [
+    {
+      "name": "International Feng Shui Guild (IFSG)",
+      "category": "fengshui",
+      "badge": "Organisation",
+      "location": "Worldwide",
+      "specialties": ["Feng Shui", "Certification", "Professional Standards"],
+      "description": "Global professional body for feng shui practitioners. Maintains ethical standards, offers certification programmes, and connects clients with qualified consultants trained in classical methods.",
+      "url": "https://ifsguild.org",
+      "featured": false
+    },
+    {
+      "name": "The Feng Shui Society",
+      "category": "fengshui",
+      "badge": "Organisation",
+      "location": "London, UK",
+      "specialties": ["Feng Shui", "Accreditation"],
+      "description": "The independent professional registering body for accredited feng shui consultants and teachers in the UK and Europe. Publishes educational resources and hosts annual conferences.",
+      "url": "https://fengshuisociety.org.uk",
+      "featured": false
+    },
+    {
+      "name": "Feng Shui Institute",
+      "category": "fengshui",
+      "badge": "Education",
+      "location": "United Kingdom",
+      "specialties": ["Feng Shui", "Training", "Practitioner Directory"],
+      "description": "Provides professional feng shui training at Master and Consultant Practitioner levels. Maintains a directory of qualified graduates for public referrals.",
+      "url": "https://feng-shui-institute.org",
+      "featured": false
+    },
+    {
+      "name": "Mastery Academy of Chinese Metaphysics",
+      "category": "fengshui",
+      "badge": "Education",
+      "location": "Kuala Lumpur, Malaysia",
+      "specialties": ["Feng Shui", "BaZi", "Qi Men Dun Jia"],
+      "description": "Founded by Joey Yap, the world\u2019s largest Chinese metaphysics educational institution. Programmes in classical feng shui, BaZi, Qi Men Dun Jia, and Yi Jing with students in 30+ countries.",
+      "url": "https://masteryacademy.com",
+      "featured": false
+    },
+    {
+      "name": "American Feng Shui Institute",
+      "category": "fengshui",
+      "badge": "Education",
+      "location": "Los Angeles, USA",
+      "specialties": ["Feng Shui", "San Yuan", "Flying Stars"],
+      "description": "Teaches classical compass-school feng shui rooted in the San Yuan and San He systems. Courses cover Luopan reading, Flying Stars (Xuan Kong), and landscape form assessment.",
+      "url": "https://amfengshui.com",
+      "featured": false
+    },
+    {
+      "name": "Anjie Cho \u2014 Holistic Spaces",
+      "category": "fengshui",
+      "badge": "Consultancy",
+      "location": "New York, USA",
+      "specialties": ["Feng Shui", "Interior Architecture", "Mindful Design"],
+      "description": "Architect and feng shui consultant, author of Holistic Spaces: 108 Ways to Create a Mindful and Peaceful Home. Integrates classical feng shui principles with contemporary interior architecture.",
+      "url": "https://anjiecho.com",
+      "featured": false
+    },
+    {
+      "name": "Feng Shui Concepts",
+      "category": "fengshui",
+      "badge": "Consultancy",
+      "location": "Melbourne, Australia",
+      "specialties": ["Feng Shui", "Residential", "Commercial"],
+      "description": "Founded by Jane Langof, an internationally accredited Feng Shui Master. Transforming homes and workplaces since 2008 using classical methods and compass-school techniques.",
+      "url": "https://fengshuiconcepts.com.au",
+      "featured": false
+    },
+    {
+      "name": "Raymond Lo Feng Shui & Destiny",
+      "category": "fengshui",
+      "badge": "Consultancy",
+      "location": "Hong Kong",
+      "specialties": ["Feng Shui", "BaZi", "Five Elements"],
+      "description": "Grand Master Raymond Lo offers feng shui and BaZi consultancy with over 40 years of practice in Flying Star and Four Pillars systems. Known internationally for annual Five Element forecasts.",
+      "url": "https://raymond-lo.com",
+      "featured": false
+    },
+    {
+      "name": "Feng Shui Research Center",
+      "category": "fengshui",
+      "badge": "Education",
+      "location": "Toronto, Canada",
+      "specialties": ["Feng Shui", "Chinese Astrology", "Classical Texts"],
+      "description": "Founded in 1998 by Master Joseph Yu. Teaches genuine feng shui and Chinese astrology through rigorous study of classical texts, offering correspondence and in-person courses worldwide.",
+      "url": "https://astro-fengshui.com",
+      "featured": false
+    },
+    {
+      "name": "Ms. Feng Shui (Jessie Kim)",
+      "category": "fengshui",
+      "badge": "Consultancy",
+      "location": "Los Angeles, USA",
+      "specialties": ["Feng Shui", "Residential", "Commercial"],
+      "description": "Third-generation feng shui expert specialising in residential and commercial consultations. Combines classical Chinese methods with modern design sensibility for contemporary living spaces.",
+      "url": "https://msfengshui.com",
+      "featured": false
+    },
+    {
+      "name": "Dato Joey Yap Consulting Group",
+      "category": "bazi",
+      "badge": "Consultancy",
+      "location": "Kuala Lumpur, Malaysia",
+      "specialties": ["BaZi", "Feng Shui", "Corporate"],
+      "description": "One of the world\u2019s largest Chinese metaphysics consultancies. Offers personal BaZi readings, corporate feng shui audits, and date selection for business events and property acquisitions.",
+      "url": "https://joeyyap.com",
+      "featured": false
+    },
+    {
+      "name": "Imperial Harvest",
+      "category": "bazi",
+      "badge": "Consultancy",
+      "location": "Singapore",
+      "specialties": ["BaZi", "Imperial Feng Shui", "Jadeite"],
+      "description": "Founded by Master David Goh. Offers authentic Imperial Feng Shui and BaZi consultations alongside curated fine jadeite and agarwood feng shui treasures.",
+      "url": "https://imperialharvest.com",
+      "featured": false
+    },
+    {
+      "name": "BaZi Mastery Centre",
+      "category": "bazi",
+      "badge": "Education",
+      "location": "Online \u00b7 Global",
+      "specialties": ["BaZi", "Classical Ziping Method"],
+      "description": "Dedicated to classical Xu Ziping methodology. Courses cover the Ten Gods, Day Master analysis, luck pillar reading, and advanced chart interpretation following pre-Qing textual sources.",
+      "url": "",
+      "featured": false
+    },
+    {
+      "name": "Feng Shui by Jen",
+      "category": "bazi",
+      "badge": "Education",
+      "location": "New York, USA",
+      "specialties": ["BaZi", "Feng Shui", "Practitioner Training"],
+      "description": "Jennifer Bonetto offers professional BaZi practitioner certification courses alongside classical feng shui consulting services for residential and commercial clients.",
+      "url": "https://fengshuibyjen.com",
+      "featured": false
+    },
+    {
+      "name": "China Institute",
+      "category": "culture",
+      "badge": "Cultural",
+      "location": "New York, USA",
+      "specialties": ["Culture", "Education", "Arts"],
+      "description": "Founded in 1926, America\u2019s oldest bicultural organisation focused on China. Offers exhibitions on traditional arts, language programmes, and public lectures on Chinese philosophy and history.",
+      "url": "https://chinainstitute.org",
+      "featured": false
+    },
+    {
+      "name": "Asia Society",
+      "category": "culture",
+      "badge": "Cultural",
+      "location": "New York \u00b7 Hong Kong \u00b7 Global",
+      "specialties": ["Culture", "Arts", "Cross-Cultural Education"],
+      "description": "International organisation with centres across Asia, America, and Europe. Promotes cross-cultural understanding through exhibitions, performances, and educational initiatives including Chinese calendar events.",
+      "url": "https://asiasociety.org",
+      "featured": false
+    },
+    {
+      "name": "Chinese Culture Center of San Francisco",
+      "category": "culture",
+      "badge": "Cultural",
+      "location": "San Francisco, USA",
+      "specialties": ["Culture", "Community Arts", "Heritage"],
+      "description": "Rooted in Chinatown since 1965. Uplifts communities through cultural arts, exhibitions, and education programmes celebrating Chinese and Chinese American heritage.",
+      "url": "https://cccsf.us",
+      "featured": false
+    },
+    {
+      "name": "Museum of Chinese in America (MOCA)",
+      "category": "culture",
+      "badge": "Cultural",
+      "location": "New York, USA",
+      "specialties": ["Museum", "Chinese American History"],
+      "description": "Dedicated to preserving and presenting 160+ years of Chinese American experience. Houses a vast collection of artifacts, oral histories, and documents chronicling immigration and community life.",
+      "url": "https://mocanyc.org",
+      "featured": false
+    },
+    {
+      "name": "Chinese American Museum of Chicago",
+      "category": "culture",
+      "badge": "Cultural",
+      "location": "Chicago, USA",
+      "specialties": ["Museum", "Culture", "Research"],
+      "description": "Founded in 2005. Advances appreciation of Chinese American culture, history, and heritage through exhibitions, educational programmes, and community research initiatives.",
+      "url": "https://ccamuseum.org",
+      "featured": false
+    },
+    {
+      "name": "Chinese Historical Society of America",
+      "category": "culture",
+      "badge": "Cultural",
+      "location": "San Francisco, USA",
+      "specialties": ["History", "Archives", "Education"],
+      "description": "The oldest and largest organisation in the United States dedicated to documenting and preserving Chinese American history. Maintains extensive archives and rotating exhibitions.",
+      "url": "https://chsa.org",
+      "featured": false
+    },
+    {
+      "name": "Chinese Cultural Centre (Singapore)",
+      "category": "culture",
+      "badge": "Cultural",
+      "location": "Singapore",
+      "specialties": ["Culture", "Heritage", "Festivals"],
+      "description": "Government-supported centre promoting Chinese heritage through exhibitions, festivals, and educational programmes. Hosts annual zodiac celebrations and traditional arts workshops.",
+      "url": "https://singaporeccc.org.sg",
+      "featured": false
+    },
+    {
+      "name": "Lillian Too\u2019s World of Feng Shui (WOFS)",
+      "category": "products",
+      "badge": "Retail",
+      "location": "Kuala Lumpur, Malaysia",
+      "specialties": ["Feng Shui Products", "Annual Guides", "Enhancers"],
+      "description": "Founded by best-selling author Lillian Too. Flagship stores and online platform offering feng shui amulets, enhancers, cures, zodiac forecasts, and annual Flying Star guides.",
+      "url": "https://wofs.com",
+      "featured": false
+    },
+    {
+      "name": "Mandarin Arts",
+      "category": "products",
+      "badge": "Retail",
+      "location": "London, UK",
+      "specialties": ["Zodiac Gifts", "Feng Shui Supplies", "Calligraphy"],
+      "description": "Specialist retailer of traditional Chinese art, calligraphy supplies, and zodiac-themed gifts. Carries Luopan compasses, feng shui remedies, and handcrafted Chinese New Year decorations.",
+      "url": "",
+      "featured": false
+    },
+    {
+      "name": "Inkston",
+      "category": "products",
+      "badge": "Retail",
+      "location": "Shanghai, China",
+      "specialties": ["Calligraphy Supplies", "Xuan Paper", "Ink Stones"],
+      "description": "Founded in 2016, providing authentic Chinese calligraphy brushes, ink stones, xuan paper, and painting supplies sourced directly from traditional artisan workshops. Ships worldwide.",
+      "url": "https://inkston.com",
+      "featured": false
+    },
+    {
+      "name": "FengshuiMall",
+      "category": "products",
+      "badge": "Retail",
+      "location": "Online \u00b7 USA",
+      "specialties": ["Feng Shui Products", "Crystals", "Luo Pan"],
+      "description": "Dedicated online retailer offering authentic feng shui products including Luo Pan compasses, crystals, traditional Chinese ornaments, and seasonal cures for annual Flying Star remedies.",
+      "url": "https://fengshuimall.com",
+      "featured": false
+    },
+    {
+      "name": "Beijing Tong Ren Tang",
+      "category": "tcm",
+      "badge": "Clinic",
+      "location": "Beijing, China \u00b7 Global Branches",
+      "specialties": ["TCM", "Herbal Medicine", "Historic Pharmacy"],
+      "description": "Founded in 1669, one of the world\u2019s oldest and most prestigious TCM brands. Served eight imperial dynasties over 188 years. Operates clinics and pharmacies worldwide with rigorous quality standards.",
+      "url": "https://tongrentang.com",
+      "featured": false
+    },
+    {
+      "name": "Eu Yan Sang",
+      "category": "tcm",
+      "badge": "Clinic",
+      "location": "Hong Kong \u00b7 Singapore \u00b7 Malaysia",
+      "specialties": ["TCM", "Herbal Remedies", "Wellness"],
+      "description": "Founded in 1879. Operates 170+ retail outlets and TCM clinics across Southeast Asia, offering herbal remedies, clinical consultations, acupuncture, and integrated wellness programmes.",
+      "url": "https://euyansang.com",
+      "featured": false
+    },
+    {
+      "name": "Ping Ming Health",
+      "category": "tcm",
+      "badge": "Clinic",
+      "location": "Perth, Australia",
+      "specialties": ["Acupuncture", "TCM", "Herbal Medicine"],
+      "description": "Australia\u2019s trusted name in acupuncture and Traditional Chinese Medicine since 1992. Experienced practitioners offering herbal medicine, cupping therapy, and holistic health consultations.",
+      "url": "https://pingminghealth.com",
+      "featured": false
+    },
+    {
+      "name": "Qin\u2019s Clinic",
+      "category": "tcm",
+      "badge": "Clinic",
+      "location": "London, UK",
+      "specialties": ["Acupuncture", "TCM", "Pain Relief"],
+      "description": "One of the UK\u2019s most respected TCM clinics, located on Harley Street. Offers expert acupuncture, herbal medicine prescriptions, and holistic pain relief rooted in classical Chinese medical tradition.",
+      "url": "https://qinclinic.com",
+      "featured": false
+    },
+    {
+      "name": "Shaolin Tagou Martial Arts School",
+      "category": "martial-arts",
+      "badge": "School",
+      "location": "Dengfeng, Henan, China",
+      "specialties": ["Shaolin Kung Fu", "Wushu", "Sanda"],
+      "description": "The largest and one of the most prestigious kung fu academies in China, located near the Shaolin Temple. Has produced numerous national and international martial arts champions.",
+      "url": "",
+      "featured": false
+    },
+    {
+      "name": "Wudang Mountain Kung Fu Academy",
+      "category": "martial-arts",
+      "badge": "School",
+      "location": "Mount Wudang, Hubei, China",
+      "specialties": ["Wudang Tai Chi", "Internal Arts", "Qigong"],
+      "description": "Located at Nanyan Temple in the Wudang Scenic Zone. Teaches traditional Wudang Tai Chi, Baguazhang, Xingyiquan, and Daoist Qigong in the birthplace of internal martial arts.",
+      "url": "",
+      "featured": false
+    },
+    {
+      "name": "Ving Tsun Athletic Association",
+      "category": "martial-arts",
+      "badge": "Organisation",
+      "location": "Hong Kong",
+      "specialties": ["Wing Chun", "Ip Man Lineage"],
+      "description": "Established in 1967 by Grandmaster Ip Man and his senior students. The original Wing Chun organisation preserving the Ip Man lineage \u2014 the same tradition taught to Bruce Lee.",
+      "url": "https://vingtsun.org.hk",
+      "featured": false
+    },
+    {
+      "name": "U.S. Kuo Shu Academy",
+      "category": "martial-arts",
+      "badge": "School",
+      "location": "Owings Mills, Maryland, USA",
+      "specialties": ["Tai Chi", "Kung Fu", "Chinese Weapons"],
+      "description": "Teaches traditional Yang and Chen style Tai Chi, Tien Shan Pai kung fu, push hands, and Chinese weapons forms with authentic lineage tracing back to classical Chinese martial traditions.",
+      "url": "https://uskuoshu.com",
+      "featured": false
+    }
+  ]
+}
