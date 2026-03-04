@@ -1,0 +1,23 @@
+<!-- ===== COMMENTS (giscus) ===== -->
+{% if comments !== false and site.giscusEnabled %}
+<section class="comments-section" aria-labelledby="comments-heading">
+  <h2 id="comments-heading"><span class="lang-en">Discussion</span><span class="lang-tc">討論</span><span class="lang-sc">讨论</span></h2>
+  <p class="comments-note"><span class="lang-en">Sign in with GitHub to join the conversation.</span><span class="lang-tc">使用 GitHub 登入參與討論。</span><span class="lang-sc">使用 GitHub 登录参与讨论。</span></p>
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ site.giscusRepo }}"
+          data-repo-id="{{ site.giscusRepoId }}"
+          data-category="{{ site.giscusCategory }}"
+          data-category-id="{{ site.giscusCategoryId }}"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="preferred_color_scheme"
+          data-lang="en"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+  </script>
+</section>
+{% endif %}

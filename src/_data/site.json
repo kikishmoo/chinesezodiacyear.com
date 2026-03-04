@@ -19,5 +19,10 @@
   "pinterestVerification": "",
   "bingVerification": "E06772ED3ADC345F8E276F52233A451F",
   "indexNowKey": "czy2026indexnow",
-  "beehiivPublicationId": ""
+  "beehiivPublicationId": "",
+  "giscusEnabled": false,
+  "giscusRepo": "kikishmoo/chinesezodiacyear.com",
+  "giscusRepoId": "",
+  "giscusCategory": "Comments",
+  "giscusCategoryId": ""
 }

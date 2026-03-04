@@ -1371,6 +1371,22 @@ select.calc-input {
 }
 .search-no-results a { color: var(--vermillion); }
 
+/* --- Comments Section (giscus) --- */
+.comments-section {
+  margin-top: var(--sp-2xl);
+  padding-top: var(--sp-xl);
+  border-top: 1px solid var(--parchment);
+}
+.comments-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: var(--sp-sm);
+}
+.comments-note {
+  font-size: 0.88rem;
+  color: var(--graphite);
+  margin-bottom: var(--sp-lg);
+}
+
 /* --- Five Elements Table --- */
 .elements-table {
   width: 100%;
