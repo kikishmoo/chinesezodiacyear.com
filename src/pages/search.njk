@@ -1,0 +1,21 @@
+---
+title: "Search"
+description: "Search the Chinese Zodiac encyclopedia for zodiac animals, BaZi, feng shui, cultural traditions, and more."
+layout: "layouts/base.njk"
+permalink: "/search/"
+eleventyExcludeFromCollections: true
+---
+
+<section class="search-page" style="max-width:800px;margin:0 auto;padding:var(--sp-3xl) var(--sp-lg);">
+  <h1 style="text-align:center;margin-bottom:var(--sp-lg);">
+    <span class="lang-en">Search</span><span class="lang-tc">搜尋</span><span class="lang-sc">搜索</span>
+  </h1>
+  <form id="site-search-form" class="search-form" role="search" aria-label="Site search">
+    <input type="search" id="site-search-input" class="search-input" placeholder="Search zodiac, BaZi, feng shui…" aria-label="Search" autofocus>
+    <button type="submit" class="btn btn-gold search-btn">
+      <span class="lang-en">Search</span><span class="lang-tc">搜尋</span><span class="lang-sc">搜索</span>
+    </button>
+  </form>
+  <div id="search-status" class="search-status" aria-live="polite" hidden></div>
+  <div id="search-results" class="search-results"></div>
+</section>
