@@ -14,7 +14,7 @@ export default {
     const graph = data.contentGraph;
     if (!graph) return [];
 
-    const currentUrl = data.permalink || data.page?.url;
+    const currentUrl = data.page?.url;
     if (!currentUrl) return [];
 
     const links = [];
@@ -80,6 +80,28 @@ export default {
       addLink("/bazi-calculator/", "BaZi Calculator");
       addLink("/wuxing/", "Wu Xing \u2014 Five Elements");
 
+      return links;
+    }
+
+    // --- Element sub-pages: /wuxing/{element}/ ---
+    const elementMatch = currentUrl.match(/^\/wuxing\/(\w+)\/$/);
+    if (elementMatch) {
+      addLink("/wuxing/", "Wu Xing \u2014 Five Elements");
+      addLink("/bazi/", "BaZi & Four Pillars");
+      addLink("/tcm/", "Chinese Medicine");
+      addLink("/zodiac/", "Zodiac Animals");
+      addLink("/fengshui/", "Feng Shui");
+      return links;
+    }
+
+    // --- Dynasty sub-pages: /dynasties/{dynasty}/ ---
+    const dynastyMatch = currentUrl.match(/^\/dynasties\/(\w+)\/$/);
+    if (dynastyMatch) {
+      addLink("/dynasties/", "All Dynasties");
+      addLink("/calendar/", "Chinese Calendar");
+      addLink("/zodiac/", "Zodiac Animals");
+      addLink("/bazi/", "BaZi & Four Pillars");
+      addLink("/hanfu/", "Hanfu & Silk Road");
       return links;
     }
 

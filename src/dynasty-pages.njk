@@ -1,0 +1,70 @@
+---
+pagination:
+  data: dynastiesData
+  size: 1
+  alias: dynasty
+permalink: "/dynasties/{{ dynasty.slug }}/"
+layout: "layouts/article.njk"
+ogType: "article"
+category: "encyclopedia"
+eleventyComputed:
+  title: "{{ dynasty.name }} ({{ dynasty.nameTc }}) — History & Culture"
+  description: "The {{ dynasty.name }} ({{ dynasty.nameTc }}, {{ dynasty.dates }}): history, cultural contributions, and significance to Chinese zodiac, calendar, and metaphysical traditions."
+  keywords: "{{ dynasty.name }}, {{ dynasty.nameTc }}, {{ dynasty.pinyin }}, Chinese dynasty, {{ dynasty.dates }}, Chinese history"
+  heroOverline: "Dynasties"
+  heroTitle: "{{ dynasty.name }}"
+  heroSubtitle: "{{ dynasty.nameTc }} · {{ dynasty.dates }}"
+  breadcrumbs:
+    - label: "Home"
+      url: "/"
+    - label: "Dynasties"
+      url: "/dynasties/"
+    - label: "{{ dynasty.name }}"
+  toc:
+    - id: "overview"
+      label: "Overview"
+    - id: "capital"
+      label: "Capital & Period"
+    - id: "contributions"
+      label: "Key Contributions"
+    - id: "faq"
+      label: "FAQ"
+  faq:
+    - q: "When was the {{ dynasty.name }}?"
+      a: "The {{ dynasty.name }} ({{ dynasty.nameTc }}, {{ dynasty.pinyin }}) spanned {{ dynasty.dates }}, with its capital at {{ dynasty.capital }}."
+    - q: "What were the {{ dynasty.name }}'s key contributions to Chinese culture?"
+      a: "The {{ dynasty.name }}'s major contributions include: {{ dynasty.keyContributions | join('; ') }}."
+tags: ["dynasty"]
+---
+
+<section id="overview">
+  <h2><span class="lang-en">{{ dynasty.name }} — {{ dynasty.nameTc }}</span><span class="lang-tc">{{ dynasty.nameTc }} — {{ dynasty.name }}</span><span class="lang-sc">{{ dynasty.nameSc }} — {{ dynasty.name }}</span></h2>
+  <p class="subtitle" style="font-style:italic;">{{ dynasty.pinyin }} · {{ dynasty.dates }}</p>
+  <p><span class="lang-en">{{ dynasty.description }}</span><span class="lang-tc">{{ dynasty.descriptionTc }}</span><span class="lang-sc">{{ dynasty.descriptionSc }}</span></p>
+</section>
+
+<section id="capital">
+  <h2><span class="lang-en">Capital &amp; Period</span><span class="lang-tc">都城與時期</span><span class="lang-sc">都城与时期</span></h2>
+  <div class="info-grid" style="margin-top:var(--sp-lg);">
+    <div class="info-card">
+      <span class="info-card-icon">🏯</span>
+      <div class="info-card-value">{{ dynasty.capital }}</div>
+      <div class="info-card-label"><span class="lang-en">Capital</span><span class="lang-tc">都城</span><span class="lang-sc">都城</span></div>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">📜</span>
+      <div class="info-card-value">{{ dynasty.dates }}</div>
+      <div class="info-card-label"><span class="lang-en">Period</span><span class="lang-tc">時期</span><span class="lang-sc">时期</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contributions">
+  <h2><span class="lang-en">Key Contributions</span><span class="lang-tc">主要貢獻</span><span class="lang-sc">主要贡献</span></h2>
+  <p><span class="lang-en">The {{ dynasty.name }} made lasting contributions to Chinese zodiac, calendar, and metaphysical traditions:</span><span class="lang-tc">{{ dynasty.nameTc }}對中國生肖、曆法和形而上學傳統做出了持久貢獻：</span><span class="lang-sc">{{ dynasty.nameSc }}对中国生肖、历法和形而上学传统做出了持久贡献：</span></p>
+  <ul class="feature-list" style="margin-top:var(--sp-md);">
+    {%- for contribution in dynasty.keyContributions %}
+    <li>{{ contribution }}</li>
+    {%- endfor %}
+  </ul>
+</section>
