@@ -2,18 +2,24 @@
 layout: "layouts/article.njk"
 title: "Zodiac Compatibility Checker"
 description: "Check Chinese zodiac compatibility using classical Six Harmonies, Three Harmonies, Six Clashes, and Harms. Enter two birth years to find your match."
-keywords: "Chinese zodiac compatibility, Six Harmonies, Three Harmonies, Six Clashes, zodiac match, birth year compatibility, Chinese astrology match"
+keywords: "Chinese zodiac compatibility, zodiac compatibility chart, Six Harmonies, Three Harmonies, Six Clashes, zodiac match, birth year compatibility, Chinese astrology compatibility, zodiac love match, zodiac friendship compatibility"
 ogType: "website"
 permalink: "/compatibility/"
 heroOverline: "Interactive Tool"
 heroTitle: "Zodiac Compatibility Checker"
 heroSubtitle: "Discover the classical relationship between two zodiac animals using the Six Harmonies, Three Harmonies, Six Clashes, and Harms"
 category: "encyclopedia"
+datePublished: "2026-02-22"
+dateModified: "2026-03-02"
 breadcrumbs:
   - label: "Home"
     url: "/"
   - label: "Compatibility Checker"
 toc:
+  - id: "calculator"
+    label: "Calculator"
+  - id: "compatibility-chart"
+    label: "Compatibility Chart"
   - id: "six-harmonies"
     label: "Six Harmonies"
   - id: "three-harmonies"
@@ -22,6 +28,10 @@ toc:
     label: "Six Clashes"
   - id: "harms"
     label: "Six Harms"
+  - id: "self-punishment"
+    label: "Self-Punishment"
+  - id: "elements"
+    label: "Elemental Interactions"
   - id: "disclaimer"
     label: "Classical Perspective"
   - id: "faq"
@@ -35,6 +45,12 @@ faq:
     a: "The Three Harmonies (三合) group three animals sharing elemental affinity: Water (Monkey-Rat-Dragon), Wood (Tiger-Horse-Dog), Fire (Snake-Rooster-Ox), Metal (Pig-Rabbit-Goat). Animals within the same triad cooperate naturally."
   - q: "Does a zodiac clash mean the relationship will fail?"
     a: "No. A clash indicates where tension may arise, but awareness of these dynamics allows growth. Full compatibility analysis requires examining both individuals' complete BaZi charts, not just the year branch. Many successful relationships exist between clashing signs."
+  - q: "What is the most compatible Chinese zodiac pairing?"
+    a: "The Six Harmonies are traditionally considered the strongest matches. Each animal has one 'secret friend' (六合): Rat-Ox, Tiger-Pig, Rabbit-Dog, Dragon-Rooster, Snake-Monkey, and Horse-Goat. However, true compatibility in Chinese astrology depends on the full BaZi chart, not just the zodiac year."
+  - q: "Can two people with the same zodiac sign be compatible?"
+    a: "Yes, but with caveats. Same-sign pairings offer deep mutual understanding and shared rhythms. However, some animals carry a Self-Punishment (自刑) when doubled — Rat, Dragon, Horse, and Rooster. This doesn't doom the relationship, but signals areas requiring self-awareness."
+  - q: "How does elemental compatibility work?"
+    a: "Beyond the zodiac animal, each birth year also carries one of five elements (Wood, Fire, Earth, Metal, Water). Productive pairs (e.g., Wood feeds Fire) enhance each other, while destructive pairs (e.g., Water extinguishes Fire) may conflict. The element adds a second layer of compatibility analysis beyond the animal branch."
 relatedArticles:
   - label: "Zodiac Animals"
     url: "/zodiac/"
@@ -44,65 +60,551 @@ relatedArticles:
     url: "/wuxing/"
   - label: "The Chinese Calendar"
     url: "/calendar/"
+sidebarProducts:
+  - name: "Ultimate Zodiac Compatibility Guide"
+    desc: "All 144 pairings analysed: love, friendship, and business."
+    url: "https://chinesezodiacyear.gumroad.com/l/zrrnxt"
+    price: "$14.99"
 ---
+
+{# ===== ENGLISH ===== #}
+<div class="lang-en">
+
+<section id="calculator" class="bazi-calculator-section">
+  <div class="calc-container">
+    <span class="overline">Check Your Match</span>
+    <h2>Zodiac Compatibility Calculator</h2>
+    <p class="subtitle" style="margin:0.5rem auto 1.5rem;">Enter two birth years to discover the classical relationship between any two zodiac animals.</p>
+
+    <form id="compat-form" class="calc-form" aria-label="Compatibility calculator">
+      <div style="text-align:center;">
+        <label for="year-a" style="font-weight:600;display:block;margin-bottom:0.3rem;">Person A</label>
+        <input type="number" id="year-a" class="calc-input" placeholder="e.g. 1990" min="1900" max="2100" required>
+      </div>
+      <div style="font-size:1.8rem;color:var(--imperial-gold);padding-top:1.2rem;">&amp;</div>
+      <div style="text-align:center;">
+        <label for="year-b" style="font-weight:600;display:block;margin-bottom:0.3rem;">Person B</label>
+        <input type="number" id="year-b" class="calc-input" placeholder="e.g. 1994" min="1900" max="2100" required>
+      </div>
+      <div style="width:100%;text-align:center;margin-top:0.5rem;">
+        <button type="submit" class="btn btn-primary">Check Compatibility</button>
+      </div>
+    </form>
+
+    <div id="compat-result" class="calc-result" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="compatibility-chart">
+  <h2>Complete Compatibility Chart</h2>
+  <p>The table below shows the classical relationship between all 144 zodiac pairings at a glance. Use it as a quick reference before diving into the detailed explanations of each relationship type.</p>
+
+  <div class="compat-chart-wrap">
+    <table class="compat-matrix">
+      <thead>
+        <tr>
+          <th></th>
+          <th>🐀<br><small>Rat</small></th>
+          <th>🐂<br><small>Ox</small></th>
+          <th>🐅<br><small>Tiger</small></th>
+          <th>🐇<br><small>Rabbit</small></th>
+          <th>🐉<br><small>Dragon</small></th>
+          <th>🐍<br><small>Snake</small></th>
+          <th>🐴<br><small>Horse</small></th>
+          <th>🐐<br><small>Goat</small></th>
+          <th>🐒<br><small>Monkey</small></th>
+          <th>🐓<br><small>Rooster</small></th>
+          <th>🐕<br><small>Dog</small></th>
+          <th>🐖<br><small>Pig</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>🐀 Rat</th>
+          <td class="cm-self">Self</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+        </tr>
+        <tr>
+          <th>🐂 Ox</th>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+        </tr>
+        <tr>
+          <th>🐅 Tiger</th>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-h6">♥ H6</td>
+        </tr>
+        <tr>
+          <th>🐇 Rabbit</th>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-h3">★ H3</td>
+        </tr>
+        <tr>
+          <th>🐉 Dragon</th>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-neu">—</td>
+        </tr>
+        <tr>
+          <th>🐍 Snake</th>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-clash">⚔ Clash</td>
+        </tr>
+        <tr>
+          <th>🐴 Horse</th>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+        </tr>
+        <tr>
+          <th>🐐 Goat</th>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+        </tr>
+        <tr>
+          <th>🐒 Monkey</th>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-harm">⚠ Harm</td>
+        </tr>
+        <tr>
+          <th>🐓 Rooster</th>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-neu">—</td>
+        </tr>
+        <tr>
+          <th>🐕 Dog</th>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-self">Self</td>
+          <td class="cm-neu">—</td>
+        </tr>
+        <tr>
+          <th>🐖 Pig</th>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h6">♥ H6</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-clash">⚔ Clash</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-h3">★ H3</td>
+          <td class="cm-harm">⚠ Harm</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-neu">—</td>
+          <td class="cm-self">Self</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="chart-legend"><strong>Legend:</strong> <span class="cm-h6" style="padding:2px 6px;border-radius:3px;">♥ H6</span> = Six Harmony &nbsp; <span class="cm-h3" style="padding:2px 6px;border-radius:3px;">★ H3</span> = Three Harmony &nbsp; <span class="cm-clash" style="padding:2px 6px;border-radius:3px;">⚔ Clash</span> = Six Clash &nbsp; <span class="cm-harm" style="padding:2px 6px;border-radius:3px;">⚠ Harm</span> = Six Harm &nbsp; <span class="cm-self" style="padding:2px 6px;border-radius:3px;">Self</span> = Same Animal &nbsp; <span class="cm-neu" style="padding:2px 6px;border-radius:3px;">—</span> = Neutral</p>
+</section>
+
 <section id="six-harmonies">
-        <h2>The Six Harmonies (<span class="chinese-char">六合</span>)</h2>
-        <p>The Six Harmonies represent the six most naturally compatible zodiac pairings. These are animals whose Earthly Branches combine to produce a harmonious elemental transformation:</p>
-        <table class="elements-table">
-          <thead><tr><th>Pair</th><th>Combined Element</th><th>Relationship Quality</th></tr></thead>
-          <tbody>
-            <tr><td>Rat &amp; Ox</td><td>Earth</td><td>Stability, loyalty, deep mutual support</td></tr>
-            <tr><td>Tiger &amp; Pig</td><td>Wood</td><td>Generosity, warmth, shared idealism</td></tr>
-            <tr><td>Rabbit &amp; Dog</td><td>Fire</td><td>Devotion, trust, emotional security</td></tr>
-            <tr><td>Dragon &amp; Rooster</td><td>Metal</td><td>Ambition, precision, mutual admiration</td></tr>
-            <tr><td>Snake &amp; Monkey</td><td>Water</td><td>Intelligence, adaptability, strategic alliance</td></tr>
-            <tr><td>Horse &amp; Goat</td><td>Fire</td><td>Creativity, passion, artistic synergy</td></tr>
-          </tbody>
-        </table>
-      </section>
+  <h2>The Six Harmonies (<span class="chinese-char">六合</span>)</h2>
+  <p>The Six Harmonies represent the six most naturally compatible zodiac pairings. In classical Chinese metaphysics, these are animals whose Earthly Branches combine (<span class="chinese-char">合</span>) to produce a harmonious elemental transformation. This concept originates from the <em>Huainanzi</em> (淮南子, 2nd century BCE) and was further codified in Tang Dynasty BaZi analysis.</p>
+  <table class="elements-table">
+    <thead><tr><th>Pair</th><th>Combined Element</th><th>Relationship Quality</th></tr></thead>
+    <tbody>
+      <tr><td>Rat &amp; Ox</td><td>Earth</td><td>Stability, loyalty, deep mutual support</td></tr>
+      <tr><td>Tiger &amp; Pig</td><td>Wood</td><td>Generosity, warmth, shared idealism</td></tr>
+      <tr><td>Rabbit &amp; Dog</td><td>Fire</td><td>Devotion, trust, emotional security</td></tr>
+      <tr><td>Dragon &amp; Rooster</td><td>Metal</td><td>Ambition, precision, mutual admiration</td></tr>
+      <tr><td>Snake &amp; Monkey</td><td>Water</td><td>Intelligence, adaptability, strategic alliance</td></tr>
+      <tr><td>Horse &amp; Goat</td><td>Fire</td><td>Creativity, passion, artistic synergy</td></tr>
+    </tbody>
+  </table>
+  <p>The Six Harmonies are sometimes called "secret friends" (<span class="chinese-char">暗合</span>) because their bond is quiet and steady rather than showy. In BaZi practice, when these branches appear together in a natal chart, they indicate areas of natural support, helpful relationships, and fortunate timing.</p>
+</section>
 
-      <section id="three-harmonies">
-        <h2>The Three Harmonies (<span class="chinese-char">三合</span>)</h2>
-        <p>The Three Harmonies group animals that share an elemental affinity through their position on the zodiac wheel, forming cooperative triads:</p>
-        <ul>
-          <li><strong>Water Triad:</strong> Monkey, Rat, Dragon &mdash; <em>Shēn-Zǐ-Chén</em> (<span class="chinese-char">申子辰</span>)</li>
-          <li><strong>Wood Triad:</strong> Tiger, Horse, Dog &mdash; <em>Yín-Wǔ-Xū</em> (<span class="chinese-char">寅午戌</span>)</li>
-          <li><strong>Fire Triad:</strong> Snake, Rooster, Ox &mdash; <em>Sì-Yǒu-Chǒu</em> (<span class="chinese-char">巳酉丑</span>)</li>
-          <li><strong>Metal Triad:</strong> Pig, Rabbit, Goat &mdash; <em>Hài-Mǎo-Wèi</em> (<span class="chinese-char">亥卯未</span>)</li>
-        </ul>
-        <p>Animals within the same triad share cooperative energy and tend to understand each other's motivations intuitively.</p>
-      </section>
+<section id="three-harmonies">
+  <h2>The Three Harmonies (<span class="chinese-char">三合</span>)</h2>
+  <p>The Three Harmonies group animals that share an elemental affinity through their position on the zodiac wheel, forming cooperative triads. These groupings are among the oldest compatibility structures in Chinese astrology, predating even the formalisation of BaZi.</p>
+  <table class="elements-table">
+    <thead><tr><th>Triad</th><th>Element</th><th>Animals</th><th>Branch Names</th></tr></thead>
+    <tbody>
+      <tr><td>Water Triad</td><td>Water</td><td>Monkey, Rat, Dragon</td><td><span class="chinese-char">申子辰</span></td></tr>
+      <tr><td>Wood Triad</td><td>Wood</td><td>Tiger, Horse, Dog</td><td><span class="chinese-char">寅午戌</span></td></tr>
+      <tr><td>Fire Triad</td><td>Fire</td><td>Snake, Rooster, Ox</td><td><span class="chinese-char">巳酉丑</span></td></tr>
+      <tr><td>Metal Triad</td><td>Metal</td><td>Pig, Rabbit, Goat</td><td><span class="chinese-char">亥卯未</span></td></tr>
+    </tbody>
+  </table>
+  <p>Animals within the same triad share cooperative energy and tend to understand each other's motivations intuitively. The Three Harmony bond is broader than the Six Harmony — it connects three animals rather than two, making it common in team dynamics, friendships, and business partnerships.</p>
+</section>
 
-      <section id="six-clashes">
-        <h2>The Six Clashes (<span class="chinese-char">六衝</span>)</h2>
-        <p>The Six Clashes pair animals that sit <em>directly opposite</em> each other on the zodiac wheel. Their energies are fundamentally opposed:</p>
-        <ul>
-          <li><strong>Rat &harr; Horse</strong> &mdash; Water vs Fire; careful planning vs impulsive freedom</li>
-          <li><strong>Ox &harr; Goat</strong> &mdash; Earthy pragmatism vs artistic sensitivity</li>
-          <li><strong>Tiger &harr; Monkey</strong> &mdash; Bold directness vs clever manoeuvring</li>
-          <li><strong>Rabbit &harr; Rooster</strong> &mdash; Diplomatic gentleness vs frank outspokenness</li>
-          <li><strong>Dragon &harr; Dog</strong> &mdash; Grandiose ambition vs grounded loyalty</li>
-          <li><strong>Snake &harr; Pig</strong> &mdash; Calculated reserve vs open generosity</li>
-        </ul>
-        <p>Clashing pairs can produce tension, but classical analysis notes that awareness of these dynamics allows individuals to transform conflict into complementary growth. A clash does not doom a relationship &mdash; it signals where conscious effort is needed.</p>
-      </section>
+<section id="six-clashes">
+  <h2>The Six Clashes (<span class="chinese-char">六衝</span>)</h2>
+  <p>The Six Clashes pair animals that sit <em>directly opposite</em> each other on the zodiac wheel. Separated by six positions, their energies are fundamentally opposed:</p>
+  <table class="elements-table">
+    <thead><tr><th>Clash Pair</th><th>Tension Dynamic</th></tr></thead>
+    <tbody>
+      <tr><td>Rat ↔ Horse</td><td>Water vs Fire: careful planning vs impulsive freedom</td></tr>
+      <tr><td>Ox ↔ Goat</td><td>Earthy pragmatism vs artistic sensitivity</td></tr>
+      <tr><td>Tiger ↔ Monkey</td><td>Bold directness vs clever manoeuvring</td></tr>
+      <tr><td>Rabbit ↔ Rooster</td><td>Diplomatic gentleness vs frank outspokenness</td></tr>
+      <tr><td>Dragon ↔ Dog</td><td>Grandiose ambition vs grounded loyalty</td></tr>
+      <tr><td>Snake ↔ Pig</td><td>Calculated reserve vs open generosity</td></tr>
+    </tbody>
+  </table>
+  <p>Clashing pairs can produce friction, disagreements, and opposing life philosophies. However, classical analysis emphasises that awareness of these dynamics allows individuals to transform conflict into complementary growth. A clash does not doom a relationship — it signals where conscious effort is needed. In BaZi practice, a clash can also indicate significant life changes and breakthroughs when properly managed.</p>
+</section>
 
-      <section id="harms">
-        <h2>The Six Harms (<span class="chinese-char">六害</span>)</h2>
-        <p>The Six Harms describe pairings where hidden resentments and misunderstandings tend to develop over time:</p>
-        <ul>
-          <li>Rat &amp; Goat</li>
-          <li>Ox &amp; Horse</li>
-          <li>Tiger &amp; Snake</li>
-          <li>Rabbit &amp; Dragon</li>
-          <li>Monkey &amp; Pig</li>
-          <li>Rooster &amp; Dog</li>
-        </ul>
-        <p>Harms are subtler than clashes. While clashes are overt conflicts, harms manifest as gradual erosion of trust or unexplained friction that builds over time.</p>
-      </section>
+<section id="harms">
+  <h2>The Six Harms (<span class="chinese-char">六害</span>)</h2>
+  <p>The Six Harms describe pairings where hidden resentments and misunderstandings tend to develop over time. Unlike clashes, which are overt, harms are insidious — they erode relationships gradually through subtle friction:</p>
+  <table class="elements-table">
+    <thead><tr><th>Harm Pair</th><th>Nature of Friction</th></tr></thead>
+    <tbody>
+      <tr><td>Rat &amp; Goat</td><td>Misaligned values: pragmatism vs idealism</td></tr>
+      <tr><td>Ox &amp; Horse</td><td>Pace conflict: steady patience vs restless energy</td></tr>
+      <tr><td>Tiger &amp; Snake</td><td>Trust gap: transparency vs secrecy</td></tr>
+      <tr><td>Rabbit &amp; Dragon</td><td>Power imbalance: gentle yielding vs dominant force</td></tr>
+      <tr><td>Monkey &amp; Pig</td><td>Exploitation risk: cunning vs trusting</td></tr>
+      <tr><td>Rooster &amp; Dog</td><td>Communication clash: criticism vs loyalty</td></tr>
+    </tbody>
+  </table>
+  <p>The harm relationship (<span class="chinese-char">害</span>) derives from the interference of one animal with its partner's Six Harmony bond. For example, Rat and Ox form a Six Harmony — but the Goat clashes with the Ox, thereby "harming" the Rat's most supportive relationship. Open communication is essential to prevent the erosion of trust inherent in harm pairings.</p>
+</section>
 
-      <section id="disclaimer">
-        <h2>A Classical Perspective</h2>
-        <p>Zodiac compatibility based solely on the birth year is the most <em>general</em> level of analysis. A complete assessment in classical Chinese astrology would examine the full <a href="/bazi/">BaZi chart</a> (all four pillars), the <a href="/wuxing/">five element</a> balance of both individuals, and the interactions between all eight Earthly Branches and Heavenly Stems in their combined charts.</p>
-        <p>This tool offers a starting point grounded in classical relationships between the twelve Earthly Branches. For deeper analysis, consult a qualified <a href="/directory/">BaZi practitioner</a>.</p>
-      </section>
+<section id="self-punishment">
+  <h2>Self-Punishment (<span class="chinese-char">自刑</span>)</h2>
+  <p>In classical Chinese astrology, certain animals carry a "self-punishment" (<span class="chinese-char">自刑</span>) relationship when doubled — that is, when two people of the same sign are paired, or when the same branch appears multiple times in a BaZi chart. The four self-punishment animals are:</p>
+  <table class="elements-table">
+    <thead><tr><th>Animal</th><th>Self-Punishment Tendency</th></tr></thead>
+    <tbody>
+      <tr><td>🐀 Rat (<span class="chinese-char">子</span>)</td><td>Overthinking, anxiety spirals, self-doubt</td></tr>
+      <tr><td>🐉 Dragon (<span class="chinese-char">辰</span>)</td><td>Ego conflicts, pride preventing compromise</td></tr>
+      <tr><td>🐴 Horse (<span class="chinese-char">午</span>)</td><td>Restless self-sabotage, inability to commit</td></tr>
+      <tr><td>🐓 Rooster (<span class="chinese-char">酉</span>)</td><td>Perfectionism, harsh self-criticism</td></tr>
+    </tbody>
+  </table>
+  <p>Self-punishment does not mean these pairings are doomed. It means the shared energy amplifies certain internal tensions. Two Rats may overthink together; two Dragons may struggle for dominance. Awareness of these patterns is the first step toward managing them constructively.</p>
+</section>
+
+<section id="elements">
+  <h2>Elemental Interactions (<span class="chinese-char">五行生剋</span>)</h2>
+  <p>Beyond the zodiac animal, each birth year also carries one of the <a href="/wuxing/">five elements</a> (Wood, Fire, Earth, Metal, Water), cycling every two years. The elemental relationship between two people adds a second layer of compatibility:</p>
+  <table class="elements-table">
+    <thead><tr><th>Cycle</th><th>Direction</th><th>Effect on Relationship</th></tr></thead>
+    <tbody>
+      <tr><td>Generating (<span class="chinese-char">相生</span>)</td><td>Wood → Fire → Earth → Metal → Water → Wood</td><td>Supportive, nurturing, one partner empowers the other</td></tr>
+      <tr><td>Overcoming (<span class="chinese-char">相剋</span>)</td><td>Wood → Earth → Water → Fire → Metal → Wood</td><td>Controlling, challenging, one partner dominates the other</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Generating (productive) pairs</strong> create natural synergy: Wood feeds Fire, Fire produces Earth, Earth yields Metal, Metal collects Water, Water nourishes Wood. These partnerships feel effortless and mutually beneficial.</p>
+  <p><strong>Overcoming (destructive) pairs</strong> introduce power dynamics: Wood parts Earth, Earth dams Water, Water quenches Fire, Fire melts Metal, Metal chops Wood. These partnerships require more conscious effort to maintain balance.</p>
+  <p>The birth year element combines with the zodiac animal to create a more nuanced picture. For example, two animals in a Six Harmony whose elements also generate each other enjoy an exceptionally strong bond. Conversely, a Six Harmony with conflicting elements may face subtle friction despite the branch-level compatibility.</p>
+</section>
+
+<section id="disclaimer">
+  <h2>A Classical Perspective</h2>
+  <p>Zodiac compatibility based solely on the birth year is the most <em>general</em> level of analysis in Chinese astrology. A complete assessment would examine the full <a href="/bazi/">BaZi chart</a> (all four pillars — Year, Month, Day, and Hour), the <a href="/wuxing/">five element</a> balance of both individuals, and the interactions between all eight Earthly Branches and Heavenly Stems in their combined charts.</p>
+  <p>The calculator and chart on this page offer a starting point grounded in the classical relationships between the twelve Earthly Branches, as documented in sources from the <em>Huainanzi</em> to the Song Dynasty BaZi texts of Xu Ziping. For a comprehensive personal analysis, consult a qualified <a href="/directory/">BaZi practitioner</a> or explore our <a href="/premium-readings/">premium reading services</a>.</p>
+</section>
+
+<div class="callout-box callout-box--jade" style="text-align:center">
+  <h3 style="margin-bottom:var(--sp-sm)">Want a Detailed Compatibility Reading?</h3>
+  <p>Our calculator analyses the zodiac branch. For a full Four Pillars compatibility report covering personality, timing, and life-path alignment, order a professional reading.</p>
+  <a href="/premium-readings/" class="btn btn-gold" style="margin-top:var(--sp-md)">View Premium Readings &rarr;</a>
+</div>
+
+</div>
+
+{# ===== TRADITIONAL CHINESE ===== #}
+<div class="lang-tc">
+
+<section id="calculator-tc" class="bazi-calculator-section">
+  <div class="calc-container">
+    <span class="overline">查看配對</span>
+    <h2>生肖配對計算器</h2>
+    <p class="subtitle" style="margin:0.5rem auto 1.5rem;">輸入兩個出生年份，了解兩個生肖之間的古典關係。</p>
+
+    <form id="compat-form-tc" class="calc-form" aria-label="配對計算器" onsubmit="event.preventDefault();document.getElementById('year-a').value=this.querySelector('[name=ya]').value;document.getElementById('year-b').value=this.querySelector('[name=yb]').value;document.getElementById('compat-form').dispatchEvent(new Event('submit'));document.getElementById('compat-result').scrollIntoView({behavior:'smooth'});">
+      <div style="text-align:center;">
+        <label style="font-weight:600;display:block;margin-bottom:0.3rem;">甲方</label>
+        <input type="number" name="ya" class="calc-input" placeholder="例如 1990" min="1900" max="2100" required>
+      </div>
+      <div style="font-size:1.8rem;color:var(--imperial-gold);padding-top:1.2rem;">&amp;</div>
+      <div style="text-align:center;">
+        <label style="font-weight:600;display:block;margin-bottom:0.3rem;">乙方</label>
+        <input type="number" name="yb" class="calc-input" placeholder="例如 1994" min="1900" max="2100" required>
+      </div>
+      <div style="width:100%;text-align:center;margin-top:0.5rem;">
+        <button type="submit" class="btn btn-primary">查看配對</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section>
+  <h2>六合（<span class="chinese-char">Six Harmonies</span>）</h2>
+  <p>六合代表十二生肖中最自然和諧的六對組合。這些生肖的地支結合後，會產生和諧的五行轉化。此概念源自《淮南子》（公元前2世紀），並在唐朝八字分析中進一步系統化。</p>
+  <table class="elements-table">
+    <thead><tr><th>配對</th><th>合化五行</th><th>關係特質</th></tr></thead>
+    <tbody>
+      <tr><td>鼠與牛</td><td>土</td><td>穩定、忠誠、深厚的相互支持</td></tr>
+      <tr><td>虎與豬</td><td>木</td><td>慷慨、溫暖、共同的理想</td></tr>
+      <tr><td>兔與狗</td><td>火</td><td>忠誠、信任、情感安全</td></tr>
+      <tr><td>龍與雞</td><td>金</td><td>雄心、精準、互相欣賞</td></tr>
+      <tr><td>蛇與猴</td><td>水</td><td>智慧、適應力、策略聯盟</td></tr>
+      <tr><td>馬與羊</td><td>火</td><td>創造力、熱情、藝術共鳴</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>三合（<span class="chinese-char">Three Harmonies</span>）</h2>
+  <p>三合將具有相同五行親和力的三個生肖歸為一組，形成合作三角。</p>
+  <table class="elements-table">
+    <thead><tr><th>三合局</th><th>五行</th><th>動物</th><th>地支</th></tr></thead>
+    <tbody>
+      <tr><td>水局</td><td>水</td><td>猴、鼠、龍</td><td>申子辰</td></tr>
+      <tr><td>木局</td><td>木</td><td>虎、馬、狗</td><td>寅午戌</td></tr>
+      <tr><td>火局</td><td>火</td><td>蛇、雞、牛</td><td>巳酉丑</td></tr>
+      <tr><td>金局</td><td>金</td><td>豬、兔、羊</td><td>亥卯未</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>六衝（<span class="chinese-char">Six Clashes</span>）</h2>
+  <p>六衝將位於生肖輪盤正對面的動物配成對，它們的能量根本對立：</p>
+  <table class="elements-table">
+    <thead><tr><th>衝對</th><th>緊張動態</th></tr></thead>
+    <tbody>
+      <tr><td>鼠 ↔ 馬</td><td>水克火：謹慎規劃 vs 衝動自由</td></tr>
+      <tr><td>牛 ↔ 羊</td><td>務實穩重 vs 藝術敏感</td></tr>
+      <tr><td>虎 ↔ 猴</td><td>大膽直率 vs 機智靈活</td></tr>
+      <tr><td>兔 ↔ 雞</td><td>溫和外交 vs 直言不諱</td></tr>
+      <tr><td>龍 ↔ 狗</td><td>宏大野心 vs 踏實忠誠</td></tr>
+      <tr><td>蛇 ↔ 豬</td><td>精於算計 vs 開放慷慨</td></tr>
+    </tbody>
+  </table>
+  <p>衝對可能產生摩擦，但古典分析強調，對這些動態的認識能讓人將衝突轉化為互補的成長。</p>
+</section>
+
+<section>
+  <h2>六害（<span class="chinese-char">Six Harms</span>）</h2>
+  <p>六害描述隱藏的怨恨和誤解隨時間逐漸發展的配對。害比衝更微妙——它通過細微的摩擦逐漸侵蝕關係。</p>
+  <table class="elements-table">
+    <thead><tr><th>害對</th><th>摩擦性質</th></tr></thead>
+    <tbody>
+      <tr><td>鼠與羊</td><td>價值觀錯位：務實主義 vs 理想主義</td></tr>
+      <tr><td>牛與馬</td><td>節奏衝突：穩健耐心 vs 躁動能量</td></tr>
+      <tr><td>虎與蛇</td><td>信任鴻溝：透明坦誠 vs 深藏不露</td></tr>
+      <tr><td>兔與龍</td><td>權力失衡：溫柔退讓 vs 強勢主導</td></tr>
+      <tr><td>猴與豬</td><td>利用風險：精明狡黠 vs 信任天真</td></tr>
+      <tr><td>雞與狗</td><td>溝通衝突：批評挑剔 vs 忠誠包容</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>古典視角</h2>
+  <p>僅基於出生年份的生肖配對是中國星命學中最<em>概括性</em>的分析層次。完整的評估需要檢視完整的<a href="/bazi/">八字命盤</a>（四柱——年、月、日、時）、雙方的<a href="/wuxing/">五行</a>平衡，以及合盤中所有天干地支的交互作用。</p>
+  <p>本頁的計算器和圖表提供了以十二地支古典關係為基礎的起點。如需全面的個人分析，請諮詢合格的<a href="/directory/">八字命理師</a>或了解我們的<a href="/premium-readings/">高級解讀服務</a>。</p>
+</section>
+
+</div>
+
+{# ===== SIMPLIFIED CHINESE ===== #}
+<div class="lang-sc">
+
+<section id="calculator-sc" class="bazi-calculator-section">
+  <div class="calc-container">
+    <span class="overline">查看配对</span>
+    <h2>生肖配对计算器</h2>
+    <p class="subtitle" style="margin:0.5rem auto 1.5rem;">输入两个出生年份，了解两个生肖之间的古典关系。</p>
+
+    <form id="compat-form-sc" class="calc-form" aria-label="配对计算器" onsubmit="event.preventDefault();document.getElementById('year-a').value=this.querySelector('[name=ya]').value;document.getElementById('year-b').value=this.querySelector('[name=yb]').value;document.getElementById('compat-form').dispatchEvent(new Event('submit'));document.getElementById('compat-result').scrollIntoView({behavior:'smooth'});">
+      <div style="text-align:center;">
+        <label style="font-weight:600;display:block;margin-bottom:0.3rem;">甲方</label>
+        <input type="number" name="ya" class="calc-input" placeholder="例如 1990" min="1900" max="2100" required>
+      </div>
+      <div style="font-size:1.8rem;color:var(--imperial-gold);padding-top:1.2rem;">&amp;</div>
+      <div style="text-align:center;">
+        <label style="font-weight:600;display:block;margin-bottom:0.3rem;">乙方</label>
+        <input type="number" name="yb" class="calc-input" placeholder="例如 1994" min="1900" max="2100" required>
+      </div>
+      <div style="width:100%;text-align:center;margin-top:0.5rem;">
+        <button type="submit" class="btn btn-primary">查看配对</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section>
+  <h2>六合（<span class="chinese-char">Six Harmonies</span>）</h2>
+  <p>六合代表十二生肖中最自然和谐的六对组合。这些生肖的地支结合后，会产生和谐的五行转化。此概念源自《淮南子》（公元前2世纪），并在唐朝八字分析中进一步系统化。</p>
+  <table class="elements-table">
+    <thead><tr><th>配对</th><th>合化五行</th><th>关系特质</th></tr></thead>
+    <tbody>
+      <tr><td>鼠与牛</td><td>土</td><td>稳定、忠诚、深厚的相互支持</td></tr>
+      <tr><td>虎与猪</td><td>木</td><td>慷慨、温暖、共同的理想</td></tr>
+      <tr><td>兔与狗</td><td>火</td><td>忠诚、信任、情感安全</td></tr>
+      <tr><td>龙与鸡</td><td>金</td><td>雄心、精准、互相欣赏</td></tr>
+      <tr><td>蛇与猴</td><td>水</td><td>智慧、适应力、策略联盟</td></tr>
+      <tr><td>马与羊</td><td>火</td><td>创造力、热情、艺术共鸣</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>三合（<span class="chinese-char">Three Harmonies</span>）</h2>
+  <p>三合将具有相同五行亲和力的三个生肖归为一组，形成合作三角。</p>
+  <table class="elements-table">
+    <thead><tr><th>三合局</th><th>五行</th><th>动物</th><th>地支</th></tr></thead>
+    <tbody>
+      <tr><td>水局</td><td>水</td><td>猴、鼠、龙</td><td>申子辰</td></tr>
+      <tr><td>木局</td><td>木</td><td>虎、马、狗</td><td>寅午戌</td></tr>
+      <tr><td>火局</td><td>火</td><td>蛇、鸡、牛</td><td>巳酉丑</td></tr>
+      <tr><td>金局</td><td>金</td><td>猪、兔、羊</td><td>亥卯未</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>六冲（<span class="chinese-char">Six Clashes</span>）</h2>
+  <p>六冲将位于生肖轮盘正对面的动物配成对，它们的能量根本对立：</p>
+  <table class="elements-table">
+    <thead><tr><th>冲对</th><th>紧张动态</th></tr></thead>
+    <tbody>
+      <tr><td>鼠 ↔ 马</td><td>水克火：谨慎规划 vs 冲动自由</td></tr>
+      <tr><td>牛 ↔ 羊</td><td>务实稳重 vs 艺术敏感</td></tr>
+      <tr><td>虎 ↔ 猴</td><td>大胆直率 vs 机智灵活</td></tr>
+      <tr><td>兔 ↔ 鸡</td><td>温和外交 vs 直言不讳</td></tr>
+      <tr><td>龙 ↔ 狗</td><td>宏大野心 vs 踏实忠诚</td></tr>
+      <tr><td>蛇 ↔ 猪</td><td>精于算计 vs 开放慷慨</td></tr>
+    </tbody>
+  </table>
+  <p>冲对可能产生摩擦，但古典分析强调，对这些动态的认识能让人将冲突转化为互补的成长。</p>
+</section>
+
+<section>
+  <h2>六害（<span class="chinese-char">Six Harms</span>）</h2>
+  <p>六害描述隐藏的怨恨和误解随时间逐渐发展的配对。害比冲更微妙——它通过细微的摩擦逐渐侵蚀关系。</p>
+  <table class="elements-table">
+    <thead><tr><th>害对</th><th>摩擦性质</th></tr></thead>
+    <tbody>
+      <tr><td>鼠与羊</td><td>价值观错位：务实主义 vs 理想主义</td></tr>
+      <tr><td>牛与马</td><td>节奏冲突：稳健耐心 vs 躁动能量</td></tr>
+      <tr><td>虎与蛇</td><td>信任鸿沟：透明坦诚 vs 深藏不露</td></tr>
+      <tr><td>兔与龙</td><td>权力失衡：温柔退让 vs 强势主导</td></tr>
+      <tr><td>猴与猪</td><td>利用风险：精明狡黠 vs 信任天真</td></tr>
+      <tr><td>鸡与狗</td><td>沟通冲突：批评挑剔 vs 忠诚包容</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>古典视角</h2>
+  <p>仅基于出生年份的生肖配对是中国星命学中最<em>概括性</em>的分析层次。完整的评估需要检视完整的<a href="/bazi/">八字命盘</a>（四柱——年、月、日、时）、双方的<a href="/wuxing/">五行</a>平衡，以及合盘中所有天干地支的交互作用。</p>
+  <p>本页的计算器和图表提供了以十二地支古典关系为基础的起点。如需全面的个人分析，请咨询合格的<a href="/directory/">八字命理师</a>或了解我们的<a href="/premium-readings/">高级解读服务</a>。</p>
+</section>
+
+</div>

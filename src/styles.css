@@ -4244,3 +4244,72 @@ html:not([data-lang]) span.lang-en { display: inline; }
 [data-theme="dark"] .ad-label {
   color: #666058;
 }
+
+/* --- Compatibility Matrix Chart --- */
+.compat-chart-wrap {
+  overflow-x: auto;
+  margin: var(--sp-lg) 0;
+  -webkit-overflow-scrolling: touch;
+}
+.compat-matrix {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 720px;
+  font-size: 0.78rem;
+  text-align: center;
+}
+.compat-matrix th,
+.compat-matrix td {
+  padding: 0.45rem 0.35rem;
+  border: 1px solid rgba(196,153,43,0.15);
+  white-space: nowrap;
+}
+.compat-matrix thead th {
+  background: var(--parchment);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.compat-matrix tbody th {
+  background: var(--parchment);
+  font-weight: 600;
+  text-align: left;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+.compat-matrix small {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--graphite);
+}
+.cm-h6 { background: #F5E0DF; color: #8B2520; font-weight: 700; }
+.cm-h3 { background: #E0EDE4; color: #2D5A3E; font-weight: 600; }
+.cm-clash { background: #FEF3CD; color: #856404; font-weight: 600; }
+.cm-harm { background: #F5E5DC; color: #8B5A3C; font-weight: 600; }
+.cm-self { background: #E8E5EF; color: #555080; font-weight: 600; }
+.cm-neu { background: transparent; color: #BBB; }
+.chart-legend {
+  font-size: 0.82rem;
+  color: var(--graphite);
+  line-height: 2;
+  margin-top: var(--sp-sm);
+}
+/* Dark mode */
+[data-theme="dark"] .compat-matrix th,
+[data-theme="dark"] .compat-matrix td {
+  border-color: rgba(196,153,43,0.08);
+}
+[data-theme="dark"] .compat-matrix thead th,
+[data-theme="dark"] .compat-matrix tbody th {
+  background: #1E1A16;
+}
+[data-theme="dark"] .cm-h6 { background: rgba(139,37,32,0.2); color: #E8A09C; }
+[data-theme="dark"] .cm-h3 { background: rgba(45,90,62,0.2); color: #8CC4A0; }
+[data-theme="dark"] .cm-clash { background: rgba(133,100,4,0.15); color: #E8C860; }
+[data-theme="dark"] .cm-harm { background: rgba(139,90,60,0.15); color: #D4A080; }
+[data-theme="dark"] .cm-self { background: rgba(85,80,128,0.15); color: #A8A0D0; }
+[data-theme="dark"] .cm-neu { color: #555; }
