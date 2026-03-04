@@ -1294,6 +1294,16 @@ select.calc-input {
 .newsletter-input::placeholder { color: rgba(250,246,238,0.45); }
 .newsletter-input:focus { outline: none; border-color: var(--bright-gold); }
 
+.newsletter-message {
+  margin-top: var(--sp-lg);
+  font-size: 1.05rem;
+  color: var(--bright-gold);
+}
+.newsletter-message p { margin: 0; }
+.newsletter-message--error {
+  color: #F5A5A5;
+}
+
 /* --- Five Elements Table --- */
 .elements-table {
   width: 100%;

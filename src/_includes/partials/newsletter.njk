@@ -1,12 +1,41 @@
 <!-- ===== NEWSLETTER ===== -->
 <section class="newsletter-section" aria-labelledby="newsletter-heading">
   <div class="newsletter-content">
-    <span class="overline" style="color:var(--bright-gold);">Stay Informed</span>
-    <h2 id="newsletter-heading">The Zodiac Dispatch</h2>
-    <p style="color:rgba(255,250,240,0.6);margin-top:0.5rem;">Weekly insights on Chinese astrology, feng shui wisdom, and cultural heritage — delivered to your inbox.</p>
-    <form id="newsletter-form" class="newsletter-form" aria-label="Newsletter signup">
-      <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email address">
-      <button type="submit" class="btn btn-gold">Subscribe</button>
+    <span class="overline" style="color:var(--bright-gold);"><span class="lang-en">Stay Informed</span><span class="lang-tc">保持關注</span><span class="lang-sc">保持关注</span></span>
+    <h2 id="newsletter-heading"><span class="lang-en">The Zodiac Dispatch</span><span class="lang-tc">生肖快報</span><span class="lang-sc">生肖快报</span></h2>
+    <p style="color:rgba(255,250,240,0.6);margin-top:0.5rem;"><span class="lang-en">Weekly insights on Chinese astrology, feng shui wisdom, and cultural heritage — delivered to your inbox.</span><span class="lang-tc">每週中國占星、風水智慧與文化遺產精華——直送您的郵箱。</span><span class="lang-sc">每周中国占星、风水智慧与文化遗产精华——直送您的邮箱。</span></p>
+    {% if site.beehiivPublicationId %}
+    <form id="newsletter-form" class="newsletter-form" aria-label="Newsletter signup"
+          action="https://api.beehiiv.com/v2/publications/{{ site.beehiivPublicationId }}/subscriptions"
+          method="POST" data-beehiiv="true">
+      <input type="hidden" name="utm_source" value="website">
+      <input type="hidden" name="utm_medium" value="footer_form">
+      <input type="hidden" name="referring_site" value="{{ site.url }}">
+      <input type="email" name="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email address">
+      <button type="submit" class="btn btn-gold"><span class="lang-en">Subscribe</span><span class="lang-tc">訂閱</span><span class="lang-sc">订阅</span></button>
     </form>
+    <div id="newsletter-success" class="newsletter-message" hidden>
+      <p><span class="lang-en">Welcome aboard! Check your inbox to confirm.</span><span class="lang-tc">歡迎加入！請查看您的收件箱以確認訂閱。</span><span class="lang-sc">欢迎加入！请查看您的收件箱以确认订阅。</span></p>
+    </div>
+    <div id="newsletter-error" class="newsletter-message newsletter-message--error" hidden>
+      <p><span class="lang-en">Something went wrong. Please try again.</span><span class="lang-tc">發生錯誤，請重試。</span><span class="lang-sc">发生错误，请重试。</span></p>
+    </div>
+    {% else %}
+    <form id="newsletter-form" class="newsletter-form" aria-label="Newsletter signup"
+          action="https://formsubmit.co/ajax/chinesezodiacyear@proton.me"
+          method="POST" data-fallback="true">
+      <input type="hidden" name="_subject" value="New Newsletter Subscriber">
+      <input type="hidden" name="_template" value="box">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="email" name="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email address">
+      <button type="submit" class="btn btn-gold"><span class="lang-en">Subscribe</span><span class="lang-tc">訂閱</span><span class="lang-sc">订阅</span></button>
+    </form>
+    <div id="newsletter-success" class="newsletter-message" hidden>
+      <p><span class="lang-en">Thank you for subscribing!</span><span class="lang-tc">感謝您的訂閱！</span><span class="lang-sc">感谢您的订阅！</span></p>
+    </div>
+    <div id="newsletter-error" class="newsletter-message newsletter-message--error" hidden>
+      <p><span class="lang-en">Something went wrong. Please try again.</span><span class="lang-tc">發生錯誤，請重試。</span><span class="lang-sc">发生错误，请重试。</span></p>
+    </div>
+    {% endif %}
   </div>
 </section>

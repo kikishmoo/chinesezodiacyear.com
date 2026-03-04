@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* --- Newsletter Form (Beehiiv Integration) --- */
+  /* --- Newsletter Form (Beehiiv / Formsubmit Fallback) --- */
   document.querySelectorAll('.newsletter-form').forEach(form => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -326,33 +326,64 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!emailInput || !emailInput.value) return;
 
       const email = emailInput.value;
+      const section = form.closest('.newsletter-content') || form.parentElement;
+      const successEl = section.querySelector('#newsletter-success');
+      const errorEl = section.querySelector('#newsletter-error');
+
       submitBtn.disabled = true;
       submitBtn.textContent = 'Subscribing\u2026';
 
-      // Beehiiv subscribe via hidden iframe (avoids CORS on static hosting)
-      const pubId = '9e7042b6-5250-429a-8f20-97b63322cd64';
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.name = 'beehiiv-frame-' + Date.now();
-      document.body.appendChild(iframe);
+      const showSuccess = () => {
+        form.hidden = true;
+        if (successEl) successEl.hidden = false;
+        if (errorEl) errorEl.hidden = true;
+      };
+      const showError = () => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Subscribe';
+        if (errorEl) errorEl.hidden = false;
+        if (successEl) successEl.hidden = true;
+      };
 
-      // Create a temporary form targeting the iframe
-      const proxyForm = document.createElement('form');
-      proxyForm.method = 'POST';
-      proxyForm.action = 'https://embeds.beehiiv.com/forms/' + pubId;
-      proxyForm.target = iframe.name;
-      proxyForm.style.display = 'none';
-      const input = document.createElement('input');
-      input.name = 'email';
-      input.value = email;
-      proxyForm.appendChild(input);
-      document.body.appendChild(proxyForm);
-      proxyForm.submit();
-
-      setTimeout(() => {
-        form.innerHTML = '<p style="color:var(--bright-gold);font-size:1.1rem;">Thank you for subscribing! Check your inbox.</p>';
-        try { document.body.removeChild(iframe); document.body.removeChild(proxyForm); } catch(ex) {}
-      }, 1500);
+      if (form.dataset.beehiiv) {
+        /* Beehiiv — POST via hidden iframe to avoid CORS */
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.name = 'beehiiv-frame-' + Date.now();
+        document.body.appendChild(iframe);
+        const proxyForm = document.createElement('form');
+        proxyForm.method = 'POST';
+        proxyForm.action = form.action;
+        proxyForm.target = iframe.name;
+        proxyForm.style.display = 'none';
+        const input = document.createElement('input');
+        input.name = 'email';
+        input.value = email;
+        proxyForm.appendChild(input);
+        /* Copy hidden fields */
+        form.querySelectorAll('input[type="hidden"]').forEach(h => {
+          const clone = document.createElement('input');
+          clone.type = 'hidden';
+          clone.name = h.name;
+          clone.value = h.value;
+          proxyForm.appendChild(clone);
+        });
+        document.body.appendChild(proxyForm);
+        proxyForm.submit();
+        setTimeout(() => {
+          showSuccess();
+          try { document.body.removeChild(iframe); document.body.removeChild(proxyForm); } catch (ex) {}
+        }, 1500);
+      } else {
+        /* Formsubmit.co fallback — AJAX POST */
+        fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email: email })
+        })
+        .then(res => { if (res.ok) showSuccess(); else showError(); })
+        .catch(() => showError());
+      }
     });
   });
 
