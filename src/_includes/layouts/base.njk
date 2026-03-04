@@ -59,6 +59,22 @@
   {% if faq %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for item in faq %}{"@type":"Question","name":"{{ item.q }}","acceptedAnswer":{"@type":"Answer","text":"{{ item.a }}"}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
   {% endif %}
+  {% if shopSchema %}
+  {% for product in shop.digitalProducts %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ product.name }}","description":"{{ product.subtitle }}","url":"{{ product.gumroadUrl }}","image":"{{ ogImage | default(site.url + '/img/og-default.png') }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ product.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ product.gumroadUrl }}"},"category":"Digital Download"}</script>
+  {% endfor %}
+  {% for reading in shop.premiumReadings %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ reading.name }}","description":"{{ reading.description }}","url":"{{ reading.paypalLink }}","image":"{{ ogImage | default(site.url + '/img/og-default.png') }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ reading.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ reading.paypalLink }}"},"category":"Professional Service"}</script>
+  {% endfor %}
+  {% endif %}
+  {% if videos %}
+  {% for video in videos %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"{{ video.title }}","description":"{{ video.description | default(video.title) }}","thumbnailUrl":"https://img.youtube.com/vi/{{ video.id }}/maxresdefault.jpg","uploadDate":"{{ video.uploadDate | default(datePublished) | default('2025-01-01') }}","contentUrl":"https://www.youtube.com/watch?v={{ video.id }}","embedUrl":"https://www.youtube.com/embed/{{ video.id }}","publisher":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/"}}</script>
+  {% endfor %}
+  {% endif %}
+  {% if directorySchema %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"{{ title }}","description":"{{ description }}","numberOfItems":{{ directory.listings | length }},"itemListElement":[{% for listing in directory.listings %}{"@type":"ListItem","position":{{ loop.index }},"item":{"@type":"{% if listing.category == 'tcm' %}MedicalBusiness{% elif listing.category == 'products' %}Store{% elif listing.category == 'martial-arts' %}SportsActivityLocation{% elif listing.category == 'culture' %}Organization{% else %}ProfessionalService{% endif %}","name":"{{ listing.name }}","description":"{{ listing.description }}"{% if listing.url %},"url":"{{ listing.url }}"{% endif %}{% if listing.location %},"address":{"@type":"PostalAddress","addressLocality":"{{ listing.location }}"}{% endif %}{% if listing.specialties %},"knowsAbout":[{% for s in listing.specialties %}"{{ s }}"{% if not loop.last %},{% endif %}{% endfor %}]{% endif %}}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
+  {% endif %}
   {% if page.url == "/" %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name }}","alternateName":"ChineseZodiac","url":"{{ site.url }}/","description":"{{ site.description }}","potentialAction":{"@type":"SearchAction","target":"{{ site.url }}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/","description":"Authoritative resource for Chinese zodiac, BaZi four pillars, feng shui, and Chinese cultural traditions rooted in classical pre-Qing scholarship."}</script>

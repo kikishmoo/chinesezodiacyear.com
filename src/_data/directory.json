@@ -227,7 +227,7 @@
       "location": "London, UK",
       "specialties": ["Zodiac Gifts", "Feng Shui Supplies", "Calligraphy"],
       "description": "Specialist retailer of traditional Chinese art, calligraphy supplies, and zodiac-themed gifts. Carries Luopan compasses, feng shui remedies, and handcrafted Chinese New Year decorations.",
-      "url": "",
+      "url": "https://www.mandarinarts.co.uk",
       "featured": false
     },
     {
@@ -297,7 +297,7 @@
       "location": "Dengfeng, Henan, China",
       "specialties": ["Shaolin Kung Fu", "Wushu", "Sanda"],
       "description": "The largest and one of the most prestigious kung fu academies in China, located near the Shaolin Temple. Has produced numerous national and international martial arts champions.",
-      "url": "",
+      "url": "https://www.shaolintagou.org",
       "featured": false
     },
     {
@@ -307,7 +307,7 @@
       "location": "Mount Wudang, Hubei, China",
       "specialties": ["Wudang Tai Chi", "Internal Arts", "Qigong"],
       "description": "Located at Nanyan Temple in the Wudang Scenic Zone. Teaches traditional Wudang Tai Chi, Baguazhang, Xingyiquan, and Daoist Qigong in the birthplace of internal martial arts.",
-      "url": "",
+      "url": "https://www.wudangkungfu.net",
       "featured": false
     },
     {
