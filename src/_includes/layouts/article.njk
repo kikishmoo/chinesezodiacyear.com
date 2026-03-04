@@ -29,6 +29,22 @@
       </div>
     </section>
     {% endif %}
+
+    {# --- Auto-generated inline related content (better for SEO than sidebar) --- #}
+    {% set linkSource = autoRelated if (autoRelated and autoRelated.length) else relatedArticles %}
+    {% if linkSource and linkSource.length %}
+    <nav class="related-content" aria-labelledby="related-heading">
+      <h2 id="related-heading"><span class="lang-en">Continue Exploring</span><span class="lang-tc">繼續探索</span><span class="lang-sc">继续探索</span></h2>
+      <div class="related-grid">
+        {%- for item in linkSource %}
+        <a href="{{ item.url }}" class="related-card">
+          <span class="related-card-label">{{ item.label }}</span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        {%- endfor %}
+      </div>
+    </nav>
+    {% endif %}
   </article>
 
   {% if sidebar !== false %}
@@ -44,10 +60,11 @@
     </div>
     {% endif %}
 
-    {% if relatedArticles %}
+    {% set sidebarLinks = relatedArticles if (relatedArticles and relatedArticles.length) else autoRelated %}
+    {% if sidebarLinks and sidebarLinks.length %}
     <div class="sidebar-widget">
-      <h4>Related Articles</h4>
-      {%- for item in relatedArticles %}
+      <h4>Related</h4>
+      {%- for item in sidebarLinks %}
       <a href="{{ item.url }}" style="display:block;margin-bottom:0.5rem;">{{ item.label }}</a>
       {%- endfor %}
     </div>
