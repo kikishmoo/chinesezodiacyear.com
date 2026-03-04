@@ -100,6 +100,8 @@ ogType: "website"
 
     <!-- ===== TRIVIA GAME ===== -->
     <section class="trivia-section" id="trivia" aria-labelledby="trivia-heading">
+      <div class="trivia-deco trivia-deco--left" aria-hidden="true">問</div>
+      <div class="trivia-deco trivia-deco--right" aria-hidden="true">答</div>
       <div class="trivia-container">
         <div class="lang-en">
         <span class="overline">Test Your Knowledge</span>
@@ -118,24 +120,34 @@ ogType: "website"
         </div>
 
         <div id="trivia-game" class="trivia-game">
+          <div class="trivia-hud">
+            <div class="trivia-hud-left">
+              <span class="trivia-hud-label"><span class="lang-en">Question</span><span class="lang-tc">題目</span><span class="lang-sc">题目</span></span>
+              <span class="trivia-hud-value"><span id="trivia-current">1</span>/<span id="trivia-total">10</span></span>
+            </div>
+            <div class="trivia-timer" id="trivia-timer">
+              <svg class="trivia-timer-svg" viewBox="0 0 48 48">
+                <circle class="trivia-timer-track" cx="24" cy="24" r="20" />
+                <circle class="trivia-timer-fill" id="trivia-timer-circle" cx="24" cy="24" r="20" />
+              </svg>
+              <span class="trivia-timer-text" id="trivia-timer-text">22</span>
+            </div>
+            <div class="trivia-hud-right">
+              <span class="trivia-hud-label"><span class="lang-en">Score</span><span class="lang-tc">分數</span><span class="lang-sc">分数</span></span>
+              <span class="trivia-hud-value" id="trivia-live-score">0</span>
+            </div>
+          </div>
           <div class="trivia-progress-bar">
             <div id="trivia-progress-fill" class="trivia-progress-fill" style="width:10%"></div>
-          </div>
-          <div class="trivia-progress-text">Question <span id="trivia-current">1</span> of <span id="trivia-total">10</span></div>
-          <div class="trivia-timer" id="trivia-timer">
-            <svg class="trivia-timer-svg" viewBox="0 0 48 48">
-              <circle class="trivia-timer-track" cx="24" cy="24" r="20" />
-              <circle class="trivia-timer-fill" id="trivia-timer-circle" cx="24" cy="24" r="20" />
-            </svg>
-            <span class="trivia-timer-text" id="trivia-timer-text">22</span>
           </div>
           <div id="trivia-question" class="trivia-question">Loading&hellip;</div>
           <div id="trivia-options" class="trivia-options"></div>
           <div id="trivia-feedback" class="trivia-feedback" hidden></div>
-          <button id="trivia-next" class="btn btn-gold" hidden>Next Question</button>
+          <button id="trivia-next" class="btn btn-gold" hidden><span class="lang-en">Next Question</span><span class="lang-tc">下一題</span><span class="lang-sc">下一题</span></button>
         </div>
 
         <div id="trivia-result" class="trivia-result" hidden>
+          <div class="trivia-result-glow" aria-hidden="true"></div>
           <div id="trivia-score-icon" class="trivia-score-icon"></div>
           <h3 id="trivia-score-title"></h3>
           <p id="trivia-score-text"></p>
@@ -143,14 +155,31 @@ ogType: "website"
             <div id="trivia-score-fill" class="trivia-score-fill"></div>
           </div>
           <p id="trivia-high-score" class="trivia-high-score"></p>
-          <button id="trivia-restart" class="btn btn-gold">Play Again</button>
+          <button id="trivia-restart" class="btn btn-gold"><span class="lang-en">Play Again</span><span class="lang-tc">再玩一次</span><span class="lang-sc">再玩一次</span></button>
         </div>
 
         <div id="trivia-start" class="trivia-start">
-          <div class="lang-en"><p>10 random questions. 4 choices each. How well do you know Chinese civilisation?</p></div>
-          <div class="lang-tc"><p>十道隨機題目，每題四個選項。您對中華文明了解多少？</p></div>
-          <div class="lang-sc"><p>十道随机题目，每题四个选项。您对中华文明了解多少？</p></div>
-          <button id="trivia-begin" class="btn btn-gold"><span class="lang-en">Start Trivia</span><span class="lang-tc">開始問答</span><span class="lang-sc">开始问答</span></button>
+          <div class="trivia-start-card">
+            <div class="trivia-start-icon" aria-hidden="true">&#128218;</div>
+            <div class="trivia-start-stats">
+              <div class="trivia-stat">
+                <span class="trivia-stat-number">150+</span>
+                <span class="trivia-stat-label"><span class="lang-en">Questions</span><span class="lang-tc">題庫</span><span class="lang-sc">题库</span></span>
+              </div>
+              <div class="trivia-stat">
+                <span class="trivia-stat-number">10</span>
+                <span class="trivia-stat-label"><span class="lang-en">Per Round</span><span class="lang-tc">每輪</span><span class="lang-sc">每轮</span></span>
+              </div>
+              <div class="trivia-stat">
+                <span class="trivia-stat-number">22s</span>
+                <span class="trivia-stat-label"><span class="lang-en">Per Question</span><span class="lang-tc">每題</span><span class="lang-sc">每题</span></span>
+              </div>
+            </div>
+            <div class="lang-en"><p>How well do you know Chinese civilisation? Test yourself on history, philosophy, and tradition.</p></div>
+            <div class="lang-tc"><p>您對中華文明了解多少？挑戰歷史、哲學與傳統知識。</p></div>
+            <div class="lang-sc"><p>您对中华文明了解多少？挑战历史、哲学与传统知识。</p></div>
+            <button id="trivia-begin" class="btn btn-gold trivia-start-btn"><span class="lang-en">Start Challenge</span><span class="lang-tc">開始挑戰</span><span class="lang-sc">开始挑战</span></button>
+          </div>
         </div>
       </div>
     </section>

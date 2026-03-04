@@ -951,7 +951,8 @@ document.addEventListener('DOMContentLoaded', () => {
     begin: document.getElementById('trivia-begin'),
     timer: document.getElementById('trivia-timer'),
     timerCircle: document.getElementById('trivia-timer-circle'),
-    timerText: document.getElementById('trivia-timer-text')
+    timerText: document.getElementById('trivia-timer-text'),
+    liveScore: document.getElementById('trivia-live-score')
   };
 
   function shuffle(arr) {
@@ -1035,6 +1036,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentIndex = 0;
     score = 0;
     answered = false;
+    if (els.liveScore) els.liveScore.textContent = '0';
     els.start.hidden = true;
     els.result.hidden = true;
     els.game.hidden = false;
@@ -1076,6 +1078,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const q = currentQuestions[currentIndex];
     const isCorrect = idx === q.a;
     if (isCorrect) score++;
+    if (els.liveScore) els.liveScore.textContent = score;
 
     // Mark all buttons
     const buttons = els.options.querySelectorAll('.trivia-option');
