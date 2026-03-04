@@ -9,6 +9,15 @@ breadcrumbs:
   - label: "Home"
     url: "/"
   - label: "Readings"
+faq:
+  - q: "What year is 2026 in the Chinese zodiac?"
+    a: "2026 is the Year of the Fire Horse (Bing Wu, 丙午) in the Chinese zodiac. It is a Yang Fire year sitting on a Fire Earthly Branch, making it one of the most intensely Yang years in the 60-year sexagenary cycle."
+  - q: "When does the 2026 Chinese zodiac year start?"
+    a: "The 2026 Chinese zodiac year begins on 17 February 2026 (Chinese New Year) for the lunar calendar, or 4 February 2026 (Li Chun) for BaZi calculations. The two systems use different starting dates."
+  - q: "Which zodiac animals are luckiest in 2026?"
+    a: "In the 2026 Fire Horse year, Tiger, Dog, and Goat are generally favoured due to their harmonious relationships with Horse (San He trio and Liu He bond). Wood-element animals benefit from Fire's generating cycle."
+  - q: "What is a Ben Ming Nian?"
+    a: "Ben Ming Nian (本命年) means your birth-sign year. In 2026, people born in Horse years (1954, 1966, 1978, 1990, 2002, 2014) experience their Ben Ming Nian. Tradition holds this can be a volatile year requiring extra caution, often mitigated by wearing red."
 ---
 {% include "partials/breadcrumbs.njk" %}
 
@@ -74,6 +83,22 @@ breadcrumbs:
       <p>Our free readings cover general trends. For a detailed report analyzing all four pillars of your birth chart, explore our premium readings.</p>
       <a href="/premium-readings/" class="btn btn-gold" style="margin-top:var(--sp-md)">View Premium Readings &rarr;</a>
     </div>
+
+    {% if faq %}
+    <section class="content-section" style="max-width:800px;margin:0 auto;">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        {%- for item in faq %}
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">{{ item.q }}</button>
+          <div class="faq-answer">
+            <p>{{ item.a }}</p>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+    {% endif %}
 </div>
 
 <div class="lang-tc">

@@ -46,6 +46,20 @@ tags: ["element"]
 <section id="overview">
   <h2><span class="lang-en">{{ element.name }} — {{ element.nameTc }}</span><span class="lang-tc">{{ element.nameTc }} — {{ element.name }}</span><span class="lang-sc">{{ element.nameSc }} — {{ element.name }}</span></h2>
   <p class="subtitle" style="font-style:italic;">{{ element.pinyin }}</p>
+
+  <div class="key-facts" role="region" aria-label="Key facts">
+    <h3 class="key-facts-title"><span class="lang-en">Key Facts</span><span class="lang-tc">重點</span><span class="lang-sc">重点</span></h3>
+    <dl class="key-facts-list">
+      <div class="key-facts-item"><dt><span class="lang-en">Element</span><span class="lang-tc">五行</span><span class="lang-sc">五行</span></dt><dd>{{ element.name }} ({{ element.nameTc }}, {{ element.pinyin }})</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Direction</span><span class="lang-tc">方位</span><span class="lang-sc">方位</span></dt><dd>{{ element.direction }}</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Season</span><span class="lang-tc">季節</span><span class="lang-sc">季节</span></dt><dd>{{ element.season }}</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Colour</span><span class="lang-tc">顏色</span><span class="lang-sc">颜色</span></dt><dd>{{ element.color }}</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Yin Organ</span><span class="lang-tc">陰臟</span><span class="lang-sc">阴脏</span></dt><dd>{{ element.yinOrgan }}</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Generates</span><span class="lang-tc">生</span><span class="lang-sc">生</span></dt><dd>{{ element.generates }}</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Zodiac Animals</span><span class="lang-tc">生肖</span><span class="lang-sc">生肖</span></dt><dd>{{ element.animals | join(', ') }}</dd></div>
+    </dl>
+  </div>
+
   <p><span class="lang-en">{{ element.description }}</span><span class="lang-tc">{{ element.descriptionTc }}</span><span class="lang-sc">{{ element.descriptionSc }}</span></p>
 </section>
 

@@ -1387,6 +1387,50 @@ select.calc-input {
   margin-bottom: var(--sp-lg);
 }
 
+/* --- Key Facts Box (GEO answer-ready) --- */
+.key-facts {
+  background: var(--cream);
+  background-image: var(--paper-noise);
+  border: 1px solid var(--parchment);
+  border-left: 4px solid var(--imperial-gold);
+  border-radius: 4px;
+  padding: var(--sp-lg);
+  margin: var(--sp-lg) 0;
+}
+.key-facts-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--imperial-gold);
+  margin: 0 0 var(--sp-md) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.key-facts-list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-xs);
+}
+.key-facts-item {
+  display: flex;
+  gap: var(--sp-sm);
+  padding: var(--sp-xs) 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.key-facts-item:last-child { border-bottom: none; }
+.key-facts-item dt {
+  font-weight: 600;
+  color: var(--warm-brown);
+  min-width: 120px;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+.key-facts-item dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--charcoal);
+}
+
 /* --- Five Elements Table --- */
 .elements-table {
   width: 100%;
@@ -2860,6 +2904,15 @@ html:not([data-lang]) span.lang-en { display: inline; }
 [data-theme="dark"] .search-result-desc { color: #B0A898; }
 [data-theme="dark"] .search-result-url { color: #807568; }
 [data-theme="dark"] .search-status { color: #B0A898; }
+[data-theme="dark"] .key-facts {
+  background: #151210;
+  border-color: rgba(196,153,43,0.12);
+  border-left-color: var(--imperial-gold);
+}
+[data-theme="dark"] .key-facts-item { border-bottom-color: rgba(255,255,255,0.05); }
+[data-theme="dark"] .key-facts-item dt { color: var(--pale-gold); }
+[data-theme="dark"] .key-facts-item dd { color: #C0B8A8; }
+[data-theme="dark"] .comments-section { border-top-color: rgba(196,153,43,0.12); }
 
 [data-theme="dark"] .site-footer {
   background: #0B0908;

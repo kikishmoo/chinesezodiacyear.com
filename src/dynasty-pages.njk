@@ -40,6 +40,17 @@ tags: ["dynasty"]
 <section id="overview">
   <h2><span class="lang-en">{{ dynasty.name }} — {{ dynasty.nameTc }}</span><span class="lang-tc">{{ dynasty.nameTc }} — {{ dynasty.name }}</span><span class="lang-sc">{{ dynasty.nameSc }} — {{ dynasty.name }}</span></h2>
   <p class="subtitle" style="font-style:italic;">{{ dynasty.pinyin }} · {{ dynasty.dates }}</p>
+
+  <div class="key-facts" role="region" aria-label="Key facts">
+    <h3 class="key-facts-title"><span class="lang-en">Key Facts</span><span class="lang-tc">重點</span><span class="lang-sc">重点</span></h3>
+    <dl class="key-facts-list">
+      <div class="key-facts-item"><dt><span class="lang-en">Dynasty</span><span class="lang-tc">朝代</span><span class="lang-sc">朝代</span></dt><dd>{{ dynasty.name }} ({{ dynasty.nameTc }}, {{ dynasty.pinyin }})</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Period</span><span class="lang-tc">時期</span><span class="lang-sc">时期</span></dt><dd>{{ dynasty.dates }}</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Capital</span><span class="lang-tc">都城</span><span class="lang-sc">都城</span></dt><dd>{{ dynasty.capital }}</dd></div>
+      <div class="key-facts-item"><dt><span class="lang-en">Notable for</span><span class="lang-tc">著名貢獻</span><span class="lang-sc">著名贡献</span></dt><dd>{{ dynasty.keyContributions | first }}</dd></div>
+    </dl>
+  </div>
+
   <p><span class="lang-en">{{ dynasty.description }}</span><span class="lang-tc">{{ dynasty.descriptionTc }}</span><span class="lang-sc">{{ dynasty.descriptionSc }}</span></p>
 </section>
 

@@ -63,6 +63,9 @@
   {% if faq %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for item in faq %}{"@type":"Question","name":"{{ item.q }}","acceptedAnswer":{"@type":"Answer","text":"{{ item.a }}"}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
   {% endif %}
+  {% if howTo %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"{{ howTo.name }}","description":"{{ howTo.description }}","step":[{% for step in howTo.steps %}{"@type":"HowToStep","position":{{ loop.index }},"name":"{{ step.name }}","text":"{{ step.text }}"}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
+  {% endif %}
   {% if shopSchema %}
   {% for product in shop.digitalProducts %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ product.name }}","description":"{{ product.subtitle }}","url":"{{ product.gumroadUrl }}","image":"{{ resolvedOgImage }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ product.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ product.gumroadUrl }}"},"category":"Digital Download"}</script>
