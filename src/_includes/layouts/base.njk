@@ -29,14 +29,16 @@
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:locale" content="en_US">
-  <meta property="og:image" content="{{ ogImage | default(site.url + '/img/og-default.png') }}">
+  {% set resolvedOgImage = ogImage | default('/img/og-default.png') %}
+  {% if resolvedOgImage.startsWith('/') %}{% set resolvedOgImage = site.url + resolvedOgImage %}{% endif %}
+  <meta property="og:image" content="{{ resolvedOgImage }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ ogTitle | default(title) }}">
   <meta name="twitter:description" content="{{ ogDescription | default(description) }}">
-  <meta name="twitter:image" content="{{ ogImage | default(site.url + '/img/og-default.png') }}">
+  <meta name="twitter:image" content="{{ resolvedOgImage }}">
   {% if site.twitterHandle %}<meta name="twitter:site" content="{{ site.twitterHandle }}">
   <meta name="twitter:creator" content="{{ site.twitterHandle }}">{% endif %}
   <!-- Fonts: Latin (critical, render-blocking) -->
@@ -53,7 +55,7 @@
   {% endif %}
   <script>(function(){var t=localStorage.getItem('czy-theme');if(t)document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('czy-lang')||'en';document.documentElement.setAttribute('data-lang',l)})()</script>
   {% if ogType == "article" %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title }}","description":"{{ description }}","url":"{{ site.url }}{{ page.url }}","image":"{{ ogImage | default(site.url + '/img/og-default.png') }}","datePublished":"{{ datePublished | default('2025-01-01') }}","dateModified":"{{ dateModified | default(datePublished) | default('2025-01-01') }}","author":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/"},"publisher":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/","logo":{"@type":"ImageObject","url":"{{ site.url }}/img/og-default.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ page.url }}"},"inLanguage":"en"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title }}","description":"{{ description }}","url":"{{ site.url }}{{ page.url }}","image":"{{ resolvedOgImage }}","datePublished":"{{ datePublished | default('2025-01-01') }}","dateModified":"{{ dateModified | default(datePublished) | default('2025-01-01') }}","author":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/"},"publisher":{"@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}/","logo":{"@type":"ImageObject","url":"{{ site.url }}/img/og-default.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ page.url }}"},"inLanguage":"en"}</script>
   {% endif %}
   {% if breadcrumbs %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{% for crumb in breadcrumbs %}{"@type":"ListItem","position":{{ loop.index }},"name":"{{ crumb.label }}"{% if not loop.last and crumb.url %},"item":"{{ site.url }}{{ crumb.url }}"{% endif %}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
@@ -63,10 +65,10 @@
   {% endif %}
   {% if shopSchema %}
   {% for product in shop.digitalProducts %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ product.name }}","description":"{{ product.subtitle }}","url":"{{ product.gumroadUrl }}","image":"{{ ogImage | default(site.url + '/img/og-default.png') }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ product.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ product.gumroadUrl }}"},"category":"Digital Download"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ product.name }}","description":"{{ product.subtitle }}","url":"{{ product.gumroadUrl }}","image":"{{ resolvedOgImage }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ product.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ product.gumroadUrl }}"},"category":"Digital Download"}</script>
   {% endfor %}
   {% for reading in shop.premiumReadings %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ reading.name }}","description":"{{ reading.description }}","url":"{{ reading.paypalLink }}","image":"{{ ogImage | default(site.url + '/img/og-default.png') }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ reading.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ reading.paypalLink }}"},"category":"Professional Service"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{{ reading.name }}","description":"{{ reading.description }}","url":"{{ reading.paypalLink }}","image":"{{ resolvedOgImage }}","brand":{"@type":"Organization","name":"{{ site.name }}"},"offers":{"@type":"Offer","price":"{{ reading.price }}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"{{ reading.paypalLink }}"},"category":"Professional Service"}</script>
   {% endfor %}
   {% endif %}
   {% if videos %}
