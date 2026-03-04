@@ -6,7 +6,7 @@
     <p style="color:rgba(255,250,240,0.6);margin-top:0.5rem;"><span class="lang-en">Weekly insights on Chinese astrology, feng shui wisdom, and cultural heritage — delivered to your inbox.</span><span class="lang-tc">每週中國占星、風水智慧與文化遺產精華——直送您的郵箱。</span><span class="lang-sc">每周中国占星、风水智慧与文化遗产精华——直送您的邮箱。</span></p>
     {% if site.beehiivPublicationId %}
     <form id="newsletter-form" class="newsletter-form" aria-label="Newsletter signup"
-          action="https://api.beehiiv.com/v2/publications/{{ site.beehiivPublicationId }}/subscriptions"
+          action="https://embeds.beehiiv.com/forms/{{ site.beehiivPublicationId }}"
           method="POST" data-beehiiv="true">
       <input type="hidden" name="utm_source" value="website">
       <input type="hidden" name="utm_medium" value="footer_form">
