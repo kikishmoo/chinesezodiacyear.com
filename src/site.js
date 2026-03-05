@@ -612,6 +612,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let citiesData = null;
   let selectedCity = null;
 
+  // Escape HTML special characters to prevent XSS when inserting into innerHTML
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
   // Load cities data lazily when BaZi form exists
   if (baziForm) {
     fetch(basePath + '/cities.json')
@@ -708,7 +711,6 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        // TODO: Update this URL once the Cloudflare Worker is deployed
         const WORKER_URL = 'https://bazi-calculator.YOUR_SUBDOMAIN.workers.dev';
         const resp = await fetch(WORKER_URL, {
           method: 'POST',
@@ -721,7 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.error) throw new Error(data.error);
         renderBaziChart(data);
       } catch (err) {
-        baziResult.innerHTML = '<div class="bazi-error"><strong>Error:</strong> ' + err.message +
+        baziResult.innerHTML = '<div class="bazi-error"><strong>Error:</strong> ' + esc(err.message) +
           '<br><small>The BaZi calculation service may be temporarily unavailable. Please try again later.</small></div>';
       }
     });
@@ -741,8 +743,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const dm = data.dayMaster;
       html += '<div class="bazi-day-master">';
       html += '<h4>Your Day Master (日主)</h4>';
-      html += '<span style="font-family:var(--font-chinese);font-size:2.4rem;color:var(--deep-red);">' + dm.stem + '</span>';
-      html += '<p style="margin:0.5rem 0 0;">' + dm.pinyin + ' — ' + dm.yinYang + ' ' + dm.element + '</p>';
+      html += '<span style="font-family:var(--font-chinese);font-size:2.4rem;color:var(--deep-red);">' + esc(dm.stem) + '</span>';
+      html += '<p style="margin:0.5rem 0 0;">' + esc(dm.pinyin) + ' — ' + esc(dm.yinYang) + ' ' + esc(dm.element) + '</p>';
       html += '</div>';
     }
 
@@ -753,12 +755,12 @@ document.addEventListener('DOMContentLoaded', () => {
       html += '<div class="bazi-pillar">';
       html += '<div class="pillar-label">' + labels[i] + '<br><span style="font-family:var(--font-chinese);">' + cnLabels[i] + '</span></div>';
       if (p.stem) {
-        const elClass = p.stemElement ? 'element-' + p.stemElement.toLowerCase() : '';
-        html += '<div class="pillar-stem">' + p.stem + '</div>';
-        html += '<div class="pillar-branch">' + p.branch + '</div>';
-        html += '<div class="pillar-pinyin">' + (p.stemPinyin || '') + ' ' + (p.branchPinyin || '') + '</div>';
-        if (p.stemElement) html += '<span class="pillar-element ' + elClass + '">' + p.stemElement + '</span>';
-        if (p.branchAnimal) html += '<div class="pillar-animal">' + p.branchAnimal + '</div>';
+        const elClass = p.stemElement ? 'element-' + esc(p.stemElement.toLowerCase()) : '';
+        html += '<div class="pillar-stem">' + esc(p.stem) + '</div>';
+        html += '<div class="pillar-branch">' + esc(p.branch) + '</div>';
+        html += '<div class="pillar-pinyin">' + esc(p.stemPinyin || '') + ' ' + esc(p.branchPinyin || '') + '</div>';
+        if (p.stemElement) html += '<span class="pillar-element ' + elClass + '">' + esc(p.stemElement) + '</span>';
+        if (p.branchAnimal) html += '<div class="pillar-animal">' + esc(p.branchAnimal) + '</div>';
       } else {
         html += '<div style="color:var(--stone);font-size:0.9rem;padding:1rem 0;">Not available</div>';
       }
@@ -780,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (data.rawExcerpt) {
       html += '<div style="margin-top:var(--sp-xl);">';
       html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
-      html += '<div class="bazi-reading-text">' + data.rawExcerpt.substring(0, 2000) + '</div>';
+      html += '<div class="bazi-reading-text">' + esc(data.rawExcerpt.substring(0, 2000)) + '</div>';
       html += '</div>';
     }
 
