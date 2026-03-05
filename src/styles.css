@@ -4114,6 +4114,13 @@ html:not([data-lang]) span.lang-en { display: inline; }
   margin-top: var(--sp-md);
 }
 /* Buy Me a Coffee — embedded widget */
+.bmac-heading {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--deep-red);
+  margin-bottom: var(--sp-lg);
+}
 .bmac-embed {
   max-width: 600px;
   margin: 0 auto var(--sp-2xl);
@@ -4139,40 +4146,23 @@ html:not([data-lang]) span.lang-en { display: inline; }
 [data-theme="dark"] .bmac-embed iframe {
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
-/* Secondary / other donation methods — collapsed by default */
-.donate-other-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  background: none;
-  border: 1px solid var(--parchment);
-  border-radius: 8px;
-  padding: 0.65rem 1.2rem;
+/* Secondary / other donation methods — visible but subdued */
+.donate-other-heading {
+  text-align: center;
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--stone);
-  cursor: pointer;
-  margin: 0 auto var(--sp-md);
-  max-width: 320px;
-  transition: border-color 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--sp-lg);
 }
-.donate-other-toggle:hover { border-color: var(--imperial-gold); }
-.donate-other-toggle .arrow { transition: transform 0.25s; font-size: 0.7rem; }
-.donate-other-section.open .donate-other-toggle .arrow { transform: rotate(180deg); }
-.donate-other-methods {
-  display: none;
-  margin-top: var(--sp-lg);
-}
-.donate-other-section.open .donate-other-methods { display: block; }
 .donate-grid--secondary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--sp-md);
   max-width: 780px;
-  margin: 0 auto;
+  margin: 0 auto var(--sp-xl);
   opacity: 0.65;
 }
 .donate-grid--secondary .donate-card {
@@ -4187,10 +4177,6 @@ html:not([data-lang]) span.lang-en { display: inline; }
   .donate-grid { grid-template-columns: 1fr; max-width: 360px; }
   .donate-grid--secondary { grid-template-columns: 1fr; max-width: 280px; opacity: 0.6; }
   .donate-grid--secondary .donate-qr { width: 100px; }
-}
-[data-theme="dark"] .donate-other-toggle {
-  border-color: rgba(196,153,43,0.15);
-  color: var(--celadon);
 }
 [data-theme="dark"] .donate-card {
   background: rgba(30,25,20,0.95);
