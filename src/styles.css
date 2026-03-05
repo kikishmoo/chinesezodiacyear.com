@@ -4113,8 +4113,78 @@ html:not([data-lang]) span.lang-en { display: inline; }
 .donate-card .btn {
   margin-top: var(--sp-md);
 }
+/* Featured donation card (Buy Me a Coffee) */
+.donate-featured {
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto var(--sp-2xl);
+  padding: var(--sp-xl) var(--sp-lg);
+  background: linear-gradient(135deg, rgba(191,147,40,0.07), rgba(214,123,64,0.07));
+  border: 2px solid var(--imperial-gold);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+}
+.donate-featured h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--deep-red);
+  margin-bottom: var(--sp-sm);
+}
+.donate-featured p {
+  font-size: 1rem;
+  color: var(--graphite);
+  margin-bottom: var(--sp-lg);
+}
+.donate-featured .btn-bmac {
+  display: inline-block;
+  padding: 0.85rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  color: #fff;
+  background: #FF813F;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.25s;
+}
+.donate-featured .btn-bmac:hover {
+  background: #e06f2e;
+  transform: translateY(-2px);
+}
+/* Secondary / other donation methods */
+.donate-other-heading {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--sp-lg);
+}
+.donate-grid--secondary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-lg);
+  max-width: 880px;
+  margin: 0 auto var(--sp-xl);
+  opacity: 0.72;
+}
+.donate-grid--secondary .donate-card {
+  padding: var(--sp-lg);
+  font-size: 0.88rem;
+}
+.donate-grid--secondary .donate-card-icon { font-size: 1.8rem; }
+.donate-grid--secondary .donate-card h3 { font-size: 1rem; }
+.donate-grid--secondary .donate-qr { width: 150px; }
 @media (max-width: 768px) {
   .donate-grid { grid-template-columns: 1fr; max-width: 360px; }
+  .donate-grid--secondary { grid-template-columns: 1fr; max-width: 360px; opacity: 0.78; }
+}
+[data-theme="dark"] .donate-featured {
+  background: linear-gradient(135deg, rgba(191,147,40,0.1), rgba(214,123,64,0.08));
+  border-color: rgba(191,147,40,0.35);
 }
 [data-theme="dark"] .donate-card {
   background: rgba(30,25,20,0.95);
