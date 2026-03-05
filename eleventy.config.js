@@ -95,6 +95,7 @@ export default function(eleventyConfig) {
   // Watch targets
   eleventyConfig.addWatchTarget("src/styles.css");
   eleventyConfig.addWatchTarget("src/site.js");
+  eleventyConfig.addWatchTarget("src/trivia.js");
 
   // Minify CSS and JS after build
   eleventyConfig.on('eleventy.after', async () => {
@@ -113,7 +114,7 @@ export default function(eleventyConfig) {
       console.error('[Minify] CSS error:', e.message);
     }
 
-    // Minify JS
+    // Minify JS (site.js)
     try {
       const jsPath = join(outputDir, 'site.js');
       const jsInput = readFileSync(join('src', 'site.js'), 'utf8');
@@ -124,6 +125,19 @@ export default function(eleventyConfig) {
       }
     } catch (e) {
       console.error('[Minify] JS error:', e.message);
+    }
+
+    // Minify JS (trivia.js — homepage only)
+    try {
+      const triviaPath = join(outputDir, 'trivia.js');
+      const triviaInput = readFileSync(join('src', 'trivia.js'), 'utf8');
+      const triviaOutput = await terserMinify(triviaInput, { compress: true, mangle: true });
+      if (triviaOutput.code) {
+        writeFileSync(triviaPath, triviaOutput.code);
+        console.log('[Minify] trivia.js:', (triviaInput.length / 1024).toFixed(1) + 'KB →', (triviaOutput.code.length / 1024).toFixed(1) + 'KB');
+      }
+    } catch (e) {
+      console.error('[Minify] trivia.js error:', e.message);
     }
   });
 

@@ -53,7 +53,7 @@
   <aside class="article-sidebar">
     {% if toc %}
     <div class="sidebar-widget">
-      <h4>Contents</h4>
+      <h3 class="sidebar-heading">Contents</h3>
       <ul class="toc-list">
         {%- for item in toc %}
         <li><a href="#{{ item.id }}">{{ item.label }}</a></li>
@@ -65,7 +65,7 @@
     {% set sidebarLinks = relatedArticles if (relatedArticles and relatedArticles.length) else autoRelated %}
     {% if sidebarLinks and sidebarLinks.length %}
     <div class="sidebar-widget">
-      <h4>Related</h4>
+      <h3 class="sidebar-heading">Related</h3>
       {%- for item in sidebarLinks %}
       <a href="{{ item.url }}" style="display:block;margin-bottom:0.5rem;">{{ item.label }}</a>
       {%- endfor %}
@@ -74,7 +74,7 @@
 
     {% if sidebarExplore %}
     <div class="sidebar-widget">
-      <h4>Explore</h4>
+      <h3 class="sidebar-heading">Explore</h3>
       {%- for item in sidebarExplore %}
       <a href="{{ item.url }}" style="display:block;margin-bottom:0.5rem;">{{ item.label }}</a>
       {%- endfor %}
@@ -83,7 +83,7 @@
 
     {% if sidebarProducts %}
     <div class="sidebar-widget sidebar-affiliate-widget">
-      <h4>Recommended Reading</h4>
+      <h3 class="sidebar-heading">Recommended Reading</h3>
       {%- for product in sidebarProducts %}
       <div class="sidebar-product">
         <a href="{{ product.url }}" target="_blank" rel="nofollow sponsored noopener" class="sidebar-product-title">{{ product.title }}</a>
@@ -99,7 +99,7 @@
 
     {% if sidebarShopPromo !== false %}
     <div class="sidebar-widget sidebar-shop-widget">
-      <h4>Digital Resources</h4>
+      <h3 class="sidebar-heading">Digital Resources</h3>
       <p style="font-size:0.9rem;margin-bottom:var(--sp-sm)">Zodiac forecasts, BaZi guides, feng shui checklists, and more.</p>
       <a href="/shop/" class="btn btn-gold btn-sm" style="width:100%;text-align:center">Browse Shop</a>
     </div>

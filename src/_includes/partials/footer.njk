@@ -15,7 +15,7 @@
     </div>
     {%- for col in nav.footer %}
     <div class="footer-col">
-      <h5>{{ col.heading }}</h5>
+      <p class="footer-heading">{{ col.heading }}</p>
       {%- for link in col.links %}
       <a href="{{ link.url }}"{% if link.external %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>
       {%- endfor %}
