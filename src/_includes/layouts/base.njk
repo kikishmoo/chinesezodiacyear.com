@@ -100,9 +100,10 @@
   {% endif %}
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
   {% include "partials/header.njk" %}
 
-  <main>
+  <main id="main-content">
     {{ content | safe }}
   </main>
 
