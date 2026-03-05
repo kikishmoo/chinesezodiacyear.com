@@ -61,6 +61,29 @@ export default function(eleventyConfig) {
   // JSON stringify filter for Schema.org
   eleventyConfig.addFilter("jsonify", (obj) => JSON.stringify(obj));
 
+  // JSON-LD safe filter: produces a string safe for embedding in JSON-LD values.
+  // 1. Decode HTML entities that Nunjucks auto-escapes
+  // 2. Escape characters that would break JSON strings (backslash, double quotes, control chars)
+  // Chain with | safe in templates to prevent Nunjucks from re-escaping the output.
+  eleventyConfig.addFilter("jsonLdSafe", (str) => {
+    if (!str) return "";
+    return String(str)
+      // First decode HTML entities
+      .replace(/&amp;/g, "&")
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&#x27;/g, "'")
+      .replace(/&#x2F;/g, "/")
+      // Then escape for JSON string context (backslash first, then quotes)
+      .replace(/\\/g, "\\\\")
+      .replace(/"/g, '\\"')
+      .replace(/\n/g, "\\n")
+      .replace(/\r/g, "\\r")
+      .replace(/\t/g, "\\t");
+  });
+
   // Slug filter (already built in, but explicit)
   eleventyConfig.addFilter("slug", (str) => {
     return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

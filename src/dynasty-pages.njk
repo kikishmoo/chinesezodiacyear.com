@@ -3,6 +3,7 @@ pagination:
   data: dynastiesData
   size: 1
   alias: dynasty
+  addAllPagesToCollections: true
 permalink: "/dynasties/{{ dynasty.slug }}/"
 layout: "layouts/article.njk"
 ogType: "article"
@@ -29,11 +30,6 @@ eleventyComputed:
       label: "Key Contributions"
     - id: "faq"
       label: "FAQ"
-  faq:
-    - q: "When was the {{ dynasty.name }}?"
-      a: "The {{ dynasty.name }} ({{ dynasty.nameTc }}, {{ dynasty.pinyin }}) spanned {{ dynasty.dates }}, with its capital at {{ dynasty.capital }}."
-    - q: "What were the {{ dynasty.name }}'s key contributions to Chinese culture?"
-      a: "The {{ dynasty.name }}'s major contributions include: {{ dynasty.keyContributions | join('; ') }}."
 tags: ["dynasty"]
 ---
 
