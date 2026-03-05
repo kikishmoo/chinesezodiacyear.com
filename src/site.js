@@ -863,3 +863,58 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 })();
+
+/* ===== QR Code Lightbox (Donate page) ===== */
+(function() {
+  var qrImages = document.querySelectorAll('.donate-qr');
+  if (!qrImages.length) return;
+
+  /* Create lightbox overlay once */
+  var overlay = document.createElement('div');
+  overlay.className = 'qr-lightbox';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-label', 'QR code enlarged view');
+  var img = document.createElement('img');
+  img.alt = '';
+  var hint = document.createElement('span');
+  hint.className = 'qr-lightbox-hint';
+  hint.textContent = 'Tap anywhere to close';
+  overlay.appendChild(img);
+  overlay.appendChild(hint);
+  document.body.appendChild(overlay);
+
+  function openLightbox(src, alt) {
+    img.src = src;
+    img.alt = alt;
+    overlay.style.display = 'flex';
+    requestAnimationFrame(function() {
+      overlay.classList.add('is-visible');
+    });
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('is-visible');
+    setTimeout(function() { overlay.style.display = 'none'; }, 250);
+  }
+
+  overlay.style.display = 'none';
+  overlay.addEventListener('click', closeLightbox);
+
+  /* Escape key closes */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.style.display !== 'none') closeLightbox();
+  });
+
+  /* Attach to each QR image */
+  qrImages.forEach(function(qr) {
+    qr.addEventListener('click', function() {
+      openLightbox(qr.src, qr.alt);
+    });
+    qr.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(qr.src, qr.alt);
+      }
+    });
+  });
+})();
