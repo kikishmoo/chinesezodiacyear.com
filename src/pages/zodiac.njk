@@ -428,10 +428,29 @@ relatedArticles:
         <section id="calculator">
           <h2>Find Your Zodiac Animal</h2>
           <div class="calc-container" style="max-width:500px;">
-            <form id="zodiac-calc-form" class="calc-form">
-              <input type="number" id="birth-year" class="calc-input" placeholder="Birth year" min="1900" max="2100" required aria-label="Birth year">
-              <button type="submit" class="btn btn-primary">Discover</button>
+            <form id="zodiac-calc-form" class="calc-form" aria-label="Zodiac calculator">
+              <div class="calc-row">
+                <input type="number" id="birth-year" class="calc-input" placeholder="Year" min="1900" max="2100" required aria-label="Birth year">
+                <select id="birth-month" class="calc-input calc-input-sm" aria-label="Birth month (optional)">
+                  <option value="">Month</option>
+                  <option value="1">Jan</option>
+                  <option value="2">Feb</option>
+                  <option value="3">Mar</option>
+                  <option value="4">Apr</option>
+                  <option value="5">May</option>
+                  <option value="6">Jun</option>
+                  <option value="7">Jul</option>
+                  <option value="8">Aug</option>
+                  <option value="9">Sep</option>
+                  <option value="10">Oct</option>
+                  <option value="11">Nov</option>
+                  <option value="12">Dec</option>
+                </select>
+                <input type="number" id="birth-day" class="calc-input calc-input-sm" placeholder="Day" min="1" max="31" aria-label="Birth day (optional)">
+              </div>
+              <button type="submit" class="btn btn-primary"><span class="lang-en">Discover</span><span class="lang-tc">查詢</span><span class="lang-sc">查询</span></button>
             </form>
+            <p style="font-size:0.85rem;color:var(--graphite);margin-top:0.5rem;"><span class="lang-en">Month and day are optional but recommended for accurate results near Chinese New Year.</span><span class="lang-tc">月份和日期為選填，但建議填寫以獲得農曆新年前後的準確結果。</span><span class="lang-sc">月份和日期为选填，但建议填写以获得农历新年前后的准确结果。</span></p>
             <div id="calc-result" class="calc-result" aria-live="polite"></div>
           </div>
         </section>
@@ -719,10 +738,29 @@ relatedArticles:
         <section id="calculator">
           <h2>查詢你的生肖</h2>
           <div class="calc-container" style="max-width:500px;">
-            <form id="zodiac-calc-form" class="calc-form">
-              <input type="number" id="birth-year" class="calc-input" placeholder="出生年份" min="1900" max="2100" required aria-label="出生年份">
+            <form id="zodiac-calc-form" class="calc-form" aria-label="生肖查詢">
+              <div class="calc-row">
+                <input type="number" id="birth-year" class="calc-input" placeholder="年份" min="1900" max="2100" required aria-label="出生年份">
+                <select id="birth-month" class="calc-input calc-input-sm" aria-label="出生月份（選填）">
+                  <option value="">月份</option>
+                  <option value="1">一月</option>
+                  <option value="2">二月</option>
+                  <option value="3">三月</option>
+                  <option value="4">四月</option>
+                  <option value="5">五月</option>
+                  <option value="6">六月</option>
+                  <option value="7">七月</option>
+                  <option value="8">八月</option>
+                  <option value="9">九月</option>
+                  <option value="10">十月</option>
+                  <option value="11">十一月</option>
+                  <option value="12">十二月</option>
+                </select>
+                <input type="number" id="birth-day" class="calc-input calc-input-sm" placeholder="日" min="1" max="31" aria-label="出生日期（選填）">
+              </div>
               <button type="submit" class="btn btn-primary">查詢</button>
             </form>
+            <p style="font-size:0.85rem;color:var(--graphite);margin-top:0.5rem;">月份和日期為選填，但建議填寫以獲得農曆新年前後的準確結果。</p>
             <div id="calc-result" class="calc-result" aria-live="polite"></div>
           </div>
         </section>
@@ -1007,10 +1045,29 @@ relatedArticles:
         <section id="calculator">
           <h2>查询你的生肖</h2>
           <div class="calc-container" style="max-width:500px;">
-            <form id="zodiac-calc-form" class="calc-form">
-              <input type="number" id="birth-year" class="calc-input" placeholder="出生年份" min="1900" max="2100" required aria-label="出生年份">
+            <form id="zodiac-calc-form" class="calc-form" aria-label="生肖查询">
+              <div class="calc-row">
+                <input type="number" id="birth-year" class="calc-input" placeholder="年份" min="1900" max="2100" required aria-label="出生年份">
+                <select id="birth-month" class="calc-input calc-input-sm" aria-label="出生月份（选填）">
+                  <option value="">月份</option>
+                  <option value="1">一月</option>
+                  <option value="2">二月</option>
+                  <option value="3">三月</option>
+                  <option value="4">四月</option>
+                  <option value="5">五月</option>
+                  <option value="6">六月</option>
+                  <option value="7">七月</option>
+                  <option value="8">八月</option>
+                  <option value="9">九月</option>
+                  <option value="10">十月</option>
+                  <option value="11">十一月</option>
+                  <option value="12">十二月</option>
+                </select>
+                <input type="number" id="birth-day" class="calc-input calc-input-sm" placeholder="日" min="1" max="31" aria-label="出生日期（选填）">
+              </div>
               <button type="submit" class="btn btn-primary">查询</button>
             </form>
+            <p style="font-size:0.85rem;color:var(--graphite);margin-top:0.5rem;">月份和日期为选填，但建议填写以获得农历新年前后的准确结果。</p>
             <div id="calc-result" class="calc-result" aria-live="polite"></div>
           </div>
         </section>
