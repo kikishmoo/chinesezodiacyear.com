@@ -8,6 +8,7 @@
     { "label": "Spring Festival", "labelTc": "春節", "labelSc": "春节", "url": "/spring-festival/", "page": "spring-festival" }
   ],
   "more": [
+    { "label": "Readings", "labelTc": "運程", "labelSc": "运程", "url": "/readings/", "page": "readings" },
     { "label": "Five Elements", "labelTc": "五行", "labelSc": "五行", "url": "/wuxing/", "page": "wuxing" },
     { "label": "BaZi Calculator", "labelTc": "八字計算器", "labelSc": "八字计算器", "url": "/bazi-calculator/", "page": "bazi-calculator" },
     { "label": "Chinese NY Influence", "labelTc": "中國新年影響", "labelSc": "中国新年影响", "url": "/chinese-new-year-influence/", "page": "asian-new-year" },
@@ -25,7 +26,6 @@
     { "label": "Compatibility", "labelTc": "配對", "labelSc": "配对", "url": "/compatibility/", "page": "compatibility" }
   ],
   "secondary": [
-    { "label": "Readings", "labelTc": "運程", "labelSc": "运程", "url": "/readings/", "page": "readings" },
     { "label": "News", "labelTc": "資訊", "labelSc": "资讯", "url": "/news/", "page": "news" },
     { "label": "Directory", "labelTc": "名錄", "labelSc": "名录", "url": "/directory/", "page": "directory" },
     { "label": "Shop", "labelTc": "商店", "labelSc": "商店", "url": "/shop/", "page": "shop" },
