@@ -29,7 +29,7 @@
     { "label": "News", "labelTc": "資訊", "labelSc": "资讯", "url": "/news/", "page": "news" },
     { "label": "Directory", "labelTc": "名錄", "labelSc": "名录", "url": "/directory/", "page": "directory" },
     { "label": "Shop", "labelTc": "商店", "labelSc": "商店", "url": "/shop/", "page": "shop" },
-    { "label": "Donate", "labelTc": "捐助", "labelSc": "捐助", "url": "/donate/", "page": "donate" }
+    { "label": "Support Us", "labelTc": "支持我們", "labelSc": "支持我们", "url": "/donate/", "page": "donate" }
   ],
   "footer": [
     {
@@ -60,7 +60,7 @@
         { "label": "News & Articles", "labelTc": "新聞與文章", "labelSc": "新闻与文章", "url": "/news/" },
         { "label": "Directory", "labelTc": "名錄", "labelSc": "名录", "url": "/directory/" },
         { "label": "About Us", "labelTc": "關於我們", "labelSc": "关于我们", "url": "/about/" },
-        { "label": "Donate", "labelTc": "捐助", "labelSc": "捐助", "url": "/donate/" },
+        { "label": "Support Us", "labelTc": "支持我們", "labelSc": "支持我们", "url": "/donate/" },
         { "label": "Contribute", "labelTc": "投稿", "labelSc": "投稿", "url": "/about/#contribute" }
       ]
     },
