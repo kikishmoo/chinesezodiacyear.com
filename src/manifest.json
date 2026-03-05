@@ -1,0 +1,26 @@
+{
+  "name": "Chinese Zodiac — Encyclopedia",
+  "short_name": "Chinese Zodiac",
+  "description": "Encyclopedia, readings, and directory for Chinese zodiac, BaZi, feng shui, and traditional Chinese culture.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#7D2018",
+  "background_color": "#FAF6EF",
+  "icons": [
+    {
+      "src": "/img/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -13,6 +13,9 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
   eleventyConfig.addPassthroughCopy("src/cities.json");
   eleventyConfig.addPassthroughCopy("src/img");
+  eleventyConfig.addPassthroughCopy("src/favicon.ico");
+  eleventyConfig.addPassthroughCopy("src/apple-touch-icon.png");
+  eleventyConfig.addPassthroughCopy("src/manifest.json");
 
   // HTML Base Plugin for URL handling
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);

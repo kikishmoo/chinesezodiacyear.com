@@ -9,6 +9,12 @@
   <meta name="description" content="{{ description }}">
   {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <!-- Favicon & Web Manifest -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#7D2018">
   <!-- Hreflang for trilingual content -->
   <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}">
   <link rel="alternate" hreflang="zh-Hant" href="{{ site.url }}{{ page.url }}">
