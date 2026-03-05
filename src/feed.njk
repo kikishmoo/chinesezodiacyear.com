@@ -1,0 +1,34 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.name }}</title>
+  <subtitle>{{ site.description }}</subtitle>
+  <link href="{{ site.url }}/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="{{ site.url }}/" rel="alternate" type="text/html"/>
+  <id>{{ site.url }}/</id>
+  {%- set latestArticle = collections.articles[0] %}
+  <updated>{% if latestArticle %}{{ latestArticle.data.dateModified | default(latestArticle.data.datePublished) | default(latestArticle.date) | isoDate }}T00:00:00Z{% else %}{{ site.year }}-01-01T00:00:00Z{% endif %}</updated>
+  <author>
+    <name>{{ site.name }}</name>
+    <uri>{{ site.url }}/</uri>
+  </author>
+  <icon>{{ site.url }}/img/favicon-192.png</icon>
+  <logo>{{ site.url }}/img/favicon-512.png</logo>
+  <rights>&copy; {{ site.year }} ChineseZodiacYear.com</rights>
+  {%- for article in collections.articles %}
+  <entry>
+    <title>{{ article.data.title | jsonLdSafe | safe }}</title>
+    <link href="{{ site.url }}{{ article.url }}" rel="alternate" type="text/html"/>
+    <id>{{ site.url }}{{ article.url }}</id>
+    <published>{{ article.data.datePublished | default(article.date) | isoDate }}T00:00:00Z</published>
+    <updated>{{ article.data.dateModified | default(article.data.datePublished) | default(article.date) | isoDate }}T00:00:00Z</updated>
+    <summary type="text">{{ article.data.description | jsonLdSafe | safe }}</summary>
+    {%- if article.data.category %}
+    <category term="{{ article.data.category }}"/>
+    {%- endif %}
+  </entry>
+  {%- endfor %}
+</feed>

@@ -15,6 +15,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#7D2018">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.name }} Feed" href="/feed.xml">
   <!-- Hreflang for trilingual content -->
   <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}">
   <link rel="alternate" hreflang="zh-Hant" href="{{ site.url }}{{ page.url }}">
@@ -61,7 +62,7 @@
   {% if site.adsenseEnabled %}
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsenseId }}" crossorigin="anonymous"></script>
   {% endif %}
-  <script>(function(){var t=localStorage.getItem('czy-theme');if(t)document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('czy-lang')||'en';document.documentElement.setAttribute('data-lang',l)})()</script>
+  <script>(function(){var t=localStorage.getItem('czy-theme');if(t)document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('czy-lang')||'en';document.documentElement.setAttribute('data-lang',l);var m={en:'en',tc:'zh-Hant',sc:'zh-Hans'};document.documentElement.setAttribute('lang',m[l]||'en')})()</script>
   {% if ogType == "article" %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title | jsonLdSafe | safe }}","description":"{{ description | jsonLdSafe | safe }}","url":"{{ site.url }}{{ page.url }}","image":"{{ resolvedOgImage }}","datePublished":"{{ datePublished | default('2025-01-01') }}","dateModified":"{{ dateModified | default(datePublished) | default('2025-01-01') }}","author":{"@type":"Organization","name":"{{ site.name | jsonLdSafe | safe }}","url":"{{ site.url }}/"},"publisher":{"@type":"Organization","name":"{{ site.name | jsonLdSafe | safe }}","url":"{{ site.url }}/","logo":{"@type":"ImageObject","url":"{{ site.url }}/img/og-default.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ page.url }}"},"inLanguage":"en"}</script>
   {% endif %}
