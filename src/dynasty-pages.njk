@@ -79,3 +79,21 @@ tags: ["dynasty"]
     {%- endfor %}
   </ul>
 </section>
+
+{%- if dynasty.relatedContent and dynasty.relatedContent.length > 0 %}
+<section id="related-content">
+  <h2><span class="lang-en">Related Content</span><span class="lang-tc">相關內容</span><span class="lang-sc">相关内容</span></h2>
+  <p><span class="lang-en">Explore topics connected to the {{ dynasty.name }}:</span><span class="lang-tc">探索與{{ dynasty.nameTc }}相關的主題：</span><span class="lang-sc">探索与{{ dynasty.nameSc }}相关的主题：</span></p>
+
+  {%- for item in dynasty.relatedContent %}
+  <div class="callout-box callout-box--jade" style="margin-top:var(--sp-lg);">
+    <div class="callout-icon">📖</div>
+    <div class="callout-content">
+      <h3><span class="lang-en">{{ item.title }}</span><span class="lang-tc">{{ item.titleTc }}</span><span class="lang-sc">{{ item.titleSc }}</span></h3>
+      <p><span class="lang-en">{{ item.text | safe }}</span><span class="lang-tc">{{ item.textTc | safe }}</span><span class="lang-sc">{{ item.textSc | safe }}</span></p>
+      <p style="margin-top:var(--sp-sm);"><a href="{{ item.link }}"><span class="lang-en">{{ item.linkLabel }}</span><span class="lang-tc">{{ item.linkLabelTc }}</span><span class="lang-sc">{{ item.linkLabelSc }}</span></a></p>
+    </div>
+  </div>
+  {%- endfor %}
+</section>
+{%- endif %}
