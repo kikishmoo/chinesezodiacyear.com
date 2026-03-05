@@ -673,9 +673,10 @@ document.addEventListener('DOMContentLoaded', () => {
             citySuggestions.hidden = true;
             return;
           }
-          citySuggestions.innerHTML = matches.map((c, i) =>
-            '<div class="city-option" data-idx="' + i + '">' + c.c + ', ' + c.co + '</div>'
-          ).join('');
+          citySuggestions.innerHTML = matches.map((c, i) => {
+            const safe = (s) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+            return '<div class="city-option" data-idx="' + i + '">' + safe(c.c) + ', ' + safe(c.co) + '</div>';
+          }).join('');
           citySuggestions.hidden = false;
           citySuggestions._matches = matches;
         }, 200);
