@@ -4740,3 +4740,16 @@ html:not([data-lang]) span.lang-en { display: inline; }
   background: rgba(40,34,28,0.8);
   border-color: var(--imperial-gold);
 }
+
+/* ============================================
+   REDUCED MOTION — accessibility for
+   motion-sensitive users (vestibular disorders)
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

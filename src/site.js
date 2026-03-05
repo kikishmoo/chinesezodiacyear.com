@@ -41,12 +41,21 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       const dropdown = btn.parentElement;
       const wasOpen = dropdown.classList.contains('open');
-      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
-      if (!wasOpen) dropdown.classList.add('open');
+      document.querySelectorAll('.nav-dropdown').forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        dropdown.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
   });
   document.addEventListener('click', () => {
-    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.nav-dropdown').forEach(d => {
+      d.classList.remove('open');
+      d.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+    });
   });
 
   /* --- Zodiac Calculator --- */
@@ -219,8 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const item = btn.parentElement;
       const wasOpen = item.classList.contains('open');
       // Close all siblings
-      item.parentElement.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
+      item.parentElement.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        var b = i.querySelector('.faq-question');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
   });
 

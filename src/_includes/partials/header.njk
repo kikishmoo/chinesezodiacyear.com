@@ -16,7 +16,7 @@
       <a href="{{ item.url }}"{% if page.fileSlug == item.page %} class="active"{% endif %}>{{ item.label }}</a>
       {%- endfor %}
       <div class="nav-dropdown">
-        <button class="nav-dropdown-toggle">More &#9662;</button>
+        <button class="nav-dropdown-toggle" aria-expanded="false">More &#9662;</button>
         <div class="nav-dropdown-menu">
           {%- for item in nav.more %}
           <a href="{{ item.url }}"{% if page.fileSlug == item.page %} class="active"{% endif %}>{{ item.label }}</a>
