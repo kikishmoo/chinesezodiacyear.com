@@ -1,4 +1,5 @@
 import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
+import Image from '@11ty/eleventy-img';
 import CleanCSS from 'clean-css';
 import { minify as terserMinify } from 'terser';
 import { readFileSync, writeFileSync } from 'fs';
@@ -19,6 +20,33 @@ export default function(eleventyConfig) {
 
   // HTML Base Plugin for URL handling
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
+
+  // Responsive image shortcode — generates srcset with multiple sizes
+  eleventyConfig.addAsyncShortcode("respimg", async function(src, alt, sizes) {
+    const inputPath = src.startsWith('/') ? join('src', src) : src;
+    try {
+      const metadata = await Image(inputPath, {
+        widths: [400, 800, 1200],
+        formats: ['webp', 'jpeg'],
+        outputDir: '_site/img/opt/',
+        urlPath: '/img/opt/',
+        filenameFormat: function (id, src, width, format) {
+          const name = src.split('/').pop().split('.')[0];
+          return `${name}-${width}.${format}`;
+        }
+      });
+      const imageAttributes = {
+        alt: alt || '',
+        sizes: sizes || '(max-width: 800px) 100vw, 800px',
+        loading: 'lazy',
+        decoding: 'async',
+      };
+      return Image.generateHTML(metadata, imageAttributes);
+    } catch (e) {
+      // Fallback: return a standard img tag if image processing fails
+      return `<img src="${src}" alt="${alt || ''}" loading="lazy" decoding="async">`;
+    }
+  });
 
   // Articles collection — sorted by date descending
   eleventyConfig.addCollection("articles", function(collectionApi) {

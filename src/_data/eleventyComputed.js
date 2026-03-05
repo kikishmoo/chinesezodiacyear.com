@@ -52,10 +52,24 @@ export default {
         addLink(`/zodiac/${liuHe}/`, `${lhCap} (Liu He Friend)`);
       }
 
+      // Recent year pages for this animal (closest to current era)
+      const animalIdx = graph.zodiacAnimals?.indexOf(animal);
+      if (animalIdx >= 0) {
+        const recentYears = [2024, 2025, 2026].map(y => y - ((y - 4) % 12 + 12) % 12 + animalIdx)
+          .filter(y => y >= 1924 && y <= 2044);
+        // Find the closest recent and upcoming years for this animal
+        for (let y = 2020; y <= 2032; y++) {
+          if (((y - 4) % 12 + 12) % 12 === animalIdx) {
+            addLink(`/zodiac-year/${y}/`, `${y} ${animalCap} Year`);
+          }
+        }
+      }
+
       // Core related topics
       addLink("/zodiac/", "All Zodiac Animals");
       addLink("/compatibility/", "Compatibility Checker");
       addLink("/wuxing/", "Wu Xing \u2014 Five Elements");
+      addLink("/bazi-calculator/", "BaZi Calculator");
 
       return links;
     }
@@ -102,6 +116,30 @@ export default {
       addLink("/zodiac/", "Zodiac Animals");
       addLink("/bazi/", "BaZi & Four Pillars");
       addLink("/hanfu/", "Hanfu & Silk Road");
+      addLink("/spring-festival/", "Spring Festival");
+      return links;
+    }
+
+    // --- Year pages: /zodiac-year/{year}/ ---
+    const yearMatch = currentUrl.match(/^\/zodiac-year\/(\d+)\/$/);
+    if (yearMatch) {
+      const year = parseInt(yearMatch[1]);
+      const animalIdx = ((year - 4) % 12 + 12) % 12;
+      const animalNames = graph.zodiacAnimals || [];
+      const animal = animalNames[animalIdx];
+      if (animal) {
+        const cap = animal.charAt(0).toUpperCase() + animal.slice(1);
+        addLink(`/zodiac/${animal}/`, `${cap} \u2014 Full Profile`);
+        addLink(`/readings/2026-${animal}/`, `2026 ${cap} Reading`);
+        if (year > 1924) addLink(`/zodiac-year/${year - 1}/`, `Chinese Zodiac ${year - 1}`);
+        if (year < 2044) addLink(`/zodiac-year/${year + 1}/`, `Chinese Zodiac ${year + 1}`);
+        if (year - 12 >= 1924) addLink(`/zodiac-year/${year - 12}/`, `${year - 12} ${cap} Year`);
+        if (year + 12 <= 2044) addLink(`/zodiac-year/${year + 12}/`, `${year + 12} ${cap} Year`);
+      }
+      addLink("/zodiac/", "All Zodiac Animals");
+      addLink("/compatibility/", "Compatibility Checker");
+      addLink("/wuxing/", "Wu Xing \u2014 Five Elements");
+      addLink("/bazi-calculator/", "BaZi Calculator");
       return links;
     }
 
