@@ -2,8 +2,8 @@ import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
 import Image from '@11ty/eleventy-img';
 import CleanCSS from 'clean-css';
 import { minify as terserMinify } from 'terser';
-import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'fs';
+import { join, dirname, relative } from 'path';
 
 export default function(eleventyConfig) {
   // Pass through static assets
@@ -180,6 +180,63 @@ export default function(eleventyConfig) {
     } catch (e) {
       console.error('[Minify] trivia.js error:', e.message);
     }
+
+    // ===== i18n: Generate /zh-hant/ and /zh-hans/ page copies =====
+    const langVariants = [
+      { prefix: 'zh-hant', lang: 'zh-Hant', dataLang: 'tc' },
+      { prefix: 'zh-hans', lang: 'zh-Hans', dataLang: 'sc' }
+    ];
+
+    // Recursively collect all HTML files in _site/
+    function walkHtml(dir) {
+      let results = [];
+      for (const entry of readdirSync(dir)) {
+        const full = join(dir, entry);
+        const stat = statSync(full);
+        if (stat.isDirectory()) {
+          // Skip already-generated language directories and admin
+          if (entry === 'zh-hant' || entry === 'zh-hans' || entry === 'admin') continue;
+          results = results.concat(walkHtml(full));
+        } else if (entry.endsWith('.html')) {
+          results.push(full);
+        }
+      }
+      return results;
+    }
+
+    const htmlFiles = walkHtml(outputDir);
+    let i18nCount = 0;
+
+    for (const filePath of htmlFiles) {
+      const relPath = relative(outputDir, filePath);
+      const html = readFileSync(filePath, 'utf8');
+
+      for (const variant of langVariants) {
+        const destPath = join(outputDir, variant.prefix, relPath);
+        mkdirSync(dirname(destPath), { recursive: true });
+
+        let out = html;
+        // Set html lang attribute
+        out = out.replace(/<html\s+lang="[^"]*"/, `<html lang="${variant.lang}"`);
+        // Update the head init script to force the correct data-lang
+        // The init script detects /zh-hant/ or /zh-hans/ in pathname, so it will
+        // automatically set the right data-lang. No string replacement needed.
+        // Update canonical URL to include language prefix
+        out = out.replace(
+          /<link rel="canonical" href="(https?:\/\/[^/"]+)(\/[^"]*)">/,
+          `<link rel="canonical" href="$1/${variant.prefix}$2">`
+        );
+        // Update og:url to include language prefix
+        out = out.replace(
+          /<meta property="og:url" content="(https?:\/\/[^/"]+)(\/[^"]*)">/,
+          `<meta property="og:url" content="$1/${variant.prefix}$2">`
+        );
+
+        writeFileSync(destPath, out);
+        i18nCount++;
+      }
+    }
+    console.log(`[i18n] Generated ${i18nCount} language variant pages from ${htmlFiles.length} source pages`);
   });
 
   return {

@@ -3,13 +3,31 @@ permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 {% for page in collections.all %}{% if page.url != false and "/admin/" not in page.url and page.url != "/404.html" %}
   <url>
     <loc>{{ site.url }}{{ page.url }}</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="{{ site.url }}/zh-hant{{ page.url }}" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="{{ site.url }}/zh-hans{{ page.url }}" />
     <lastmod>{{ page.date | isoDate }}</lastmod>
     <changefreq>{% if page.url == "/" %}daily{% elif page.data.tags and "article" in page.data.tags %}monthly{% else %}weekly{% endif %}</changefreq>
     <priority>{% if page.url == "/" %}1.0{% elif page.data.category == "encyclopedia" %}0.9{% elif page.data.category == "readings" %}0.8{% elif page.data.tags and "article" in page.data.tags %}0.7{% else %}0.8{% endif %}</priority>
+  </url>
+  <url>
+    <loc>{{ site.url }}/zh-hant{{ page.url }}</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="{{ site.url }}/zh-hant{{ page.url }}" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="{{ site.url }}/zh-hans{{ page.url }}" />
+    <lastmod>{{ page.date | isoDate }}</lastmod>
+  </url>
+  <url>
+    <loc>{{ site.url }}/zh-hans{{ page.url }}</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="{{ site.url }}/zh-hant{{ page.url }}" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="{{ site.url }}/zh-hans{{ page.url }}" />
+    <lastmod>{{ page.date | isoDate }}</lastmod>
   </url>
 {% endif %}{% endfor %}
 </urlset>

@@ -1,0 +1,5 @@
+{
+  "en": { "code": "en", "hreflang": "en", "prefix": "", "label": "English", "dir": "ltr" },
+  "tc": { "code": "tc", "hreflang": "zh-Hant", "prefix": "/zh-hant", "label": "繁體中文", "dir": "ltr" },
+  "sc": { "code": "sc", "hreflang": "zh-Hans", "prefix": "/zh-hans", "label": "简体中文", "dir": "ltr" }
+}

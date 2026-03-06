@@ -834,6 +834,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- Three-Language Toggle (EN / TC / SC) --- */
 (function() {
   var CYCLE = ['en', 'tc', 'sc'];
+  var PREFIXES = { en: '', tc: '/zh-hant', sc: '/zh-hans' };
 
   function setLang(lang) {
     document.documentElement.setAttribute('data-lang', lang);
@@ -843,14 +844,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.setAttribute('lang', htmlLang);
   }
 
-  /* Toggle button cycles: en → tc → sc → en */
+  /* Toggle button cycles: en → tc → sc → en and navigates to language URL */
   var langBtn = document.querySelector('.lang-toggle');
   if (langBtn) {
     langBtn.addEventListener('click', function() {
       var current = document.documentElement.getAttribute('data-lang') || 'en';
       var idx = CYCLE.indexOf(current);
       var next = CYCLE[(idx + 1) % 3];
-      setLang(next);
+      /* Save preference */
+      localStorage.setItem('czy-lang', next);
+      /* Navigate to language-specific URL */
+      var path = location.pathname;
+      /* Strip existing language prefix */
+      path = path.replace(/^\/(zh-hant|zh-hans)(\/|$)/, '/');
+      /* Build target URL */
+      var target = PREFIXES[next] + (path || '/');
+      if (target === '') target = '/';
+      location.href = target;
     });
   }
 })();
