@@ -928,6 +928,13 @@ select.calc-input {
   color: var(--deep-red);
 }
 
+.article-content h4 {
+  margin-top: var(--sp-xl);
+  margin-bottom: var(--sp-md);
+  color: var(--deep-red);
+  font-size: 1.15rem;
+}
+
 .article-content p {
   margin-bottom: var(--sp-md);
   color: var(--charcoal);
@@ -3842,6 +3849,28 @@ html:not([data-lang]) span.lang-en { display: inline; }
   }
   .image-grid--featured > :first-child { grid-row: auto; }
 }
+/* div-based image grid items (used on dynasties page etc.) */
+.image-grid-item {
+  margin: 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.image-grid-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.image-grid-caption {
+  font-size: 0.82rem;
+  color: var(--stone);
+  padding: var(--sp-sm) var(--sp-xs);
+  text-align: center;
+  background: var(--parchment);
+}
+[data-theme="dark"] .image-grid-caption {
+  background: var(--bg-surface, #23211f);
+  color: var(--text-muted);
+}
 
 /* --- Timeline Strip --- */
 .timeline {
@@ -4203,6 +4232,51 @@ html:not([data-lang]) span.lang-en { display: inline; }
   .donate-grid { grid-template-columns: 1fr; max-width: 360px; }
   .donate-grid--secondary { grid-template-columns: 1fr; max-width: 320px; }
   .donate-grid--secondary .donate-qr { width: 140px; }
+}
+/* Full-width contact banner on donate page */
+.donate-contact-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-lg);
+  max-width: 960px;
+  margin: 0 auto var(--sp-xl);
+  padding: var(--sp-xl) var(--sp-2xl);
+  background: linear-gradient(135deg, var(--parchment), #f5efe5);
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  text-align: left;
+}
+.donate-contact-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.donate-contact-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--deep-red);
+  margin: 0 0 var(--sp-sm);
+}
+.donate-contact-body p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 var(--sp-md);
+}
+.donate-contact-body .btn {
+  font-size: 0.95rem;
+}
+@media (max-width: 600px) {
+  .donate-contact-banner {
+    flex-direction: column;
+    padding: var(--sp-lg);
+    text-align: center;
+    align-items: center;
+  }
+}
+[data-theme="dark"] .donate-contact-banner {
+  background: linear-gradient(135deg, var(--bg-surface, #23211f), #2a2520);
+  border-color: var(--stroke);
 }
 /* QR code zoom lightbox */
 .qr-lightbox {
