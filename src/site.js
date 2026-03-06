@@ -344,9 +344,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!emailInput || !emailInput.value) return;
 
       const email = emailInput.value;
-      const section = form.closest('.newsletter-content') || form.parentElement;
-      const successEl = section.querySelector('#newsletter-success');
-      const errorEl = section.querySelector('#newsletter-error');
+      /* Walk up to the nearest container that holds both form and messages */
+      const section = form.closest('.newsletter-content')
+                   || form.closest('.email-popup')
+                   || form.closest('.content-upgrade')
+                   || form.parentElement;
+      /* Find success/error by class (works for footer, popup, and content-upgrade) */
+      const successEl = section.querySelector('.newsletter-message:not(.newsletter-message--error)');
+      const errorEl   = section.querySelector('.newsletter-message--error');
+      const originalBtnHTML = submitBtn.innerHTML;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Subscribing\u2026';
@@ -358,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       const showError = () => {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Subscribe';
+        submitBtn.innerHTML = originalBtnHTML;
         if (errorEl) errorEl.hidden = false;
         if (successEl) successEl.hidden = true;
       };
