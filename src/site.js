@@ -879,16 +879,26 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.setAttribute('aria-label', 'QR code enlarged view');
   var img = document.createElement('img');
   img.alt = '';
+  var actions = document.createElement('div');
+  actions.className = 'qr-lightbox-actions';
+  var downloadBtn = document.createElement('a');
+  downloadBtn.textContent = 'Save Image';
+  downloadBtn.setAttribute('download', '');
+  downloadBtn.href = '#';
+  actions.appendChild(downloadBtn);
   var hint = document.createElement('span');
   hint.className = 'qr-lightbox-hint';
-  hint.textContent = 'Tap anywhere to close';
+  hint.textContent = 'Long-press image to save \u00B7 Tap background to close';
   overlay.appendChild(img);
+  overlay.appendChild(actions);
   overlay.appendChild(hint);
   document.body.appendChild(overlay);
 
   function openLightbox(src, alt) {
     img.src = src;
     img.alt = alt;
+    downloadBtn.href = src;
+    downloadBtn.setAttribute('download', src.split('/').pop());
     overlay.style.display = 'flex';
     requestAnimationFrame(function() {
       overlay.classList.add('is-visible');
@@ -901,7 +911,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   overlay.style.display = 'none';
-  overlay.addEventListener('click', closeLightbox);
+  /* Close only when clicking the backdrop, not the image or actions */
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeLightbox();
+  });
+
+  /* Prevent download button click from closing lightbox */
+  actions.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
 
   /* Escape key closes */
   document.addEventListener('keydown', function(e) {

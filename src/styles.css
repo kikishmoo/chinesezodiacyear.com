@@ -4195,7 +4195,9 @@ html:not([data-lang]) span.lang-en { display: inline; }
 }
 .bmac-fallback a { color: var(--deep-red); }
 @media (max-width: 768px) {
-  .bmac-embed iframe { height: 560px; }
+  .bmac-embed { max-width: 100%; padding: 0 var(--sp-sm); }
+  .bmac-embed iframe { height: 560px; border-radius: 8px; }
+  .bmac-heading { font-size: 1.3rem; }
 }
 [data-theme="dark"] .bmac-embed iframe {
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
@@ -4230,8 +4232,17 @@ html:not([data-lang]) span.lang-en { display: inline; }
 .donate-grid--secondary .donate-qr:hover { transform: scale(1.05); }
 @media (max-width: 768px) {
   .donate-grid { grid-template-columns: 1fr; max-width: 360px; }
-  .donate-grid--secondary { grid-template-columns: 1fr; max-width: 320px; }
-  .donate-grid--secondary .donate-qr { width: 140px; }
+  .donate-grid--secondary { grid-template-columns: 1fr; max-width: 100%; }
+  .donate-grid--secondary .donate-card {
+    padding: var(--sp-lg);
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .donate-grid--secondary .donate-qr { width: 200px; }
+  .donate-grid--secondary .donate-card h3 { font-size: 1rem; }
+  .donate-grid--secondary .donate-card p { font-size: 0.85rem; }
+  .donate-other-heading { font-size: 0.85rem; }
 }
 /* Full-width contact banner on donate page */
 .donate-contact-banner {
@@ -4297,7 +4308,35 @@ html:not([data-lang]) span.lang-en { display: inline; }
   width: 90vw;
   border-radius: 12px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-  pointer-events: none;
+  pointer-events: auto;
+}
+.qr-lightbox-actions {
+  position: absolute;
+  bottom: calc(var(--sp-xl) + 1.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--sp-sm);
+}
+.qr-lightbox-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.55em 1.2em;
+  border-radius: 6px;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.qr-lightbox-actions a:hover {
+  background: rgba(255,255,255,0.28);
 }
 .qr-lightbox-hint {
   position: absolute;
