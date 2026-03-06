@@ -1,0 +1,37 @@
+{# ===== INLINE CONTENT UPGRADE CTA ===== #}
+{# Place inside article content to capture email mid-read #}
+{% if site.beehiivPublicationId %}
+<aside class="content-upgrade" aria-label="Newsletter signup">
+  <span class="content-upgrade-icon" aria-hidden="true">📜</span>
+  <h3>
+    <span class="lang-en">Free: 2026 Zodiac Compatibility Chart</span>
+    <span class="lang-tc">免費：2026年生肖配對圖</span>
+    <span class="lang-sc">免费：2026年生肖配对图</span>
+  </h3>
+  <p>
+    <span class="lang-en">Download the complete compatibility matrix for all 12 animals — plus get weekly Chinese astrology insights.</span>
+    <span class="lang-tc">下載所有十二生肖的完整配對矩陣——並獲取每週中國占星精華。</span>
+    <span class="lang-sc">下载所有十二生肖的完整配对矩阵——并获取每周中国占星精华。</span>
+  </p>
+  <form class="newsletter-form" aria-label="Content upgrade signup"
+        action="https://embeds.beehiiv.com/forms/{{ site.beehiivPublicationId }}"
+        method="POST" data-beehiiv="true">
+    <input type="hidden" name="utm_source" value="website">
+    <input type="hidden" name="utm_medium" value="content_upgrade">
+    <input type="hidden" name="referring_site" value="{{ site.url }}">
+    <input type="email" name="email" class="newsletter-input"
+           placeholder="Your email address" required aria-label="Email address">
+    <button type="submit" class="btn btn-gold">
+      <span class="lang-en">Send Me the Chart</span>
+      <span class="lang-tc">發送給我</span>
+      <span class="lang-sc">发送给我</span>
+    </button>
+  </form>
+  <div class="newsletter-message" hidden>
+    <p><span class="lang-en">Check your inbox for the chart!</span><span class="lang-tc">請查看您的收件箱！</span><span class="lang-sc">请查看您的收件箱！</span></p>
+  </div>
+  <div class="newsletter-message newsletter-message--error" hidden>
+    <p><span class="lang-en">Something went wrong. Please try again.</span><span class="lang-tc">發生錯誤，請重試。</span><span class="lang-sc">发生错误，请重试。</span></p>
+  </div>
+</aside>
+{% endif %}

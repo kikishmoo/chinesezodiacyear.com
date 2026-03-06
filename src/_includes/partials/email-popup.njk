@@ -1,0 +1,48 @@
+{# ===== EXIT-INTENT EMAIL POPUP ===== #}
+{# Shown once per session when user moves cursor toward browser chrome (desktop) or after 45s idle (mobile) #}
+{% if site.beehiivPublicationId %}
+<div class="email-popup-overlay" id="email-popup" role="dialog" aria-labelledby="popup-heading" aria-modal="true">
+  <div class="email-popup">
+    <button class="email-popup-close" aria-label="Close" id="email-popup-close">&times;</button>
+    <span class="email-popup-icon" aria-hidden="true">🐉</span>
+
+    <h3 id="popup-heading">
+      <span class="lang-en">Before You Go — Free Zodiac Guide</span>
+      <span class="lang-tc">離開前 — 免費生肖指南</span>
+      <span class="lang-sc">离开前 — 免费生肖指南</span>
+    </h3>
+    <p>
+      <span class="lang-en">Get our <strong>2026 Zodiac Compatibility Chart</strong> plus weekly insights on Chinese astrology, feng shui, and cultural heritage — free in your inbox.</span>
+      <span class="lang-tc">獲取我們的<strong>2026年生肖配對圖</strong>以及每週中國占星、風水智慧與文化遺產精華——免費直送您的郵箱。</span>
+      <span class="lang-sc">获取我们的<strong>2026年生肖配对图</strong>以及每周中国占星、风水智慧与文化遗产精华——免费直送您的邮箱。</span>
+    </p>
+
+    <form class="newsletter-form" aria-label="Newsletter signup"
+          action="https://embeds.beehiiv.com/forms/{{ site.beehiivPublicationId }}"
+          method="POST" data-beehiiv="true">
+      <input type="hidden" name="utm_source" value="website">
+      <input type="hidden" name="utm_medium" value="exit_intent_popup">
+      <input type="hidden" name="referring_site" value="{{ site.url }}">
+      <input type="email" name="email" class="newsletter-input"
+             placeholder="Your email address" required aria-label="Email address">
+      <button type="submit" class="btn btn-gold">
+        <span class="lang-en">Get Free Guide</span>
+        <span class="lang-tc">獲取免費指南</span>
+        <span class="lang-sc">获取免费指南</span>
+      </button>
+    </form>
+    <div class="newsletter-message" id="popup-success" hidden>
+      <p><span class="lang-en">Welcome! Check your inbox for the compatibility chart.</span><span class="lang-tc">歡迎！請查看您的收件箱獲取配對圖。</span><span class="lang-sc">欢迎！请查看您的收件箱获取配对图。</span></p>
+    </div>
+    <div class="newsletter-message newsletter-message--error" id="popup-error" hidden>
+      <p><span class="lang-en">Something went wrong. Please try again.</span><span class="lang-tc">發生錯誤，請重試。</span><span class="lang-sc">发生错误，请重试。</span></p>
+    </div>
+
+    <button class="email-popup-dismiss" id="email-popup-dismiss">
+      <span class="lang-en">No thanks, I'll keep browsing</span>
+      <span class="lang-tc">不用了，我繼續瀏覽</span>
+      <span class="lang-sc">不用了，我继续浏览</span>
+    </button>
+  </div>
+</div>
+{% endif %}

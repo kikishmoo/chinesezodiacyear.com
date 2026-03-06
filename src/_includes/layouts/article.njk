@@ -30,6 +30,8 @@
     </section>
     {% endif %}
 
+    {% include "partials/content-upgrade.njk" %}
+
     {# --- Auto-generated inline related content (better for SEO than sidebar) --- #}
     {% set linkSource = autoRelated if (autoRelated and autoRelated.length) else relatedArticles %}
     {% if linkSource and linkSource.length %}

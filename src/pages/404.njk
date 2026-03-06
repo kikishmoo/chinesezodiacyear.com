@@ -1,40 +1,94 @@
 ---
 layout: "layouts/base.njk"
 title: "Page Not Found"
-description: "The page you're looking for doesn't exist. Return to the Chinese Zodiac encyclopedia."
+description: "The page you're looking for doesn't exist. Search our Chinese zodiac encyclopedia or explore popular topics."
 permalink: "/404.html"
 ---
 <section class="content-section" style="text-align:center;min-height:60vh;display:flex;align-items:center;justify-content:center;">
-  <div style="max-width:600px;margin:0 auto;padding:var(--sp-xl);">
+  <div style="max-width:680px;margin:0 auto;padding:var(--sp-xl);">
     <div style="font-size:5rem;margin-bottom:1rem;" aria-hidden="true">🐉</div>
 
+    {# --- English --- #}
     <div class="lang-en">
       <h1 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:0.5rem;">404 — Page Not Found</h1>
       <p style="font-size:1.15rem;color:var(--text-secondary);margin-bottom:0.5rem;">Like a dragon vanishing into the clouds, this page has disappeared.</p>
-      <p style="color:var(--text-muted);margin-bottom:2rem;">The page you are looking for may have been moved, renamed, or may never have existed.</p>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <p style="color:var(--text-muted);margin-bottom:1.5rem;">The page you are looking for may have been moved, renamed, or may never have existed.</p>
+
+      <form action="/search" method="GET" class="not-found-search" role="search" aria-label="Search the site">
+        <input type="search" name="q" placeholder="Search the encyclopedia…" class="newsletter-input" style="max-width:360px;" aria-label="Search">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
         <a href="/" class="btn btn-primary">Return Home</a>
         <a href="/zodiac/" class="btn btn-outline">Explore the Encyclopedia</a>
       </div>
     </div>
 
+    {# --- Traditional Chinese --- #}
     <div class="lang-tc">
       <p class="page-hero-title" style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:0.5rem;">404 — 頁面未找到</p>
       <p style="font-size:1.15rem;color:var(--text-secondary);margin-bottom:0.5rem;">如龍隱入雲端，此頁面已消失無蹤。</p>
-      <p style="color:var(--text-muted);margin-bottom:2rem;">您所尋找的頁面可能已被移動、重新命名，或從未存在。</p>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <p style="color:var(--text-muted);margin-bottom:1.5rem;">您所尋找的頁面可能已被移動、重新命名，或從未存在。</p>
+
+      <form action="/search" method="GET" class="not-found-search" role="search" aria-label="搜尋網站">
+        <input type="search" name="q" placeholder="搜尋百科全書…" class="newsletter-input" style="max-width:360px;" aria-label="搜尋">
+        <button type="submit" class="btn btn-primary">搜尋</button>
+      </form>
+
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
         <a href="/" class="btn btn-primary">返回首頁</a>
         <a href="/zodiac/" class="btn btn-outline">瀏覽百科全書</a>
       </div>
     </div>
 
+    {# --- Simplified Chinese --- #}
     <div class="lang-sc">
       <p class="page-hero-title" style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:0.5rem;">404 — 页面未找到</p>
       <p style="font-size:1.15rem;color:var(--text-secondary);margin-bottom:0.5rem;">如龙隐入云端，此页面已消失无踪。</p>
-      <p style="color:var(--text-muted);margin-bottom:2rem;">您所寻找的页面可能已被移动、重新命名，或从未存在。</p>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <p style="color:var(--text-muted);margin-bottom:1.5rem;">您所寻找的页面可能已被移动、重新命名，或从未存在。</p>
+
+      <form action="/search" method="GET" class="not-found-search" role="search" aria-label="搜索网站">
+        <input type="search" name="q" placeholder="搜索百科全书…" class="newsletter-input" style="max-width:360px;" aria-label="搜索">
+        <button type="submit" class="btn btn-primary">搜索</button>
+      </form>
+
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
         <a href="/" class="btn btn-primary">返回首页</a>
         <a href="/zodiac/" class="btn btn-outline">浏览百科全书</a>
+      </div>
+    </div>
+
+    {# --- Popular Pages --- #}
+    <div style="margin-top:var(--sp-2xl);border-top:1px solid var(--stroke);padding-top:var(--sp-xl);">
+      <p style="font-weight:600;color:var(--text-secondary);margin-bottom:var(--sp-lg);">
+        <span class="lang-en">Popular Pages</span><span class="lang-tc">熱門頁面</span><span class="lang-sc">热门页面</span>
+      </p>
+      <div class="related-grid">
+        <a href="/zodiac/" class="related-card">
+          <span class="related-card-label"><span class="lang-en">12 Zodiac Animals</span><span class="lang-tc">十二生肖</span><span class="lang-sc">十二生肖</span></span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        <a href="/readings/" class="related-card">
+          <span class="related-card-label"><span class="lang-en">2026 Readings</span><span class="lang-tc">2026年運程</span><span class="lang-sc">2026年运程</span></span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        <a href="/compatibility/" class="related-card">
+          <span class="related-card-label"><span class="lang-en">Compatibility Checker</span><span class="lang-tc">生肖配對</span><span class="lang-sc">生肖配对</span></span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        <a href="/bazi-calculator/" class="related-card">
+          <span class="related-card-label"><span class="lang-en">BaZi Calculator</span><span class="lang-tc">八字計算器</span><span class="lang-sc">八字计算器</span></span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        <a href="/wuxing/" class="related-card">
+          <span class="related-card-label"><span class="lang-en">Five Elements</span><span class="lang-tc">五行</span><span class="lang-sc">五行</span></span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        <a href="/spring-festival/" class="related-card">
+          <span class="related-card-label"><span class="lang-en">Spring Festival</span><span class="lang-tc">春節</span><span class="lang-sc">春节</span></span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
       </div>
     </div>
   </div>

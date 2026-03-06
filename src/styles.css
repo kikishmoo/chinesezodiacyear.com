@@ -4888,6 +4888,204 @@ html:not([data-lang]) span.lang-en { display: inline; }
 }
 
 /* ============================================
+   404 SEARCH FORM
+   ============================================ */
+.not-found-search {
+  display: flex;
+  gap: var(--sp-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-md);
+}
+.not-found-search .newsletter-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* ============================================
+   EXIT-INTENT EMAIL POPUP
+   ============================================ */
+.email-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: var(--sp-lg);
+}
+.email-popup-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+.email-popup {
+  background: var(--ivory);
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 100%;
+  padding: var(--sp-2xl) var(--sp-xl);
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.email-popup-overlay.is-visible .email-popup {
+  transform: translateY(0);
+}
+.email-popup-close {
+  position: absolute;
+  top: var(--sp-sm);
+  right: var(--sp-md);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--sp-xs);
+  line-height: 1;
+}
+.email-popup-close:hover {
+  color: var(--deep-red);
+}
+.email-popup-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--sp-md);
+}
+.email-popup h3 {
+  font-family: var(--font-display);
+  color: var(--deep-red);
+  font-size: 1.4rem;
+  margin-bottom: var(--sp-sm);
+}
+.email-popup p {
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-lg);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.email-popup .newsletter-form {
+  display: flex;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+}
+.email-popup .newsletter-input {
+  flex: 1;
+  min-width: 180px;
+  background: var(--parchment);
+  border: 1px solid var(--stroke);
+  color: var(--text-body);
+}
+.email-popup .newsletter-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+.email-popup .newsletter-message {
+  margin-top: var(--sp-md);
+}
+.email-popup-dismiss {
+  display: block;
+  margin-top: var(--sp-md);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.email-popup-dismiss:hover {
+  color: var(--text-secondary);
+}
+
+/* Dark mode popup */
+[data-theme="dark"] .email-popup {
+  background: var(--dark-surface, #1E1A16);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+[data-theme="dark"] .email-popup h3 {
+  color: var(--bright-gold);
+}
+[data-theme="dark"] .email-popup p {
+  color: #B0A898;
+}
+[data-theme="dark"] .email-popup .newsletter-input {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(191,147,40,0.2);
+  color: var(--ivory);
+}
+[data-theme="dark"] .email-popup-close {
+  color: #807568;
+}
+[data-theme="dark"] .email-popup-close:hover {
+  color: var(--bright-gold);
+}
+
+/* ============================================
+   INLINE CONTENT UPGRADE CTA
+   ============================================ */
+.content-upgrade {
+  background: linear-gradient(135deg, #5A1612 0%, #4D1310 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-xl);
+  margin: var(--sp-2xl) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.content-upgrade::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(191,147,40,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.content-upgrade-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--sp-sm);
+}
+.content-upgrade h3 {
+  font-family: var(--font-display);
+  color: var(--ivory);
+  font-size: 1.2rem;
+  margin-bottom: var(--sp-xs);
+  position: relative;
+}
+.content-upgrade p {
+  color: rgba(255,250,240,0.6);
+  font-size: 0.9rem;
+  margin-bottom: var(--sp-lg);
+  position: relative;
+}
+.content-upgrade .newsletter-form {
+  display: flex;
+  gap: var(--sp-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.content-upgrade .newsletter-input {
+  flex: 1;
+  min-width: 180px;
+  max-width: 320px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(191,147,40,0.3);
+  color: var(--ivory);
+}
+.content-upgrade .newsletter-input::placeholder {
+  color: rgba(255,250,240,0.45);
+}
+.content-upgrade .newsletter-message {
+  margin-top: var(--sp-md);
+  position: relative;
+}
+
+/* ============================================
    REDUCED MOTION — accessibility for
    motion-sensitive users (vestibular disorders)
    ============================================ */

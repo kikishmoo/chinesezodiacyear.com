@@ -18,6 +18,12 @@
       "type": "image/png"
     },
     {
+      "src": "/img/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
       "src": "/img/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
