@@ -16,13 +16,21 @@
 
     {% if faq %}
     <section id="faq">
-      <h2>Frequently Asked Questions</h2>
+      <h2><span class="lang-en">Frequently Asked Questions</span><span class="lang-tc">常見問題</span><span class="lang-sc">常见问题</span></h2>
       <div class="faq-section">
         {%- for item in faq %}
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">{{ item.q }}</button>
+          <button class="faq-question" aria-expanded="false">
+            <span class="lang-en">{{ item.q }}</span>
+            {%- if item.qTc %}<span class="lang-tc">{{ item.qTc }}</span>{% endif %}
+            {%- if item.qSc %}<span class="lang-sc">{{ item.qSc }}</span>{% endif %}
+          </button>
           <div class="faq-answer">
-            <p>{{ item.a }}</p>
+            <p>
+              <span class="lang-en">{{ item.a }}</span>
+              {%- if item.aTc %}<span class="lang-tc">{{ item.aTc }}</span>{% endif %}
+              {%- if item.aSc %}<span class="lang-sc">{{ item.aSc }}</span>{% endif %}
+            </p>
           </div>
         </div>
         {%- endfor %}
