@@ -55,6 +55,16 @@ export default function(eleventyConfig) {
     });
   });
 
+  // Articles by category — for category archive pages
+  const articleCategories = ["zodiac", "culture", "fengshui", "bazi", "business"];
+  articleCategories.forEach(cat => {
+    eleventyConfig.addCollection(`articles_${cat}`, function(collectionApi) {
+      return collectionApi.getFilteredByGlob("src/articles/*")
+        .filter(item => item.data.category === cat)
+        .sort((a, b) => (b.data.date || 0) - (a.data.date || 0));
+    });
+  });
+
   // Encyclopedia collection
   eleventyConfig.addCollection("encyclopedia", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/pages/*.njk").filter(item => {

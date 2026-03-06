@@ -1,0 +1,149 @@
+---
+layout: "layouts/base.njk"
+ogType: "website"
+pagination:
+  data: newsCategories
+  size: 1
+  alias: cat
+  addAllPagesToCollections: true
+permalink: "/news/{{ cat.slug }}/"
+eleventyComputed:
+  title: "{{ cat.labelEn }} — News & Articles"
+  description: "{{ cat.descriptionEn }}"
+  keywords: "{{ cat.labelEn }} articles, Chinese {{ cat.labelEn | lower }}, {{ cat.labelTc }}"
+  breadcrumbs:
+    - label: "Home"
+      url: "/"
+    - label: "News"
+      url: "/news/"
+    - label: "{{ cat.labelEn }}"
+---
+{% include "partials/breadcrumbs.njk" %}
+
+{% set catArticles = collections["articles_" + cat.slug] %}
+
+{# ===== ENGLISH ===== #}
+<div class="lang-en">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">Category</span>
+    <h1>{{ cat.labelEn }}</h1>
+    <p class="subtitle">{{ cat.descriptionEn }}</p>
+  </div>
+</section>
+
+<div class="news-layout">
+    <div class="news-filters">
+      <a href="/news/" class="filter-btn">All</a>
+      <a href="/news/zodiac/" class="filter-btn{% if cat.slug == 'zodiac' %} active{% endif %}">Zodiac</a>
+      <a href="/news/culture/" class="filter-btn{% if cat.slug == 'culture' %} active{% endif %}">Culture</a>
+      <a href="/news/fengshui/" class="filter-btn{% if cat.slug == 'fengshui' %} active{% endif %}">Feng Shui</a>
+      <a href="/news/bazi/" class="filter-btn{% if cat.slug == 'bazi' %} active{% endif %}">BaZi</a>
+      <a href="/news/business/" class="filter-btn{% if cat.slug == 'business' %} active{% endif %}">Business</a>
+    </div>
+
+    <div class="articles-grid">
+      {%- for article in catArticles %}
+      <article class="article-card" data-category="{{ article.data.category }}">
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-tag tag-{{ article.data.category }}">{{ article.data.categoryLabel }}</span>
+            <time datetime="{{ article.data.date | isoDate }}">{{ article.data.date | readableDate }}</time>
+          </div>
+          <h2><a href="{{ article.url }}">{{ article.data.title }}</a></h2>
+          <p>{{ article.data.description }}</p>
+          <span class="read-more">Read article &rarr;</span>
+        </div>
+      </article>
+      {%- endfor %}
+
+      {%- if catArticles.length == 0 %}
+      <p class="empty-state">No articles in this category yet. Check back soon.</p>
+      {%- endif %}
+    </div>
+</div>
+</div>
+
+{# ===== TRADITIONAL CHINESE ===== #}
+<div class="lang-tc">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">分類</span>
+    <p class="page-hero-title">{{ cat.labelTc }}</p>
+    <p class="subtitle">{{ cat.descriptionTc }}</p>
+  </div>
+</section>
+
+<div class="news-layout">
+    <div class="news-filters">
+      <a href="/news/" class="filter-btn">全部</a>
+      <a href="/news/zodiac/" class="filter-btn{% if cat.slug == 'zodiac' %} active{% endif %}">生肖</a>
+      <a href="/news/culture/" class="filter-btn{% if cat.slug == 'culture' %} active{% endif %}">文化</a>
+      <a href="/news/fengshui/" class="filter-btn{% if cat.slug == 'fengshui' %} active{% endif %}">風水</a>
+      <a href="/news/bazi/" class="filter-btn{% if cat.slug == 'bazi' %} active{% endif %}">八字</a>
+      <a href="/news/business/" class="filter-btn{% if cat.slug == 'business' %} active{% endif %}">商業</a>
+    </div>
+
+    <div class="articles-grid">
+      {%- for article in catArticles %}
+      <article class="article-card" data-category="{{ article.data.category }}">
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-tag tag-{{ article.data.category }}">{{ article.data.categoryLabel }}</span>
+            <time datetime="{{ article.data.date | isoDate }}">{{ article.data.date | readableDate }}</time>
+          </div>
+          <h2><a href="{{ article.url }}">{{ article.data.title }}</a></h2>
+          <p>{{ article.data.description }}</p>
+          <span class="read-more">閱讀文章 &rarr;</span>
+        </div>
+      </article>
+      {%- endfor %}
+
+      {%- if catArticles.length == 0 %}
+      <p class="empty-state">此分類暫無文章，敬請期待。</p>
+      {%- endif %}
+    </div>
+</div>
+</div>
+
+{# ===== SIMPLIFIED CHINESE ===== #}
+<div class="lang-sc">
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="overline">分类</span>
+    <p class="page-hero-title">{{ cat.labelSc }}</p>
+    <p class="subtitle">{{ cat.descriptionSc }}</p>
+  </div>
+</section>
+
+<div class="news-layout">
+    <div class="news-filters">
+      <a href="/news/" class="filter-btn">全部</a>
+      <a href="/news/zodiac/" class="filter-btn{% if cat.slug == 'zodiac' %} active{% endif %}">生肖</a>
+      <a href="/news/culture/" class="filter-btn{% if cat.slug == 'culture' %} active{% endif %}">文化</a>
+      <a href="/news/fengshui/" class="filter-btn{% if cat.slug == 'fengshui' %} active{% endif %}">风水</a>
+      <a href="/news/bazi/" class="filter-btn{% if cat.slug == 'bazi' %} active{% endif %}">八字</a>
+      <a href="/news/business/" class="filter-btn{% if cat.slug == 'business' %} active{% endif %}">商业</a>
+    </div>
+
+    <div class="articles-grid">
+      {%- for article in catArticles %}
+      <article class="article-card" data-category="{{ article.data.category }}">
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-tag tag-{{ article.data.category }}">{{ article.data.categoryLabel }}</span>
+            <time datetime="{{ article.data.date | isoDate }}">{{ article.data.date | readableDate }}</time>
+          </div>
+          <h2><a href="{{ article.url }}">{{ article.data.title }}</a></h2>
+          <p>{{ article.data.description }}</p>
+          <span class="read-more">阅读文章 &rarr;</span>
+        </div>
+      </article>
+      {%- endfor %}
+
+      {%- if catArticles.length == 0 %}
+      <p class="empty-state">此分类暂无文章，敬请期待。</p>
+      {%- endif %}
+    </div>
+</div>
+</div>

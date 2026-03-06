@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- Directory Filter --- */
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const listingCards = document.querySelectorAll('.directory-card[data-category]');
+  const listingCards = document.querySelectorAll('.directory-card[data-category], .article-card[data-category]');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -269,24 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = card.textContent.toLowerCase();
         card.style.display = text.includes(q) ? '' : 'none';
       });
-    });
-  }
-
-  /* --- Load More Button --- */
-  const loadMoreBtn = document.getElementById('load-more-btn');
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', () => {
-      const hidden = document.querySelectorAll('.article-card[data-hidden="true"]');
-      hidden.forEach((card, i) => {
-        if (i < 3) {
-          card.style.display = '';
-          card.removeAttribute('data-hidden');
-          card.classList.add('animate-on-scroll', 'visible');
-        }
-      });
-      if (document.querySelectorAll('.article-card[data-hidden="true"]').length === 0) {
-        loadMoreBtn.style.display = 'none';
-      }
     });
   }
 

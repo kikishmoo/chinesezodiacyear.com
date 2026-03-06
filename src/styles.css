@@ -1645,10 +1645,58 @@ select.calc-input {
   gap: var(--sp-md);
 }
 
-/* --- Load More Button --- */
+/* --- Load More Button (legacy) --- */
 .load-more-wrap {
   text-align: center;
   margin-top: var(--sp-2xl);
+}
+
+/* --- Pagination Navigation --- */
+.pagination-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-lg);
+  margin-top: var(--sp-2xl);
+  padding: var(--sp-lg) 0;
+}
+.pagination-link {
+  display: inline-block;
+  padding: var(--sp-sm) var(--sp-lg);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s;
+}
+.pagination-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.pagination-link.disabled {
+  border-color: var(--muted);
+  color: var(--muted);
+  pointer-events: none;
+  cursor: default;
+}
+.pagination-info {
+  font-size: 0.9rem;
+  color: var(--text-secondary, var(--muted));
+}
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--sp-2xl);
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .pagination-nav {
+    flex-direction: column;
+    gap: var(--sp-sm);
+  }
 }
 
 /* --- News & Directory Layout (Phase 1A fix) --- */

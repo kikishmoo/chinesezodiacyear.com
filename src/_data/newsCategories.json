@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "zodiac",
+    "labelEn": "Zodiac",
+    "labelTc": "生肖",
+    "labelSc": "生肖",
+    "descriptionEn": "Chinese zodiac news, predictions, and animal sign analysis.",
+    "descriptionTc": "中國生肖新聞、預測及動物分析。",
+    "descriptionSc": "中国生肖新闻、预测及动物分析。"
+  },
+  {
+    "slug": "culture",
+    "labelEn": "Culture",
+    "labelTc": "文化",
+    "labelSc": "文化",
+    "descriptionEn": "Articles on Chinese cultural traditions, festivals, and heritage.",
+    "descriptionTc": "中國文化傳統、節慶及遺產文章。",
+    "descriptionSc": "中国文化传统、节庆及遗产文章。"
+  },
+  {
+    "slug": "fengshui",
+    "labelEn": "Feng Shui",
+    "labelTc": "風水",
+    "labelSc": "风水",
+    "descriptionEn": "Feng shui guides, annual Flying Stars, and classical geomancy.",
+    "descriptionTc": "風水指南、流年飛星及古典堪輿。",
+    "descriptionSc": "风水指南、流年飞星及古典堪舆。"
+  },
+  {
+    "slug": "bazi",
+    "labelEn": "BaZi",
+    "labelTc": "八字",
+    "labelSc": "八字",
+    "descriptionEn": "BaZi Four Pillars of Destiny analysis and guides.",
+    "descriptionTc": "八字四柱命理分析與指南。",
+    "descriptionSc": "八字四柱命理分析与指南。"
+  },
+  {
+    "slug": "business",
+    "labelEn": "Business",
+    "labelTc": "商業",
+    "labelSc": "商业",
+    "descriptionEn": "Chinese metaphysics applied to business, date selection, and enterprise.",
+    "descriptionTc": "中國玄學應用於商業、擇日及企業。",
+    "descriptionSc": "中国玄学应用于商业、择日及企业。"
+  }
+]
