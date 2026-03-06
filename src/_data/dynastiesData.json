@@ -11,7 +11,20 @@
     "descriptionTc": "\u590f\u671d\u88ab\u8a18\u8f09\u70ba\u4e2d\u570b\u53e4\u5178\u53f2\u5b78\u4e2d\u7b2c\u4e00\u500b\u4e16\u8972\u738b\u671d\u3002\u300a\u7af9\u66f8\u7d00\u5e74\u300b\u8207\u53f8\u99ac\u9077\u300a\u53f2\u8a18\u300b\u8a18\u8f09\u5176\u7531\u5927\u79b9\u6cbb\u6c34\u5f8c\u5efa\u7acb\u3002\u4e8c\u91cc\u982d\u8003\u53e4\u767c\u73fe\u8868\u660e\u5b58\u5728\u8207\u590f\u671d\u7d00\u5e74\u5c0d\u61c9\u7684\u9752\u9285\u6642\u4ee3\u570b\u5bb6\u3002\u590f\u671d\u88ab\u8a8d\u70ba\u5efa\u7acb\u4e86\u6700\u65e9\u7684\u66c6\u6cd5\u9ad4\u7cfb\uff0c\u70ba\u5e72\u652f\u7d00\u5e74\u5960\u5b9a\u57fa\u790e\u3002",
     "descriptionSc": "\u590f\u671d\u88ab\u8bb0\u8f7d\u4e3a\u4e2d\u56fd\u53e4\u5178\u53f2\u5b66\u4e2d\u7b2c\u4e00\u4e2a\u4e16\u88ad\u738b\u671d\u3002\u300a\u7af9\u4e66\u7eaa\u5e74\u300b\u4e0e\u53f8\u9a6c\u8fc1\u300a\u53f2\u8bb0\u300b\u8bb0\u8f7d\u5176\u7531\u5927\u79b9\u6cbb\u6c34\u540e\u5efa\u7acb\u3002\u4e8c\u91cc\u5934\u8003\u53e4\u53d1\u73b0\u8868\u660e\u5b58\u5728\u4e0e\u590f\u671d\u7eaa\u5e74\u5bf9\u5e94\u7684\u9752\u94dc\u65f6\u4ee3\u56fd\u5bb6\u3002\u590f\u671d\u88ab\u8ba4\u4e3a\u5efa\u7acb\u4e86\u6700\u65e9\u7684\u5386\u6cd5\u4f53\u7cfb\uff0c\u4e3a\u5e72\u652f\u7eaa\u5e74\u5960\u5b9a\u57fa\u7840\u3002",
     "keyContributions": ["Earliest calendar traditions", "Foundational flood-control mythology", "Hereditary succession model"],
-    "relatedContent": []
+    "relatedContent": [
+      {
+        "title": "Chinese Calendar: Origins of the Sexagenary Cycle",
+        "titleTc": "中國曆法：干支紀年的起源",
+        "titleSc": "中国历法：干支纪年的起源",
+        "text": "The Xia Dynasty is traditionally credited with establishing the <strong>Xia Xiaozheng</strong> (夏小正), one of the earliest Chinese calendrical texts. This agrarian calendar tracked seasonal changes through stellar observations and laid the groundwork for the lunisolar system and the sexagenary cycle that would later become central to BaZi and Chinese astrology.",
+        "textTc": "夏朝傳統上被認為制定了<strong>《夏小正》</strong>，這是最早的中國曆法文獻之一。這部農業曆法通過恆星觀測追蹤季節變化，為後來成為八字和中國星相學核心的陰陽合曆與干支紀年體系奠定了基礎。",
+        "textSc": "夏朝传统上被认为制定了<strong>《夏小正》</strong>，这是最早的中国历法文献之一。这部农业历法通过恒星观测追踪季节变化，为后来成为八字和中国星相学核心的阴阳合历与干支纪年体系奠定了基础。",
+        "link": "/calendar/",
+        "linkLabel": "Read more: Chinese Calendar — Lunisolar System →",
+        "linkLabelTc": "更多：中國曆法——陰陽合曆 →",
+        "linkLabelSc": "更多：中国历法——阴阳合历 →"
+      }
+    ]
   },
   {
     "slug": "shang",
@@ -79,7 +92,20 @@
     "descriptionTc": "\u79e6\u671d\u9996\u6b21\u5c07\u4e2d\u570b\u7d71\u4e00\u65bc\u55ae\u4e00\u7684\u5e1d\u570b\u9ad4\u5236\u4e4b\u4e0b\u3002\u79e6\u59cb\u7687\u7d71\u4e00\u4e86\u5ea6\u91cf\u8861\u3001\u8ca8\u5e63\uff0c\u4ee5\u53ca\u81f3\u95dc\u91cd\u8981\u7684\u66f8\u5beb\u7cfb\u7d71\uff0c\u4f7f\u66c6\u6cd5\u8207\u661f\u76f8\u5b78\u6587\u7368\u5f97\u4ee5\u5728\u5168\u5e1d\u570b\u50b3\u64ad\u3002\u79e6\u66c6\u6539\u9769\u63a1\u7528\u9871\u9814\u66c6\uff0c\u4ee5\u5341\u6708\u70ba\u6b72\u9996\uff0c\u5f71\u97ff\u4e86\u5f8c\u4e16\u66c6\u6cd5\u4e4b\u722d\u3002",
     "descriptionSc": "\u79e6\u671d\u9996\u6b21\u5c06\u4e2d\u56fd\u7edf\u4e00\u4e8e\u5355\u4e00\u7684\u5e1d\u56fd\u4f53\u5236\u4e4b\u4e0b\u3002\u79e6\u59cb\u7687\u7edf\u4e00\u4e86\u5ea6\u91cf\u8861\u3001\u8d27\u5e01\uff0c\u4ee5\u53ca\u81f3\u5173\u91cd\u8981\u7684\u4e66\u5199\u7cfb\u7edf\uff0c\u4f7f\u5386\u6cd5\u4e0e\u661f\u76f8\u5b66\u6587\u732e\u5f97\u4ee5\u5728\u5168\u5e1d\u56fd\u4f20\u64ad\u3002\u79e6\u5386\u6539\u9769\u91c7\u7528\u989b\u987b\u5386\uff0c\u4ee5\u5341\u6708\u4e3a\u5c81\u9996\uff0c\u5f71\u54cd\u4e86\u540e\u4e16\u5386\u6cd5\u4e4b\u4e89\u3002",
     "keyContributions": ["Imperial unification", "Script standardisation", "Calendar reform (Zhuanxu calendar)"],
-    "relatedContent": []
+    "relatedContent": [
+      {
+        "title": "Five Elements: Qin's Water-Virtue Ideology",
+        "titleTc": "五行：秦朝的水德思想",
+        "titleSc": "五行：秦朝的水德思想",
+        "text": "Qin Shi Huang adopted <strong>Water</strong> as the dynasty's ruling element under the <em>Five Virtues Cycle</em> (五德終始說) theory of Zou Yan. Water overcomes Fire (the Zhou's element), legitimising Qin rule. This shaped Qin state symbolism: the colour black, the number six, and harsh legalist governance — all associated with Water's contracting, penetrating nature in classical wu xing cosmology.",
+        "textTc": "秦始皇依據鄒衍的<strong>五德終始說</strong>採用<strong>水德</strong>作為王朝的統治五行。水克火（周朝的五行），以此為秦朝統治正名。這塑造了秦朝的國家象徵：尚黑色、崇數六、行嚴苛法治——皆與古典五行宇宙觀中水的收斂、滲透特性相關。",
+        "textSc": "秦始皇依据邹衍的<strong>五德终始说</strong>采用<strong>水德</strong>作为王朝的统治五行。水克火（周朝的五行），以此为秦朝统治正名。这塑造了秦朝的国家象征：尚黑色、崇数六、行严苛法治——皆与古典五行宇宙观中水的收敛、渗透特性相关。",
+        "link": "/wuxing/",
+        "linkLabel": "Read more: Wu Xing — Five Elements →",
+        "linkLabelTc": "更多：五行 →",
+        "linkLabelSc": "更多：五行 →"
+      }
+    ]
   },
   {
     "slug": "han",
@@ -120,7 +146,20 @@
     "descriptionTc": "\u968b\u671d\u5728\u6578\u767e\u5e74\u5206\u88c2\u5f8c\u91cd\u65b0\u7d71\u4e00\u4e2d\u570b\u3002\u96d6\u7136\u77ed\u66ab\uff0c\u968b\u671d\u91cd\u5efa\u4e86\u5927\u904b\u6cb3\uff0c\u6539\u9769\u4e86\u66c6\u6cd5\uff0c\u5efa\u7acb\u4e86\u7cbe\u5316\u9670\u967d\u66c6\u8a08\u7b97\u7684\u5927\u696d\u66c6\u3002\u968b\u671d\u7684\u66c6\u6cd5\u5de5\u4f5c\u70ba\u5510\u671d\u66f4\u7cbe\u78ba\u7684\u5929\u6587\u6e2c\u91cf\u5960\u5b9a\u4e86\u57fa\u790e\u3002",
     "descriptionSc": "\u968b\u671d\u5728\u6570\u767e\u5e74\u5206\u88c2\u540e\u91cd\u65b0\u7edf\u4e00\u4e2d\u56fd\u3002\u867d\u7136\u77ed\u6682\uff0c\u968b\u671d\u91cd\u5efa\u4e86\u5927\u8fd0\u6cb3\uff0c\u6539\u9769\u4e86\u5386\u6cd5\uff0c\u5efa\u7acb\u4e86\u7cbe\u5316\u9634\u9633\u5386\u8ba1\u7b97\u7684\u5927\u4e1a\u5386\u3002\u968b\u671d\u7684\u5386\u6cd5\u5de5\u4f5c\u4e3a\u5510\u671d\u66f4\u7cbe\u786e\u7684\u5929\u6587\u6d4b\u91cf\u5960\u5b9a\u4e86\u57fa\u7840\u3002",
     "keyContributions": ["Reunification of China", "Grand Canal construction", "Daye calendar reform"],
-    "relatedContent": []
+    "relatedContent": [
+      {
+        "title": "Spring Festival: Sui Dynasty Celebrations",
+        "titleTc": "春節：隋朝的慶祝活動",
+        "titleSc": "春节：隋朝的庆祝活动",
+        "text": "The Sui Dynasty's reunification revived large-scale New Year festivities that had fragmented during the centuries of division. Emperor Yang of Sui organised spectacular <strong>Lantern Festival</strong> (元宵節) celebrations in Luoyang, with the <em>Suishu</em> recording performances by tens of thousands of performers over a stretch of eight <em>li</em>. These grand displays re-established the Spring Festival as a unified national celebration rather than regional observances.",
+        "textTc": "隋朝的統一復興了在數百年分裂期間零散化的大規模新年慶典。隋煬帝在洛陽舉辦了壯觀的<strong>元宵節</strong>慶典，《隋書》記載了綿延八里、數萬人表演的盛況。這些盛大的慶祝活動重新確立了春節作為統一全國性慶典的地位，而非各地的分散慶祝。",
+        "textSc": "隋朝的统一复兴了在数百年分裂期间零散化的大规模新年庆典。隋炀帝在洛阳举办了壮观的<strong>元宵节</strong>庆典，《隋书》记载了绵延八里、数万人表演的盛况。这些盛大的庆祝活动重新确立了春节作为统一全国性庆典的地位，而非各地的分散庆祝。",
+        "link": "/spring-festival/",
+        "linkLabel": "Read more: Spring Festival Traditions →",
+        "linkLabelTc": "更多：春節傳統 →",
+        "linkLabelSc": "更多：春节传统 →"
+      }
+    ]
   },
   {
     "slug": "tang",
@@ -188,7 +227,20 @@
     "descriptionTc": "\u8499\u53e4\u7d71\u6cbb\u7684\u5143\u671d\u5f15\u5165\u4e86\u90ed\u5b88\u656c\u5275\u5236\u7684\u6388\u6642\u66c6\uff081281\u5e74\uff09\u3002\u6b64\u66c6\u8a08\u7b97\u56de\u6b78\u5e74\u70ba365.2425\u5929\u2014\u2014\u8207\u683c\u91cc\u66c6\u5b8c\u5168\u4e00\u81f4\uff0c\u537b\u65e9\u4e86300\u5e74\u3002\u5143\u671d\u4e5f\u4fc3\u9032\u4e86\u8de8\u6587\u5316\u4ea4\u6d41\uff0c\u5c07\u4f0a\u65af\u862d\u5929\u6587\u5100\u5668\u548c\u6280\u8853\u5f15\u5165\u4e2d\u570b\u5be6\u8e10\u3002",
     "descriptionSc": "\u8499\u53e4\u7edf\u6cbb\u7684\u5143\u671d\u5f15\u5165\u4e86\u90ed\u5b88\u656c\u521b\u5236\u7684\u6388\u65f6\u5386\uff081281\u5e74\uff09\u3002\u6b64\u5386\u8ba1\u7b97\u56de\u5f52\u5e74\u4e3a365.2425\u5929\u2014\u2014\u4e0e\u683c\u91cc\u5386\u5b8c\u5168\u4e00\u81f4\uff0c\u5374\u65e9\u4e86300\u5e74\u3002\u5143\u671d\u4e5f\u4fc3\u8fdb\u4e86\u8de8\u6587\u5316\u4ea4\u6d41\uff0c\u5c06\u4f0a\u65af\u5170\u5929\u6587\u4eea\u5668\u548c\u6280\u672f\u5f15\u5165\u4e2d\u56fd\u5b9e\u8df5\u3002",
     "keyContributions": ["Shoushi calendar (tropical year = 365.2425 days)", "Guo Shoujing's astronomical instruments", "Cross-cultural exchange with Islamic astronomy"],
-    "relatedContent": []
+    "relatedContent": [
+      {
+        "title": "Chinese Calendar: The Shoushi Calendar's Precision",
+        "titleTc": "中國曆法：授時曆的精確度",
+        "titleSc": "中国历法：授时历的精确度",
+        "text": "Guo Shoujing's <strong>Shoushi Calendar</strong> (授時曆, 1281 CE) represented the peak of pre-modern Chinese astronomical achievement. Using a network of 27 observation stations across the empire and his invention of the <strong>Simplified Instrument</strong> (簡儀, jiǎnyí), Guo calculated the tropical year as 365.2425 days — a value not matched in Europe until the Gregorian reform of 1582, three centuries later.",
+        "textTc": "郭守敬的<strong>《授時曆》</strong>（1281年）代表了前現代中國天文學成就的巔峰。他利用遍布帝國的27個觀測站網絡及其發明的<strong>簡儀</strong>，計算出回歸年為365.2425天——這一數值直到三個世紀後的1582年格里曆改革才在歐洲達到同等精度。",
+        "textSc": "郭守敬的<strong>《授时历》</strong>（1281年）代表了前现代中国天文学成就的巅峰。他利用遍布帝国的27个观测站网络及其发明的<strong>简仪</strong>，计算出回归年为365.2425天——这一数值直到三个世纪后的1582年格里历改革才在欧洲达到同等精度。",
+        "link": "/calendar/",
+        "linkLabel": "Read more: Chinese Calendar — Lunisolar System →",
+        "linkLabelTc": "更多：中國曆法——陰陽合曆 →",
+        "linkLabelSc": "更多：中国历法——阴阳合历 →"
+      }
+    ]
   },
   {
     "slug": "ming",
