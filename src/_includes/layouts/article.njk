@@ -14,11 +14,12 @@
 
     {{ content | safe }}
 
-    {% if faq %}
+    {% set faqData = faq if faq else autoFaq %}
+    {% if faqData %}
     <section id="faq">
       <h2><span class="lang-en">Frequently Asked Questions</span><span class="lang-tc">常見問題</span><span class="lang-sc">常见问题</span></h2>
       <div class="faq-section">
-        {%- for item in faq %}
+        {%- for item in faqData %}
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
             <span class="lang-en">{{ item.q }}</span>

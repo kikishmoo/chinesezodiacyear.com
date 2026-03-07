@@ -73,8 +73,9 @@
   {% if breadcrumbs %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{% for crumb in breadcrumbs %}{"@type":"ListItem","position":{{ loop.index }},"name":"{{ crumb.label | jsonLdSafe | safe }}","item":"{{ site.url }}{% if crumb.url %}{{ crumb.url }}{% else %}{{ page.url }}{% endif %}"}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
   {% endif %}
-  {% if faq %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for item in faq %}{"@type":"Question","name":"{{ item.q | jsonLdSafe | safe }}","acceptedAnswer":{"@type":"Answer","text":"{{ item.a | jsonLdSafe | safe }}"}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
+  {% set faqData = faq if faq else autoFaq %}
+  {% if faqData %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for item in faqData %}{"@type":"Question","name":"{{ item.q | jsonLdSafe | safe }}","acceptedAnswer":{"@type":"Answer","text":"{{ item.a | jsonLdSafe | safe }}"}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
   {% endif %}
   {% if howTo %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"{{ howTo.name | jsonLdSafe | safe }}","description":"{{ howTo.description | jsonLdSafe | safe }}","step":[{% for step in howTo.steps %}{"@type":"HowToStep","position":{{ loop.index }},"name":"{{ step.name | jsonLdSafe | safe }}","text":"{{ step.text | jsonLdSafe | safe }}"}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
