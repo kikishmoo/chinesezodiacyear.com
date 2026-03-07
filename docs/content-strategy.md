@@ -156,7 +156,7 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 - `shop.njk`, `premium-readings.njk`, `readings-thank-you.njk`, `directory.njk`, `donate.njk`, `about.njk`, `affiliate-disclosure.njk`, `404.njk`
 
 **News/content aggregation:**
-- `news.njk`, `news-category.njk`, `asian-new-year.njk`, `asian-new-year-redirect.njk`
+- `news.njk` (with client-side category filters, URL hash support, and no-results fallback), `news-category.njk`, `asian-new-year.njk`, `asian-new-year-redirect.njk`
 
 ### 2.3 Long-Form Articles (16)
 
@@ -439,17 +439,26 @@ Sold via Gumroad, listed in `src/_data/shop.json`:
 
 `src/_includes/partials/content-upgrade.njk` is embedded in every article page via the article layout. Current offer: "Free: 2026 Zodiac Compatibility Chart" -- captures email via Beehiiv form with `utm_medium=content_upgrade` tracking.
 
-### 6.4 Newsletter
+### 6.4 Cross-Sell CTA
+
+`src/_includes/partials/cross-sell-cta.njk` is auto-included after the main content (before FAQ) in all pages using the `article.njk` layout. Displays a two-card layout:
+
+- **Reading card** -- drives to `/readings/` (from $29) with UTM tracking
+- **Product card** -- drives to `/shop/` with UTM tracking
+
+Supports a `variant` variable ("reading", "product", or "both" default). Opt-out via `crossSellHidden: true` in frontmatter. Fully trilingual.
+
+### 6.5 Newsletter
 
 - **Platform:** Beehiiv (publication ID: `9e7042b6-5250-429a-8f20-97b63322cd64`)
 - **Capture points:** content upgrade CTA (inline in articles), newsletter partial (footer/sidebar), exit-intent popup (`src/_includes/partials/email-popup.njk`)
 - **Lead magnet:** 2026 Zodiac Compatibility Chart download
 
-### 6.5 Professional Directory
+### 6.6 Professional Directory
 
-`src/_data/directory.json` contains **33 listings** of feng shui organisations, education providers, and practitioners. Displayed at `/directory/`. Currently no paid tier -- all listings are free.
+`src/_data/directory.json` contains **33 listings** of feng shui organisations, education providers, and practitioners. Displayed at `/directory/`. Three featured listings are verified real organisations (Kerby Kuek, SA Academy of Chinese Metaphysics, Yo San University). Currently no paid tier -- all listings are free.
 
-### 6.6 Display Advertising & Affiliate
+### 6.7 Display Advertising & Affiliate
 
 - **Google AdSense** enabled (publisher ID: `ca-pub-8962379324362674`), with ad unit partial at `src/_includes/partials/ad-unit.njk`
 - **Amazon Associates** affiliate tag: `kikigreene-20`, with disclosure partial at `src/_includes/partials/affiliate-disclosure.njk`

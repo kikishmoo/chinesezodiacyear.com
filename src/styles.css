@@ -1710,6 +1710,26 @@ select.calc-input {
   margin-bottom: var(--sp-xl);
 }
 
+.news-no-results {
+  text-align: center;
+  color: var(--graphite);
+  font-size: 0.95rem;
+  padding: var(--sp-xl) 0;
+}
+.news-show-all-btn {
+  background: none;
+  border: none;
+  color: var(--vermillion);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-decoration: underline;
+  padding: 0;
+}
+.news-show-all-btn:hover {
+  color: var(--deep-red);
+}
+
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -5225,6 +5245,92 @@ html:not([data-lang]) span.lang-en { display: inline; }
 .content-upgrade .newsletter-message {
   margin-top: var(--sp-md);
   position: relative;
+}
+
+/* ============================================
+   CROSS-SELL CTA — drives readers to products
+   and premium readings mid-article
+   ============================================ */
+.cross-sell-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-lg);
+  margin: var(--sp-2xl) 0;
+}
+.cross-sell-card {
+  border-radius: var(--radius-lg);
+  padding: var(--sp-xl);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cross-sell-card--reading {
+  background: linear-gradient(135deg, #5A1612 0%, #4D1310 100%);
+  color: var(--ivory);
+}
+.cross-sell-card--reading p {
+  color: rgba(255,250,240,0.65);
+}
+.cross-sell-card--product {
+  background: var(--parchment);
+  border: 2px solid var(--gold-20);
+}
+.cross-sell-card--product h3 {
+  color: var(--deep-red);
+}
+.cross-sell-card--product p {
+  color: var(--graphite);
+}
+.cross-sell-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--sp-sm);
+}
+.cross-sell-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: var(--sp-xs);
+}
+.cross-sell-card p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: var(--sp-md);
+  flex: 1;
+}
+.cross-sell-pricing {
+  font-size: 1rem;
+  margin-bottom: var(--sp-md);
+  color: var(--bright-gold);
+}
+.cross-sell-card .btn {
+  width: 100%;
+  max-width: 220px;
+}
+
+/* Single-variant layout: one card fills full width */
+.cross-sell-cta:has(.cross-sell-card:only-child) {
+  grid-template-columns: 1fr;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 640px) {
+  .cross-sell-cta {
+    grid-template-columns: 1fr;
+  }
+}
+
+[data-theme="dark"] .cross-sell-card--product {
+  background: var(--dark-surface);
+  border-color: var(--gold-20);
+}
+[data-theme="dark"] .cross-sell-card--product h3 {
+  color: var(--bright-gold);
+}
+[data-theme="dark"] .cross-sell-card--product p {
+  color: var(--dark-text-secondary);
 }
 
 /* ============================================

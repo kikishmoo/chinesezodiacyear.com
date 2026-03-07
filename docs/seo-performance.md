@@ -257,7 +257,7 @@ All cards use `summary_large_image` format. Twitter handle is configured in `src
 
 | Metric | Value |
 |--------|-------|
-| Source file | `src/styles.css` (~5,260 lines) |
+| Source file | `src/styles.css` (~5,350 lines) |
 | Minification | CleanCSS Level 2 |
 | Output | `_site/styles.css` |
 | Estimated output size | ~96KB minified |
@@ -273,7 +273,7 @@ const cssOutput = new CleanCSS({ level: 2 }).minify(cssInput);
 
 | File | Source Lines | Minification | Estimated Output | Loading |
 |------|-------------|--------------|------------------|---------|
-| `site.js` | ~1,020 | Terser (compress + mangle) | ~29KB minified | `<script src="/site.js">` at body end |
+| `site.js` | ~1,070 | Terser (compress + mangle) | ~30KB minified | `<script src="/site.js">` at body end |
 | `trivia.js` | ~526 | Terser (compress + mangle) | ~118KB minified | `<script src="/trivia.js" defer>` homepage only |
 
 Both JS files are minified in `eleventy.config.js` lines 177-201. No framework overhead -- everything is vanilla JavaScript.
@@ -644,6 +644,8 @@ None currently. The site has no broken SEO elements or critical performance issu
 | **Pillar-cluster: Hub→cluster linking** | DONE | Compatibility hub page now links to all key pair pages (H6, Clash, Harm categories); zodiac animal pages link to their specific pair pages |
 | **Pillar-cluster: Cross-cluster linking** | DONE | `eleventyComputed.js` auto-generates related links between pair pages, animal profiles, readings, and the compatibility hub |
 | **JSON-LD CollectionPage + ItemList on hub pages** | DONE | All 5 hubs (`/zodiac/`, `/wuxing/`, `/dynasties/`, `/readings/`, `/compatibility/`) emit CollectionPage + ItemList JSON-LD via `hubSchema` frontmatter |
+| **Cross-sell CTA partial in article layout** | DONE | `cross-sell-cta.njk` auto-included in all article-layout pages (articles, readings, zodiac, encyclopedia). Two-card layout (reading + product) with UTM tracking. Opt-out via `crossSellHidden: true` frontmatter. |
+| **News hub interactive filters** | DONE | `/news/` page now has client-side JS category filters with `<button>` elements, URL hash support (`#category=zodiac`), no-results state with "Show all" fallback, ARIA accessibility attributes. Pagination increased to 100 to show all articles on one page. |
 | **noindex on /search/ page** | DONE | Already had `noindex: true` in frontmatter; `base.njk` renders `<meta name="robots" content="noindex, follow">` |
 | **Categorize search index entries** | DONE | Year pages (121) now have `category: "encyclopedia"`; only homepage remains uncategorized (expected) |
 | **Homepage title keyword front-loaded** | DONE | Already changed to "Chinese Zodiac — Shēngxiào Encyclopedia, Directory & News" |

@@ -9,37 +9,37 @@
   },
   "listings": [
     {
-      "tier": "premium",
+      "tier": "free",
       "featured": true,
-      "name": "Golden Dragon Feng Shui Consultancy",
+      "name": "Kerby Kuek — Feng Shui Architect",
       "category": "fengshui",
-      "badge": "Premium Consultancy",
-      "location": "Hong Kong · London · New York",
-      "specialties": ["Feng Shui", "BaZi", "Date Selection", "Corporate"],
-      "description": "Award-winning feng shui consultancy serving high-net-worth clients and Fortune 500 companies across three continents. Led by Master Chen Wei, a third-generation practitioner trained in both San Yuan and San He classical systems. Specialises in commercial property, luxury residential, and corporate office feng shui audits.",
-      "url": "https://example.com/golden-dragon"
+      "badge": "Consultancy",
+      "location": "Hong Kong · International",
+      "specialties": ["Feng Shui", "BaZi", "Architecture", "Corporate"],
+      "description": "Hong Kong-based feng shui master and registered architect. Combines classical San He and San Yuan feng shui with professional architectural practice. Author of multiple books on feng shui and Chinese metaphysics. Regular columnist and media commentator on annual feng shui forecasts.",
+      "url": "https://kerbykuek.com"
     },
     {
-      "tier": "premium",
+      "tier": "free",
       "featured": true,
-      "name": "Jade Pavilion BaZi Academy",
+      "name": "SA Academy of Chinese Metaphysics",
       "category": "bazi",
-      "badge": "Premium Education",
-      "location": "Singapore · Online",
-      "specialties": ["BaZi", "Zi Wei Dou Shu", "Advanced Chart Reading"],
-      "description": "Premier BaZi education platform offering structured certification programmes from beginner to master level. Curriculum based on classical Xu Ziping texts with modern case studies. Over 5,000 graduates across 40 countries, with lifetime access to updated course materials and practitioner community.",
-      "url": "https://example.com/jade-pavilion"
+      "badge": "Education",
+      "location": "Sydney, Australia · Online",
+      "specialties": ["BaZi", "Zi Wei Dou Shu", "Feng Shui", "Yi Jing"],
+      "description": "Chinese metaphysics education institution offering structured courses in BaZi (Four Pillars), Zi Wei Dou Shu, classical feng shui, and Yi Jing. Curriculum grounded in classical Xu Ziping and Chen Xiyi texts. Offers both in-person workshops in Australia and online distance learning programmes.",
+      "url": "https://chinesemetaphysics.com"
     },
     {
-      "tier": "premium",
+      "tier": "free",
       "featured": true,
-      "name": "Five Elements Wellness Centre",
+      "name": "Yo San University of Traditional Chinese Medicine",
       "category": "tcm",
-      "badge": "Premium Clinic",
-      "location": "Vancouver, Canada",
-      "specialties": ["TCM", "Acupuncture", "Herbal Medicine", "Five Element Healing"],
-      "description": "Integrative health clinic combining Traditional Chinese Medicine with Five Element constitutional diagnosis. Team of 12 licensed practitioners offering acupuncture, herbal prescriptions, cupping, and moxibustion. Recognised by the British Columbia College of TCM Practitioners with over 20 years of clinical excellence.",
-      "url": "https://example.com/five-elements-wellness"
+      "badge": "Education",
+      "location": "Los Angeles, USA",
+      "specialties": ["TCM", "Acupuncture", "Herbal Medicine", "Doctoral Programmes"],
+      "description": "Accredited graduate school offering Master's and Doctoral degrees in Traditional Chinese Medicine and acupuncture. Founded in 1989 by Drs. Daoshing and Mao Shing Ni. Curriculum integrates classical Chinese medical texts with modern clinical training. Recognised by ACAOM and WASC.",
+      "url": "https://yosan.edu"
     },
     {
       "tier": "free",

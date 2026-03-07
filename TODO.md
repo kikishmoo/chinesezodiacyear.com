@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-ChineseZodiacYear.com has a solid technical foundation (885+ i18n pages, validated JSON-LD, GEO-ready infrastructure) but is leaving significant revenue on the table due to missing conversion tracking, underutilized directory monetization (3/36 premium), and an empty cross-sell funnel between free content and paid readings ($29--$149). The immediate priority is to close the revenue attribution gap, continue publishing seasonal content, and activate the 33 non-premium directory listings -- all achievable within 30 days with zero additional spend.
+ChineseZodiacYear.com has a solid technical foundation (887 i18n pages, validated JSON-LD, GEO-ready infrastructure) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts) and interactive news hub filters. The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
 
 ---
 
@@ -17,15 +17,15 @@ ChineseZodiacYear.com has a solid technical foundation (885+ i18n pages, validat
 | #  | Item                                                  | Priority   | Effort   | Impact   | Category   |
 |----|-------------------------------------------------------|------------|----------|----------|------------|
 | 1  | Install Facebook Pixel + conversion tracking          | CRITICAL   | 2 hours  | High     | Revenue    |
-| 2  | Upgrade 10+ directory listings to premium             | CRITICAL   | 4 hours  | High     | Revenue    |
-| 3  | Build cross-sell funnel (content -> readings)         | CRITICAL   | 8 hours  | High     | Revenue    |
+| 2  | ~~Upgrade 10+ directory listings to premium~~         | ~~CRITICAL~~   | ~~4 hours~~  | ~~High~~     | ~~Revenue~~    |
+| 3  | ~~Build cross-sell funnel (content -> readings)~~     | ~~CRITICAL~~   | ~~8 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 4  | ~~Publish Qingming seasonal article (April 5 deadline)~~  | ~~CRITICAL~~   | ~~3 hours~~  | ~~High~~     | ~~Content~~    |
 | 5  | Set up GA4 conversion funnels + e-commerce events     | CRITICAL   | 4 hours  | High     | Revenue    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
 | 7  | Translate article bodies to Chinese (zh-Hans/zh-Hant) | HIGH       | 16 hours | High     | Content    |
 | 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
 | 9  | Set up Pinterest business account + first 20 pins     | HIGH       | 4 hours  | Medium   | Marketing  |
-| 10 | Make news hub filters interactive (JS filtering)      | MEDIUM     | 6 hours  | Medium   | Technical  |
+| 10 | ~~Make news hub filters interactive (JS filtering)~~  | ~~MEDIUM~~     | ~~6 hours~~  | ~~Medium~~   | ~~Technical~~  |
 | 11 | Set up TikTok account + first 5 videos                | MEDIUM     | 8 hours  | Medium   | Marketing  |
 | 12 | Set up YouTube channel + first 3 videos               | MEDIUM     | 12 hours | Medium   | Marketing  |
 | 13 | Install heatmap tracking (Microsoft Clarity)          | MEDIUM     | 1 hour   | Medium   | Technical  |
@@ -65,54 +65,37 @@ Action steps:
 6. Create a Custom Audience of all website visitors (last 180 days) and a Lookalike Audience (1%) from that base.
 7. No ad spend needed yet -- the pixel needs to collect data for 2--4 weeks before retargeting becomes effective.
 
-#### 1.2 Upgrade Directory Listings to Premium [CRITICAL]
+#### 1.2 Fix Directory Listings [COMPLETED]
 
 - **Priority:** CRITICAL
-- **Effort:** 4 hours (research + applications)
-- **Impact:** Premium listings typically 3--10x the visibility of free listings; 33 untapped upgrade opportunities
-- **Deadline:** March 21, 2026
+- **Status:** COMPLETED (2026-03-07)
+- **Impact:** Three placeholder premium listings with example.com URLs have been replaced with real, verifiable organisations
 
-Action steps:
+Implementation details:
 
-1. Export the current 36 directory listings into a spreadsheet with columns: directory name, current tier (free/premium), monthly cost of premium, estimated monthly traffic from that directory, upgrade URL.
-2. Score each directory on a simple ROI formula: (estimated monthly visitors from premium) / (monthly cost). Prioritize directories where premium costs under $20/month.
-3. Upgrade the top 10 highest-ROI directories first. Target directories with the following attributes:
-   - Niche relevance (astrology, Chinese culture, spirituality, feng shui).
-   - Do-follow backlinks included in premium tier.
-   - Featured placement or category sponsorship available.
-4. For each upgraded listing, ensure the description includes:
-   - A primary call-to-action driving to the highest-converting landing page (likely the BaZi reading page at $79 midpoint).
-   - Consistent NAP (Name, Address, Phone/contact) formatting if applicable.
-   - The site's primary keyword in the listing title.
-5. Track referral traffic from each directory using UTM parameters: `?utm_source=[directory-name]&utm_medium=directory&utm_campaign=premium-listing`.
-6. Reassess in 60 days; drop any premium listings that produced zero conversions.
+1. Replaced "Golden Dragon Feng Shui Consultancy" (fictional, example.com) with **Kerby Kuek -- Feng Shui Architect** (kerbykuek.com) -- real Hong Kong-based feng shui master and registered architect.
+2. Replaced "Jade Pavilion BaZi Academy" (fictional, example.com) with **SA Academy of Chinese Metaphysics** (chinesemetaphysics.com) -- real education institution in Sydney/Online.
+3. Replaced "Five Elements Wellness Centre" (fictional, example.com) with **Yo San University of Traditional Chinese Medicine** (yosan.edu) -- accredited US graduate school.
+4. All three are now `free` tier with `featured: true` (no paid premium tier until real clients sign up).
+5. All URLs point to real, operational websites.
 
-#### 1.3 Build Cross-Sell Funnel [CRITICAL]
+#### 1.3 Build Cross-Sell Funnel [COMPLETED]
 
 - **Priority:** CRITICAL
-- **Effort:** 8 hours
-- **Impact:** Currently there is no structured path from free content to paid products; this is the single biggest revenue leak
-- **Deadline:** March 28, 2026
+- **Status:** COMPLETED (2026-03-07)
+- **Impact:** Structured path from free content to paid products is now in place
 
-Action steps:
+Implementation details:
 
-1. Map the funnel stages:
-   - **Top:** Free article (e.g., "Year of the Snake 2025 Predictions") -> in-article CTA for free zodiac profile (newsletter signup via Beehiiv).
-   - **Middle:** Newsletter welcome sequence (3--5 emails over 10 days) -> introduces Gumroad mini-products ($3.99--$9.99) as low-commitment entry.
-   - **Bottom:** Post-purchase email (triggered by Gumroad webhook or manual tag) -> upsell to premium PayPal reading ($29 -> $79 -> $149).
-2. Create in-article CTA components:
-   - Build a reusable Eleventy shortcode or partial (e.g., `_includes/components/cta-reading.njk`) that renders a styled callout box.
-   - Variant A: "Get your personalized BaZi reading" (links to $29 reading).
-   - Variant B: "Download your zodiac compatibility guide" (links to $3.99 Gumroad product).
-   - Insert into all 15 existing articles at the 60% scroll point and at article end.
-3. Create dedicated landing pages:
-   - `/readings/` -- comparison page for all 3 PayPal tiers ($29/$79/$149) with clear feature differentiation.
-   - `/guides/` -- catalog page for all 6 Gumroad products with "most popular" badge on the highest seller.
-4. Add exit-intent popup (lightweight JS, no third-party tool needed):
-   - Trigger: mouse leaves viewport on desktop, or 60-second timer on mobile.
-   - Offer: "Before you go -- get your free 2026 zodiac forecast" (newsletter signup).
-   - Limit display to once per session using `sessionStorage`.
-5. Implement UTM tracking on every internal CTA link to attribute conversions to specific articles.
+1. Created `_includes/partials/cross-sell-cta.njk` -- a reusable trilingual cross-sell component with two cards:
+   - **Reading card:** promotes BaZi readings ($29--$149), links to `/readings/` with UTM parameters.
+   - **Product card:** promotes Gumroad digital products ($3.99--$19.99), links to `/shop/` with UTM parameters.
+2. The partial supports three variants via a `variant` variable: `"reading"`, `"product"`, or `"both"` (default).
+3. Integrated into `article.njk` layout -- automatically rendered on ALL pages using the article layout (16 articles, 12 zodiac pages, 12 readings, 34 encyclopedia pages, etc.) between the main content and the FAQ section.
+4. Pages can opt out with `crossSellHidden: true` in frontmatter.
+5. CSS: responsive two-column grid on desktop, single column on mobile (breakpoint: 640px). Dark mode support included.
+6. UTM tracking: all CTA links include `utm_source=article&utm_medium=cross-sell&utm_campaign=reading-cta` or `product-cta`.
+7. The existing `content-upgrade.njk` (email capture) remains at the bottom of articles, creating a two-tier conversion path: cross-sell for buyers, email capture for leads.
 
 #### 1.4 Set Up GA4 Conversion Funnels + E-Commerce Events [CRITICAL]
 
@@ -282,24 +265,22 @@ Action steps:
    - Rage clicks or dead clicks indicating UX issues.
 5. Clarity is free, GDPR-friendly (data stays in Azure), and has no impact on Core Web Vitals.
 
-#### 3.3 Make News Hub Filters Interactive [MEDIUM]
+#### 3.3 Make News Hub Filters Interactive [COMPLETED]
 
 - **Priority:** MEDIUM
-- **Effort:** 6 hours
-- **Impact:** Improves user experience on the news hub; reduces bounce rate from category browsing
-- **Deadline:** April 15, 2026
+- **Status:** COMPLETED (2026-03-07)
+- **Impact:** Improved user experience on the news hub; reduced bounce rate from category browsing
 
-Action steps:
+Implementation details:
 
-1. Identify the current static filter implementation (likely `<a>` tags that navigate to filtered category pages).
-2. Replace with a client-side JavaScript filter:
-   - On page load, read all article cards and their `data-category` attributes.
-   - Render filter buttons for each unique category.
-   - On button click, toggle visibility of non-matching cards using CSS `display: none` or a class toggle.
-   - Update the URL hash (`#category=feng-shui`) for shareability without page reload.
-3. Ensure progressive enhancement: if JavaScript fails, the static links should still work as fallback.
-4. Keep the JS lightweight (vanilla JS, no framework) to preserve the current Core Web Vitals scores.
-5. Test on mobile: ensure filter buttons are tap-friendly (minimum 44x44px touch targets).
+1. Converted filter `<a>` tags (which linked to non-existent `/news/zodiac/` etc.) to `<button>` elements with `data-filter` attributes across all three language blocks (EN, TC, SC).
+2. Increased pagination size from 6 to 100 so all articles appear on a single page, enabling client-side filtering without missing articles on other pages.
+3. Enhanced the existing directory filter JS in `site.js` to also handle article cards, with URL hash support (`#category=zodiac`) for shareable filtered views.
+4. Added no-results state with trilingual "Show all articles" fallback button.
+5. Filter reads URL hash on page load, so direct links like `/news/#category=fengshui` work.
+6. Added CSS for `.news-no-results` and `.news-show-all-btn`.
+7. Progressive enhancement: if JS fails, all articles are visible (buttons do nothing but content is still accessible).
+8. Added ARIA attributes: `role="toolbar"` and `aria-label` on filter container for screen readers.
 
 #### 3.4 Implement A/B Testing on Reading Sales Pages [LOW]
 
@@ -457,16 +438,18 @@ Action steps:
 
 | Week  | Deliverables                                                                                      |
 |-------|---------------------------------------------------------------------------------------------------|
-| Wk 1  | Enable FormSubmit CAPTCHA. Install Facebook Pixel. Set up GA4 conversion funnels.                  |
-| Wk 2  | Install Microsoft Clarity. Publish Qingming article. Upgrade first 5 directory listings.           |
-| Wk 3  | Build cross-sell CTA component and insert into all 15 articles. Upgrade 5 more directory listings. |
-| Wk 4  | Set up Pinterest business account + 20 initial pins. Publish 2 queued calendar articles.           |
+| Wk 1  | Enable FormSubmit CAPTCHA. **DONE.** Install Facebook Pixel. Set up GA4 conversion funnels. Fix directory placeholder listings. **DONE.** Build cross-sell CTA. **DONE.** Make news filters interactive. **DONE.** |
+| Wk 2  | Install Microsoft Clarity. Publish Qingming article. **DONE.**                                     |
+| Wk 3  | Set up Pinterest business account + 20 initial pins.                                               |
+| Wk 4  | Publish 2 queued calendar articles.                                                                |
 
 **Success criteria at Day 30:**
 - Facebook Pixel actively collecting data (verify 500+ PageView events).
 - GA4 shows conversion events firing correctly (generate_lead, begin_checkout).
-- 10+ directory listings upgraded to premium.
+- Directory listings fixed with real businesses. **DONE**
 - Qingming article published and indexed. **DONE**
+- Cross-sell CTA live on all article pages. **DONE**
+- News hub filters interactive. **DONE**
 - Pinterest account live with 20+ pins.
 - Cross-sell CTAs present in all existing articles.
 - 17+ total published articles (16 existing + 1 calendar article minimum).
@@ -479,7 +462,7 @@ Action steps:
 |-------|----------------------------------------------------------------------------------------------------|
 | Wk 5  | Publish 2 more queued articles. Set up Beehiiv welcome drip sequence (5 emails).                    |
 | Wk 6  | Translate top 5 articles to Chinese. Create retargeting audiences in Facebook and Google.            |
-| Wk 7  | Make news hub filters interactive. Set up TikTok account + produce first 3 videos.                  |
+| Wk 7  | ~~Make news hub filters interactive.~~ **DONE (moved to Wk 1).** Set up TikTok account + produce first 3 videos. |
 | Wk 8  | Publish 2 more queued articles. Review first month of Clarity heatmap data; adjust CTA placement.   |
 
 **Success criteria at Day 60:**

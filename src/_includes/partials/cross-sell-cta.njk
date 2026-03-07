@@ -1,0 +1,57 @@
+{# ===== CROSS-SELL CTA — Drives readers toward paid products & readings ===== #}
+{# Insert mid-article (at ~60% scroll point) or at article end.            #}
+{# Two variants controlled by the "variant" variable:                       #}
+{#   variant="reading"  → promotes premium BaZi readings ($29–$149)         #}
+{#   variant="product"  → promotes Gumroad digital products ($3.99–$19.99)  #}
+{#   (default)          → shows both options side by side                   #}
+
+{% set v = variant if variant else "both" %}
+
+<aside class="cross-sell-cta" aria-label="Related products">
+  {% if v == "reading" or v == "both" %}
+  <div class="cross-sell-card cross-sell-card--reading">
+    <span class="cross-sell-icon" aria-hidden="true">🏛️</span>
+    <h3>
+      <span class="lang-en">Get Your Personalised BaZi Reading</span>
+      <span class="lang-tc">獲取您的個人八字解讀</span>
+      <span class="lang-sc">获取您的个人八字解读</span>
+    </h3>
+    <p>
+      <span class="lang-en">Discover your Four Pillars destiny chart, element balance, and 2026 forecast — prepared by our editorial team from classical sources.</span>
+      <span class="lang-tc">探索您的四柱命盤、五行平衡與2026年運程——由我們的編輯團隊依據經典文獻精心編寫。</span>
+      <span class="lang-sc">探索您的四柱命盘、五行平衡与2026年运程——由我们的编辑团队依据经典文献精心编写。</span>
+    </p>
+    <div class="cross-sell-pricing">
+      <span class="lang-en">From <strong>$29</strong></span>
+      <span class="lang-tc">起價 <strong>$29</strong></span>
+      <span class="lang-sc">起价 <strong>$29</strong></span>
+    </div>
+    <a href="/readings/?utm_source=article&utm_medium=cross-sell&utm_campaign=reading-cta" class="btn btn-primary">
+      <span class="lang-en">View Reading Options</span>
+      <span class="lang-tc">查看解讀方案</span>
+      <span class="lang-sc">查看解读方案</span>
+    </a>
+  </div>
+  {% endif %}
+
+  {% if v == "product" or v == "both" %}
+  <div class="cross-sell-card cross-sell-card--product">
+    <span class="cross-sell-icon" aria-hidden="true">📚</span>
+    <h3>
+      <span class="lang-en">Zodiac Guides &amp; Forecasts</span>
+      <span class="lang-tc">生肖指南與運程</span>
+      <span class="lang-sc">生肖指南与运程</span>
+    </h3>
+    <p>
+      <span class="lang-en">Downloadable PDF guides on compatibility, feng shui, BaZi, and the Five Elements — from $3.99.</span>
+      <span class="lang-tc">可下載的PDF指南，涵蓋配對、風水、八字與五行——$3.99起。</span>
+      <span class="lang-sc">可下载的PDF指南，涵盖配对、风水、八字与五行——$3.99起。</span>
+    </p>
+    <a href="/shop/?utm_source=article&utm_medium=cross-sell&utm_campaign=product-cta" class="btn btn-gold">
+      <span class="lang-en">Browse Shop</span>
+      <span class="lang-tc">瀏覽商店</span>
+      <span class="lang-sc">浏览商店</span>
+    </a>
+  </div>
+  {% endif %}
+</aside>

@@ -12,8 +12,8 @@ Encyclopedia, directory, readings, and news platform for Chinese zodiac, BaZi, f
 | Hosting | GitHub Pages (via GitHub Actions) |
 | Edge Functions | Cloudflare Worker (BaZi calculator proxy) |
 | CMS | [Decap CMS](https://decapcms.org/) v3 (Git-backed) |
-| CSS | Vanilla CSS (~5,250 lines, minified by CleanCSS at build). Design tokens for colors, spacing, radii, transitions, and gold transparency scale. |
-| JS | Vanilla JS (~1,550 lines across 2 files, minified by Terser at build) |
+| CSS | Vanilla CSS (~5,350 lines, minified by CleanCSS at build). Design tokens for colors, spacing, radii, transitions, and gold transparency scale. |
+| JS | Vanilla JS (~1,600 lines across 2 files, minified by Terser at build) |
 | Images | `@11ty/eleventy-img` (WebP/JPEG at 400/800/1200px) |
 | Search | Client-side JSON index with body text excerpts (build-time generated) |
 | Newsletter | Beehiiv |
@@ -60,8 +60,8 @@ src/
 ├── _includes/
 │   ├── layouts/
 │   │   ├── base.njk        # Master HTML layout (head, structured data, scripts)
-│   │   └── article.njk     # Article layout (sidebar, TOC, FAQ, related content)
-│   └── partials/           # 11 reusable components
+│   │   └── article.njk     # Article layout (sidebar, TOC, FAQ, cross-sell CTA, related content)
+│   └── partials/           # 12 reusable components
 │       ├── header.njk      # Navigation, search, language/theme toggles
 │       ├── footer.njk      # Social links, nav columns, copyright
 │       ├── breadcrumbs.njk # Breadcrumb nav + BreadcrumbList JSON-LD
@@ -70,7 +70,8 @@ src/
 │       ├── affiliate-disclosure.njk
 │       ├── share-buttons.njk  # Facebook, Twitter, LinkedIn, copy URL
 │       ├── newsletter.njk  # Beehiiv email signup CTA
-│       ├── content-upgrade.njk  # Premium readings CTA
+│       ├── content-upgrade.njk  # Mid-article email capture CTA
+│       ├── cross-sell-cta.njk   # Product/reading cross-sell CTA (auto-included in article layout)
 │       ├── email-popup.njk # Exit-intent email capture modal
 │       └── comments.njk    # Giscus GitHub Discussions
 ├── admin/                  # Decap CMS admin panel
@@ -112,7 +113,7 @@ scripts/
 | `contentGraph.json` | Topic affinity map for auto-generated related links |
 | `compatibilityPairs.js` | Generates 78 zodiac compatibility pair objects (Six Harmonies, Clashes, Harms, neutral, self) |
 | `contentCalendar.json` | Editorial content calendar with article pipeline |
-| `directory.json` | 50+ professional directory listings |
+| `directory.json` | 40+ professional directory listings (free tier, with featured placement for verified organisations) |
 | `shop.json` | 3 premium reading tiers + 6 digital products |
 | `zodiacYears.js` | Generates 1924–2044 year data (animal, element, stem, yin-yang) |
 | `newsCategories.json` | 5 article categories with trilingual labels |
@@ -122,7 +123,7 @@ scripts/
 
 ## Content Architecture
 
-The site generates **299 pages** (885+ after i18n) across these content types:
+The site generates **297 pages** (887 after i18n) across these content types:
 
 | Type | Count | Source |
 |---|---|---|

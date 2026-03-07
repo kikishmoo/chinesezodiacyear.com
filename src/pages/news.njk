@@ -7,7 +7,7 @@ ogType: "website"
 category: "news"
 pagination:
   data: collections.articles
-  size: 6
+  size: 100
   alias: paginatedArticles
   generatePageOnEmptyData: false
 permalink: "/news/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
@@ -24,20 +24,24 @@ eleventyComputed:
 <section class="page-hero">
   <div class="page-hero-content">
     <span class="overline">Latest</span>
-    <h1>News &amp; Articles{% if pagination.pageNumber > 0 %} &mdash; Page {{ pagination.pageNumber + 1 }}{% endif %}</h1>
+    <h1>News &amp; Articles</h1>
     <p class="subtitle">Analysis, commentary, and guides on Chinese zodiac, feng shui, BaZi, and cultural traditions</p>
   </div>
 </section>
 
 <div class="news-layout">
-    <div class="news-filters">
-      <a href="/news/" class="filter-btn active">All</a>
-      <a href="/news/zodiac/" class="filter-btn">Zodiac</a>
-      <a href="/news/culture/" class="filter-btn">Culture</a>
-      <a href="/news/fengshui/" class="filter-btn">Feng Shui</a>
-      <a href="/news/bazi/" class="filter-btn">BaZi</a>
-      <a href="/news/business/" class="filter-btn">Business</a>
+    <div class="news-filters" role="toolbar" aria-label="Filter articles by category">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="zodiac">Zodiac</button>
+      <button class="filter-btn" data-filter="culture">Culture</button>
+      <button class="filter-btn" data-filter="fengshui">Feng Shui</button>
+      <button class="filter-btn" data-filter="bazi">BaZi</button>
+      <button class="filter-btn" data-filter="business">Business</button>
     </div>
+
+    <p class="news-no-results" hidden>
+      No articles in this category yet. <button class="news-show-all-btn">Show all articles</button>
+    </p>
 
     <div class="articles-grid">
       {%- for article in paginatedArticles %}
@@ -78,20 +82,24 @@ eleventyComputed:
 <section class="page-hero">
   <div class="page-hero-content">
     <span class="overline">最新</span>
-    <p class="page-hero-title">新聞與文章{% if pagination.pageNumber > 0 %} &mdash; 第{{ pagination.pageNumber + 1 }}頁{% endif %}</p>
+    <p class="page-hero-title">新聞與文章</p>
     <p class="subtitle">中國生肖、風水、八字及文化傳統的分析、評論與指南</p>
   </div>
 </section>
 
 <div class="news-layout">
-    <div class="news-filters">
-      <a href="/news/" class="filter-btn active">全部</a>
-      <a href="/news/zodiac/" class="filter-btn">生肖</a>
-      <a href="/news/culture/" class="filter-btn">文化</a>
-      <a href="/news/fengshui/" class="filter-btn">風水</a>
-      <a href="/news/bazi/" class="filter-btn">八字</a>
-      <a href="/news/business/" class="filter-btn">商業</a>
+    <div class="news-filters" role="toolbar" aria-label="按分類篩選文章">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="zodiac">生肖</button>
+      <button class="filter-btn" data-filter="culture">文化</button>
+      <button class="filter-btn" data-filter="fengshui">風水</button>
+      <button class="filter-btn" data-filter="bazi">八字</button>
+      <button class="filter-btn" data-filter="business">商業</button>
     </div>
+
+    <p class="news-no-results" hidden>
+      此分類暫無文章。<button class="news-show-all-btn">顯示全部文章</button>
+    </p>
 
     <div class="articles-grid">
       {%- for article in paginatedArticles %}
@@ -132,20 +140,24 @@ eleventyComputed:
 <section class="page-hero">
   <div class="page-hero-content">
     <span class="overline">最新</span>
-    <p class="page-hero-title">新闻与文章{% if pagination.pageNumber > 0 %} &mdash; 第{{ pagination.pageNumber + 1 }}页{% endif %}</p>
+    <p class="page-hero-title">新闻与文章</p>
     <p class="subtitle">中国生肖、风水、八字及文化传统的分析、评论与指南</p>
   </div>
 </section>
 
 <div class="news-layout">
-    <div class="news-filters">
-      <a href="/news/" class="filter-btn active">全部</a>
-      <a href="/news/zodiac/" class="filter-btn">生肖</a>
-      <a href="/news/culture/" class="filter-btn">文化</a>
-      <a href="/news/fengshui/" class="filter-btn">风水</a>
-      <a href="/news/bazi/" class="filter-btn">八字</a>
-      <a href="/news/business/" class="filter-btn">商业</a>
+    <div class="news-filters" role="toolbar" aria-label="按分类筛选文章">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="zodiac">生肖</button>
+      <button class="filter-btn" data-filter="culture">文化</button>
+      <button class="filter-btn" data-filter="fengshui">风水</button>
+      <button class="filter-btn" data-filter="bazi">八字</button>
+      <button class="filter-btn" data-filter="business">商业</button>
     </div>
+
+    <p class="news-no-results" hidden>
+      此分类暂无文章。<button class="news-show-all-btn">显示全部文章</button>
+    </p>
 
     <div class="articles-grid">
       {%- for article in paginatedArticles %}

@@ -504,7 +504,8 @@ Extends `base.njk`. Provides the standard content page structure used by the maj
         <!-- FAQ accordion section -->
       {% endif %}
 
-      {% include "partials/content-upgrade.njk" %}         {# conditional #}
+      {% include "partials/cross-sell-cta.njk" %}           {# conditional: crossSellHidden !== true #}
+      {% include "partials/content-upgrade.njk" %}           {# conditional #}
     </article>
 
     <aside class="sidebar">
@@ -541,6 +542,7 @@ Extends `base.njk`. Provides the standard content page structure used by the maj
 | `share-buttons.njk`          | `src/_includes/partials/share-buttons.njk` | Social sharing links (Twitter, Facebook, email, copy link)    |
 | `newsletter.njk`             | `src/_includes/partials/newsletter.njk` | Beehiiv newsletter signup form (sidebar widget)                  |
 | `content-upgrade.njk`        | `src/_includes/partials/content-upgrade.njk` | In-article lead magnet / content upgrade CTA                |
+| `cross-sell-cta.njk`         | `src/_includes/partials/cross-sell-cta.njk` | Product/reading cross-sell CTA (two-card layout: readings + shop). Variants: `reading`, `product`, `both` (default). Auto-included in article layout; opt out with `crossSellHidden: true`. |
 | `email-popup.njk`            | `src/_includes/partials/email-popup.njk` | Modal newsletter popup (triggered by scroll depth or exit intent) |
 | `comments.njk`               | `src/_includes/partials/comments.njk` | Giscus comment widget (loads GitHub Discussions iframe)            |
 
@@ -561,6 +563,7 @@ src/_includes/
     share-buttons.njk
     newsletter.njk
     content-upgrade.njk
+    cross-sell-cta.njk
     email-popup.njk
     comments.njk
 ```

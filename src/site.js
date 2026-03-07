@@ -255,21 +255,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* --- Directory Filter --- */
+  /* --- Directory & News Filter --- */
   const filterBtns = document.querySelectorAll('.filter-btn');
   const listingCards = document.querySelectorAll('.directory-card[data-category], .article-card[data-category]');
+  const noResultsMsgs = document.querySelectorAll('.news-no-results');
+
+  function applyFilter(cat) {
+    filterBtns.forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === cat);
+    });
+    var visibleCount = 0;
+    listingCards.forEach(card => {
+      var show = (cat === 'all' || card.dataset.category === cat);
+      card.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+    noResultsMsgs.forEach(msg => {
+      msg.hidden = (visibleCount > 0);
+    });
+  }
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.dataset.filter;
-      listingCards.forEach(card => {
-        if (cat === 'all' || card.dataset.category === cat) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+      var cat = btn.dataset.filter;
+      applyFilter(cat);
+      if (cat && cat !== 'all') {
+        history.replaceState(null, '', '#category=' + cat);
+      } else {
+        history.replaceState(null, '', window.location.pathname);
+      }
+    });
+  });
+
+  /* Apply filter from URL hash on page load */
+  (function() {
+    var hash = window.location.hash;
+    if (hash && hash.indexOf('#category=') === 0) {
+      var cat = hash.replace('#category=', '');
+      if (cat) applyFilter(cat);
+    }
+  })();
+
+  /* "Show all" buttons inside no-results messages */
+  document.querySelectorAll('.news-show-all-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyFilter('all');
+      history.replaceState(null, '', window.location.pathname);
     });
   });
 

@@ -14,6 +14,11 @@
 
     {{ content | safe }}
 
+    {# --- Cross-sell CTA: placed after main content, before FAQ --- #}
+    {% if crossSellHidden !== true %}
+      {% include "partials/cross-sell-cta.njk" %}
+    {% endif %}
+
     {% set faqData = faq if faq else autoFaq %}
     {% if faqData %}
     <section id="faq">
