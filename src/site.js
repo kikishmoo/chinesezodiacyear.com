@@ -353,15 +353,15 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.textContent = 'Subscribing\u2026';
 
       const showSuccess = () => {
-        form.hidden = true;
-        if (successEl) successEl.hidden = false;
-        if (errorEl) errorEl.hidden = true;
+        form.style.display = 'none';
+        if (successEl) { successEl.hidden = false; successEl.style.display = ''; }
+        if (errorEl) { errorEl.hidden = true; errorEl.style.display = 'none'; }
       };
       const showError = () => {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnHTML;
-        if (errorEl) errorEl.hidden = false;
-        if (successEl) successEl.hidden = true;
+        if (errorEl) { errorEl.hidden = false; errorEl.style.display = ''; }
+        if (successEl) { successEl.hidden = true; successEl.style.display = 'none'; }
       };
 
       if (form.dataset.beehiiv) {
