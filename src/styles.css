@@ -796,19 +796,11 @@ select.calc-input {
   border-color: rgba(191,147,40,0.2);
 }
 
-/* Stretched link — makes entire article card clickable */
-.article-card-body h2 a::after,
-.card-title a::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-/* The link itself must be static so ::after positions relative to the card, not the link */
+/* Card link styling — JS handles full-card click via site.js */
 .article-card-body h2 a,
 .card-title a {
-  position: static;
+  text-decoration: none;
+  color: inherit;
 }
 
 .card-image {

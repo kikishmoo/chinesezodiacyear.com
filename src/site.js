@@ -242,6 +242,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* --- Clickable Article Cards --- */
+  /* Makes entire .article-card clickable by delegating to the primary link inside */
+  document.querySelectorAll('.article-card').forEach(card => {
+    const link = card.querySelector('h2 a, h3 a, .card-title a');
+    if (!link) return;
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', (e) => {
+      // Don't intercept if the user clicked an actual link or button inside the card
+      if (e.target.closest('a, button')) return;
+      link.click();
+    });
+  });
+
   /* --- Directory Filter --- */
   const filterBtns = document.querySelectorAll('.filter-btn');
   const listingCards = document.querySelectorAll('.directory-card[data-category], .article-card[data-category]');
