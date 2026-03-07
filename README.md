@@ -193,7 +193,7 @@ The `eleventy.after` hook in `eleventy.config.js` performs these post-build step
 3. **i18n generation** — Copies all HTML pages into `/zh-hant/` and `/zh-hans/` directories, strips non-active language blocks, updates `<html lang>`, canonical URLs, and og:url
 4. **English stripping** — Strips TC/SC language blocks from base English pages
 
-Build output: ~214 HTML files pre-i18n, ~642+ after i18n generation.
+Build output: ~292 HTML files pre-i18n, ~864+ after i18n generation.
 
 ## Adding Content
 

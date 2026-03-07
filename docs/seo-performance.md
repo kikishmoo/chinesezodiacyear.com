@@ -642,51 +642,20 @@ None currently. The site has no broken SEO elements or critical performance issu
 | **Pillar-cluster: Compatibility pair pages (78 pages)** | DONE | `compatibilityPairs.js` generates 66 unique + 12 same-sign pair pages at `/compatibility/{pair}/`; each includes Six Harmony/Clash/Harm/neutral analysis, element interaction, trilingual content, FAQ schema, auto-related links |
 | **Pillar-cluster: Hub→cluster linking** | DONE | Compatibility hub page now links to all key pair pages (H6, Clash, Harm categories); zodiac animal pages link to their specific pair pages |
 | **Pillar-cluster: Cross-cluster linking** | DONE | `eleventyComputed.js` auto-generates related links between pair pages, animal profiles, readings, and the compatibility hub |
+| **JSON-LD CollectionPage + ItemList on hub pages** | DONE | All 5 hubs (`/zodiac/`, `/wuxing/`, `/dynasties/`, `/readings/`, `/compatibility/`) emit CollectionPage + ItemList JSON-LD via `hubSchema` frontmatter |
+| **noindex on /search/ page** | DONE | Already had `noindex: true` in frontmatter; `base.njk` renders `<meta name="robots" content="noindex, follow">` |
+| **Categorize search index entries** | DONE | Year pages (121) now have `category: "encyclopedia"`; only homepage remains uncategorized (expected) |
+| **Homepage title keyword front-loaded** | DONE | Already changed to "Chinese Zodiac — Shēngxiào Encyclopedia, Directory & News" |
 
 ### P1 -- High Priority (Remaining)
 
-| Action | Issue(s) | Files to Modify | Effort |
-|--------|----------|-----------------|--------|
-| **Add JSON-LD `ItemList` to hub pages** | SEO-001, SEO-002, SEO-003, SEO-004 | `src/_includes/layouts/base.njk`, `src/pages/zodiac.njk`, `src/pages/wuxing.njk`, `src/pages/dynasties.njk`, `src/pages/readings.njk` | 2-3 hours |
-
-**Implementation:** Add `hubSchema: true` and `itemList` array to each hub page's front matter. Add a new conditional JSON-LD block in `base.njk`. See [Section 2.3](#23-recommended-fix-add-itemlist-to-hub-pages) for the full code snippet.
-
-**Validation:** Test each page with [Google Rich Results Test](https://search.google.com/test/rich-results) and [Schema.org Validator](https://validator.schema.org/).
+All P1 items have been completed.
 
 ### P2 -- Medium Priority
 
 | Action | Issue(s) | Files to Modify | Effort |
 |--------|----------|-----------------|--------|
 | **Create custom OG images for hub pages** | SEO-008 | Design work + `ogImage` front matter in hub `.njk` files | 4-6 hours |
-| **Front-load primary keyword in homepage title** | SEO-009 | `src/pages/index.njk` (change `title` in front matter) | 5 minutes |
-| **Add `noindex` to `/search/` page** | SEO-007 | `src/pages/search.njk` or `base.njk` (conditional meta robots) | 15 minutes |
-| **Categorize 15 empty-category search index entries** | SEO-005 | Various `.njk` front matter files lacking `category` | 30 minutes |
-
-**Homepage title fix** -- in `src/pages/index.njk`, change:
-
-```yaml
-title: "Encyclopedia, Directory & News"
-```
-
-to:
-
-```yaml
-title: "Chinese Zodiac Encyclopedia, Directory & News"
-```
-
-This renders as `Chinese Zodiac Encyclopedia, Directory & News | Chinese Zodiac` which front-loads the primary keyword. Alternatively, override the base template's title format for the homepage to avoid the "Chinese Zodiac" suffix duplication.
-
-**Search page noindex** -- add to `src/pages/search.njk` front matter:
-
-```yaml
-noindex: true
-```
-
-Then add to `base.njk` inside `<head>`:
-
-```html
-{% if noindex %}<meta name="robots" content="noindex, follow">{% endif %}
-```
 
 ### P3 -- Low Priority / Future
 

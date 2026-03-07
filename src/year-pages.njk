@@ -5,6 +5,7 @@ pagination:
   alias: yearData
 layout: "layouts/base.njk"
 permalink: "/zodiac-year/{{ yearData.year }}/"
+category: "encyclopedia"
 eleventyComputed:
   title: "{{ yearData.year }} Chinese Zodiac — Year of the {{ yearData.element }} {{ yearData.animal }} ({{ yearData.pillarCn }})"
   description: "{{ yearData.year }} is the Year of the {{ yearData.element }} {{ yearData.animal }} ({{ yearData.animalCn }}) in the Chinese zodiac. Heavenly Stem {{ yearData.stem }}, Earthly Branch {{ yearData.branch }} ({{ yearData.branchCn }}). Personality traits, compatibility, lucky elements, and BaZi analysis."
