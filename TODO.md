@@ -23,7 +23,7 @@ ChineseZodiacYear.com has a solid technical foundation (885+ i18n pages, validat
 | 5  | Set up GA4 conversion funnels + e-commerce events     | CRITICAL   | 4 hours  | High     | Revenue    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
 | 7  | Translate article bodies to Chinese (zh-Hans/zh-Hant) | HIGH       | 16 hours | High     | Content    |
-| 8  | Enable FormSubmit CAPTCHA on newsletter fallback      | HIGH       | 30 min   | Medium   | Technical  |
+| 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
 | 9  | Set up Pinterest business account + first 20 pins     | HIGH       | 4 hours  | Medium   | Marketing  |
 | 10 | Make news hub filters interactive (JS filtering)      | MEDIUM     | 6 hours  | Medium   | Technical  |
 | 11 | Set up TikTok account + first 5 videos                | MEDIUM     | 8 hours  | Medium   | Marketing  |
@@ -251,19 +251,18 @@ Action steps:
 
 ### 3. TECHNICAL -- Site Improvements
 
-#### 3.1 Enable FormSubmit CAPTCHA [HIGH]
+#### 3.1 Enable FormSubmit CAPTCHA [COMPLETED]
 
 - **Priority:** HIGH
-- **Effort:** 30 minutes
-- **Impact:** Prevents spam submissions on the newsletter fallback form; currently a security gap
-- **Deadline:** March 10, 2026
+- **Status:** COMPLETED (2026-03-07)
+- **Impact:** Prevents spam submissions on the newsletter fallback form
 
-Action steps:
+Implementation details:
 
-1. Locate the FormSubmit configuration (likely a hidden `_captcha` field set to `false` in the newsletter form HTML).
-2. Change `_captcha` to `true` or remove the field entirely (FormSubmit enables CAPTCHA by default).
-3. Test the form submission flow end-to-end on production to confirm the CAPTCHA appears and submissions succeed.
-4. If CAPTCHA creates friction concerns, consider switching to a honeypot field approach (`_honey` field in FormSubmit) as a less intrusive alternative.
+1. Added honeypot field (`_honey`) to the FormSubmit fallback form in `newsletter.njk` — bots fill hidden fields, humans don't, so submissions from bots are silently rejected.
+2. Changed `_captcha` from `false` to `true` as a server-side safety net.
+3. Updated the AJAX submission in `site.js` to include all hidden fields (honeypot, captcha, subject, template) in the JSON payload, not just the email.
+4. Note: The FormSubmit form is a fallback that only activates if the Beehiiv publication ID is removed from `site.json`. The primary newsletter form uses Beehiiv directly.
 
 #### 3.2 Install Heatmap Tracking -- Microsoft Clarity [MEDIUM]
 

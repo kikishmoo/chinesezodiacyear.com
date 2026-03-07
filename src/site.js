@@ -395,10 +395,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500);
       } else {
         /* Formsubmit.co fallback — AJAX POST */
+        const formData = { email: email };
+        form.querySelectorAll('input[type="hidden"], input[name="_honey"]').forEach(f => {
+          if (f.name) formData[f.name] = f.value;
+        });
         fetch(form.action, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ email: email })
+          body: JSON.stringify(formData)
         })
         .then(res => { if (res.ok) showSuccess(); else showError(); })
         .catch(() => showError());
