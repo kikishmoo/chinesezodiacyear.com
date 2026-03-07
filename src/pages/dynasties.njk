@@ -41,6 +41,8 @@ toc:
     label: "Ming Dynasty"
   - id: "timeline"
     label: "Dynasty Timeline"
+  - id: "browse-dynasties"
+    label: "Browse Dynasties"
   - id: "watch"
     label: "Watch & Learn"
   - id: "faq"
@@ -348,6 +350,19 @@ relatedArticles:
         <div class="timeline-item"><h3>Song (<span class="chinese-char">宋</span>, <em>Sòng</em>) — 960–1279 CE</h3><p><span class="lang-en">BaZi perfected, Neo-Confucianism, Four Inventions</span><span class="lang-tc">八字完善、理學、四大發明</span><span class="lang-sc">八字完善、理学、四大发明</span></p></div>
         <div class="timeline-item"><h3>Yuan (<span class="chinese-char">元</span>, <em>Yuán</em>) — 1271–1368 CE</h3><p><span class="lang-en">Drama, Shoushi calendar, agricultural texts</span><span class="lang-tc">戲劇、授時曆、農學著作</span><span class="lang-sc">戏剧、授时历、农学著作</span></p></div>
         <div class="timeline-item"><h3>Ming (<span class="chinese-char">明</span>, <em>Míng</em>) — 1368–1644 CE</h3><p><span class="lang-en">Hanfu revival, Bencao Gangmu, Zheng He</span><span class="lang-tc">漢服復興、本草綱目、鄭和</span><span class="lang-sc">汉服复兴、本草纲目、郑和</span></p></div>
+      </div>
+    </section>
+
+    <section id="browse-dynasties">
+      <h2><span class="lang-en">Browse All Dynasties</span><span class="lang-tc">瀏覽所有朝代</span><span class="lang-sc">浏览所有朝代</span></h2>
+      <p><span class="lang-en">Explore each dynasty's contributions to Chinese zodiac, calendar, and metaphysical traditions.</span><span class="lang-tc">探索每個朝代對中國生肖、曆法和形而上學傳統的貢獻。</span><span class="lang-sc">探索每个朝代对中国生肖、历法和形而上学传统的贡献。</span></p>
+      <div class="reading-grid">
+        {%- for dynasty in dynastiesData %}
+        <a href="/dynasties/{{ dynasty.slug }}/" class="reading-card">
+          <span class="reading-card-name"><span class="lang-en">{{ dynasty.name }}</span><span class="lang-tc">{{ dynasty.nameTc }}</span><span class="lang-sc">{{ dynasty.nameSc }}</span></span>
+          <span class="reading-card-detail"><span class="lang-en">{{ dynasty.nameTc }} · {{ dynasty.dates }}</span><span class="lang-tc">{{ dynasty.name }} · {{ dynasty.dates }}</span><span class="lang-sc">{{ dynasty.name }} · {{ dynasty.dates }}</span></span>
+        </a>
+        {%- endfor %}
       </div>
     </section>
 

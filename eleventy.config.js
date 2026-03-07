@@ -207,6 +207,92 @@ export default function(eleventyConfig) {
     const htmlFiles = walkHtml(outputDir);
     let i18nCount = 0;
 
+    // Helper: remove a lang-XX div and all its contents (balanced tag matching)
+    function removeLangDiv(html, lang) {
+      const openTag = `<div class="lang-${lang}">`;
+      let result = html;
+      let startIdx;
+      while ((startIdx = result.indexOf(openTag)) !== -1) {
+        let depth = 1;
+        let i = startIdx + openTag.length;
+        while (i < result.length && depth > 0) {
+          if (result.substring(i, i + 4) === '<div') {
+            depth++;
+            i += 4;
+          } else if (result.substring(i, i + 6) === '</div>') {
+            depth--;
+            if (depth === 0) {
+              result = result.substring(0, startIdx) + result.substring(i + 6);
+              break;
+            }
+            i += 6;
+          } else {
+            i++;
+          }
+        }
+        if (depth !== 0) break; // Safety: avoid infinite loop
+      }
+      return result;
+    }
+
+    // Helper: unwrap a lang-XX div (remove wrapper, keep inner content)
+    function unwrapLangDiv(html, lang) {
+      const openTag = `<div class="lang-${lang}">`;
+      let result = html;
+      let startIdx;
+      while ((startIdx = result.indexOf(openTag)) !== -1) {
+        let depth = 1;
+        let i = startIdx + openTag.length;
+        while (i < result.length && depth > 0) {
+          if (result.substring(i, i + 4) === '<div') {
+            depth++;
+            i += 4;
+          } else if (result.substring(i, i + 6) === '</div>') {
+            depth--;
+            if (depth === 0) {
+              const innerContent = result.substring(startIdx + openTag.length, i);
+              result = result.substring(0, startIdx) + innerContent + result.substring(i + 6);
+              break;
+            }
+            i += 6;
+          } else {
+            i++;
+          }
+        }
+        if (depth !== 0) break; // Safety: avoid infinite loop
+      }
+      return result;
+    }
+
+    // Helper: strip non-active language blocks from HTML
+    // keepLang is 'en', 'tc', or 'sc'
+    function stripLangBlocks(html, keepLang) {
+      const allLangs = ['en', 'tc', 'sc'];
+      let result = html;
+
+      // Process divs first (they contain spans)
+      for (const lang of allLangs) {
+        if (lang === keepLang) {
+          result = unwrapLangDiv(result, lang);
+        } else {
+          result = removeLangDiv(result, lang);
+        }
+      }
+
+      // Process inline spans
+      for (const lang of allLangs) {
+        if (lang === keepLang) {
+          // Unwrap: remove span wrapper, keep contents
+          result = result.replace(new RegExp(`<span class="lang-${lang}">([\\s\\S]*?)<\\/span>`, 'g'), '$1');
+        } else {
+          // Remove entirely: remove span and contents
+          result = result.replace(new RegExp(`<span class="lang-${lang}">[\\s\\S]*?<\\/span>`, 'g'), '');
+        }
+      }
+
+      return result;
+    }
+
     for (const filePath of htmlFiles) {
       const relPath = relative(outputDir, filePath);
       const html = readFileSync(filePath, 'utf8');
@@ -232,11 +318,26 @@ export default function(eleventyConfig) {
           `<meta property="og:url" content="$1/${variant.prefix}$2">`
         );
 
+        // Strip non-active language blocks (fix trilingual content bloat)
+        out = stripLangBlocks(out, variant.dataLang);
+
         writeFileSync(destPath, out);
         i18nCount++;
       }
     }
     console.log(`[i18n] Generated ${i18nCount} language variant pages from ${htmlFiles.length} source pages`);
+
+    // Strip non-English language blocks from base English pages
+    let enStrippedCount = 0;
+    for (const filePath of htmlFiles) {
+      const html = readFileSync(filePath, 'utf8');
+      const stripped = stripLangBlocks(html, 'en');
+      if (stripped !== html) {
+        writeFileSync(filePath, stripped);
+        enStrippedCount++;
+      }
+    }
+    console.log(`[i18n] Stripped non-English language blocks from ${enStrippedCount} base English pages`);
   });
 
   return {

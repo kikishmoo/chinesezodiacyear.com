@@ -42,6 +42,8 @@ toc:
     label: "Wu Xing in Feng Shui"
   - id: "governance"
     label: "Wu Xing in Governance"
+  - id: "browse-elements"
+    label: "Explore Each Element"
   - id: "watch"
     label: "Watch & Learn"
   - id: "faq"
@@ -194,6 +196,19 @@ relatedArticles:
       </div>
     </section>
 
+    <section id="browse-elements">
+      <h2>Explore Each Element</h2>
+      <p>Dive deeper into each of the five elements — their correspondences, cycles, and associated zodiac animals.</p>
+      <div class="reading-grid">
+        {%- for element in elements %}
+        <a href="/wuxing/{{ element.slug }}/" class="reading-card">
+          <span class="reading-card-name">{{ element.name }}</span>
+          <span class="reading-card-detail">{{ element.nameTc }} · {{ element.direction }} · {{ element.season }}</span>
+        </a>
+        {%- endfor %}
+      </div>
+    </section>
+
     <section id="watch">
       <h2>Watch &amp; Learn</h2>
       <p>Explore Wu Xing and Five Elements theory through these videos.</p>
@@ -333,6 +348,19 @@ relatedArticles:
       </div>
     </section>
 
+    <section id="browse-elements">
+      <h2>探索每一行</h2>
+      <p>深入了解五行——它們的對應關係、循環和相關生肖。</p>
+      <div class="reading-grid">
+        {%- for element in elements %}
+        <a href="/wuxing/{{ element.slug }}/" class="reading-card">
+          <span class="reading-card-name">{{ element.nameTc }}</span>
+          <span class="reading-card-detail">{{ element.name }} · {{ element.direction }} · {{ element.season }}</span>
+        </a>
+        {%- endfor %}
+      </div>
+    </section>
+
     <section id="watch">
       <h2>觀看與學習</h2>
       <p>通過以下影片探索五行理論。</p>
@@ -469,6 +497,19 @@ relatedArticles:
       <div class="quote-card">
         <p>每个朝代都与一行相关联，其继承者代表相克之行——秦以水德取代周之火德，汉以土德取代秦之水德。</p>
         <cite>邹衍通过相克循环解释朝代更替的理论，与天命（<span class="chinese-char">天命</span>）思想交织</cite>
+      </div>
+    </section>
+
+    <section id="browse-elements">
+      <h2>探索每一行</h2>
+      <p>深入了解五行——它们的对应关系、循环和相关生肖。</p>
+      <div class="reading-grid">
+        {%- for element in elements %}
+        <a href="/wuxing/{{ element.slug }}/" class="reading-card">
+          <span class="reading-card-name">{{ element.nameSc }}</span>
+          <span class="reading-card-detail">{{ element.name }} · {{ element.direction }} · {{ element.season }}</span>
+        </a>
+        {%- endfor %}
       </div>
     </section>
 
