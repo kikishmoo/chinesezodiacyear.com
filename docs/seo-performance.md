@@ -49,10 +49,11 @@ The site has a strong technical SEO foundation. Meta tags, hreflang, canonical U
 1. **Unique meta tags per page** -- every page has its own title, description, viewport, keywords, and full OG/Twitter tag sets
 2. **Canonical URLs** properly set via `<link rel="canonical">` in `src/_includes/layouts/base.njk` line 11
 3. **Hreflang** -- all four variants present on every page: `en`, `zh-Hant`, `zh-Hans`, `x-default` (base.njk lines 22-25)
-4. **Homepage JSON-LD** -- WebSite schema with SearchAction and Organization schema (base.njk lines 97-98)
-5. **Article page JSON-LD** -- Article, BreadcrumbList, and FAQPage schemas emitted conditionally (base.njk lines 69-76)
-6. **Accessibility** -- skip-to-content link (base.njk line 112), ARIA labels on forms and navigation, `role` attributes on header/nav/footer, `aria-expanded` on toggles, `aria-live="polite"` on dynamic results
+4. **Homepage JSON-LD** -- WebSite schema with SearchAction and Organization schema with logo, sameAs social profiles, and foundingDate (base.njk lines 103-106)
+5. **Article page JSON-LD** -- Article (with author as Person, articleSection, keywords), BreadcrumbList, and FAQPage schemas emitted conditionally (base.njk lines 70-79)
+6. **Accessibility** -- skip-to-content link (base.njk line 118), ARIA labels on forms and navigation, `role` attributes on header/nav/footer, `aria-expanded` on toggles, `aria-live="polite"` on dynamic results
 7. **Performance fundamentals** -- font preloading/preconnect, lazy loading images, deferred scripts, noscript fallbacks
+8. **www redirect** -- JS redirect for browsers with `<noscript><meta http-equiv="refresh">` fallback for no-JS crawlers, plus `<link rel="canonical">` pointing to non-www
 8. **Internal linking** -- breadcrumbs on article pages, nav/footer link grids, content graph auto-generated related links
 9. **Search index** -- 85 entries with body text for client-side search
 10. **Sitemap** -- comprehensive with priorities, changefreq, and hreflang annotations per URL
@@ -82,16 +83,16 @@ All structured data is emitted in `src/_includes/layouts/base.njk` inside `<head
 
 | Schema Type | Where Emitted | Trigger Condition | Status |
 |-------------|---------------|-------------------|--------|
-| `WebSite` (with `SearchAction`) | Homepage only | `page.url == "/"` (base.njk line 96) | Active |
-| `Organization` | Homepage only | `page.url == "/"` (base.njk line 98) | Active |
-| `Article` | Article/reading pages | `ogType == "article"` (base.njk line 68) | Active |
-| `BreadcrumbList` | Pages with `breadcrumbs` front matter | `{% if breadcrumbs %}` (base.njk line 71) | Active |
-| `FAQPage` | Pages with `faq` front matter | `{% if faq %}` (base.njk line 74) | Active |
-| `HowTo` | Pages with `howTo` front matter | `{% if howTo %}` (base.njk line 77) | Active |
-| `Product` | Shop page | `{% if shopSchema %}` (base.njk line 80) | Active |
-| `VideoObject` | Pages with `videos` front matter | `{% if videos %}` (base.njk line 88) | Active |
-| `ItemList` (directory) | Directory page | `{% if directorySchema %}` (base.njk line 93) | Active |
-| `ItemList` (hub pages) | Hub pages (zodiac, wuxing, dynasties, readings) | **Not implemented** | **Gap** |
+| `WebSite` (with `SearchAction`) | Homepage only | `page.url == "/"` (base.njk line 105) | Active |
+| `Organization` (with logo, sameAs, foundingDate) | Homepage only | `page.url == "/"` (base.njk line 106) | Active |
+| `Article` (with author Person, articleSection, keywords) | Article/reading pages | `ogType == "article"` (base.njk line 70) | Active |
+| `BreadcrumbList` | Pages with `breadcrumbs` front matter | `{% if breadcrumbs %}` (base.njk line 73) | Active |
+| `FAQPage` | Pages with `faq` front matter | `{% if faq %}` (base.njk line 77) | Active |
+| `HowTo` | Pages with `howTo` front matter | `{% if howTo %}` (base.njk line 80) | Active |
+| `Product` | Shop page | `{% if shopSchema %}` (base.njk line 83) | Active |
+| `VideoObject` | Pages with `videos` front matter | `{% if videos %}` (base.njk line 91) | Active |
+| `CollectionPage` | Hub pages with `hubSchema` front matter | `{% if hubSchema %}` (base.njk line 96) | Active |
+| `ItemList` (directory) | Directory page | `{% if directorySchema %}` (base.njk line 99) | Active |
 
 ### 2.2 The Hub Page Gap
 

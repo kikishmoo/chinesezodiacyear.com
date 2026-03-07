@@ -12,7 +12,7 @@ Encyclopedia, directory, readings, and news platform for Chinese zodiac, BaZi, f
 | Hosting | GitHub Pages (via GitHub Actions) |
 | Edge Functions | Cloudflare Worker (BaZi calculator proxy) |
 | CMS | [Decap CMS](https://decapcms.org/) v3 (Git-backed) |
-| CSS | Vanilla CSS (~5,260 lines, minified by CleanCSS at build) |
+| CSS | Vanilla CSS (~5,250 lines, minified by CleanCSS at build). Design tokens for colors, spacing, radii, transitions, and gold transparency scale. |
 | JS | Vanilla JS (~1,550 lines across 2 files, minified by Terser at build) |
 | Images | `@11ty/eleventy-img` (WebP/JPEG at 400/800/1200px) |
 | Search | Client-side JSON index with body text excerpts (build-time generated) |
@@ -78,7 +78,7 @@ src/
 ├── readings/               # Yearly zodiac readings (12 files, each unique)
 ├── zodiac/                 # Individual animal pages (12 files)
 ├── img/                    # Images and OG media
-├── styles.css              # Master stylesheet (~5,260 lines)
+├── styles.css              # Master stylesheet (~5,250 lines)
 ├── site.js                 # Main client-side JS (~1,020 lines)
 ├── trivia.js               # Homepage trivia game (72 questions, trilingual)
 ├── search-index.njk        # Build-time JSON search index with body text
@@ -175,7 +175,7 @@ The site uses a **build-time i18n** approach:
 
 The site implements comprehensive SEO:
 
-- **JSON-LD schemas:** Article, FAQPage, BreadcrumbList, HowTo, Product, WebSite, Organization, VideoObject, ItemList
+- **JSON-LD schemas:** Article (with author as Person, articleSection, keywords), FAQPage, BreadcrumbList, HowTo, Product, WebSite, Organization (with logo, sameAs, foundingDate), VideoObject, ItemList, CollectionPage
 - **Meta tags:** Title, description, keywords, canonical, OG (with per-page images), Twitter Cards per page
 - **Sitemap:** XML with hreflang for all 3 languages, priority and changefreq per page type
 - **RSS:** Atom feed at `/feed.xml`
@@ -244,7 +244,7 @@ The site uses a custom domain via GitHub Pages with Cloudflare DNS.
 | A | `@` | `185.199.111.153` |
 | CNAME | `www` | `chinesezodiacyear.com` |
 
-**www redirect:** GitHub Pages handles `www` → non-www redirect when the CNAME file is set to the apex domain and DNS is configured correctly. A client-side JS redirect in `base.njk` serves as a fallback.
+**www redirect:** GitHub Pages handles `www` → non-www redirect when the CNAME file is set to the apex domain and DNS is configured correctly. A client-side JS redirect in `base.njk` serves as the primary fallback, with a `<noscript><meta http-equiv="refresh">` tag for crawlers that do not execute JavaScript.
 
 **Required Cloudflare configuration (server-side 301):**
 

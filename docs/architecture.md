@@ -66,7 +66,7 @@
 | CI/CD              | GitHub Actions                      | `deploy.yml`, triggered on push to `main`  |
 | Serverless API     | Cloudflare Worker                   | BaZi calculator proxy, deployed via Wrangler |
 | CMS                | Decap CMS                           | Git-backed, commits directly to repo       |
-| CSS                | Vanilla CSS                         | ~5,260 lines source, minified via CleanCSS |
+| CSS                | Vanilla CSS                         | ~5,250 lines source, minified via CleanCSS |
 | JavaScript         | Vanilla JS                          | site.js (~1,020 lines) + trivia.js (~526 lines), minified via Terser |
 | Image Processing   | @11ty/eleventy-img                  | WebP + JPEG fallback at 400/800/1200px widths |
 | Node Runtime       | Node.js 20                          | Specified in CI workflow                   |
@@ -891,14 +891,14 @@ The index contains one entry per English page (~213 entries). Chinese variant pa
 
 ### 7.5 CSS Architecture
 
-Single file: `src/css/style.css` (~5,260 lines). No preprocessor, no CSS modules.
+Single file: `src/styles.css` (~5,250 lines). No preprocessor, no CSS modules.
 
 Key sections:
-- CSS custom properties (design tokens for colors, spacing, typography)
-- Dark mode overrides via `.dark-mode` class on `<body>`
+- CSS custom properties (design tokens for colors, spacing, typography, border radii, transitions, gold transparency scale)
+- Dark mode overrides via `[data-theme="dark"]` selector
 - Language visibility rules (`.lang-en`, `.lang-tc`, `.lang-sc` show/hide)
-- Responsive breakpoints: 480px, 768px, 1024px, 1200px
-- Component styles: header, footer, hero, cards, accordion, sidebar, TOC
+- Responsive breakpoints: 500px, 600px, 700px, 800px, 900px
+- Component styles: header, footer, hero, cards, accordion, sidebar, TOC, trivia, shop, directory
 - Print styles
 - Utility classes
 
@@ -1155,7 +1155,7 @@ Image processing via `@11ty/eleventy-img` is cached between builds. First builds
 |--------------------------|--------------------|----------------------------------------------------|
 | Total pages > 1,000     | ~640 (post-i18n)   | Evaluate build time; consider incremental builds    |
 | Search index > 500 entries | ~213            | Move to Pagefind or server-side search              |
-| CSS > 8,000 lines       | ~5,260             | Consider CSS modules or a utility framework         |
+| CSS > 8,000 lines       | ~5,250             | Consider CSS modules or a utility framework         |
 | JS > 3,000 lines        | ~1,546             | Consider ES module splitting with a bundler         |
 | Data files > 20         | 12                 | Current approach is fine                             |
 | Images > 500            | Current count TBD  | Ensure eleventy-img cache is working in CI          |
