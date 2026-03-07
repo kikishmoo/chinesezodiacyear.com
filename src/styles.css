@@ -805,10 +805,10 @@ select.calc-input {
   z-index: 1;
 }
 
-/* Ensure inner interactive elements sit above the stretched link if needed */
+/* The link itself must be static so ::after positions relative to the card, not the link */
 .article-card-body h2 a,
 .card-title a {
-  position: relative;
+  position: static;
 }
 
 .card-image {

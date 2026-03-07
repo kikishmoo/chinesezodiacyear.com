@@ -3,7 +3,7 @@
   <div class="page-hero-content">
     {% if heroOverline %}<span class="overline">{{ heroOverline }}</span>{% endif %}
     <h1>{{ heroTitle | default(title) }}</h1>
-    {% if heroSubtitle %}<p class="subtitle">{{ heroSubtitle }}</p>{% endif %}
+    {% if heroSubtitle %}<p class="subtitle">{{ heroSubtitle | safe }}</p>{% endif %}
   </div>
 </section>
 {% endif %}
