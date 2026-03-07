@@ -625,7 +625,22 @@ The search logic in `site.js` uses weighted field matching:
 
 None currently. The site has no broken SEO elements or critical performance issues.
 
-### P1 -- High Priority
+### Completed Items (March 2026 Sprint)
+
+| Action | Status | Details |
+|--------|--------|---------|
+| **Google Search Console verification** | DONE | Meta tag added via `site.json` → `googleVerification` |
+| **Auto-generated FAQ schema on 30+ pages** | DONE | `eleventyComputed.js` → `autoFaq` property; covers all encyclopedia, zodiac, and year pages |
+| **SEO-optimized title tags** | DONE | 20+ pages updated with long-tail keywords and Chinese characters |
+| **Enriched year pages (121 pages)** | DONE | Sexagenary cycle, element interactions, compatibility, BaZi, FAQ sections |
+| **High-volume landing page** | DONE | `/whats-my-zodiac/` targeting "what is my chinese zodiac sign" |
+| **Premium directory tiers** | DONE | Free/premium/featured tiers in `directory.json` |
+| **Web Vitals monitoring** | DONE | CLS, LCP, FCP, TTFB, INP → GA4 via web-vitals@4 |
+| **GEO optimization** | DONE | `llms.txt` for AI crawlers, robots.txt allows all AI bots |
+| **Image alt text improvement** | DONE | Homepage images updated with descriptive, keyword-rich alt text |
+| **Front-load homepage title keyword** | DONE | Changed to "Chinese Zodiac — Shēngxiào Encyclopedia, Directory & News" |
+
+### P1 -- High Priority (Remaining)
 
 | Action | Issue(s) | Files to Modify | Effort |
 |--------|----------|-----------------|--------|

@@ -19,7 +19,8 @@
     "/hanfu/": ["dynasties", "spring-festival", "folk-arts"],
     "/dynasties/": ["calendar", "hanfu", "folk-arts", "spring-festival", "martial-arts"],
     "/chinamaxxing/": ["zodiac", "fengshui", "tea-culture", "martial-arts"],
-    "/readings/": ["zodiac", "bazi", "wuxing", "compatibility"]
+    "/readings/": ["zodiac", "bazi", "wuxing", "compatibility"],
+    "/whats-my-zodiac/": ["zodiac", "compatibility", "bazi-calculator", "readings", "wuxing", "calendar"]
   },
   "zodiacAnimals": ["rat", "ox", "tiger", "rabbit", "dragon", "snake", "horse", "goat", "monkey", "rooster", "dog", "pig"],
   "sanHe": {
@@ -73,6 +74,7 @@
     "/readings/": "2026 Readings",
     "/directory/": "Directory",
     "/shop/": "Shop",
-    "/news/": "News & Articles"
+    "/news/": "News & Articles",
+    "/whats-my-zodiac/": "What's My Zodiac?"
   }
 }

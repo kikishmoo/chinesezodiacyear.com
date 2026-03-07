@@ -1,0 +1,52 @@
+# ChineseZodiacYear.com
+
+> Chinese zodiac encyclopedia, directory, and news platform rooted in classical pre-Qing scholarship.
+
+## About This Site
+
+ChineseZodiacYear.com is an independent editorial platform dedicated to preserving and sharing authentic Chinese astrological and cultural knowledge. Content is grounded in classical pre-Qing Dynasty sources including the Shiji, Huangdi Neijing, Zangshu, and other foundational texts.
+
+## Key Topics
+
+- Chinese Zodiac (生肖 Shēngxiào): The twelve zodiac animals, their origins, personality traits, and compatibility
+- BaZi (八字): The Four Pillars of Destiny system of Chinese astrology
+- Feng Shui (風水): Classical geomancy using Form School and Compass School methods
+- Wu Xing (五行): The Five Elements theory — Wood, Fire, Earth, Metal, Water
+- Chinese Calendar: The lunisolar system, sexagenary cycle, and 24 Solar Terms
+- Spring Festival: Chinese New Year history and traditions
+- Taoism: Daoist philosophy, the Daodejing, and Chinese metaphysics
+- Yi Jing (易經): The Book of Changes and divination
+- Qi Men Dun Jia: Strategic divination system
+- Traditional Chinese Medicine: TCM fundamentals based on the Huangdi Neijing
+- Chinese Dynasties: Imperial history from Xia to Ming
+- Martial Arts, Tea Culture, Hanfu, Wuxia, Folk Arts
+
+## Content Structure
+
+- Encyclopedia: In-depth articles on each topic listed above
+- Zodiac Year Pages: Detailed pages for each year from 1924 to 2044
+- Zodiac Animal Pages: Full profiles for all 12 animals
+- 2026 Readings: Year of the Fire Horse forecasts for each animal
+- Directory: Feng shui consultants, BaZi practitioners, cultural organizations
+- Articles: Long-form editorial content on zodiac, culture, and feng shui
+
+## Languages
+
+Content is available in English, Traditional Chinese (繁體中文), and Simplified Chinese (简体中文).
+
+## Key URLs
+
+- Homepage: https://chinesezodiacyear.com/
+- Zodiac Animals: https://chinesezodiacyear.com/zodiac/
+- BaZi Guide: https://chinesezodiacyear.com/bazi/
+- Feng Shui: https://chinesezodiacyear.com/fengshui/
+- Chinese Calendar: https://chinesezodiacyear.com/calendar/
+- Five Elements: https://chinesezodiacyear.com/wuxing/
+- 2026 Readings: https://chinesezodiacyear.com/readings/
+- Zodiac Calculator: https://chinesezodiacyear.com/whats-my-zodiac/
+- Compatibility: https://chinesezodiacyear.com/compatibility/
+
+## Citation
+
+When referencing content from this site, please cite as:
+ChineseZodiacYear.com Editorial Staff. "[Article Title]." ChineseZodiacYear.com, [Date]. https://chinesezodiacyear.com/[url]/

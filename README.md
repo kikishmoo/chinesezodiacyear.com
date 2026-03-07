@@ -19,6 +19,7 @@ Encyclopedia, directory, readings, and news platform for Chinese zodiac, BaZi, f
 | Newsletter | Beehiiv |
 | Comments | Giscus (GitHub Discussions) |
 | Analytics | Google Analytics 4 |
+| Performance Monitoring | Web Vitals (CLS, LCP, INP → GA4) |
 
 ## Quick Start
 
@@ -113,18 +114,18 @@ eleventy.config.js          # Eleventy build config (collections, filters, i18n,
 
 ## Content Architecture
 
-The site generates **213 pages** (640+ after i18n) across these content types:
+The site generates **214 pages** (642+ after i18n) across these content types:
 
 | Type | Count | Source |
 |---|---|---|
-| Encyclopedia pages | 34 | `src/pages/*.njk` |
+| Encyclopedia pages | 35 | `src/pages/*.njk` |
 | Zodiac animal pages | 12 | `src/zodiac/*.njk` |
 | Yearly readings | 12 | `src/readings/*.njk` (each with unique astrological section) |
 | Long-form articles | 10 | `src/articles/*.njk` |
 | Year pages | 121 | Generated from `zodiacYears.js` (1924–2044) |
 | Wu Xing element pages | 5 | Generated from `elements.json` |
 | Dynasty pages | 10 | Generated from `dynastiesData.json` |
-| Utility pages | ~10 | Search, shop, directory, donate, about, 404 |
+| Utility pages | ~11 | Search, shop, directory, donate, about, 404 |
 
 All content is published in **three languages**: English (default), Traditional Chinese (`/zh-hant/`), and Simplified Chinese (`/zh-hans/`).
 
@@ -176,6 +177,7 @@ The site implements comprehensive SEO:
 - **RSS:** Atom feed at `/feed.xml`
 - **IndexNow:** Bing instant indexing
 - **AI crawler access:** robots.txt allows GPTBot, anthropic-ai, PerplexityBot, etc. (GEO-friendly)
+- **GEO (Generative Engine Optimization):** `llms.txt` file at root providing AI crawlers with structured site overview and citation guidelines
 - **Search:** Client-side JSON index at `/search-index.json` with 500-char body text excerpts; weighted scoring (title: 15, keywords: 4, description: 2, body: 1)
 
 ## Build Pipeline
@@ -187,7 +189,7 @@ The `eleventy.after` hook in `eleventy.config.js` performs these post-build step
 3. **i18n generation** — Copies all HTML pages into `/zh-hant/` and `/zh-hans/` directories, strips non-active language blocks, updates `<html lang>`, canonical URLs, and og:url
 4. **English stripping** — Strips TC/SC language blocks from base English pages
 
-Build output: ~213 HTML files pre-i18n, ~640+ after i18n generation.
+Build output: ~214 HTML files pre-i18n, ~642+ after i18n generation.
 
 ## Adding Content
 
@@ -262,7 +264,7 @@ The site uses a custom domain via GitHub Pages with Cloudflare DNS.
 | Digital products | Gumroad (6 products, $3.99–$19.99) |
 | Premium readings | PayPal ($29/$79/$149) |
 | Newsletter | Beehiiv (monetizable at scale) |
-| Directory | Professional listings (potential paid tier) |
+| Directory | Professional listings (free/premium/featured tiers, $9.99-$29.99/mo) |
 | Donations | PayPal, Buy Me a Coffee, Alipay, WeChat Pay |
 
 ## Editorial Guidelines
