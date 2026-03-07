@@ -4,13 +4,14 @@ eleventyExcludeFromCollections: true
 ---
 [
 {%- for item in collections.all %}
-{%- if item.url and item.url != "/search/" and item.url != "/404.html" and item.url != "/sitemap.xml" and item.data.title %}
+{%- if item.url and item.url != "/search/" and item.url != "/404.html" and item.url != "/sitemap.xml" and item.url != "/feed.xml" and item.data.title %}
   {
     "url": {{ item.url | jsonify | safe }},
     "title": {{ item.data.title | jsonify | safe }},
     "description": {{ (item.data.description or "") | jsonify | safe }},
     "category": {{ (item.data.category or "") | jsonify | safe }},
-    "keywords": {{ (item.data.keywords or "") | jsonify | safe }}
+    "keywords": {{ (item.data.keywords or "") | jsonify | safe }},
+    "body": {{ item.content | striptags | truncate(500) | jsonify | safe }}
   }{% if not loop.last %},{% endif %}
 {%- endif %}
 {%- endfor %}

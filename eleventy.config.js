@@ -133,6 +133,25 @@ export default function(eleventyConfig) {
   // Limit filter for arrays
   eleventyConfig.addFilter("limit", (arr, count) => arr.slice(0, count));
 
+  // Strip HTML tags from content (for search index)
+  eleventyConfig.addFilter("striptags", (str) => {
+    if (!str) return "";
+    return String(str)
+      .replace(/<[^>]*>/g, " ")          // Remove HTML tags
+      .replace(/\{[%{].*?[%}]\}/g, " ")  // Remove Nunjucks tags
+      .replace(/&[a-zA-Z]+;/g, " ")      // Remove HTML entities
+      .replace(/\s+/g, " ")              // Collapse whitespace
+      .trim();
+  });
+
+  // Truncate string to N characters (for search index body text)
+  eleventyConfig.addFilter("truncate", (str, len) => {
+    if (!str) return "";
+    const s = String(str);
+    if (s.length <= len) return s;
+    return s.substring(0, len);
+  });
+
   // Watch targets
   eleventyConfig.addWatchTarget("src/styles.css");
   eleventyConfig.addWatchTarget("src/site.js");

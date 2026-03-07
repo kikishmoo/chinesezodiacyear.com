@@ -414,11 +414,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const title = (item.title || '').toLowerCase();
       const desc = (item.description || '').toLowerCase();
       const keywords = (item.keywords || '').toLowerCase();
+      const body = (item.body || '').toLowerCase();
       for (const t of terms) {
         if (title.includes(t)) score += 10;
         if (title.startsWith(t) || title.includes(' ' + t)) score += 5;
         if (keywords.includes(t)) score += 4;
         if (desc.includes(t)) score += 2;
+        if (body.includes(t)) score += 1;
       }
       return score;
     };
