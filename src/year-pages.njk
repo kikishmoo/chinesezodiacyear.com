@@ -6,12 +6,12 @@ pagination:
 layout: "layouts/base.njk"
 permalink: "/zodiac-year/{{ yearData.year }}/"
 eleventyComputed:
-  title: "Chinese Zodiac {{ yearData.year }} — Year of the {{ yearData.element }} {{ yearData.animal }}"
-  description: "{{ yearData.year }} is the Year of the {{ yearData.element }} {{ yearData.animal }} ({{ yearData.animalCn }}) in the Chinese zodiac. Learn about personality traits, compatibility, lucky elements, heavenly stem {{ yearData.stem }}, and cultural significance."
-  keywords: "chinese zodiac {{ yearData.year }}, year of the {{ yearData.animal }} {{ yearData.year }}, {{ yearData.element }} {{ yearData.animal }}, {{ yearData.animalCn }}, {{ yearData.animal }} zodiac personality"
+  title: "{{ yearData.year }} Chinese Zodiac — Year of the {{ yearData.element }} {{ yearData.animal }} ({{ yearData.pillarCn }})"
+  description: "{{ yearData.year }} is the Year of the {{ yearData.element }} {{ yearData.animal }} ({{ yearData.animalCn }}) in the Chinese zodiac. Heavenly Stem {{ yearData.stem }}, Earthly Branch {{ yearData.branch }} ({{ yearData.branchCn }}). Personality traits, compatibility, lucky elements, and BaZi analysis."
+  keywords: "chinese zodiac {{ yearData.year }}, year of the {{ yearData.animal }} {{ yearData.year }}, {{ yearData.element }} {{ yearData.animal }}, {{ yearData.animalCn }}, {{ yearData.pillarCn }}, {{ yearData.year }} zodiac sign, what animal is {{ yearData.year }}"
   ogType: "article"
   datePublished: "2026-03-05"
-  dateModified: "2026-03-05"
+  dateModified: "2026-03-07"
 breadcrumbs:
   - label: "Home"
     url: "/"
@@ -24,8 +24,8 @@ breadcrumbs:
 <section class="page-hero">
   <div class="page-hero-content">
     <span class="overline">Chinese Zodiac Year</span>
-    <h1><span style="font-size:0.7em;">{{ yearData.year }}:</span> {{ yearData.element }} {{ yearData.animal }} <span class="chinese-char">{{ yearData.animalCn }}</span></h1>
-    <p class="subtitle">{{ yearData.yinYang }} {{ yearData.element }} &middot; Heavenly Stem: {{ yearData.stem }}</p>
+    <h1><span style="font-size:0.7em;">{{ yearData.year }}:</span> {{ yearData.element }} {{ yearData.animal }} <span class="chinese-char">{{ yearData.pillarCn }} · {{ yearData.animalCn }}</span></h1>
+    <p class="subtitle">{{ yearData.yinYang }} {{ yearData.element }} · {{ yearData.stem }} · Earthly Branch: {{ yearData.branch }} ({{ yearData.branchCn }})</p>
   </div>
 </section>
 
@@ -46,33 +46,43 @@ breadcrumbs:
             {%- if yearData.element == "Wood" %}🌳{% elif yearData.element == "Fire" %}🔥{% elif yearData.element == "Earth" %}🏔️{% elif yearData.element == "Metal" %}⚔️{% elif yearData.element == "Water" %}💧{% endif -%}
           </span>
           <div class="info-card-value">{{ yearData.element }}</div>
-          <div class="info-card-label">{{ yearData.elementCn }} &middot; {{ yearData.yinYang }}</div>
+          <div class="info-card-label">{{ yearData.elementCn }} · {{ yearData.yinYang }}</div>
           <div class="info-card-desc">Heavenly Stem: {{ yearData.stem }}</div>
         </div>
         <div class="info-card">
           <span class="info-card-icon">📅</span>
-          <div class="info-card-value">{{ yearData.year }}</div>
-          <div class="info-card-label">Gregorian Year</div>
-          <div class="info-card-desc">Chinese zodiac year begins at Lichun (立春)</div>
+          <div class="info-card-value">{{ yearData.pillarCn }}</div>
+          <div class="info-card-label">{{ yearData.pillar | capitalize }}</div>
+          <div class="info-card-desc">Stem-Branch Pillar (#{{ ((yearData.year - 4) % 60 + 60) % 60 + 1 }} of 60)</div>
         </div>
       </div>
 
-      <p>{{ yearData.year }} is the <strong>Year of the {{ yearData.element }} {{ yearData.animal }}</strong> (<span class="chinese-char">{{ yearData.elementCn }}{{ yearData.animalCn }}</span>) in the Chinese zodiac. This is a <strong>{{ yearData.yinYang }} {{ yearData.element }}</strong> year, governed by the Heavenly Stem <strong>{{ yearData.stem }}</strong>.</p>
+      <p><strong>{{ yearData.year }}</strong> is the <strong>Year of the {{ yearData.element }} {{ yearData.animal }}</strong> (<span class="chinese-char">{{ yearData.elementCn }}{{ yearData.animalCn }}</span>, {{ yearData.pillarCn }}) in the Chinese zodiac. This is a <strong>{{ yearData.yinYang }} {{ yearData.element }}</strong> year, governed by the Heavenly Stem <strong>{{ yearData.stem }}</strong> and the Earthly Branch <strong>{{ yearData.branch }} ({{ yearData.branchCn }})</strong>.</p>
 
-      <p>In the traditional Chinese calendar, the zodiac year does not begin on January 1st. The Chinese zodiac year in BaZi (Four Pillars of Destiny) tradition starts at <strong>Lichun (立春)</strong>, the "Start of Spring" solar term, which typically falls on February 3rd, 4th, or 5th. People born before Lichun in {{ yearData.year }} belong to the previous zodiac year.</p>
+      <p>In the sexagenary cycle (六十甲子), {{ yearData.year }} occupies position <strong>#{{ ((yearData.year - 4) % 60 + 60) % 60 + 1 }}</strong> of 60. The cycle has been used continuously since the Shang Dynasty (c. 1600 BCE) to count years, and it takes 60 years to complete one full revolution.</p>
+
+      <p>In the traditional Chinese calendar, the zodiac year in BaZi (Four Pillars of Destiny) tradition starts at <strong>Lichun (立春)</strong>, the "Start of Spring" solar term, which typically falls on February 3rd, 4th, or 5th. People born before Lichun in {{ yearData.year }} belong to the previous zodiac year.</p>
 
       <div class="callout-box" style="margin:var(--sp-xl) 0;">
         <span class="callout-box-icon">🔮</span>
         <div class="callout-box-content">
           <h4>Find Your Exact Zodiac Animal</h4>
-          <p>Born near the Chinese New Year boundary? Use our <a href="/zodiac/">zodiac calculator</a> with your full birth date to determine your exact zodiac animal, accounting for the Lichun solar boundary.</p>
+          <p>Born near the Chinese New Year boundary? Use our <a href="/#calculator">zodiac calculator</a> with your full birth date to determine your exact zodiac animal, accounting for the Lichun solar boundary.</p>
         </div>
       </div>
     </section>
 
     <section id="element">
       <h2>{{ yearData.element }} Element ({{ yearData.elementCn }}) in {{ yearData.year }}</h2>
-      <p>The {{ yearData.element }} element combines with the {{ yearData.animal }}'s fixed element to create the unique energy signature of {{ yearData.year }}. In Wu Xing (Five Elements) theory, {{ yearData.element }} interacts with the {{ yearData.animal }}'s innate qualities to produce distinct personality characteristics for people born in this year.</p>
+      <p>The {{ yearData.element }} element from the Heavenly Stem combines with the {{ yearData.animal }}'s <strong>fixed element of {{ yearData.fixedElement }} ({{ yearData.fixedElementCn }})</strong> to create the unique energy signature of {{ yearData.year }}. In Wu Xing (Five Elements) theory, these two elements interact through the generating (相生) and overcoming (相剋) cycles.</p>
+
+      {% if yearData.element == yearData.fixedElement %}
+      <p>Since the yearly element ({{ yearData.element }}) matches the {{ yearData.animal }}'s innate element ({{ yearData.fixedElement }}), {{ yearData.year }} is a year of <strong>doubled elemental energy</strong> — the {{ yearData.animal }}'s natural qualities are amplified and intensified. This can bring both enhanced strengths and exaggerated challenges.</p>
+      {% elif yearData.element == "Wood" and yearData.fixedElement == "Fire" or yearData.element == "Fire" and yearData.fixedElement == "Earth" or yearData.element == "Earth" and yearData.fixedElement == "Metal" or yearData.element == "Metal" and yearData.fixedElement == "Water" or yearData.element == "Water" and yearData.fixedElement == "Wood" %}
+      <p>The yearly {{ yearData.element }} element <strong>generates</strong> the {{ yearData.animal }}'s innate {{ yearData.fixedElement }} element in the productive cycle (相生). This creates a harmonious flow of energy — the Heavenly Stem supports and nourishes the animal's natural strengths.</p>
+      {% else %}
+      <p>The {{ yearData.element }} element interacts with the {{ yearData.animal }}'s innate {{ yearData.fixedElement }} element, creating a dynamic tension between the year's Heavenly Stem energy and the animal's core nature. Understanding this interplay is key to navigating the year's opportunities and challenges.</p>
+      {% endif %}
 
       <p>The <strong>{{ yearData.element }} {{ yearData.animal }}</strong> carries <strong>{{ yearData.yinYang }}</strong> polarity. In Chinese cosmology, {{ yearData.yinYang }} energy represents {% if yearData.yinYang == "Yang" %}active, expansive, and outward-directed force — initiative, leadership, and bold action{% else %}receptive, inward, and reflective force — diplomacy, intuition, and careful cultivation{% endif %}.</p>
 
@@ -80,28 +90,86 @@ breadcrumbs:
     </section>
 
     <section id="personality">
-      <h2>{{ yearData.animal }} Personality Traits</h2>
+      <h2>{{ yearData.element }} {{ yearData.animal }} Personality Traits</h2>
       <p>People born in the Year of the {{ yearData.animal }} (<span class="chinese-char">{{ yearData.animalCn }}</span>) share core zodiac traits that are modulated by the {{ yearData.element }} element. For a comprehensive analysis of {{ yearData.animal }} personality, compatibility, career strengths, and cultural significance, see our full <a href="/zodiac/{{ yearData.slug }}/">{{ yearData.animal }} zodiac profile</a>.</p>
 
       <p>The {{ yearData.element }} {{ yearData.animal }} of {{ yearData.year }} has distinct characteristics compared to other elemental variations of the {{ yearData.animal }}. The {{ yearData.element }} influence {% if yearData.element == "Wood" %}adds growth-oriented vision, flexibility, and creative idealism{% elif yearData.element == "Fire" %}amplifies passion, charisma, and bold expressiveness{% elif yearData.element == "Earth" %}brings stability, pragmatism, and grounded reliability{% elif yearData.element == "Metal" %}sharpens determination, discipline, and principled resolve{% elif yearData.element == "Water" %}deepens intuition, adaptability, and emotional intelligence{% endif %} to the {{ yearData.animal }}'s core nature.</p>
+
+      <p>The {{ yearData.animal }}'s fixed element is <strong>{{ yearData.fixedElement }}</strong>, so the {{ yearData.element }} {{ yearData.animal }} blends {{ yearData.element }} qualities with {{ yearData.fixedElement }} foundations — creating a personality that is both {% if yearData.element == "Wood" %}visionary and {% elif yearData.element == "Fire" %}dynamic and {% elif yearData.element == "Earth" %}practical and {% elif yearData.element == "Metal" %}disciplined and {% elif yearData.element == "Water" %}adaptable and {% endif %}{% if yearData.fixedElement == "Wood" %}growth-oriented{% elif yearData.fixedElement == "Fire" %}passionate{% elif yearData.fixedElement == "Earth" %}stable{% elif yearData.fixedElement == "Metal" %}principled{% elif yearData.fixedElement == "Water" %}intuitive{% endif %}.</p>
     </section>
 
     <section id="compatibility">
-      <h2>Compatibility for {{ yearData.year }} {{ yearData.animal }}</h2>
-      <p>Zodiac compatibility in Chinese astrology is determined by the animal sign, not the element. The {{ yearData.animal }}'s key compatibility relationships include:</p>
+      <h2>{{ yearData.year }} {{ yearData.animal }} Compatibility</h2>
+      <p>Zodiac compatibility in Chinese astrology is determined by the Earthly Branch (animal sign), not the Heavenly Stem (element). The {{ yearData.animal }}'s key compatibility relationships:</p>
+
+      <div class="info-grid" style="margin:var(--sp-lg) 0;">
+        <div class="info-card">
+          <span class="info-card-icon">🤝</span>
+          <div class="info-card-value">San He 三合</div>
+          <div class="info-card-label">Zodiac Trio</div>
+          <div class="info-card-desc">{{ yearData.animal }}, {{ yearData.sanHe[0] | capitalize }}, {{ yearData.sanHe[1] | capitalize }}</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-icon">💑</span>
+          <div class="info-card-value">Liu He 六合</div>
+          <div class="info-card-label">Secret Friend</div>
+          <div class="info-card-desc">{{ yearData.liuHe | capitalize }}</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-icon">⚡</span>
+          <div class="info-card-value">Liu Chong 六衝</div>
+          <div class="info-card-label">Direct Clash</div>
+          <div class="info-card-desc">{{ yearData.clash | capitalize }}</div>
+        </div>
+      </div>
+
       <ul>
-        <li><strong>San He (三合) — Zodiac Trio:</strong> The {{ yearData.animal }} forms a harmonious triad with two other animals, creating natural cooperation and shared goals.</li>
-        <li><strong>Liu He (六合) — Secret Friend:</strong> The {{ yearData.animal }} has a "secret friend" pairing that creates deep, intuitive understanding.</li>
-        <li><strong>Six Clash (六衝):</strong> The animal directly opposite on the zodiac wheel may create tension but also complementary growth.</li>
+        <li><strong>San He (三合) — Zodiac Trio:</strong> The {{ yearData.animal }} forms a harmonious triad with the <a href="/zodiac/{{ yearData.sanHe[0] }}/">{{ yearData.sanHe[0] | capitalize }}</a> and the <a href="/zodiac/{{ yearData.sanHe[1] }}/">{{ yearData.sanHe[1] | capitalize }}</a>, creating natural cooperation and shared goals.</li>
+        <li><strong>Liu He (六合) — Secret Friend:</strong> The {{ yearData.animal }}'s "secret friend" is the <a href="/zodiac/{{ yearData.liuHe }}/">{{ yearData.liuHe | capitalize }}</a>, a pairing that creates deep, intuitive understanding.</li>
+        <li><strong>Six Clash (六衝):</strong> The <a href="/zodiac/{{ yearData.clash }}/">{{ yearData.clash | capitalize }}</a> sits directly opposite the {{ yearData.animal }} on the zodiac wheel. This creates tension but also complementary growth potential.</li>
       </ul>
       <p>Use our <a href="/compatibility/">compatibility checker</a> to explore your specific relationship dynamics, or read the full <a href="/zodiac/{{ yearData.slug }}/">{{ yearData.animal }} compatibility guide</a>.</p>
     </section>
 
     <section id="bazi">
       <h2>{{ yearData.year }} in BaZi (Four Pillars)</h2>
-      <p>In BaZi (八字) astrology, {{ yearData.year }} contributes the <strong>Year Pillar</strong> of <strong>{{ yearData.stem.split(' ')[0] }}-{{ yearData.animal }}</strong> ({{ yearData.stem.split(' ')[1] }}{{ yearData.animalCn }}) to your Four Pillars chart. The Year Pillar represents your relationship with society, your ancestral influence, and your public persona.</p>
+      <p>In <a href="/bazi/">BaZi (八字)</a> astrology, {{ yearData.year }} contributes the <strong>Year Pillar</strong> of <strong>{{ yearData.pillarCn }}</strong> ({{ yearData.pillar | capitalize }}) to your Four Pillars chart. This pillar pairs the Heavenly Stem <strong>{{ yearData.stem.split(' ')[1] }} ({{ yearData.stem.split(' ')[0] }})</strong> with the Earthly Branch <strong>{{ yearData.branchCn }} ({{ yearData.branch }})</strong>.</p>
+
+      <p>The Year Pillar represents your relationship with society, your ancestral influence, and your public persona. It is the outermost of the four pillars and shapes how others perceive you and how you relate to the broader world.</p>
 
       <p>For a complete BaZi analysis that includes all four pillars (Year, Month, Day, and Hour), use our <a href="/bazi-calculator/">BaZi calculator</a> or learn more about the <a href="/bazi/">Four Pillars of Destiny system</a>.</p>
+    </section>
+
+    <section id="sexagenary">
+      <h2>The Sexagenary Cycle Position</h2>
+      <p>{{ yearData.year }} is position <strong>#{{ ((yearData.year - 4) % 60 + 60) % 60 + 1 }}</strong> in the <a href="/calendar/">sexagenary cycle</a> (六十甲子, liùshí jiǎzǐ). The cycle combines 10 Heavenly Stems with 12 Earthly Branches to produce 60 unique stem-branch pairs. Since 10 and 12 share a common factor of 2, only 60 (not 120) combinations occur.</p>
+      <p>The same {{ yearData.pillarCn }} pillar last appeared in <strong>{{ yearData.year - 60 }}</strong> and will next appear in <strong>{{ yearData.year + 60 }}</strong>. The same {{ yearData.animal }} animal (but with a different element) last appeared in <strong>{{ yearData.year - 12 }}</strong> and will next appear in <strong>{{ yearData.year + 12 }}</strong>.</p>
+    </section>
+
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What Chinese zodiac animal is {{ yearData.year }}?</button>
+          <div class="faq-answer"><p>{{ yearData.year }} is the Year of the {{ yearData.element }} {{ yearData.animal }} ({{ yearData.elementCn }}{{ yearData.animalCn }}, {{ yearData.pillarCn }}). It is a {{ yearData.yinYang }} {{ yearData.element }} year governed by the Heavenly Stem {{ yearData.stem }} and the Earthly Branch {{ yearData.branch }} ({{ yearData.branchCn }}).</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What element is the {{ yearData.animal }} in {{ yearData.year }}?</button>
+          <div class="faq-answer"><p>The {{ yearData.year }} {{ yearData.animal }} is associated with the {{ yearData.element }} element ({{ yearData.elementCn }}) from its Heavenly Stem. The {{ yearData.animal }}'s fixed innate element is {{ yearData.fixedElement }} ({{ yearData.fixedElementCn }}). Together, these create the {{ yearData.element }} {{ yearData.animal }}'s unique personality characteristics.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Who is the {{ yearData.year }} {{ yearData.animal }} most compatible with?</button>
+          <div class="faq-answer"><p>The {{ yearData.animal }} is most compatible with the {{ yearData.sanHe[0] | capitalize }} and {{ yearData.sanHe[1] | capitalize }} (San He trio, 三合) and the {{ yearData.liuHe | capitalize }} (Liu He secret friend, 六合). The {{ yearData.animal }} may experience tension with the {{ yearData.clash | capitalize }} (Six Clash, 六衝).</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">When does the {{ yearData.year }} Chinese zodiac year start?</button>
+          <div class="faq-answer"><p>In BaZi (Four Pillars) astrology, the {{ yearData.year }} zodiac year begins at Lichun (立春, Start of Spring), typically February 3-5. The popular Chinese New Year date (between January 21 and February 20) is used in folk tradition. People born before Lichun in {{ yearData.year }} belong to the previous year's zodiac animal.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What are the personality traits of people born in {{ yearData.year }}?</button>
+          <div class="faq-answer"><p>People born in {{ yearData.year }} are {{ yearData.element }} {{ yearData.animal }}s — combining the {{ yearData.animal }}'s core traits with {{ yearData.element }} energy. The {{ yearData.element }} influence {% if yearData.element == "Wood" %}adds vision, flexibility, and creative idealism{% elif yearData.element == "Fire" %}amplifies passion, charisma, and boldness{% elif yearData.element == "Earth" %}brings stability, pragmatism, and reliability{% elif yearData.element == "Metal" %}sharpens determination, discipline, and resolve{% elif yearData.element == "Water" %}deepens intuition, adaptability, and emotional intelligence{% endif %}. See our full <a href="/zodiac/{{ yearData.slug }}/">{{ yearData.animal }} profile</a> for detailed traits.</p></div>
+        </div>
+      </div>
     </section>
 
     <section id="other-years">
@@ -111,10 +179,10 @@ breadcrumbs:
         {%- set animalYears = zodiacYears | selectattr("animal", "equalto", yearData.animal) -%}
         {%- for y in animalYears -%}
         {%- if y.year != yearData.year %}
-        <a href="/zodiac-year/{{ y.year }}/" class="info-card" style="text-decoration:none;{% if y.year == yearData.year %}border:2px solid var(--imperial-gold);{% endif %}">
+        <a href="/zodiac-year/{{ y.year }}/" class="info-card" style="text-decoration:none;">
           <div class="info-card-value">{{ y.year }}</div>
           <div class="info-card-label">{{ y.element }} {{ y.animal }}</div>
-          <div class="info-card-desc">{{ y.elementCn }}{{ y.animalCn }} &middot; {{ y.yinYang }}</div>
+          <div class="info-card-desc">{{ y.pillarCn }} · {{ y.yinYang }}</div>
         </a>
         {%- endif -%}
         {%- endfor %}
@@ -125,11 +193,15 @@ breadcrumbs:
       <h2 id="related-heading">Continue Exploring</h2>
       <div class="related-grid">
         <a href="/zodiac/{{ yearData.slug }}/" class="related-card">
-          <span class="related-card-label">{{ yearData.animal }} &mdash; Full Profile</span>
+          <span class="related-card-label">{{ yearData.animal }} — Full Profile</span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        <a href="/readings/2026-{{ yearData.slug }}/" class="related-card">
+          <span class="related-card-label">2026 {{ yearData.animal }} Reading</span>
           <span class="related-card-arrow">&rarr;</span>
         </a>
         <a href="/wuxing/" class="related-card">
-          <span class="related-card-label">Wu Xing &mdash; Five Elements</span>
+          <span class="related-card-label">Wu Xing — Five Elements</span>
           <span class="related-card-arrow">&rarr;</span>
         </a>
         <a href="/compatibility/" class="related-card">
@@ -140,14 +212,26 @@ breadcrumbs:
           <span class="related-card-label">BaZi Calculator</span>
           <span class="related-card-arrow">&rarr;</span>
         </a>
-        <a href="/zodiac/" class="related-card">
-          <span class="related-card-label">All Zodiac Animals</span>
-          <span class="related-card-arrow">&rarr;</span>
-        </a>
         <a href="/calendar/" class="related-card">
           <span class="related-card-label">Chinese Calendar</span>
           <span class="related-card-arrow">&rarr;</span>
         </a>
+        <a href="/zodiac/" class="related-card">
+          <span class="related-card-label">All Zodiac Animals</span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        {% if yearData.year > 1924 %}
+        <a href="/zodiac-year/{{ yearData.year - 1 }}/" class="related-card">
+          <span class="related-card-label">{{ yearData.year - 1 }} Zodiac Year</span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        {% endif %}
+        {% if yearData.year < 2044 %}
+        <a href="/zodiac-year/{{ yearData.year + 1 }}/" class="related-card">
+          <span class="related-card-label">{{ yearData.year + 1 }} Zodiac Year</span>
+          <span class="related-card-arrow">&rarr;</span>
+        </a>
+        {% endif %}
       </div>
     </nav>
 
@@ -162,8 +246,26 @@ breadcrumbs:
         <li><a href="#personality">Personality</a></li>
         <li><a href="#compatibility">Compatibility</a></li>
         <li><a href="#bazi">BaZi</a></li>
+        <li><a href="#sexagenary">Sexagenary Cycle</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#other-years">Other {{ yearData.animal }} Years</a></li>
       </ul>
+    </div>
+
+    <div class="sidebar-widget">
+      <h3 class="sidebar-heading">Key Data</h3>
+      <div style="font-size:0.9rem;line-height:1.6;">
+        <div><strong>Animal:</strong> {{ yearData.animal }} ({{ yearData.animalCn }})</div>
+        <div><strong>Element:</strong> {{ yearData.element }} ({{ yearData.elementCn }})</div>
+        <div><strong>Polarity:</strong> {{ yearData.yinYang }}</div>
+        <div><strong>Stem:</strong> {{ yearData.stem }}</div>
+        <div><strong>Branch:</strong> {{ yearData.branch }} ({{ yearData.branchCn }})</div>
+        <div><strong>Pillar:</strong> {{ yearData.pillarCn }}</div>
+        <div><strong>Fixed Element:</strong> {{ yearData.fixedElement }} ({{ yearData.fixedElementCn }})</div>
+        <div><strong>San He Allies:</strong> {{ yearData.sanHe[0] | capitalize }}, {{ yearData.sanHe[1] | capitalize }}</div>
+        <div><strong>Secret Friend:</strong> {{ yearData.liuHe | capitalize }}</div>
+        <div><strong>Clash:</strong> {{ yearData.clash | capitalize }}</div>
+      </div>
     </div>
 
     <div class="sidebar-widget">
@@ -172,6 +274,7 @@ breadcrumbs:
       <a href="/readings/2026-{{ yearData.slug }}/" style="display:block;margin-bottom:0.5rem;">2026 {{ yearData.animal }} Reading</a>
       <a href="/bazi/" style="display:block;margin-bottom:0.5rem;">BaZi & Four Pillars</a>
       <a href="/wuxing/" style="display:block;margin-bottom:0.5rem;">Five Elements</a>
+      <a href="/calendar/" style="display:block;margin-bottom:0.5rem;">Chinese Calendar</a>
     </div>
 
     {% if site.adsenseEnabled %}

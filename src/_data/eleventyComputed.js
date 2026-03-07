@@ -430,6 +430,35 @@ export default {
       ];
     }
 
+    // --- Year pages: /zodiac-year/{year}/ ---
+    const yearMatch = currentUrl.match(/^\/zodiac-year\/(\d+)\/$/);
+    if (yearMatch) {
+      const year = parseInt(yearMatch[1]);
+      const animalIdx = ((year - 4) % 12 + 12) % 12;
+      const stemIdx = ((year - 4) % 10 + 10) % 10;
+      const animalNames = ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+      const elementNames = ['Wood','Wood','Fire','Fire','Earth','Earth','Metal','Metal','Water','Water'];
+      const animal = animalNames[animalIdx];
+      const element = elementNames[stemIdx];
+      const fixedElements = ['Water','Earth','Wood','Wood','Earth','Fire','Fire','Earth','Metal','Metal','Earth','Water'];
+      const fixedEl = fixedElements[animalIdx];
+      const sanHeMap = {rat:['Dragon','Monkey'],ox:['Snake','Rooster'],tiger:['Horse','Dog'],rabbit:['Goat','Pig'],dragon:['Rat','Monkey'],snake:['Ox','Rooster'],horse:['Tiger','Dog'],goat:['Rabbit','Pig'],monkey:['Rat','Dragon'],rooster:['Ox','Snake'],dog:['Tiger','Horse'],pig:['Rabbit','Goat']};
+      const clashMap = {rat:'Horse',ox:'Goat',tiger:'Monkey',rabbit:'Rooster',dragon:'Dog',snake:'Pig',horse:'Rat',goat:'Ox',monkey:'Tiger',rooster:'Rabbit',dog:'Dragon',pig:'Snake'};
+      const liuHeMap = {rat:'Ox',ox:'Rat',tiger:'Pig',rabbit:'Dog',dragon:'Rooster',snake:'Monkey',horse:'Goat',goat:'Horse',monkey:'Snake',rooster:'Dragon',dog:'Rabbit',pig:'Tiger'};
+      const key = animal.toLowerCase();
+      const allies = sanHeMap[key] || [];
+      const clash = clashMap[key] || '';
+      const friend = liuHeMap[key] || '';
+
+      return [
+        {q: `What Chinese zodiac animal is ${year}?`, a: `${year} is the Year of the ${element} ${animal} in the Chinese zodiac. It is governed by the Heavenly Stem and Earthly Branch combination that produces ${element} energy with ${animal} characteristics.`},
+        {q: `What element is the ${animal} in ${year}?`, a: `The ${year} ${animal} is associated with the ${element} element from its Heavenly Stem. The ${animal}'s fixed innate element is ${fixedEl}. Together, these create the ${element} ${animal}'s unique characteristics.`},
+        {q: `Who is the ${year} ${animal} most compatible with?`, a: `The ${animal} is most compatible with the ${allies[0]} and ${allies[1]} (San He trio) and the ${friend} (Liu He secret friend). The ${animal} may experience tension with the ${clash} (Six Clash).`},
+        {q: `When does the ${year} Chinese zodiac year start?`, a: `In BaZi astrology, the ${year} zodiac year begins at Lichun (Start of Spring), typically February 3-5. People born before Lichun in ${year} belong to the previous year's zodiac animal.`},
+        {q: `What are the personality traits of people born in ${year}?`, a: `People born in ${year} are ${element} ${animal}s, combining the ${animal}'s core traits with ${element} elemental energy. See the full ${animal} zodiac profile for detailed personality analysis.`}
+      ];
+    }
+
     return null;
   },
 };
