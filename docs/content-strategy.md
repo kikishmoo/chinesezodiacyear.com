@@ -134,7 +134,7 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 | Encyclopedia/utility pages | 34 | `src/pages/*.njk` |
 | Zodiac animal profiles | 12 | `src/zodiac/*.njk` |
 | 2026 yearly readings | 12 | `src/readings/2026-*.njk` |
-| Long-form articles | 15 | `src/articles/*.njk` |
+| Long-form articles | 16 | `src/articles/*.njk` |
 | Year pages (data-generated) | 121 | `src/year-pages.njk` + `zodiacYears.js` |
 | Wu Xing element sub-pages | 5 | `src/wuxing-pages.njk` + `elements.json` |
 | Dynasty sub-pages | 10 | `src/dynasty-pages.njk` + `dynastiesData.json` |
@@ -158,7 +158,7 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 **News/content aggregation:**
 - `news.njk`, `news-category.njk`, `asian-new-year.njk`, `asian-new-year-redirect.njk`
 
-### 2.3 Long-Form Articles (15)
+### 2.3 Long-Form Articles (16)
 
 | Article | Slug | Category Focus |
 |---------|------|----------------|
@@ -172,6 +172,12 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 | Fire Horse 1966 & 2026 | `fire-horse-1966-2026` | Historical/cultural |
 | Lucky Colors & Numbers 2026 | `lucky-colors-numbers-2026` | Yearly outlook |
 | Zodiac Years Chart | `zodiac-years-chart` | Reference/utility |
+| Chinese Zodiac Elements Guide | `chinese-zodiac-elements-guide` | Zodiac/Wu Xing |
+| Heavenly Stems & Earthly Branches | `heavenly-stems-earthly-branches` | Culture/calendar |
+| Chinese Zodiac Personality Traits | `chinese-zodiac-personality-traits` | Zodiac profiles |
+| Feng Shui Bedroom Guide | `feng-shui-bedroom-guide` | Feng shui practical |
+| BaZi Reading Guide | `bazi-reading-guide` | BaZi education |
+| Qingming Festival Guide | `qingming-festival-guide` | Culture/festival |
 
 ### 2.4 Trivia Quiz (219 Questions, 15 Sections)
 
@@ -639,7 +645,7 @@ chinesezodiacyear.com
 +-- /chinamaxxing/              [Cultural topic]
 +-- /qimen/                     [Cultural topic]
 |
-+-- /articles/                  [15 long-form articles]
++-- /articles/                  [16 long-form articles]
 |   +-- article-2026-horse
 |   +-- bazi-four-pillars-guide
 |   +-- celebrity-chinese-zodiac-signs
@@ -650,6 +656,12 @@ chinesezodiacyear.com
 |   +-- fire-horse-1966-2026
 |   +-- lucky-colors-numbers-2026
 |   +-- zodiac-years-chart
+|   +-- chinese-zodiac-elements-guide
+|   +-- heavenly-stems-earthly-branches
+|   +-- chinese-zodiac-personality-traits
+|   +-- feng-shui-bedroom-guide
+|   +-- bazi-reading-guide
+|   +-- qingming-festival-guide
 |
 +-- /shop/                      [Digital products]
 +-- /premium-readings/          [Service tiers]

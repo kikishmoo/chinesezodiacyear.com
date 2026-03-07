@@ -74,7 +74,7 @@ src/
 │       ├── email-popup.njk # Exit-intent email capture modal
 │       └── comments.njk    # Giscus GitHub Discussions
 ├── admin/                  # Decap CMS admin panel
-├── articles/               # Long-form articles (15 files)
+├── articles/               # Long-form articles (16 files)
 ├── pages/                  # Encyclopedia and utility pages (34 files)
 ├── readings/               # Yearly zodiac readings (12 files, each unique)
 ├── zodiac/                 # Individual animal pages (12 files)
@@ -122,7 +122,7 @@ scripts/
 
 ## Content Architecture
 
-The site generates **298 pages** (882+ after i18n) across these content types:
+The site generates **299 pages** (885+ after i18n) across these content types:
 
 | Type | Count | Source |
 |---|---|---|
@@ -130,7 +130,7 @@ The site generates **298 pages** (882+ after i18n) across these content types:
 | Zodiac animal pages | 12 | `src/zodiac/*.njk` |
 | Yearly readings | 12 | `src/readings/*.njk` (each with unique astrological section) |
 | Compatibility pair pages | 78 | Generated from `compatibilityPairs.js` (66 unique + 12 same-sign) |
-| Long-form articles | 15 | `src/articles/*.njk` |
+| Long-form articles | 16 | `src/articles/*.njk` |
 | Year pages | 121 | Generated from `zodiacYears.js` (1924–2044) |
 | Wu Xing element pages | 5 | Generated from `elements.json` |
 | Dynasty pages | 10 | Generated from `dynastiesData.json` |
