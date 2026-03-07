@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Canonical domain redirect: www → non-www (GitHub Pages cannot do server-level 301s) -->
+  <!-- JS redirect for browsers; noscript meta-refresh fallback for crawlers that skip JS -->
   <script>if(location.hostname==='www.chinesezodiacyear.com')location.replace('https://chinesezodiacyear.com'+location.pathname+location.search+location.hash);</script>
+  <noscript><meta http-equiv="refresh" content="0;url=https://chinesezodiacyear.com{{ page.url }}"></noscript>
   <title>{{ title }} | {{ site.name }}</title>
   <meta name="description" content="{{ description }}">
   {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
@@ -68,7 +70,7 @@
   {% endif %}
   <script>(function(){var t=localStorage.getItem('czy-theme');if(t)document.documentElement.setAttribute('data-theme',t);var p=location.pathname;var l=p.indexOf('/zh-hant/')===0?'tc':p.indexOf('/zh-hans/')===0?'sc':(localStorage.getItem('czy-lang')||'en');document.documentElement.setAttribute('data-lang',l);var m={en:'en',tc:'zh-Hant',sc:'zh-Hans'};document.documentElement.setAttribute('lang',m[l]||'en')})()</script>
   {% if ogType == "article" %}
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title | jsonLdSafe | safe }}","description":"{{ description | jsonLdSafe | safe }}","url":"{{ site.url }}{{ page.url }}","image":"{{ resolvedOgImage }}","datePublished":"{{ datePublished | default('2025-01-01') }}","dateModified":"{{ dateModified | default(datePublished) | default('2025-01-01') }}","author":{"@type":"Organization","name":"{{ site.name | jsonLdSafe | safe }}","url":"{{ site.url }}/"},"publisher":{"@type":"Organization","name":"{{ site.name | jsonLdSafe | safe }}","url":"{{ site.url }}/","logo":{"@type":"ImageObject","url":"{{ site.url }}/img/og-default.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ page.url }}"},"inLanguage":"en"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title | jsonLdSafe | safe }}","description":"{{ description | jsonLdSafe | safe }}","url":"{{ site.url }}{{ page.url }}","image":"{{ resolvedOgImage }}","datePublished":"{{ datePublished | default('2025-01-01') }}","dateModified":"{{ dateModified | default(datePublished) | default('2025-01-01') }}","author":{"@type":"Person","name":"{{ author | default('Editorial Staff') | jsonLdSafe | safe }}","url":"{{ site.url }}/about/"},"publisher":{"@type":"Organization","name":"{{ site.name | jsonLdSafe | safe }}","url":"{{ site.url }}/","logo":{"@type":"ImageObject","url":"{{ site.url }}/img/favicon-192.png","width":192,"height":192}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ page.url }}"},"inLanguage":"en"{% if category %},"articleSection":"{{ categoryLabel | default(category) | jsonLdSafe | safe }}"{% endif %}{% if keywords %},"keywords":"{{ keywords | jsonLdSafe | safe }}"{% endif %}}</script>
   {% endif %}
   {% if breadcrumbs %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{% for crumb in breadcrumbs %}{"@type":"ListItem","position":{{ loop.index }},"name":"{{ crumb.label | jsonLdSafe | safe }}","item":"{{ site.url }}{% if crumb.url %}{{ crumb.url }}{% else %}{{ page.url }}{% endif %}"}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
@@ -101,7 +103,7 @@
   {% endif %}
   {% if page.url == "/" %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"{{ site.name | jsonLdSafe | safe }}","alternateName":"ChineseZodiac","url":"{{ site.url }}/","description":"{{ site.description | jsonLdSafe | safe }}","potentialAction":{"@type":"SearchAction","target":"{{ site.url }}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"{{ site.name | jsonLdSafe | safe }}","url":"{{ site.url }}/","description":"Authoritative resource for Chinese zodiac, BaZi four pillars, feng shui, and Chinese cultural traditions rooted in classical pre-Qing scholarship."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"{{ site.name | jsonLdSafe | safe }}","url":"{{ site.url }}/","description":"Authoritative resource for Chinese zodiac, BaZi four pillars, feng shui, and Chinese cultural traditions rooted in classical pre-Qing scholarship.","logo":{"@type":"ImageObject","url":"{{ site.url }}/img/favicon-192.png","width":192,"height":192},"image":"{{ site.url }}/img/photos/zodiac-stone-carving.webp","foundingDate":"2025","sameAs":[{% if site.social.instagram %}"{{ site.social.instagram }}"{% endif %}{% if site.social.facebook %},{% endif %}{% if site.social.facebook %}"{{ site.social.facebook }}"{% endif %}{% if site.social.twitter %},{% endif %}{% if site.social.twitter %}"{{ site.social.twitter }}"{% endif %}]}</script>
   {% endif %}
   {% if site.ga4Id %}
   <!-- Google tag (gtag.js) -->
