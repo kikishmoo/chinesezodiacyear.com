@@ -65,6 +65,19 @@ export default {
         }
       }
 
+      // Compatibility pair pages for this animal
+      const liuHeAnimal = graph.liuHe?.[animal];
+      if (liuHeAnimal) {
+        const pairSlug = [animal, liuHeAnimal].sort().join('-');
+        const lhCap2 = liuHeAnimal.charAt(0).toUpperCase() + liuHeAnimal.slice(1);
+        addLink(`/compatibility/${pairSlug}/`, `${animalCap} & ${lhCap2} Compatibility`);
+      }
+      for (const mate of sanHe) {
+        const pairSlug = [animal, mate].sort().join('-');
+        const mateCap2 = mate.charAt(0).toUpperCase() + mate.slice(1);
+        addLink(`/compatibility/${pairSlug}/`, `${animalCap} & ${mateCap2} Compatibility`);
+      }
+
       // Core related topics
       addLink("/zodiac/", "All Zodiac Animals");
       addLink("/compatibility/", "Compatibility Checker");
@@ -140,6 +153,38 @@ export default {
       addLink("/compatibility/", "Compatibility Checker");
       addLink("/wuxing/", "Wu Xing \u2014 Five Elements");
       addLink("/bazi-calculator/", "BaZi Calculator");
+      return links;
+    }
+
+    // --- Compatibility pair pages: /compatibility/{animal-a}-{animal-b}/ ---
+    const compatMatch = currentUrl.match(/^\/compatibility\/([a-z]+)-([a-z]+)\/$/);
+    if (compatMatch) {
+      const [, animalA, animalB] = compatMatch;
+      const capA = animalA.charAt(0).toUpperCase() + animalA.slice(1);
+      const capB = animalB.charAt(0).toUpperCase() + animalB.slice(1);
+      const isSelf = animalA === animalB;
+
+      // Link to both animal profiles
+      addLink(`/zodiac/${animalA}/`, `${capA} — Full Profile`);
+      if (!isSelf) addLink(`/zodiac/${animalB}/`, `${capB} — Full Profile`);
+
+      // Link to both animal readings
+      addLink(`/readings/2026-${animalA}/`, `2026 ${capA} Reading`);
+      if (!isSelf) addLink(`/readings/2026-${animalB}/`, `2026 ${capB} Reading`);
+
+      // Link to San He allies' compatibility pages for animalA
+      const sanHeA = graph.sanHe?.[animalA] || [];
+      for (const ally of sanHeA) {
+        const allyKey = [animalA, ally].sort().join('-');
+        if (allyKey !== `${animalA}-${animalB}` && allyKey !== `${animalB}-${animalA}`) {
+          const allyCap = ally.charAt(0).toUpperCase() + ally.slice(1);
+          addLink(`/compatibility/${allyKey}/`, `${capA} & ${allyCap}`);
+        }
+      }
+
+      addLink("/compatibility/", "Full Compatibility Chart");
+      addLink("/bazi-calculator/", "BaZi Calculator");
+      addLink("/wuxing/", "Wu Xing \u2014 Five Elements");
       return links;
     }
 
@@ -430,7 +475,43 @@ export default {
       ];
     }
 
-    // --- Year pages: /zodiac-year/{year}/ ---
+    // --- Compatibility pair pages: /compatibility/{animal-a}-{animal-b}/ ---
+    const compatPairMatch = currentUrl.match(/^\/compatibility\/([a-z]+)-([a-z]+)\/$/);
+    if (compatPairMatch) {
+      const [, animalA, animalB] = compatPairMatch;
+      const capA = animalA.charAt(0).toUpperCase() + animalA.slice(1);
+      const capB = animalB.charAt(0).toUpperCase() + animalB.slice(1);
+      const isSelf = animalA === animalB;
+
+      const sanHeMapF = {rat:['Dragon','Monkey'],ox:['Snake','Rooster'],tiger:['Horse','Dog'],rabbit:['Goat','Pig'],dragon:['Rat','Monkey'],snake:['Ox','Rooster'],horse:['Tiger','Dog'],goat:['Rabbit','Pig'],monkey:['Rat','Dragon'],rooster:['Ox','Snake'],dog:['Tiger','Horse'],pig:['Rabbit','Goat']};
+      const liuHeMapF = {rat:'Ox',ox:'Rat',tiger:'Pig',rabbit:'Dog',dragon:'Rooster',snake:'Monkey',horse:'Goat',goat:'Horse',monkey:'Snake',rooster:'Dragon',dog:'Rabbit',pig:'Tiger'};
+      const clashMapF = {rat:'Horse',ox:'Goat',tiger:'Monkey',rabbit:'Rooster',dragon:'Dog',snake:'Pig',horse:'Rat',goat:'Ox',monkey:'Tiger',rooster:'Rabbit',dog:'Dragon',pig:'Snake'};
+
+      const alliesA = (sanHeMapF[animalA] || []).join(' and ');
+      const friendA = liuHeMapF[animalA] || '';
+      const clashA = clashMapF[animalA] || '';
+
+      const faq = [
+        {q: `Are ${capA} and ${capB} compatible in Chinese zodiac?`, a: isSelf ? `Two ${capA} people share identical zodiac energy, offering deep mutual understanding. Same-sign pairings have both strengths (intuitive connection) and challenges (amplified weaknesses). The overall compatibility depends on each person's full BaZi chart, not just the year animal.` : `The ${capA} and ${capB} have a specific classical relationship in the Chinese zodiac Earthly Branch system. Their compatibility depends on whether they form a Harmony, Clash, Harm, or Neutral relationship, plus their elemental interactions. See the full analysis on this page.`},
+        {q: `What is the ${capA}'s best zodiac match?`, a: `The ${capA}'s strongest matches are the ${alliesA} (San He/Three Harmony triad) and the ${friendA} (Liu He/Secret Friend). The ${capA} may experience tension with the ${clashA} (Six Clash).`},
+      ];
+
+      if (!isSelf) {
+        const alliesB = (sanHeMapF[animalB] || []).join(' and ');
+        const friendB = liuHeMapF[animalB] || '';
+        const clashB = clashMapF[animalB] || '';
+        faq.push({q: `What is the ${capB}'s best zodiac match?`, a: `The ${capB}'s strongest matches are the ${alliesB} (San He/Three Harmony triad) and the ${friendB} (Liu He/Secret Friend). The ${capB} may experience tension with the ${clashB} (Six Clash).`});
+      }
+
+      faq.push(
+        {q: `Does zodiac compatibility determine relationship success?`, a: `No. Zodiac compatibility based on birth year is the most general level of analysis in Chinese astrology. A complete assessment requires examining the full BaZi chart (all four pillars), element balance, and individual character. Many successful relationships exist between supposedly incompatible signs.`},
+        {q: `How can I get a more detailed compatibility reading?`, a: `For deeper analysis, use the BaZi Calculator to examine all four pillars (Year, Month, Day, Hour) of both individuals. Alternatively, consult a professional BaZi practitioner or order a premium compatibility reading that analyses the full chart interaction.`}
+      );
+
+      return faq;
+    }
+
+    // --- Year pages: /zodiac-year/{year}/ --- (autoFaq)
     const yearMatch = currentUrl.match(/^\/zodiac-year\/(\d+)\/$/);
     if (yearMatch) {
       const year = parseInt(yearMatch[1]);

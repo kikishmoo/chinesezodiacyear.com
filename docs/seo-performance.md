@@ -639,6 +639,9 @@ None currently. The site has no broken SEO elements or critical performance issu
 | **GEO optimization** | DONE | `llms.txt` for AI crawlers, robots.txt allows all AI bots |
 | **Image alt text improvement** | DONE | Homepage images updated with descriptive, keyword-rich alt text |
 | **Front-load homepage title keyword** | DONE | Changed to "Chinese Zodiac — Shēngxiào Encyclopedia, Directory & News" |
+| **Pillar-cluster: Compatibility pair pages (78 pages)** | DONE | `compatibilityPairs.js` generates 66 unique + 12 same-sign pair pages at `/compatibility/{pair}/`; each includes Six Harmony/Clash/Harm/neutral analysis, element interaction, trilingual content, FAQ schema, auto-related links |
+| **Pillar-cluster: Hub→cluster linking** | DONE | Compatibility hub page now links to all key pair pages (H6, Clash, Harm categories); zodiac animal pages link to their specific pair pages |
+| **Pillar-cluster: Cross-cluster linking** | DONE | `eleventyComputed.js` auto-generates related links between pair pages, animal profiles, readings, and the compatibility hub |
 
 ### P1 -- High Priority (Remaining)
 

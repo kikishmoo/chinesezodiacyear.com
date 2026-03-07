@@ -7,7 +7,7 @@
     "/calendar/": ["zodiac", "bazi", "wuxing", "spring-festival", "dynasties"],
     "/spring-festival/": ["calendar", "zodiac", "folk-arts", "dynasties", "hanfu"],
     "/wuxing/": ["bazi", "zodiac", "fengshui", "tcm", "calendar", "yijing"],
-    "/compatibility/": ["zodiac", "bazi", "wuxing", "readings"],
+    "/compatibility/": ["zodiac", "bazi", "wuxing", "readings", "whats-my-zodiac"],
     "/taoism/": ["yijing", "qimen", "wuxing", "tcm", "martial-arts"],
     "/yijing/": ["taoism", "qimen", "bazi", "wuxing", "fengshui"],
     "/qimen/": ["bazi", "yijing", "fengshui", "wuxing", "taoism"],

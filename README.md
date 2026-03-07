@@ -42,18 +42,19 @@ The dev server runs at `http://localhost:8080`. The production build outputs to 
 
 ```
 src/
-├── _data/                  # Global data files (12 files: JSON + JS)
+├── _data/                  # Global data files (13 files: JSON + JS)
 │   ├── site.json           # Site config (URLs, API keys, social)
 │   ├── nav.json            # Trilingual navigation structure
 │   ├── dynastiesData.json  # 10 Chinese dynasties (Xia–Ming)
 │   ├── elements.json       # 5 Wu Xing elements with correspondences
 │   ├── contentGraph.json   # Topic affinity map for auto-linking
+│   ├── compatibilityPairs.js # Generates 78 zodiac compatibility pair objects
 │   ├── directory.json      # Professional directory listings (50+)
 │   ├── shop.json           # Products and premium readings
 │   ├── zodiacYears.js      # Generates 1924–2044 year data
 │   ├── newsCategories.json # Article categories (trilingual)
 │   ├── languages.json      # Language config (en, tc, sc)
-│   ├── eleventyComputed.js # Auto-generates related links per page
+│   ├── eleventyComputed.js # Auto-generates related links + FAQ per page
 │   └── buildInfo.js        # Build-time computed data
 ├── _includes/
 │   ├── layouts/
@@ -84,6 +85,7 @@ src/
 ├── sitemap.njk             # XML sitemap with hreflang
 ├── feed.njk                # Atom/RSS feed
 ├── robots.txt              # Crawler permissions (incl. AI crawlers)
+├── compatibility-pair-pages.njk # Generates /compatibility/{pair}/ pages (78 pairs)
 ├── dynasty-pages.njk       # Generates /dynasties/{slug}/ pages from data
 ├── wuxing-pages.njk        # Generates /wuxing/{slug}/ pages from data
 └── year-pages.njk          # Generates /zodiac-year/{year}/ pages (121 years)
@@ -104,6 +106,7 @@ eleventy.config.js          # Eleventy build config (collections, filters, i18n,
 | `dynastiesData.json` | 10 Chinese dynasties (Xia–Ming) with dates, capitals, contributions |
 | `elements.json` | 5 Wu Xing elements with full correspondences |
 | `contentGraph.json` | Topic affinity map for auto-generated related links |
+| `compatibilityPairs.js` | Generates 78 zodiac compatibility pair objects (Six Harmonies, Clashes, Harms, neutral, self) |
 | `directory.json` | 50+ professional directory listings |
 | `shop.json` | 3 premium reading tiers + 6 digital products |
 | `zodiacYears.js` | Generates 1924–2044 year data (animal, element, stem, yin-yang) |
@@ -114,13 +117,14 @@ eleventy.config.js          # Eleventy build config (collections, filters, i18n,
 
 ## Content Architecture
 
-The site generates **214 pages** (642+ after i18n) across these content types:
+The site generates **292 pages** (864+ after i18n) across these content types:
 
 | Type | Count | Source |
 |---|---|---|
 | Encyclopedia pages | 35 | `src/pages/*.njk` |
 | Zodiac animal pages | 12 | `src/zodiac/*.njk` |
 | Yearly readings | 12 | `src/readings/*.njk` (each with unique astrological section) |
+| Compatibility pair pages | 78 | Generated from `compatibilityPairs.js` (66 unique + 12 same-sign) |
 | Long-form articles | 10 | `src/articles/*.njk` |
 | Year pages | 121 | Generated from `zodiacYears.js` (1924–2044) |
 | Wu Xing element pages | 5 | Generated from `elements.json` |

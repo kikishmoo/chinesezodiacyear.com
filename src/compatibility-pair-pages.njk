@@ -1,0 +1,347 @@
+---
+pagination:
+  data: compatibilityPairs
+  size: 1
+  alias: pair
+  addAllPagesToCollections: true
+permalink: "/compatibility/{{ pair.slug }}/"
+layout: "layouts/article.njk"
+ogType: "article"
+category: "encyclopedia"
+eleventyComputed:
+  title: "{{ pair.animalA }} and {{ pair.animalB }} Compatibility — {{ pair.relLabel }}"
+  description: "{{ pair.animalA }} and {{ pair.animalB }} Chinese zodiac compatibility: {{ pair.relLabel }}. Classical Six Harmonies, Three Harmonies, Six Clashes analysis with element interactions and relationship advice."
+  keywords: "{{ pair.animalA }} {{ pair.animalB }} compatibility, Chinese zodiac {{ pair.animalA }} {{ pair.animalB }}, {{ pair.animalACn }}{{ pair.animalBCn }}配對, zodiac compatibility, {{ pair.relType }}"
+  heroOverline: "Zodiac Compatibility"
+  heroTitle: "{{ pair.emojiA }} {{ pair.animalA }} & {{ pair.animalB }} {{ pair.emojiB }}"
+  heroSubtitle: "{{ pair.relLabel }}"
+  datePublished: "2026-03-07"
+  dateModified: "2026-03-07"
+  breadcrumbs:
+    - label: "Home"
+      url: "/"
+    - label: "Compatibility"
+      url: "/compatibility/"
+    - label: "{{ pair.animalA }} & {{ pair.animalB }}"
+  toc:
+    - id: "overview"
+      label: "Overview"
+    - id: "relationship"
+      label: "Relationship Dynamic"
+    - id: "elements"
+      label: "Element Interaction"
+    - id: "advice"
+      label: "Practical Advice"
+    - id: "explore"
+      label: "Explore Further"
+    - id: "faq"
+      label: "FAQ"
+  relatedArticles:
+    - label: "Compatibility Checker"
+      url: "/compatibility/"
+    - label: "{{ pair.animalA }} Profile"
+      url: "/zodiac/{{ pair.animalA | lower }}/"
+    - label: "{{ pair.animalB }} Profile"
+      url: "/zodiac/{{ pair.animalB | lower }}/"
+    - label: "Wu Xing — Five Elements"
+      url: "/wuxing/"
+  sidebarProducts:
+    - name: "Ultimate Zodiac Compatibility Guide"
+      desc: "All 144 pairings analysed: love, friendship, and business."
+      url: "https://chinesezodiacyear.gumroad.com/l/zrrnxt"
+      price: "$14.99"
+tags: ["compatibilityPair"]
+---
+
+{# ===== ENGLISH ===== #}
+<div class="lang-en">
+
+<section id="overview">
+  <h2>{{ pair.animalA }} &amp; {{ pair.animalB }} — Overview</h2>
+
+  <div class="info-grid" style="margin-bottom:var(--sp-xl);">
+    <div class="info-card">
+      <span class="info-card-icon">{{ pair.emojiA }}</span>
+      <div class="info-card-value">{{ pair.animalA }}</div>
+      <div class="info-card-label">{{ pair.branchACn }} ({{ pair.branchA }}) · {{ pair.fixedElementA }}</div>
+    </div>
+    <div class="info-card" style="display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;">
+        <span style="font-size:2rem;">{{ pair.relIcon }}</span>
+        <div class="info-card-label" style="margin-top:0.5rem;font-weight:600;">{{ pair.relLabel }}</div>
+        {%- if pair.combinedElement %}
+        <div class="info-card-label">Combined: {{ pair.combinedElement }} ({{ pair.combinedElementCn }})</div>
+        {%- endif %}
+      </div>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">{{ pair.emojiB }}</span>
+      <div class="info-card-value">{{ pair.animalB }}</div>
+      <div class="info-card-label">{{ pair.branchBCn }} ({{ pair.branchB }}) · {{ pair.fixedElementB }}</div>
+    </div>
+  </div>
+
+  <div class="key-facts" role="region" aria-label="Compatibility summary">
+    <h3 class="key-facts-title">Key Facts</h3>
+    <dl class="key-facts-list">
+      <div class="key-facts-item">
+        <dt>Relationship</dt>
+        <dd>{{ pair.relLabel }}</dd>
+      </div>
+      <div class="key-facts-item">
+        <dt>{{ pair.animalA }} Element</dt>
+        <dd>{{ pair.fixedElementA }} ({{ pair.fixedElementACn }})</dd>
+      </div>
+      <div class="key-facts-item">
+        <dt>{{ pair.animalB }} Element</dt>
+        <dd>{{ pair.fixedElementB }} ({{ pair.fixedElementBCn }})</dd>
+      </div>
+      <div class="key-facts-item">
+        <dt>Element Cycle</dt>
+        <dd>{{ pair.elInteraction.desc }}</dd>
+      </div>
+      {%- if pair.combinedElement %}
+      <div class="key-facts-item">
+        <dt>Combined Element</dt>
+        <dd>{{ pair.combinedElement }} ({{ pair.combinedElementCn }})</dd>
+      </div>
+      {%- endif %}
+      {%- if pair.triadElement %}
+      <div class="key-facts-item">
+        <dt>Triad Element</dt>
+        <dd>{{ pair.triadElement }}</dd>
+      </div>
+      {%- endif %}
+    </dl>
+  </div>
+</section>
+
+<section id="relationship">
+  <h2>Relationship Dynamic</h2>
+  <p>{{ pair.descEn }}</p>
+
+  {%- if pair.relType === "liuHe" %}
+  <div class="callout-box callout-box--jade">
+    <strong>Six Harmony Bond:</strong> The {{ pair.animalA }} ({{ pair.branchACn }}) and {{ pair.animalB }} ({{ pair.branchBCn }}) branches combine to produce {{ pair.combinedElement }} energy. This is one of only six such pairings in the entire zodiac system, making it among the strongest natural connections.
+  </div>
+  {%- elif pair.relType === "sanHe" %}
+  <div class="callout-box callout-box--jade">
+    <strong>Three Harmony Triad:</strong> The {{ pair.animalA }} and {{ pair.animalB }} are part of the {{ pair.triadElement }} triad. The third member of their group completes a powerful elemental circuit. Look up the full triad on the <a href="/compatibility/">compatibility chart</a>.
+  </div>
+  {%- elif pair.relType === "clash" %}
+  <div class="callout-box callout-box--cinnabar">
+    <strong>Clash Awareness:</strong> The {{ pair.branchACn }} ({{ pair.branchA }}) and {{ pair.branchBCn }} ({{ pair.branchB }}) branches sit directly opposite on the zodiac wheel. This opposition generates tension, but also dynamism. Many successful partnerships channel this energy into creative breakthroughs.
+  </div>
+  {%- elif pair.relType === "harm" %}
+  <div class="callout-box callout-box--cinnabar">
+    <strong>Harm Pattern:</strong> The Harm (害) relationship is subtler than a Clash. It operates through quiet friction rather than overt conflict. Proactive communication is the most effective way to prevent small irritations from compounding.
+  </div>
+  {%- elif pair.relType === "self" %}
+  <div class="callout-box callout-box--jade">
+    <strong>Same Sign Pairing:</strong> Two {{ pair.animalA }}s share identical zodiac mechanics. The strength of this pairing lies in mutual understanding; the challenge lies in avoiding echo-chamber dynamics where shared blind spots go unaddressed.
+  </div>
+  {%- endif %}
+</section>
+
+<section id="elements">
+  <h2>Element Interaction — {{ pair.fixedElementA }} &amp; {{ pair.fixedElementB }}</h2>
+  <p>Beyond the Earthly Branch relationship, the fixed elements of the {{ pair.animalA }} ({{ pair.fixedElementA }}) and {{ pair.animalB }} ({{ pair.fixedElementB }}) add a second layer of compatibility:</p>
+
+  <div class="info-grid" style="max-width:500px;margin:var(--sp-lg) 0;">
+    <div class="info-card">
+      <span class="info-card-icon">{{ pair.emojiA }}</span>
+      <div class="info-card-value">{{ pair.fixedElementA }}</div>
+      <div class="info-card-label">{{ pair.animalA }}'s Fixed Element</div>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">{{ pair.emojiB }}</span>
+      <div class="info-card-value">{{ pair.fixedElementB }}</div>
+      <div class="info-card-label">{{ pair.animalB }}'s Fixed Element</div>
+    </div>
+  </div>
+
+  <p><strong>{{ pair.elInteraction.desc }}:</strong>
+  {%- if pair.elInteraction.cycle === "generating" %}
+  This is a <em>productive</em> (相生) relationship. One element nourishes the other, creating a supportive dynamic. The giving element expends energy to support its partner, while the receiving element benefits from this nourishment. In relationships, this translates to natural caretaking and complementary roles.
+  {%- elif pair.elInteraction.cycle === "overcoming" %}
+  This is a <em>controlling</em> (相剋) relationship. One element regulates the other, which can create power dynamics. In classical Chinese philosophy, this is not inherently negative — the overcoming cycle maintains balance and prevents excess. In relationships, it means one partner may naturally take the lead in certain areas.
+  {%- elif pair.elInteraction.cycle === "same" %}
+  Both animals share the same fixed element, which amplifies its qualities — both the strengths and the excesses. This doubled energy creates deep resonance but can become unbalanced without the moderating influence of other elements in the BaZi chart.
+  {%- endif %}
+  </p>
+
+  <p>For a more precise elemental analysis, use the <a href="/bazi-calculator/">BaZi Calculator</a> to examine the full Heavenly Stem and Earthly Branch composition of both birth charts. The birth year element (which changes every two years) adds yet another layer beyond the fixed animal element discussed here.</p>
+</section>
+
+<section id="advice">
+  <h2>Practical Advice</h2>
+  <p>{{ pair.adviceEn }}</p>
+
+  <p>Remember: zodiac compatibility based on the birth year is the most <em>general</em> level of analysis. A complete assessment examines the full <a href="/bazi/">BaZi chart</a> (Year, Month, Day, and Hour pillars), the <a href="/wuxing/">five element</a> balance, and the interactions between all eight characters. For deeper insight, consult a qualified <a href="/directory/">BaZi practitioner</a> or explore our <a href="/shop/">premium readings</a>.</p>
+</section>
+
+<section id="explore">
+  <h2>Explore Further</h2>
+  <div class="reading-grid" style="max-width:600px;">
+    <a href="/zodiac/{{ pair.animalA | lower }}/" class="reading-card">
+      <span class="reading-card-emoji">{{ pair.emojiA }}</span>
+      <span class="reading-card-name">{{ pair.animalA }} Profile</span>
+    </a>
+    {%- if not pair.isSelf %}
+    <a href="/zodiac/{{ pair.animalB | lower }}/" class="reading-card">
+      <span class="reading-card-emoji">{{ pair.emojiB }}</span>
+      <span class="reading-card-name">{{ pair.animalB }} Profile</span>
+    </a>
+    {%- endif %}
+    <a href="/compatibility/" class="reading-card">
+      <span class="reading-card-emoji">💑</span>
+      <span class="reading-card-name">Full Compatibility Chart</span>
+    </a>
+    <a href="/bazi-calculator/" class="reading-card">
+      <span class="reading-card-emoji">🧮</span>
+      <span class="reading-card-name">BaZi Calculator</span>
+    </a>
+  </div>
+</section>
+
+<div class="callout-box callout-box--jade" style="text-align:center;margin-top:var(--sp-xl);">
+  <h3 style="margin-bottom:var(--sp-sm)">Want a Detailed Compatibility Reading?</h3>
+  <p>This page analyses the zodiac branch and fixed element. For a full Four Pillars compatibility report covering personality, timing, and life-path alignment, order a professional reading.</p>
+  <a href="/shop/" class="btn btn-gold" style="margin-top:var(--sp-md)">View Premium Readings &rarr;</a>
+</div>
+
+</div>
+
+{# ===== TRADITIONAL CHINESE ===== #}
+<div class="lang-tc">
+
+<section>
+  <h2>{{ pair.animalACn }}與{{ pair.animalBCn }} — 概覽</h2>
+
+  <div class="info-grid" style="margin-bottom:var(--sp-xl);">
+    <div class="info-card">
+      <span class="info-card-icon">{{ pair.emojiA }}</span>
+      <div class="info-card-value">{{ pair.animalACn }}</div>
+      <div class="info-card-label">{{ pair.branchACn }} · {{ pair.fixedElementACn }}</div>
+    </div>
+    <div class="info-card" style="display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;">
+        <span style="font-size:2rem;">{{ pair.relIcon }}</span>
+        <div class="info-card-label" style="margin-top:0.5rem;font-weight:600;">{{ pair.relLabelCn }}</div>
+      </div>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">{{ pair.emojiB }}</span>
+      <div class="info-card-value">{{ pair.animalBCn }}</div>
+      <div class="info-card-label">{{ pair.branchBCn }} · {{ pair.fixedElementBCn }}</div>
+    </div>
+  </div>
+
+  <div class="key-facts" role="region" aria-label="配對摘要">
+    <h3 class="key-facts-title">重點</h3>
+    <dl class="key-facts-list">
+      <div class="key-facts-item"><dt>關係</dt><dd>{{ pair.relLabelCn }}</dd></div>
+      <div class="key-facts-item"><dt>{{ pair.animalACn }}五行</dt><dd>{{ pair.fixedElementACn }}</dd></div>
+      <div class="key-facts-item"><dt>{{ pair.animalBCn }}五行</dt><dd>{{ pair.fixedElementBCn }}</dd></div>
+      <div class="key-facts-item"><dt>五行關係</dt><dd>{{ pair.elInteraction.descCn }}</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>關係動態</h2>
+  <p>{{ pair.descTc }}</p>
+</section>
+
+<section>
+  <h2>五行互動 — {{ pair.fixedElementACn }}與{{ pair.fixedElementBCn }}</h2>
+  <p>除了地支關係外，{{ pair.animalACn }}的固定五行（{{ pair.fixedElementACn }}）和{{ pair.animalBCn }}的固定五行（{{ pair.fixedElementBCn }}）增加了第二層配對分析。{{ pair.elInteraction.descCn }}。</p>
+  <p>如需更精確的五行分析，請使用<a href="/bazi-calculator/">八字計算器</a>檢查雙方完整的天干地支組合。</p>
+</section>
+
+<section>
+  <h2>實用建議</h2>
+  <p>{{ pair.adviceTc }}</p>
+  <p>請記住：僅基於出生年份的生肖配對是最概括性的分析。完整的評估需要檢視完整的<a href="/bazi/">八字命盤</a>。如需全面的個人分析，請諮詢合格的<a href="/directory/">八字命理師</a>。</p>
+</section>
+
+<section>
+  <h2>延伸探索</h2>
+  <div class="reading-grid" style="max-width:600px;">
+    <a href="/zodiac/{{ pair.animalA | lower }}/" class="reading-card"><span class="reading-card-name">{{ pair.animalACn }}完整檔案</span></a>
+    {%- if not pair.isSelf %}
+    <a href="/zodiac/{{ pair.animalB | lower }}/" class="reading-card"><span class="reading-card-name">{{ pair.animalBCn }}完整檔案</span></a>
+    {%- endif %}
+    <a href="/compatibility/" class="reading-card"><span class="reading-card-name">完整配對表</span></a>
+    <a href="/bazi-calculator/" class="reading-card"><span class="reading-card-name">八字計算器</span></a>
+  </div>
+</section>
+
+</div>
+
+{# ===== SIMPLIFIED CHINESE ===== #}
+<div class="lang-sc">
+
+<section>
+  <h2>{{ pair.animalASc }}与{{ pair.animalBSc }} — 概览</h2>
+
+  <div class="info-grid" style="margin-bottom:var(--sp-xl);">
+    <div class="info-card">
+      <span class="info-card-icon">{{ pair.emojiA }}</span>
+      <div class="info-card-value">{{ pair.animalASc }}</div>
+      <div class="info-card-label">{{ pair.branchACn }} · {{ pair.fixedElementACn }}</div>
+    </div>
+    <div class="info-card" style="display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;">
+        <span style="font-size:2rem;">{{ pair.relIcon }}</span>
+        <div class="info-card-label" style="margin-top:0.5rem;font-weight:600;">{{ pair.relLabelSc }}</div>
+      </div>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">{{ pair.emojiB }}</span>
+      <div class="info-card-value">{{ pair.animalBSc }}</div>
+      <div class="info-card-label">{{ pair.branchBCn }} · {{ pair.fixedElementBCn }}</div>
+    </div>
+  </div>
+
+  <div class="key-facts" role="region" aria-label="配对摘要">
+    <h3 class="key-facts-title">重点</h3>
+    <dl class="key-facts-list">
+      <div class="key-facts-item"><dt>关系</dt><dd>{{ pair.relLabelSc }}</dd></div>
+      <div class="key-facts-item"><dt>{{ pair.animalASc }}五行</dt><dd>{{ pair.fixedElementACn }}</dd></div>
+      <div class="key-facts-item"><dt>{{ pair.animalBSc }}五行</dt><dd>{{ pair.fixedElementBCn }}</dd></div>
+      <div class="key-facts-item"><dt>五行关系</dt><dd>{{ pair.elInteraction.descSc }}</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>关系动态</h2>
+  <p>{{ pair.descSc }}</p>
+</section>
+
+<section>
+  <h2>五行互动 — {{ pair.fixedElementACn }}与{{ pair.fixedElementBCn }}</h2>
+  <p>除了地支关系外，{{ pair.animalASc }}的固定五行（{{ pair.fixedElementACn }}）和{{ pair.animalBSc }}的固定五行（{{ pair.fixedElementBCn }}）增加了第二层配对分析。{{ pair.elInteraction.descSc }}。</p>
+  <p>如需更精确的五行分析，请使用<a href="/bazi-calculator/">八字计算器</a>检查双方完整的天干地支组合。</p>
+</section>
+
+<section>
+  <h2>实用建议</h2>
+  <p>{{ pair.adviceSc }}</p>
+  <p>请记住：仅基于出生年份的生肖配对是最概括性的分析。完整的评估需要检视完整的<a href="/bazi/">八字命盘</a>。如需全面的个人分析，请咨询合格的<a href="/directory/">八字命理师</a>。</p>
+</section>
+
+<section>
+  <h2>延伸探索</h2>
+  <div class="reading-grid" style="max-width:600px;">
+    <a href="/zodiac/{{ pair.animalA | lower }}/" class="reading-card"><span class="reading-card-name">{{ pair.animalASc }}完整档案</span></a>
+    {%- if not pair.isSelf %}
+    <a href="/zodiac/{{ pair.animalB | lower }}/" class="reading-card"><span class="reading-card-name">{{ pair.animalBSc }}完整档案</span></a>
+    {%- endif %}
+    <a href="/compatibility/" class="reading-card"><span class="reading-card-name">完整配对表</span></a>
+    <a href="/bazi-calculator/" class="reading-card"><span class="reading-card-name">八字计算器</span></a>
+  </div>
+</section>
+
+</div>
