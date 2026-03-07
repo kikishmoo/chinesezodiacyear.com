@@ -1,6 +1,48 @@
 {
+  "premiumConfig": {
+    "tiers": {
+      "free": { "label": "Free Listing", "features": ["Name and description", "Category and location", "Website link"] },
+      "premium": { "label": "Premium Listing", "price": "$9.99/month", "features": ["Featured placement at top", "Enhanced description", "Logo display", "Contact form", "SEO backlink", "Verified badge"] },
+      "featured": { "label": "Featured Partner", "price": "$29.99/month", "features": ["Homepage spotlight", "All Premium features", "Dedicated profile page", "Priority support", "Analytics dashboard"] }
+    },
+    "submitUrl": "mailto:chinesezodiacyear@proton.me?subject=Directory%20Listing%20Application"
+  },
   "listings": [
     {
+      "tier": "premium",
+      "featured": true,
+      "name": "Golden Dragon Feng Shui Consultancy",
+      "category": "fengshui",
+      "badge": "Premium Consultancy",
+      "location": "Hong Kong · London · New York",
+      "specialties": ["Feng Shui", "BaZi", "Date Selection", "Corporate"],
+      "description": "Award-winning feng shui consultancy serving high-net-worth clients and Fortune 500 companies across three continents. Led by Master Chen Wei, a third-generation practitioner trained in both San Yuan and San He classical systems. Specialises in commercial property, luxury residential, and corporate office feng shui audits.",
+      "url": "https://example.com/golden-dragon"
+    },
+    {
+      "tier": "premium",
+      "featured": true,
+      "name": "Jade Pavilion BaZi Academy",
+      "category": "bazi",
+      "badge": "Premium Education",
+      "location": "Singapore · Online",
+      "specialties": ["BaZi", "Zi Wei Dou Shu", "Advanced Chart Reading"],
+      "description": "Premier BaZi education platform offering structured certification programmes from beginner to master level. Curriculum based on classical Xu Ziping texts with modern case studies. Over 5,000 graduates across 40 countries, with lifetime access to updated course materials and practitioner community.",
+      "url": "https://example.com/jade-pavilion"
+    },
+    {
+      "tier": "premium",
+      "featured": true,
+      "name": "Five Elements Wellness Centre",
+      "category": "tcm",
+      "badge": "Premium Clinic",
+      "location": "Vancouver, Canada",
+      "specialties": ["TCM", "Acupuncture", "Herbal Medicine", "Five Element Healing"],
+      "description": "Integrative health clinic combining Traditional Chinese Medicine with Five Element constitutional diagnosis. Team of 12 licensed practitioners offering acupuncture, herbal prescriptions, cupping, and moxibustion. Recognised by the British Columbia College of TCM Practitioners with over 20 years of clinical excellence.",
+      "url": "https://example.com/five-elements-wellness"
+    },
+    {
+      "tier": "free",
       "name": "International Feng Shui Guild (IFSG)",
       "category": "fengshui",
       "badge": "Organisation",
@@ -11,6 +53,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "The Feng Shui Society",
       "category": "fengshui",
       "badge": "Organisation",
@@ -21,6 +64,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Feng Shui Institute",
       "category": "fengshui",
       "badge": "Education",
@@ -31,6 +75,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Mastery Academy of Chinese Metaphysics",
       "category": "fengshui",
       "badge": "Education",
@@ -41,6 +86,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "American Feng Shui Institute",
       "category": "fengshui",
       "badge": "Education",
@@ -51,6 +97,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Anjie Cho \u2014 Holistic Spaces",
       "category": "fengshui",
       "badge": "Consultancy",
@@ -61,6 +108,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Feng Shui Concepts",
       "category": "fengshui",
       "badge": "Consultancy",
@@ -71,6 +119,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Raymond Lo Feng Shui & Destiny",
       "category": "fengshui",
       "badge": "Consultancy",
@@ -81,6 +130,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Feng Shui Research Center",
       "category": "fengshui",
       "badge": "Education",
@@ -91,6 +141,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Ms. Feng Shui (Jessie Kim)",
       "category": "fengshui",
       "badge": "Consultancy",
@@ -101,6 +152,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Dato Joey Yap Consulting Group",
       "category": "bazi",
       "badge": "Consultancy",
@@ -111,6 +163,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Imperial Harvest",
       "category": "bazi",
       "badge": "Consultancy",
@@ -121,6 +174,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "BaZi Mastery Centre",
       "category": "bazi",
       "badge": "Education",
@@ -131,6 +185,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Feng Shui by Jen",
       "category": "bazi",
       "badge": "Education",
@@ -141,6 +196,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "China Institute",
       "category": "culture",
       "badge": "Cultural",
@@ -151,6 +207,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Asia Society",
       "category": "culture",
       "badge": "Cultural",
@@ -161,6 +218,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Chinese Culture Center of San Francisco",
       "category": "culture",
       "badge": "Cultural",
@@ -171,6 +229,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Museum of Chinese in America (MOCA)",
       "category": "culture",
       "badge": "Cultural",
@@ -181,6 +240,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Chinese American Museum of Chicago",
       "category": "culture",
       "badge": "Cultural",
@@ -191,6 +251,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Chinese Historical Society of America",
       "category": "culture",
       "badge": "Cultural",
@@ -201,6 +262,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Chinese Cultural Centre (Singapore)",
       "category": "culture",
       "badge": "Cultural",
@@ -211,6 +273,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Lillian Too\u2019s World of Feng Shui (WOFS)",
       "category": "products",
       "badge": "Retail",
@@ -221,6 +284,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Mandarin Arts",
       "category": "products",
       "badge": "Retail",
@@ -231,6 +295,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Inkston",
       "category": "products",
       "badge": "Retail",
@@ -241,6 +306,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "FengshuiMall",
       "category": "products",
       "badge": "Retail",
@@ -251,6 +317,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Beijing Tong Ren Tang",
       "category": "tcm",
       "badge": "Clinic",
@@ -261,6 +328,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Eu Yan Sang",
       "category": "tcm",
       "badge": "Clinic",
@@ -271,6 +339,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Ping Ming Health",
       "category": "tcm",
       "badge": "Clinic",
@@ -281,6 +350,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Qin\u2019s Clinic",
       "category": "tcm",
       "badge": "Clinic",
@@ -291,6 +361,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Shaolin Tagou Martial Arts School",
       "category": "martial-arts",
       "badge": "School",
@@ -301,6 +372,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Wudang Mountain Kung Fu Academy",
       "category": "martial-arts",
       "badge": "School",
@@ -311,6 +383,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "Ving Tsun Athletic Association",
       "category": "martial-arts",
       "badge": "Organisation",
@@ -321,6 +394,7 @@
       "featured": false
     },
     {
+      "tier": "free",
       "name": "U.S. Kuo Shu Academy",
       "category": "martial-arts",
       "badge": "School",

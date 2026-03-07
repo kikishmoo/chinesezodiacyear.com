@@ -23,7 +23,8 @@
     { "label": "Tea Culture", "labelTc": "茶文化", "labelSc": "茶文化", "url": "/tea-culture/", "page": "tea-culture" },
     { "label": "Wuxia", "labelTc": "武俠", "labelSc": "武侠", "url": "/wuxia/", "page": "wuxia" },
     { "label": "Chinamaxxing", "labelTc": "Chinamaxxing", "labelSc": "Chinamaxxing", "url": "/chinamaxxing/", "page": "chinamaxxing" },
-    { "label": "Compatibility", "labelTc": "配對", "labelSc": "配对", "url": "/compatibility/", "page": "compatibility" }
+    { "label": "Compatibility", "labelTc": "配對", "labelSc": "配对", "url": "/compatibility/", "page": "compatibility" },
+    { "label": "What's My Zodiac?", "labelTc": "我的生肖", "labelSc": "我的生肖", "url": "/whats-my-zodiac/", "page": "whats-my-zodiac" }
   ],
   "secondary": [
     { "label": "News", "labelTc": "資訊", "labelSc": "资讯", "url": "/news/", "page": "news" },

@@ -1,0 +1,205 @@
+---
+layout: "layouts/base.njk"
+title: "What Is My Chinese Zodiac Sign? — Free Calculator"
+description: "Find your Chinese zodiac animal sign by birth year. Free calculator with element, heavenly stem, and personality analysis based on classical sources."
+keywords: "what is my chinese zodiac sign, chinese zodiac calculator, find my zodiac animal, chinese zodiac by birth year, what chinese zodiac am I"
+permalink: "/whats-my-zodiac/"
+ogType: "website"
+category: "tools"
+breadcrumbs:
+  - label: "Home"
+    url: "/"
+  - label: "What's My Zodiac?"
+faq:
+  - q: "How do I find my Chinese zodiac sign?"
+    a: "Enter your birth year into the calculator above. The Chinese zodiac assigns one of twelve animals to each year in a repeating 12-year cycle: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog, and Pig. If you were born in January or February, check whether your birthday falls before or after Chinese New Year, as the zodiac year boundary shifts each year."
+  - q: "Does my Chinese zodiac sign change based on my birth month?"
+    a: "Your zodiac animal is determined by your birth year, not your month. However, if you were born in January or early February, you may belong to the previous year's animal — the Chinese zodiac year starts at Lichun (Start of Spring, around February 3-5) in BaZi tradition, or at Chinese New Year in folk tradition."
+  - q: "What are the 12 Chinese zodiac animals in order?"
+    a: "The twelve Chinese zodiac animals in order are: Rat (鼠), Ox (牛), Tiger (虎), Rabbit (兔), Dragon (龍), Snake (蛇), Horse (馬), Goat (羊), Monkey (猴), Rooster (雞), Dog (狗), and Pig (豬). This sequence has remained unchanged for over 2,000 years."
+  - q: "Is Chinese zodiac the same as Western astrology?"
+    a: "No. Chinese zodiac uses a 12-year cycle of animals determined by birth year, combined with the Five Elements (Wood, Fire, Earth, Metal, Water) and the Heavenly Stems system. Western astrology uses a 12-month cycle of constellations (Aries, Taurus, etc.) based on the sun's position at birth. The two systems are entirely independent."
+  - q: "What is the Chinese zodiac element for my birth year?"
+    a: "Each zodiac year has both an animal sign and one of five elements (Wood, Fire, Earth, Metal, Water), creating a 60-year cycle. The element comes from the Heavenly Stem of your birth year. Use the calculator above to find your specific element — for example, 1988 is an Earth Dragon while 2000 is a Metal Dragon."
+---
+{% include "partials/breadcrumbs.njk" %}
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <div class="lang-en">
+    <span class="overline">Free Calculator</span>
+    <h1>What Is My Chinese Zodiac Sign?</h1>
+    <p class="subtitle">Enter your birth year to discover your zodiac animal, Five Element, and Heavenly Stem — based on the classical Chinese calendar system used for over 2,000 years.</p>
+    </div>
+    <div class="lang-tc">
+    <span class="overline">免費計算器</span>
+    <h1>我的中國生肖是什麼？</h1>
+    <p class="subtitle">輸入您的出生年份，查詢您的生肖動物、五行元素和天干——基於沿用兩千多年的中國傳統曆法體系。</p>
+    </div>
+    <div class="lang-sc">
+    <span class="overline">免費计算器</span>
+    <h1>我的中国生肖是什么？</h1>
+    <p class="subtitle">输入您的出生年份，查询您的生肖动物、五行元素和天干——基于沿用两千多年的中国传统历法体系。</p>
+    </div>
+  </div>
+</section>
+
+<div class="article-layout">
+  <article class="article-content">
+
+    <section id="calculator">
+      <div class="calc-container">
+        <div class="lang-en">
+        <h2>Chinese Zodiac Calculator</h2>
+        <p>Enter your birthday below. Month and day are optional but recommended if you were born in January or February, to ensure accuracy around the Chinese New Year boundary.</p>
+        </div>
+        <div class="lang-tc">
+        <h2>中國生肖計算器</h2>
+        <p>請在下方輸入您的生日。月份和日期為選填，但若您出生於一月或二月，建議填寫以確保農曆新年前後的準確性。</p>
+        </div>
+        <div class="lang-sc">
+        <h2>中国生肖计算器</h2>
+        <p>请在下方输入您的生日。月份和日期为选填，但若您出生于一月或二月，建议填写以确保农历新年前后的准确性。</p>
+        </div>
+        <form id="zodiac-calc-form" class="calc-form" aria-label="Zodiac calculator">
+          <div class="calc-row">
+            <input type="number" id="birth-year" class="calc-input" placeholder="Year" min="1900" max="2100" required aria-label="Birth year">
+            <select id="birth-month" class="calc-input calc-input-sm" aria-label="Birth month (optional)">
+              <option value="">Month</option>
+              <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
+              <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
+              <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
+              <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+            </select>
+            <input type="number" id="birth-day" class="calc-input calc-input-sm" placeholder="Day" min="1" max="31" aria-label="Birth day (optional)">
+          </div>
+          <button type="submit" class="btn btn-primary"><span class="lang-en">Find My Zodiac</span><span class="lang-tc">查詢我的生肖</span><span class="lang-sc">查询我的生肖</span></button>
+        </form>
+        <div id="calc-result" class="calc-result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="twelve-animals">
+      <div class="lang-en">
+      <h2>The 12 Chinese Zodiac Animals</h2>
+      <p>The Chinese zodiac (生肖, Shēngxiào) is a repeating 12-year cycle, with each year assigned one of twelve animals. The system has been in continuous use since at least the Han Dynasty (206 BCE – 220 CE), though its origins may be even older. Click any animal below to read its full personality profile.</p>
+      </div>
+      <div class="lang-tc">
+      <h2>十二中國生肖</h2>
+      <p>中國生肖（生肖, Shēngxiào）是一個十二年循環的系統，每年對應一種動物。這個系統至少從漢代（公元前206年–公元220年）就開始持續使用，其起源可能更為久遠。點擊下方任何動物，閱讀其完整的性格分析。</p>
+      </div>
+      <div class="lang-sc">
+      <h2>十二中国生肖</h2>
+      <p>中国生肖（生肖, Shēngxiào）是一个十二年循环的系统，每年对应一种动物。这个系统至少从汉代（公元前206年–公元220年）就开始持续使用，其起源可能更为久远。点击下方任何动物，阅读其完整的性格分析。</p>
+      </div>
+
+      <div class="reading-grid" style="max-width:900px;margin:var(--sp-lg) auto;">
+        <a href="/zodiac/rat/" class="reading-card"><span class="reading-card-emoji">🐀</span><span class="reading-card-cn">鼠</span><span class="reading-card-name"><span class="lang-en">Rat</span><span class="lang-tc">鼠</span><span class="lang-sc">鼠</span></span></a>
+        <a href="/zodiac/ox/" class="reading-card"><span class="reading-card-emoji">🐂</span><span class="reading-card-cn">牛</span><span class="reading-card-name"><span class="lang-en">Ox</span><span class="lang-tc">牛</span><span class="lang-sc">牛</span></span></a>
+        <a href="/zodiac/tiger/" class="reading-card"><span class="reading-card-emoji">🐅</span><span class="reading-card-cn">虎</span><span class="reading-card-name"><span class="lang-en">Tiger</span><span class="lang-tc">虎</span><span class="lang-sc">虎</span></span></a>
+        <a href="/zodiac/rabbit/" class="reading-card"><span class="reading-card-emoji">🐇</span><span class="reading-card-cn">兔</span><span class="reading-card-name"><span class="lang-en">Rabbit</span><span class="lang-tc">兔</span><span class="lang-sc">兔</span></span></a>
+        <a href="/zodiac/dragon/" class="reading-card"><span class="reading-card-emoji">🐉</span><span class="reading-card-cn">龍</span><span class="reading-card-name"><span class="lang-en">Dragon</span><span class="lang-tc">龍</span><span class="lang-sc">龙</span></span></a>
+        <a href="/zodiac/snake/" class="reading-card"><span class="reading-card-emoji">🐍</span><span class="reading-card-cn">蛇</span><span class="reading-card-name"><span class="lang-en">Snake</span><span class="lang-tc">蛇</span><span class="lang-sc">蛇</span></span></a>
+        <a href="/zodiac/horse/" class="reading-card"><span class="reading-card-emoji">🐎</span><span class="reading-card-cn">馬</span><span class="reading-card-name"><span class="lang-en">Horse</span><span class="lang-tc">馬</span><span class="lang-sc">马</span></span></a>
+        <a href="/zodiac/goat/" class="reading-card"><span class="reading-card-emoji">🐐</span><span class="reading-card-cn">羊</span><span class="reading-card-name"><span class="lang-en">Goat</span><span class="lang-tc">羊</span><span class="lang-sc">羊</span></span></a>
+        <a href="/zodiac/monkey/" class="reading-card"><span class="reading-card-emoji">🐒</span><span class="reading-card-cn">猴</span><span class="reading-card-name"><span class="lang-en">Monkey</span><span class="lang-tc">猴</span><span class="lang-sc">猴</span></span></a>
+        <a href="/zodiac/rooster/" class="reading-card"><span class="reading-card-emoji">🐓</span><span class="reading-card-cn">雞</span><span class="reading-card-name"><span class="lang-en">Rooster</span><span class="lang-tc">雞</span><span class="lang-sc">鸡</span></span></a>
+        <a href="/zodiac/dog/" class="reading-card"><span class="reading-card-emoji">🐕</span><span class="reading-card-cn">狗</span><span class="reading-card-name"><span class="lang-en">Dog</span><span class="lang-tc">狗</span><span class="lang-sc">狗</span></span></a>
+        <a href="/zodiac/pig/" class="reading-card"><span class="reading-card-emoji">🐖</span><span class="reading-card-cn">豬</span><span class="reading-card-name"><span class="lang-en">Pig</span><span class="lang-tc">豬</span><span class="lang-sc">猪</span></span></a>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="lang-en">
+      <h2>How the Chinese Zodiac Works</h2>
+      <p>The Chinese zodiac assigns one of twelve animals to each year in a repeating cycle. But the system goes deeper than just the animal — each year also has:</p>
+      <ul>
+        <li><strong>A Heavenly Stem</strong> — one of ten stems (天干) that determines the year's element (Wood, Fire, Earth, Metal, or Water) and its Yin-Yang polarity</li>
+        <li><strong>An Earthly Branch</strong> — one of twelve branches (地支) that corresponds to the zodiac animal</li>
+        <li><strong>A Five Element (Wu Xing)</strong> — the element from the Heavenly Stem shapes personality and fortune, creating a 60-year cycle of unique animal-element combinations</li>
+      </ul>
+      <p>This means that while your zodiac animal repeats every 12 years, the exact same animal-element combination only repeats every 60 years. For example, a <a href="/zodiac-year/1988/">1988 Earth Dragon</a> is different from a <a href="/zodiac-year/2000/">2000 Metal Dragon</a>.</p>
+      <p>Learn more about the <a href="/calendar/">Chinese Calendar</a>, <a href="/wuxing/">Wu Xing Five Elements</a>, and <a href="/bazi/">BaZi Four Pillars</a>.</p>
+      </div>
+      <div class="lang-tc">
+      <h2>中國生肖如何運作</h2>
+      <p>中國生肖以十二年為一個循環，每年對應一種動物。但這個系統遠比動物本身更為深奧——每年還包括：</p>
+      <ul>
+        <li><strong>天干</strong>——十天干之一，決定年份的五行元素（木、火、土、金、水）及其陰陽極性</li>
+        <li><strong>地支</strong>——十二地支之一，對應生肖動物</li>
+        <li><strong>五行</strong>——來自天干的元素塑造性格與運勢，形成六十年一循環的獨特動物-元素組合</li>
+      </ul>
+      <p>這意味著雖然您的生肖動物每12年重複一次，但完全相同的動物-元素組合每60年才重複一次。例如，<a href="/zodiac-year/1988/">1988年的土龍</a>與<a href="/zodiac-year/2000/">2000年的金龍</a>截然不同。</p>
+      <p>進一步了解<a href="/calendar/">中國曆法</a>、<a href="/wuxing/">五行</a>和<a href="/bazi/">八字四柱</a>。</p>
+      </div>
+      <div class="lang-sc">
+      <h2>中国生肖如何运作</h2>
+      <p>中国生肖以十二年为一个循环，每年对应一种动物。但这个系统远比动物本身更为深奥——每年还包括：</p>
+      <ul>
+        <li><strong>天干</strong>——十天干之一，决定年份的五行元素（木、火、土、金、水）及其阴阳极性</li>
+        <li><strong>地支</strong>——十二地支之一，对应生肖动物</li>
+        <li><strong>五行</strong>——来自天干的元素塑造性格与运势，形成六十年一循环的独特动物-元素组合</li>
+      </ul>
+      <p>这意味着虽然您的生肖动物每12年重复一次，但完全相同的动物-元素组合每60年才重复一次。例如，<a href="/zodiac-year/1988/">1988年的土龙</a>与<a href="/zodiac-year/2000/">2000年的金龙</a>截然不同。</p>
+      <p>进一步了解<a href="/calendar/">中国历法</a>、<a href="/wuxing/">五行</a>和<a href="/bazi/">八字四柱</a>。</p>
+      </div>
+    </section>
+
+    <section id="recent-years">
+      <div class="lang-en">
+      <h2>Chinese Zodiac Years Chart (1960–2031)</h2>
+      <p>Quick reference for recent zodiac years. For the complete chart from 1924 to 2043, see our <a href="/zodiac-years-chart/">full zodiac years chart</a>.</p>
+      </div>
+      <div class="lang-tc">
+      <h2>中國生肖年份表（1960–2031）</h2>
+      <p>近年生肖速查。完整的1924年至2043年表格請見<a href="/zodiac-years-chart/">完整生肖年份表</a>。</p>
+      </div>
+      <div class="lang-sc">
+      <h2>中国生肖年份表（1960–2031）</h2>
+      <p>近年生肖速查。完整的1924年至2043年表格请见<a href="/zodiac-years-chart/">完整生肖年份表</a>。</p>
+      </div>
+
+      <div class="info-grid" style="margin-top:var(--sp-lg);">
+        {%- for y in zodiacYears -%}
+        {%- if y.year >= 1960 and y.year <= 2031 %}
+        <a href="/zodiac-year/{{ y.year }}/" class="info-card" style="text-decoration:none;{% if y.year == 2026 %}border:2px solid var(--imperial-gold);{% endif %}">
+          <div class="info-card-value" style="font-size:1.1rem;">{{ y.year }}</div>
+          <div class="info-card-label">{{ y.animalEmoji }} {{ y.element }} {{ y.animal }}</div>
+        </a>
+        {%- endif -%}
+        {%- endfor %}
+      </div>
+    </section>
+
+    <nav class="related-content" aria-labelledby="related-heading">
+      <h2 id="related-heading"><span class="lang-en">Continue Exploring</span><span class="lang-tc">繼續探索</span><span class="lang-sc">继续探索</span></h2>
+      <div class="related-grid">
+        <a href="/zodiac/" class="related-card"><span class="related-card-label"><span class="lang-en">All 12 Zodiac Animals</span><span class="lang-tc">全部12個生肖</span><span class="lang-sc">全部12个生肖</span></span><span class="related-card-arrow">&rarr;</span></a>
+        <a href="/compatibility/" class="related-card"><span class="related-card-label"><span class="lang-en">Compatibility Checker</span><span class="lang-tc">配對計算器</span><span class="lang-sc">配对计算器</span></span><span class="related-card-arrow">&rarr;</span></a>
+        <a href="/bazi-calculator/" class="related-card"><span class="related-card-label"><span class="lang-en">BaZi Calculator</span><span class="lang-tc">八字計算器</span><span class="lang-sc">八字计算器</span></span><span class="related-card-arrow">&rarr;</span></a>
+        <a href="/wuxing/" class="related-card"><span class="related-card-label"><span class="lang-en">Wu Xing Five Elements</span><span class="lang-tc">五行</span><span class="lang-sc">五行</span></span><span class="related-card-arrow">&rarr;</span></a>
+        <a href="/readings/" class="related-card"><span class="related-card-label"><span class="lang-en">2026 Zodiac Readings</span><span class="lang-tc">2026年運程</span><span class="lang-sc">2026年运程</span></span><span class="related-card-arrow">&rarr;</span></a>
+        <a href="/zodiac-years-chart/" class="related-card"><span class="related-card-label"><span class="lang-en">Complete Years Chart</span><span class="lang-tc">完整年份表</span><span class="lang-sc">完整年份表</span></span><span class="related-card-arrow">&rarr;</span></a>
+      </div>
+    </nav>
+
+  </article>
+
+  <aside class="article-sidebar">
+    <div class="sidebar-widget">
+      <h3 class="sidebar-heading">Contents</h3>
+      <ul class="toc-list">
+        <li><a href="#calculator">Calculator</a></li>
+        <li><a href="#twelve-animals">12 Animals</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#recent-years">Years Chart</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-widget">
+      <h3 class="sidebar-heading">Popular Tools</h3>
+      <a href="/compatibility/" style="display:block;margin-bottom:0.5rem;">Compatibility Checker</a>
+      <a href="/bazi-calculator/" style="display:block;margin-bottom:0.5rem;">BaZi Calculator</a>
+      <a href="/zodiac-years-chart/" style="display:block;margin-bottom:0.5rem;">Years Chart</a>
+    </div>
+  </aside>
+</div>

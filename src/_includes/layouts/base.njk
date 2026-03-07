@@ -128,5 +128,26 @@
 
   <script src="/site.js"></script>
   {% if page.url == "/" %}<script src="/trivia.js" defer></script>{% endif %}
+  <!-- Web Vitals performance monitoring -->
+  <script type="module">
+    if (window.gtag) {
+      import('https://unpkg.com/web-vitals@4/dist/web-vitals.attribution.js?module').then(({onCLS, onFID, onLCP, onFCP, onTTFB, onINP}) => {
+        function sendToGA(metric) {
+          gtag('event', metric.name, {
+            event_category: 'Web Vitals',
+            value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+            event_label: metric.id,
+            non_interaction: true,
+          });
+        }
+        onCLS(sendToGA);
+        onFID(sendToGA);
+        onLCP(sendToGA);
+        onFCP(sendToGA);
+        onTTFB(sendToGA);
+        onINP(sendToGA);
+      }).catch(() => {});
+    }
+  </script>
 </body>
 </html>
