@@ -8,6 +8,7 @@
   <title>{{ title }} | {{ site.name }}</title>
   <meta name="description" content="{{ description }}">
   {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
+  {% if noindex %}<meta name="robots" content="noindex, follow">{% endif %}
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
   <!-- Favicon & Web Manifest -->
   <link rel="icon" href="/favicon.ico" sizes="16x16">
@@ -89,6 +90,9 @@
   {% for video in videos %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"{{ video.title | jsonLdSafe | safe }}","description":"{{ video.description | default(video.title) | jsonLdSafe | safe }}","thumbnailUrl":"https://img.youtube.com/vi/{{ video.id }}/maxresdefault.jpg","uploadDate":"{{ video.uploadDate | default(datePublished) | default('2025-01-01') }}","contentUrl":"https://www.youtube.com/watch?v={{ video.id }}","embedUrl":"https://www.youtube.com/embed/{{ video.id }}","publisher":{"@type":"Organization","name":"{{ site.name | jsonLdSafe | safe }}","url":"{{ site.url }}/"}}</script>
   {% endfor %}
+  {% endif %}
+  {% if hubSchema %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"{{ title | jsonLdSafe | safe }}","description":"{{ description | jsonLdSafe | safe }}","url":"{{ site.url }}{{ page.url }}","mainEntity":{"@type":"ItemList","name":"{{ title | jsonLdSafe | safe }}","numberOfItems":{{ hubSchema.items | length }},"itemListElement":[{% for item in hubSchema.items %}{"@type":"ListItem","position":{{ loop.index }},"url":"{{ site.url }}{{ item.url }}","name":"{{ item.name | jsonLdSafe | safe }}"}{% if not loop.last %},{% endif %}{% endfor %}]}}</script>
   {% endif %}
   {% if directorySchema %}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"{{ title | jsonLdSafe | safe }}","description":"{{ description | jsonLdSafe | safe }}","numberOfItems":{{ directory.listings | length }},"itemListElement":[{% for listing in directory.listings %}{"@type":"ListItem","position":{{ loop.index }},"item":{"@type":"{% if listing.category == 'tcm' %}MedicalBusiness{% elif listing.category == 'products' %}Store{% elif listing.category == 'martial-arts' %}SportsActivityLocation{% elif listing.category == 'culture' %}Organization{% else %}ProfessionalService{% endif %}","name":"{{ listing.name | jsonLdSafe | safe }}","description":"{{ listing.description | jsonLdSafe | safe }}"{% if listing.url %},"url":"{{ listing.url }}"{% endif %}{% if listing.location %},"address":{"@type":"PostalAddress","addressLocality":"{{ listing.location | jsonLdSafe | safe }}"}{% endif %}{% if listing.specialties %},"knowsAbout":[{% for s in listing.specialties %}"{{ s | jsonLdSafe | safe }}"{% if not loop.last %},{% endif %}{% endfor %}]{% endif %}}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
