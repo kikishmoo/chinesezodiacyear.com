@@ -238,11 +238,20 @@ The site uses a custom domain via GitHub Pages with Cloudflare DNS.
 | A | `@` | `185.199.111.153` |
 | CNAME | `www` | `chinesezodiacyear.com` |
 
-**www redirect:** GitHub Pages handles `www` → non-www redirect when the CNAME file is set to the apex domain and DNS is configured correctly. A client-side JS redirect in `base.njk` serves as a fallback. If using Cloudflare, add a Page Rule:
+**www redirect:** GitHub Pages handles `www` → non-www redirect when the CNAME file is set to the apex domain and DNS is configured correctly. A client-side JS redirect in `base.njk` serves as a fallback.
 
-- URL: `www.chinesezodiacyear.com/*`
-- Setting: Forwarding URL (301 Permanent Redirect)
-- Destination: `https://chinesezodiacyear.com/$1`
+**Required Cloudflare configuration (server-side 301):**
+
+1. **Page Rule (www → non-www 301):**
+   - URL: `www.chinesezodiacyear.com/*`
+   - Setting: Forwarding URL (301 Permanent Redirect)
+   - Destination: `https://chinesezodiacyear.com/$1`
+
+2. **Cloudflare SSL:** Set to "Full" (not "Flexible") for GitHub Pages compatibility.
+
+3. **Caching:** Set Browser Cache TTL to at least 4 hours for static assets.
+
+**Search Console verification:** The site includes a `<meta name="google-site-verification">` tag configured via `site.json` → `googleVerification` field.
 
 ## Monetization
 
