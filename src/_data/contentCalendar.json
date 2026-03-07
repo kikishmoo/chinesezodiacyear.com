@@ -1,0 +1,118 @@
+{
+  "description": "Editorial content calendar for 2026. Articles are prioritized by SEO value, seasonal relevance, and topical authority building.",
+  "categories": ["zodiac", "culture", "fengshui", "bazi", "business"],
+  "pipeline": [
+    {
+      "slug": "chinese-zodiac-elements-guide",
+      "title": "Chinese Zodiac Elements — How the Five Elements Shape Your Sign",
+      "category": "zodiac",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "Chinese zodiac elements, five elements zodiac, wood fire earth metal water zodiac",
+      "notes": "Evergreen pillar content linking zodiac to wuxing. High search volume."
+    },
+    {
+      "slug": "heavenly-stems-earthly-branches",
+      "title": "Heavenly Stems and Earthly Branches — The 60-Year Cycle Explained",
+      "category": "culture",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "heavenly stems earthly branches, 60-year cycle Chinese, Tiangan Dizhi, sexagenary cycle",
+      "notes": "Core reference content. Links to calendar, BaZi, zodiac years."
+    },
+    {
+      "slug": "chinese-zodiac-personality-traits",
+      "title": "Chinese Zodiac Personality Traits — All 12 Animals Compared",
+      "category": "zodiac",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "Chinese zodiac personality, zodiac animal traits, 12 animals personality",
+      "notes": "Comparison hub. High search volume, links to all 12 animal pages."
+    },
+    {
+      "slug": "feng-shui-bedroom-guide",
+      "title": "Feng Shui Bedroom — Arrangement, Colours, and Common Mistakes",
+      "category": "fengshui",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "feng shui bedroom, bedroom feng shui tips, bed placement feng shui",
+      "notes": "Practical evergreen content. Very high search volume for feng shui."
+    },
+    {
+      "slug": "bazi-reading-guide",
+      "title": "How to Read a BaZi Chart — Beginner's Step-by-Step Guide",
+      "category": "bazi",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "how to read BaZi chart, BaZi for beginners, four pillars reading",
+      "notes": "Funnel content — leads to BaZi calculator and premium readings."
+    },
+    {
+      "slug": "mid-autumn-festival-guide",
+      "title": "Mid-Autumn Festival — Moon Cakes, Legends, and Traditions",
+      "category": "culture",
+      "priority": "medium",
+      "status": "queued",
+      "targetDate": "2026-08-15",
+      "targetKeywords": "mid-autumn festival, moon festival, mooncakes, Chang'e",
+      "notes": "Seasonal — publish 6 weeks before festival (Sept 27, 2026)."
+    },
+    {
+      "slug": "dragon-boat-festival-guide",
+      "title": "Dragon Boat Festival — History, Traditions, and Zongzi",
+      "category": "culture",
+      "priority": "medium",
+      "status": "queued",
+      "targetDate": "2026-04-20",
+      "targetKeywords": "dragon boat festival, Duanwu, zongzi, Qu Yuan",
+      "notes": "Seasonal — publish 6 weeks before festival (May 31, 2026)."
+    },
+    {
+      "slug": "qingming-festival-guide",
+      "title": "Qingming Festival — Tomb Sweeping Day Traditions and History",
+      "category": "culture",
+      "priority": "medium",
+      "status": "queued",
+      "targetDate": "2026-03-15",
+      "targetKeywords": "Qingming festival, tomb sweeping day, Qingming traditions",
+      "notes": "Seasonal — publish before April 5, 2026."
+    },
+    {
+      "slug": "feng-shui-office-guide",
+      "title": "Feng Shui Office — Desk Placement, Colours, and Productivity Tips",
+      "category": "fengshui",
+      "priority": "medium",
+      "status": "queued",
+      "targetKeywords": "feng shui office, office desk feng shui, feng shui at work",
+      "notes": "Evergreen practical content. Leads to feng shui directory listings."
+    },
+    {
+      "slug": "chinese-zodiac-love-compatibility",
+      "title": "Chinese Zodiac Love Compatibility — Best and Worst Matches",
+      "category": "zodiac",
+      "priority": "high",
+      "status": "queued",
+      "targetKeywords": "Chinese zodiac love compatibility, zodiac best match, zodiac worst match",
+      "notes": "High search volume. Links to compatibility pair pages."
+    },
+    {
+      "slug": "yin-yang-explained",
+      "title": "Yin and Yang — Origins, Meaning, and Daily Life Applications",
+      "category": "culture",
+      "priority": "medium",
+      "status": "queued",
+      "targetKeywords": "yin and yang meaning, yin yang explained, yin yang in Chinese culture",
+      "notes": "Foundational concept. Links to wuxing, bazi, fengshui, TCM."
+    },
+    {
+      "slug": "chinese-new-year-2027-snake",
+      "title": "Chinese New Year 2027 — Year of the Fire Snake Preview",
+      "category": "zodiac",
+      "priority": "medium",
+      "status": "queued",
+      "targetDate": "2026-10-01",
+      "targetKeywords": "Chinese New Year 2027, Year of the Snake 2027, Fire Snake",
+      "notes": "Publish Q4 2026 to capture early search interest."
+    }
+  ]
+}
