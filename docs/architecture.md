@@ -162,7 +162,7 @@ _site/
   pages/                          # Encyclopedia pages (34)
   zodiac/                         # Zodiac animal pages (12)
   readings/                       # Yearly readings (12)
-  articles/                       # Long-form articles (10)
+  articles/                       # Long-form articles (15)
   year/                           # Individual year pages (121)
   wuxing/                         # Wu Xing element pages (5)
   dynasties/                      # Dynasty pages (10)
@@ -576,7 +576,7 @@ src/_includes/
 | Encyclopedia       | 34    | `src/pages/*.njk`      | `/pages/{slug}/`       | Front matter               | `article.njk` |
 | Zodiac Animals     | 12    | `src/zodiac/*.njk`     | `/zodiac/{animal}/`    | Front matter               | `article.njk` |
 | Yearly Readings    | 12    | `src/readings/*.njk`   | `/readings/{animal}/`  | Front matter (unique astro section per animal) | `article.njk` |
-| Long-form Articles | 10    | `src/articles/*.njk`   | `/articles/{slug}/`    | Front matter + newsCategories | `article.njk` |
+| Long-form Articles | 15    | `src/articles/*.njk`   | `/articles/{slug}/`    | Front matter + newsCategories | `article.njk` |
 | Year Pages         | 121   | Pagination template    | `/year/{1924-2044}/`   | `zodiacYears.js`           | `article.njk` |
 | Wu Xing Pages      | 5     | Pagination template    | `/wuxing/{element}/`   | `elements.json`            | `article.njk` |
 | Dynasty Pages      | 10    | Pagination template    | `/dynasties/{slug}/`   | `dynastiesData.json`       | `article.njk` |

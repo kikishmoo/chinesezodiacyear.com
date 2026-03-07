@@ -134,7 +134,7 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 | Encyclopedia/utility pages | 34 | `src/pages/*.njk` |
 | Zodiac animal profiles | 12 | `src/zodiac/*.njk` |
 | 2026 yearly readings | 12 | `src/readings/2026-*.njk` |
-| Long-form articles | 10 | `src/articles/*.njk` |
+| Long-form articles | 15 | `src/articles/*.njk` |
 | Year pages (data-generated) | 121 | `src/year-pages.njk` + `zodiacYears.js` |
 | Wu Xing element sub-pages | 5 | `src/wuxing-pages.njk` + `elements.json` |
 | Dynasty sub-pages | 10 | `src/dynasty-pages.njk` + `dynastiesData.json` |
@@ -158,7 +158,7 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 **News/content aggregation:**
 - `news.njk`, `news-category.njk`, `asian-new-year.njk`, `asian-new-year-redirect.njk`
 
-### 2.3 Long-Form Articles (10)
+### 2.3 Long-Form Articles (15)
 
 | Article | Slug | Category Focus |
 |---------|------|----------------|
@@ -639,7 +639,7 @@ chinesezodiacyear.com
 +-- /chinamaxxing/              [Cultural topic]
 +-- /qimen/                     [Cultural topic]
 |
-+-- /articles/                  [10 long-form articles]
++-- /articles/                  [15 long-form articles]
 |   +-- article-2026-horse
 |   +-- bazi-four-pillars-guide
 |   +-- celebrity-chinese-zodiac-signs

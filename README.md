@@ -42,13 +42,14 @@ The dev server runs at `http://localhost:8080`. The production build outputs to 
 
 ```
 src/
-├── _data/                  # Global data files (13 files: JSON + JS)
+├── _data/                  # Global data files (14 files: JSON + JS)
 │   ├── site.json           # Site config (URLs, API keys, social)
 │   ├── nav.json            # Trilingual navigation structure
 │   ├── dynastiesData.json  # 10 Chinese dynasties (Xia–Ming)
 │   ├── elements.json       # 5 Wu Xing elements with correspondences
 │   ├── contentGraph.json   # Topic affinity map for auto-linking
 │   ├── compatibilityPairs.js # Generates 78 zodiac compatibility pair objects
+│   ├── contentCalendar.json # Editorial content calendar and pipeline
 │   ├── directory.json      # Professional directory listings (50+)
 │   ├── shop.json           # Products and premium readings
 │   ├── zodiacYears.js      # Generates 1924–2044 year data
@@ -73,7 +74,7 @@ src/
 │       ├── email-popup.njk # Exit-intent email capture modal
 │       └── comments.njk    # Giscus GitHub Discussions
 ├── admin/                  # Decap CMS admin panel
-├── articles/               # Long-form articles (10 files)
+├── articles/               # Long-form articles (15 files)
 ├── pages/                  # Encyclopedia and utility pages (34 files)
 ├── readings/               # Yearly zodiac readings (12 files, each unique)
 ├── zodiac/                 # Individual animal pages (12 files)
@@ -95,6 +96,9 @@ worker/
 └── wrangler.toml           # Worker config
 
 eleventy.config.js          # Eleventy build config (collections, filters, i18n, minification)
+
+scripts/
+└── new-article.js          # Article scaffolding CLI tool
 ```
 
 ## Data Files
@@ -107,6 +111,7 @@ eleventy.config.js          # Eleventy build config (collections, filters, i18n,
 | `elements.json` | 5 Wu Xing elements with full correspondences |
 | `contentGraph.json` | Topic affinity map for auto-generated related links |
 | `compatibilityPairs.js` | Generates 78 zodiac compatibility pair objects (Six Harmonies, Clashes, Harms, neutral, self) |
+| `contentCalendar.json` | Editorial content calendar with article pipeline |
 | `directory.json` | 50+ professional directory listings |
 | `shop.json` | 3 premium reading tiers + 6 digital products |
 | `zodiacYears.js` | Generates 1924–2044 year data (animal, element, stem, yin-yang) |
@@ -117,7 +122,7 @@ eleventy.config.js          # Eleventy build config (collections, filters, i18n,
 
 ## Content Architecture
 
-The site generates **292 pages** (864+ after i18n) across these content types:
+The site generates **298 pages** (882+ after i18n) across these content types:
 
 | Type | Count | Source |
 |---|---|---|
@@ -125,7 +130,7 @@ The site generates **292 pages** (864+ after i18n) across these content types:
 | Zodiac animal pages | 12 | `src/zodiac/*.njk` |
 | Yearly readings | 12 | `src/readings/*.njk` (each with unique astrological section) |
 | Compatibility pair pages | 78 | Generated from `compatibilityPairs.js` (66 unique + 12 same-sign) |
-| Long-form articles | 10 | `src/articles/*.njk` |
+| Long-form articles | 15 | `src/articles/*.njk` |
 | Year pages | 121 | Generated from `zodiacYears.js` (1924–2044) |
 | Wu Xing element pages | 5 | Generated from `elements.json` |
 | Dynasty pages | 10 | Generated from `dynastiesData.json` |
@@ -193,13 +198,38 @@ The `eleventy.after` hook in `eleventy.config.js` performs these post-build step
 3. **i18n generation** — Copies all HTML pages into `/zh-hant/` and `/zh-hans/` directories, strips non-active language blocks, updates `<html lang>`, canonical URLs, and og:url
 4. **English stripping** — Strips TC/SC language blocks from base English pages
 
-Build output: ~292 HTML files pre-i18n, ~864+ after i18n generation.
+Build output: ~298 HTML files pre-i18n, ~882+ after i18n generation.
 
 ## Adding Content
 
 ### Via Decap CMS
 
 Navigate to `https://chinesezodiacyear.com/admin/` and authenticate with GitHub. The CMS supports three collections: Articles, Encyclopedia Pages, and Zodiac Readings.
+
+### Via the scaffolding script
+
+```bash
+# Create a new article with default sections
+node scripts/new-article.js \
+  --slug "my-article" \
+  --title "My Article Title" \
+  --category zodiac
+
+# Create with custom sections and date
+node scripts/new-article.js \
+  --slug "fire-horse-meaning" \
+  --title "Fire Horse Meaning" \
+  --category zodiac \
+  --sections "overview:Overview,symbolism:Symbolism,modern:Modern Interpretation" \
+  --date 2026-04-01
+
+# Preview without writing (dry run)
+node scripts/new-article.js --dry-run --slug "test" --title "Test" --category culture
+```
+
+Categories: `zodiac`, `culture`, `fengshui`, `bazi`, `business`
+
+The editorial content calendar is in `src/_data/contentCalendar.json` — it tracks planned articles, target keywords, and publication status.
 
 ### Manually
 
