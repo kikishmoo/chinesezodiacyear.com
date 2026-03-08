@@ -539,7 +539,7 @@ Extends `base.njk`. Provides the standard content page structure used by the maj
 | `header.njk`                 | `src/_includes/partials/header.njk`   | Site header with logo, primary nav, language toggle, theme toggle, search trigger |
 | `footer.njk`                 | `src/_includes/partials/footer.njk`   | 3-column footer with nav links, newsletter signup, copyright       |
 | `breadcrumbs.njk`            | `src/_includes/partials/breadcrumbs.njk` | Breadcrumb trail; also outputs BreadcrumbList JSON-LD            |
-| `hero.njk`                   | `src/_includes/partials/hero.njk`     | Page hero with title, subtitle, optional featured image            |
+| `hero.njk`                   | `src/_includes/partials/hero.njk`     | Page hero with overline, title, subtitle; supports trilingual TC/SC via optional `heroTitleTc/Sc`, `heroSubtitleTc/Sc`, `heroOverlineTc/Sc` frontmatter fields wrapped in `<div class="lang-XX">` blocks for build-time stripping |
 | `ad-unit.njk`                | `src/_includes/partials/ad-unit.njk`  | AdSense ad container (sidebar and in-content placements)           |
 | `affiliate-disclosure.njk`   | `src/_includes/partials/affiliate-disclosure.njk` | FTC disclosure notice for pages with affiliate links  |
 | `share-buttons.njk`          | `src/_includes/partials/share-buttons.njk` | Social sharing links (Twitter, Facebook, email, copy link)    |

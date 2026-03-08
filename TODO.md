@@ -40,6 +40,7 @@ ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validate
 | 22 | ~~Add CI build validation step~~                      | ~~HIGH~~   | ~~30 min~~   | ~~High~~     | ~~Technical~~  |
 | 23 | ~~Update llms.txt with missing URLs~~                 | ~~MEDIUM~~ | ~~15 min~~   | ~~Medium~~   | ~~GEO~~        |
 | 24 | ~~Fix language toggle navigation bug~~                | ~~HIGH~~   | ~~30 min~~   | ~~High~~     | ~~Technical~~  |
+| 25 | ~~Hero section TC/SC translation consistency~~        | ~~HIGH~~   | ~~1 hour~~   | ~~High~~     | ~~Technical~~  |
 
 ---
 
@@ -392,6 +393,20 @@ Implementation details:
 2. **Nav link rewriting (`site.js`):** On `/zh-hant/` or `/zh-hans/` pages, an IIFE rewrites all internal links in the header nav, logo, search link, and footer to include the current language prefix. This preserves the user's language when navigating. Non-HTML resources (e.g., `/sitemap.xml`) and external links are excluded.
 
 **Result:** Navigating while on a Chinese variant page now stays in the same language. Visiting an English page always shows the toggle in EN position.
+
+#### 3.10 Hero Section TC/SC Translation Consistency [COMPLETED]
+
+- **Completed:** 2026-03-08
+- **Files changed:** `src/_includes/partials/hero.njk` (shared partial), all 20 article-layout pages (frontmatter updates), `docs/architecture.md`
+
+**Problem:** Pages using `layouts/base.njk` (7 pages) had custom inline heroes with trilingual TC/SC translations. Pages using `layouts/article.njk` (20 pages) shared a `hero.njk` partial that only rendered English — hero titles/subtitles stayed in English when viewing zh-hant/zh-hans variants.
+
+**Fix:**
+1. **Updated `hero.njk` partial** to accept optional `heroTitleTc`, `heroTitleSc`, `heroSubtitleTc`, `heroSubtitleSc`, `heroOverlineTc`, `heroOverlineSc` frontmatter fields. When present, the partial renders trilingual content wrapped in `<div class="lang-XX">` blocks (compatible with the existing build-time i18n stripping logic).
+2. **Added TC/SC frontmatter** to all 20 article-layout pages: zodiac, bazi, fengshui, calendar, spring-festival, wuxing, bazi-calculator, asian-new-year, folk-arts, hanfu, dynasties, taoism, qimen, yijing, tcm, martial-arts, tea-culture, wuxia, chinamaxxing, compatibility.
+3. **Key constraint:** The `stripLangBlocks` function in `eleventy.config.js` only handles `<div class="lang-XX">` (balanced tag matching) and `<span class="lang-XX">` (regex) with exact class attributes. Hero elements must be wrapped in `<div class="lang-XX">` containers rather than placing the lang class directly on `<h1>`, `<p>`, or multi-class elements.
+
+**Result:** All 27 main pages now show translated hero sections (overline, title, subtitle) when viewing TC/SC variants. Consistent behaviour across both layout patterns.
 
 ---
 

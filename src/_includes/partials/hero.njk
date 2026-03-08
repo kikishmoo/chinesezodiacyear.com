@@ -1,9 +1,31 @@
 {% if heroOverline or heroTitle or heroSubtitle %}
 <section class="page-hero">
   <div class="page-hero-content">
-    {% if heroOverline %}<span class="overline">{{ heroOverline }}</span>{% endif %}
-    <h1>{{ heroTitle | default(title) }}</h1>
-    {% if heroSubtitle %}<p class="subtitle">{{ heroSubtitle | safe }}</p>{% endif %}
+    {% if heroOverline %}
+      {% if heroOverlineTc or heroOverlineSc %}
+        <div class="lang-en"><span class="overline">{{ heroOverline }}</span></div>
+        {% if heroOverlineTc %}<div class="lang-tc"><span class="overline">{{ heroOverlineTc }}</span></div>{% endif %}
+        {% if heroOverlineSc %}<div class="lang-sc"><span class="overline">{{ heroOverlineSc }}</span></div>{% endif %}
+      {% else %}
+        <span class="overline">{{ heroOverline }}</span>
+      {% endif %}
+    {% endif %}
+    {% if heroTitleTc or heroTitleSc %}
+      <div class="lang-en"><h1>{{ heroTitle | default(title) }}</h1></div>
+      {% if heroTitleTc %}<div class="lang-tc"><h1>{{ heroTitleTc }}</h1></div>{% endif %}
+      {% if heroTitleSc %}<div class="lang-sc"><h1>{{ heroTitleSc }}</h1></div>{% endif %}
+    {% else %}
+      <h1>{{ heroTitle | default(title) }}</h1>
+    {% endif %}
+    {% if heroSubtitle %}
+      {% if heroSubtitleTc or heroSubtitleSc %}
+        <div class="lang-en"><p class="subtitle">{{ heroSubtitle | safe }}</p></div>
+        {% if heroSubtitleTc %}<div class="lang-tc"><p class="subtitle">{{ heroSubtitleTc | safe }}</p></div>{% endif %}
+        {% if heroSubtitleSc %}<div class="lang-sc"><p class="subtitle">{{ heroSubtitleSc | safe }}</p></div>{% endif %}
+      {% else %}
+        <p class="subtitle">{{ heroSubtitle | safe }}</p>
+      {% endif %}
+    {% endif %}
   </div>
 </section>
 {% endif %}
