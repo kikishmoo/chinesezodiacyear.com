@@ -350,6 +350,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* --- Language-Aware Nav Links ---
+     When the page is on a language-prefixed path (/zh-hant/ or /zh-hans/),
+     rewrite internal nav links so that clicking them preserves the current
+     language instead of falling back to the English base URL. */
+  (function() {
+    var prefix = '';
+    var p = window.location.pathname;
+    if (p.indexOf('/zh-hant') === 0) prefix = '/zh-hant';
+    else if (p.indexOf('/zh-hans') === 0) prefix = '/zh-hans';
+    if (!prefix) return;
+    document.querySelectorAll('.main-nav a, .site-logo, .header-search-link, .site-footer a').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (!href || href.charAt(0) !== '/' || href.indexOf('/zh-hant') === 0 || href.indexOf('/zh-hans') === 0) return;
+      /* Skip non-HTML resources (e.g. /sitemap.xml, /feed.xml) */
+      if (/\.\w{2,4}$/.test(href)) return;
+      link.setAttribute('href', prefix + href);
+    });
+  })();
+
   /* --- Smooth scroll for anchor links --- */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {

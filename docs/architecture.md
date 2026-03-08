@@ -68,7 +68,7 @@
 | Serverless API     | Cloudflare Worker                   | BaZi calculator proxy, deployed via Wrangler |
 | CMS                | Decap CMS                           | Git-backed, commits directly to repo       |
 | CSS                | Vanilla CSS                         | ~5,250 lines source, minified via CleanCSS |
-| JavaScript         | Vanilla JS                          | site.js (~1,020 lines) + trivia.js (~526 lines), minified via Terser |
+| JavaScript         | Vanilla JS                          | site.js (~1,087 lines) + trivia.js (~526 lines), minified via Terser |
 | Image Processing   | @11ty/eleventy-img                  | WebP + JPEG fallback at 400/800/1200px widths |
 | Node Runtime       | Node.js 20                          | Specified in CI workflow                   |
 
@@ -114,7 +114,7 @@ eleventy.config.js
                 |       - Write to _site/css/style.css
                 |
                 +-- 4b. JS Minification
-                |       - Read src/js/site.js (~1,020 lines)
+                |       - Read src/js/site.js (~1,087 lines)
                 |       - Read src/js/trivia.js (~526 lines)
                 |       - Process each through Terser
                 |       - Write to _site/js/site.js and _site/js/trivia.js
@@ -758,12 +758,29 @@ Generated in `base.njk` by iterating over `languages.json`.
 
 ### 6.6 Client-Side Language Toggle
 
-`site.js` provides a language toggle that:
+#### Language Detection (inline `<script>` in `base.njk`)
 
-1. Reads the user's language preference from `localStorage` key (e.g., `preferred-lang`)
-2. Sets a class on `<html>` (e.g., `active-lang-tc`) to show/hide language blocks via CSS
-3. Persists the selection to `localStorage` for subsequent visits
-4. On Chinese-variant pages (e.g., `/zh-hant/...`), the toggle navigates to the equivalent path in another language variant rather than just toggling CSS classes
+A blocking inline script runs before render to prevent FOUC:
+
+1. Detects current language **from the URL path** (`/zh-hant/` → TC, `/zh-hans/` → SC, everything else → EN)
+2. Sets `data-lang` attribute on `<html>` to control CSS visibility of `lang-en`/`lang-tc`/`lang-sc` blocks
+3. Writes the detected language to `localStorage` key `czy-lang` (syncing storage to URL, not the other way around)
+4. Sets `lang` attribute on `<html>` for accessibility (`en`, `zh-Hant`, or `zh-Hans`)
+
+**Important:** The language is always derived from the URL, never from localStorage. This prevents a mismatch where localStorage remembers TC/SC but the page URL serves English content.
+
+#### Toggle Button (`site.js`)
+
+The toggle button cycles EN → TC → SC → EN and **navigates** to the corresponding URL:
+
+1. Reads current language from `data-lang` attribute
+2. Computes next language in the cycle
+3. Strips any existing `/zh-hant/` or `/zh-hans/` prefix from the path
+4. Navigates to the new language-prefixed URL (or bare path for EN)
+
+#### Language-Aware Navigation (`site.js`)
+
+When the page is on a language-prefixed path (`/zh-hant/` or `/zh-hans/`), an IIFE rewrites all internal navigation links (header nav, logo, search link, footer links) to include the current language prefix. This ensures clicking a nav link preserves the user's language selection instead of falling back to the English base URL. Non-HTML resources (e.g., `/sitemap.xml`) and external links are excluded from rewriting.
 
 ### 6.7 Page Count Multiplication
 
@@ -786,7 +803,7 @@ The site ships two JavaScript files, both minified by Terser during the build:
 
 | File         | Source Lines | Purpose                                    | Loaded On          |
 |--------------|-------------|--------------------------------------------|--------------------|
-| `site.js`    | ~1,020      | Core site functionality                    | Every page (defer) |
+| `site.js`    | ~1,087      | Core site functionality                    | Every page (defer) |
 | `trivia.js`  | ~526        | Trivia game engine                         | `/trivia/` only    |
 
 No framework. No bundler. No npm runtime dependencies in the browser.
@@ -794,7 +811,7 @@ No framework. No bundler. No npm runtime dependencies in the browser.
 ### 7.2 `site.js` Module Breakdown
 
 ```
-site.js (~1,020 lines)
+site.js (~1,087 lines)
   |
   +-- Zodiac Calculator (~500 lines)
   |     - Lichun (Start of Spring) date table: 1900-2079
@@ -805,10 +822,11 @@ site.js (~1,020 lines)
   |     - Element derivation from stem
   |     - Result display with trilingual output
   |
-  +-- Language Toggle (~60 lines)
-  |     - Read/write localStorage for preferred language
-  |     - Toggle CSS classes on <html> for show/hide
-  |     - Navigate between /zh-hant/ and /zh-hans/ path variants
+  +-- Language Toggle + Nav Rewriting (~80 lines)
+  |     - Detect language from URL path (not localStorage)
+  |     - Toggle button navigates between language URL variants
+  |     - On /zh-hant/ or /zh-hans/ pages, rewrites nav/footer hrefs
+  |       to preserve language prefix when navigating
   |
   +-- Theme Toggle (~40 lines)
   |     - Dark/light mode switch

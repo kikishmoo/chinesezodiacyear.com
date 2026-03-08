@@ -39,6 +39,7 @@ ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validate
 | 21 | ~~Fix npm vulnerability (minimatch ReDoS)~~           | ~~HIGH~~   | ~~10 min~~   | ~~High~~     | ~~Technical~~  |
 | 22 | ~~Add CI build validation step~~                      | ~~HIGH~~   | ~~30 min~~   | ~~High~~     | ~~Technical~~  |
 | 23 | ~~Update llms.txt with missing URLs~~                 | ~~MEDIUM~~ | ~~15 min~~   | ~~Medium~~   | ~~GEO~~        |
+| 24 | ~~Fix language toggle navigation bug~~                | ~~HIGH~~   | ~~30 min~~   | ~~High~~     | ~~Technical~~  |
 
 ---
 
@@ -374,6 +375,23 @@ Implementation details:
    - BaZi Calculator, Chinese Dynasties, Spring Festival, Professional Directory, Digital Products (Shop), News & Articles, Taoism, Yi Jing, Tea Culture, Hanfu, Martial Arts, Traditional Chinese Medicine, Qi Men Dun Jia.
 2. Total key URLs now: 22 (was 9).
 3. All major content pillars and commercial pages are now documented for AI crawlers.
+
+#### 3.9 Fix Language Toggle Navigation Bug [COMPLETED]
+
+- **Completed:** 2026-03-08
+- **Commit:** (see latest commit on main)
+- **Files changed:** `src/_includes/layouts/base.njk`, `src/site.js`, `docs/architecture.md`
+
+**Problem:** When a user toggled to TC or SC on one page, then clicked a nav link to navigate to a different page, the new page displayed English content but the toggle button remained in TC/SC position. This happened because:
+1. Nav links are plain hrefs (e.g., `/calendar/`) without language prefixes
+2. The inline detection script in `base.njk` read `localStorage` on English pages, picking up the stale TC/SC preference
+3. `data-lang` was set to TC/SC but the actual HTML only contained English content (TC/SC stripped at build time)
+
+**Fix (two-part):**
+1. **Inline script (`base.njk`):** Language is now always derived from the URL path, never from `localStorage`. On base English pages (no `/zh-hant/` or `/zh-hans/` prefix), `data-lang` is always set to `'en'`. `localStorage` is written (not read) to keep it in sync with the URL.
+2. **Nav link rewriting (`site.js`):** On `/zh-hant/` or `/zh-hans/` pages, an IIFE rewrites all internal links in the header nav, logo, search link, and footer to include the current language prefix. This preserves the user's language when navigating. Non-HTML resources (e.g., `/sitemap.xml`) and external links are excluded.
+
+**Result:** Navigating while on a Chinese variant page now stays in the same language. Visiting an English page always shows the toggle in EN position.
 
 ---
 
