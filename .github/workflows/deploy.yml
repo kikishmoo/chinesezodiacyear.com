@@ -33,6 +33,67 @@ jobs:
       - name: Build with Eleventy
         run: npx @11ty/eleventy
 
+      - name: Validate build output
+        run: |
+          echo "=== Build Output Validation ==="
+
+          # 1. Check base HTML pages exist (expect ~290+)
+          BASE_COUNT=$(find _site -maxdepth 3 -name "index.html" -not -path "*/zh-hant/*" -not -path "*/zh-hans/*" | wc -l)
+          echo "Base HTML pages: $BASE_COUNT"
+          if [ "$BASE_COUNT" -lt 250 ]; then
+            echo "::error::Base page count ($BASE_COUNT) below minimum threshold (250). Build may be incomplete."
+            exit 1
+          fi
+
+          # 2. Check i18n directories exist and are populated
+          ZH_HANT_COUNT=$(find _site/zh-hant -name "*.html" 2>/dev/null | wc -l)
+          ZH_HANS_COUNT=$(find _site/zh-hans -name "*.html" 2>/dev/null | wc -l)
+          echo "zh-hant pages: $ZH_HANT_COUNT"
+          echo "zh-hans pages: $ZH_HANS_COUNT"
+          if [ "$ZH_HANT_COUNT" -lt 200 ]; then
+            echo "::error::zh-hant page count ($ZH_HANT_COUNT) below minimum (200). i18n generation may have failed."
+            exit 1
+          fi
+          if [ "$ZH_HANS_COUNT" -lt 200 ]; then
+            echo "::error::zh-hans page count ($ZH_HANS_COUNT) below minimum (200). i18n generation may have failed."
+            exit 1
+          fi
+
+          # 3. Check CSS was minified (output smaller than source)
+          SRC_CSS_SIZE=$(wc -c < src/styles.css)
+          OUT_CSS_SIZE=$(wc -c < _site/styles.css)
+          echo "CSS: source ${SRC_CSS_SIZE}B → output ${OUT_CSS_SIZE}B"
+          if [ "$OUT_CSS_SIZE" -ge "$SRC_CSS_SIZE" ]; then
+            echo "::error::CSS minification failed — output ($OUT_CSS_SIZE) >= source ($SRC_CSS_SIZE)."
+            exit 1
+          fi
+
+          # 4. Check JS was minified
+          SRC_JS_SIZE=$(wc -c < src/site.js)
+          OUT_JS_SIZE=$(wc -c < _site/site.js)
+          echo "JS:  source ${SRC_JS_SIZE}B → output ${OUT_JS_SIZE}B"
+          if [ "$OUT_JS_SIZE" -ge "$SRC_JS_SIZE" ]; then
+            echo "::error::JS minification failed — output ($OUT_JS_SIZE) >= source ($SRC_JS_SIZE)."
+            exit 1
+          fi
+
+          # 5. Check critical files exist
+          for f in _site/sitemap.xml _site/robots.txt _site/feed.xml _site/search-index.json _site/llms.txt; do
+            if [ ! -f "$f" ]; then
+              echo "::error::Missing critical file: $f"
+              exit 1
+            fi
+          done
+          echo "Critical files: all present"
+
+          # 6. Spot-check a sample page has valid HTML structure
+          if ! grep -q '<html' _site/index.html; then
+            echo "::error::Homepage missing <html> tag — build output appears corrupt."
+            exit 1
+          fi
+
+          echo "=== Validation PASSED ==="
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

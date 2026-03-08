@@ -38,10 +38,11 @@
 |  (main branch)   |      | (deploy.yml)        |      | (Static hosting)  |
 |                  |      |                     |      |                   |
 |  src/            |      | 1. Checkout         |      | _site/            |
-|  eleventy.config |      | 2. Node 20 + npm ci |      |   213 base pages  |
-|  src/_data/      |      | 3. Eleventy build   |      |   640+ with i18n  |
-|                  |      | 4. Upload artifact  |      |                   |
-+------------------+      | 5. Deploy to Pages  |      +--------+----------+
+|  eleventy.config |      | 2. Node 20 + npm ci |      |   293 base pages  |
+|  src/_data/      |      | 3. Eleventy build   |      |   879 with i18n   |
+|                  |      | 4. Build validation |      |                   |
++------------------+      | 5. Upload artifact  |      +--------+----------+
+                          | 6. Deploy to Pages  |      +--------+----------+
                           +---------------------+               |
                                                                 |
                           +---------------------+               |
@@ -103,7 +104,7 @@ eleventy.config.js
         |       - Nunjucks processes all .njk files
         |       - Data cascade: _data/ files -> front matter -> computed data
         |       - Shortcodes expand (respimg for responsive images)
-        |       - Output: 213 HTML pages in _site/
+        |       - Output: 293 HTML pages in _site/
         |
         +-- 4. eleventy.after HOOK (post-build)
                 |
@@ -127,7 +128,7 @@ eleventy.config.js
                              - Regex for <span class="lang-*">
                           4. Update <html lang="..."> attribute
                           5. Update canonical URL and og:url
-                        - Output: 213 x 3 = 640+ pages total
+                        - Output: 293 x 3 = 879 pages total
 ```
 
 ### 2.2 Registered Filters
@@ -582,6 +583,7 @@ src/_includes/
 | Zodiac Animals     | 12    | `src/zodiac/*.njk`     | `/zodiac/{animal}/`    | Front matter               | `article.njk` |
 | Yearly Readings    | 12    | `src/readings/*.njk`   | `/readings/{animal}/`  | Front matter (unique astro section per animal) | `article.njk` |
 | Long-form Articles | 16    | `src/articles/*.njk`   | `/articles/{slug}/`    | Front matter + newsCategories | `article.njk` |
+| Compatibility Pairs | 78   | Pagination template    | `/compatibility/{pair}/` | `compatibilityPairs.js`  | `article.njk` |
 | Year Pages         | 121   | Pagination template    | `/year/{1924-2044}/`   | `zodiacYears.js`           | `article.njk` |
 | Wu Xing Pages      | 5     | Pagination template    | `/wuxing/{element}/`   | `elements.json`            | `article.njk` |
 | Dynasty Pages      | 10    | Pagination template    | `/dynasties/{slug}/`   | `dynastiesData.json`       | `article.njk` |
@@ -592,8 +594,8 @@ src/_includes/
 | Directory          | 1     | `src/directory.njk`    | `/directory/`          | `directory.json`           | `base.njk`    |
 | Trivia             | 1     | `src/trivia.njk`       | `/trivia/`             | Inline + `trivia.js`       | `base.njk`    |
 | Legal/About        | ~4    | `src/pages/`           | `/about/`, `/privacy/`, etc. | Front matter          | `base.njk`    |
-| **Total (pre-i18n)** | **~213** |                    |                        |                            |               |
-| **Total (post-i18n)** | **640+** |                  | + `/zh-hant/*` + `/zh-hans/*` |                       |               |
+| **Total (pre-i18n)** | **~293** |                    |                        |                            |               |
+| **Total (post-i18n)** | **~879** |                  | + `/zh-hant/*` + `/zh-hans/*` |                       |               |
 
 ### 5.2 Collections Defined in `eleventy.config.js`
 
@@ -766,12 +768,12 @@ Generated in `base.njk` by iterating over `languages.json`.
 ### 6.7 Page Count Multiplication
 
 ```
-Base pages (pre-i18n):     213
-  x 3 language variants:   639
+Base pages (pre-i18n):     293
+  x 3 language variants:   879
   + search-index.json:       1
   + sitemap.xml, etc.:      ~5
                            -----
-Total output files:        640+
+Total output files:        880+
 ```
 
 ---
@@ -1049,11 +1051,17 @@ Developer / Decap CMS
 |      2. actions/setup-node@v4 (Node 20)        |
 |      3. npm ci                                 |
 |      4. npx @11ty/eleventy                     |
-|         - Builds 213 base pages                |
+|         - Builds 293 base pages                |
 |         - eleventy.after: minify CSS/JS        |
 |         - eleventy.after: generate i18n pages  |
-|         - Output: 640+ files in _site/         |
-|      5. actions/upload-pages-artifact           |
+|         - Output: 879 files in _site/          |
+|      5. Build validation step                  |
+|         - Asserts base page count >= 250       |
+|         - Asserts zh-hant/zh-hans >= 200 each  |
+|         - Asserts CSS/JS minified (smaller)    |
+|         - Asserts critical files present       |
+|         - Spot-checks HTML structure           |
+|      6. actions/upload-pages-artifact           |
 |         - Uploads _site/ as deployment artifact|
 |                                                |
 |    deploy:                                     |
@@ -1112,7 +1120,7 @@ The Worker has its own `wrangler.toml` configuration and is deployed manually or
 | Eleventy template rendering    | ~2-4 seconds          |
 | CSS minification (CleanCSS)    | < 1 second            |
 | JS minification (Terser x 2)   | < 1 second            |
-| i18n page generation (640+ files) | ~3-6 seconds       |
+| i18n page generation (879 files) | ~3-6 seconds       |
 | Image processing (if cache miss) | ~10-30 seconds      |
 | **Total CI/CD pipeline**       | **~1-2 minutes**      |
 
@@ -1144,13 +1152,18 @@ Image processing via `@11ty/eleventy-img` is cached between builds. First builds
 
 ### 10.2 Architecture Risks
 
-**Single point of failure: `eleventy.after` hook.** The i18n generation and asset minification both run in the `eleventy.after` event. If either fails, the build succeeds (Eleventy considers the build complete before `after` runs) but the output is incomplete -- missing i18n pages or unminified assets. There is no validation step that checks the output page count or asset sizes.
+**Single point of failure: `eleventy.after` hook.** The i18n generation and asset minification both run in the `eleventy.after` event. If either fails, the build succeeds (Eleventy considers the build complete before `after` runs) but the output is incomplete -- missing i18n pages or unminified assets.
 
-**Mitigation:** Add a post-build validation step in CI that asserts:
-- `_site/zh-hant/` directory exists and contains > 200 HTML files
-- `_site/zh-hans/` directory exists and contains > 200 HTML files
-- `_site/css/style.css` is smaller than the source (confirms minification ran)
-- `_site/js/site.js` is smaller than the source
+**Mitigation (IMPLEMENTED):** A "Validate build output" step in the GitHub Actions workflow (`.github/workflows/deploy.yml`) runs after the Eleventy build and before artifact upload. It asserts:
+- `_site/` contains ≥250 base HTML pages
+- `_site/zh-hant/` contains ≥200 HTML files
+- `_site/zh-hans/` contains ≥200 HTML files
+- `_site/styles.css` is smaller than `src/styles.css` (confirms minification ran)
+- `_site/site.js` is smaller than `src/site.js`
+- Critical files exist: `sitemap.xml`, `robots.txt`, `feed.xml`, `search-index.json`, `llms.txt`
+- Homepage has valid `<html>` tag
+
+If any check fails, the workflow exits with a non-zero code and the deployment is blocked.
 
 **i18n stripping correctness.** The balanced tag matcher for `<div>` language blocks assumes well-formed HTML. Malformed nesting (e.g., an unclosed `<div>` inside a language block) could cause the stripper to consume too much or too little content, resulting in broken output for a specific language variant. There are currently no automated tests for the i18n stripping logic.
 
@@ -1160,10 +1173,10 @@ Image processing via `@11ty/eleventy-img` is cached between builds. First builds
 
 | Threshold               | Current State       | Action Needed When Exceeded                          |
 |--------------------------|--------------------|----------------------------------------------------|
-| Total pages > 1,000     | ~640 (post-i18n)   | Evaluate build time; consider incremental builds    |
-| Search index > 500 entries | ~213            | Move to Pagefind or server-side search              |
-| CSS > 8,000 lines       | ~5,250             | Consider CSS modules or a utility framework         |
-| JS > 3,000 lines        | ~1,546             | Consider ES module splitting with a bundler         |
+| Total pages > 1,000     | ~879 (post-i18n)   | Evaluate build time; consider incremental builds    |
+| Search index > 500 entries | ~293            | Move to Pagefind or server-side search              |
+| CSS > 8,000 lines       | ~5,366             | Consider CSS modules or a utility framework         |
+| JS > 3,000 lines        | ~1,594             | Consider ES module splitting with a bundler         |
 | Data files > 20         | 12                 | Current approach is fine                             |
 | Images > 500            | Current count TBD  | Ensure eleventy-img cache is working in CI          |
 

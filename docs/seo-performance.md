@@ -55,7 +55,7 @@ The site has a strong technical SEO foundation. Meta tags, hreflang, canonical U
 7. **Performance fundamentals** -- font preloading/preconnect, lazy loading images, deferred scripts, noscript fallbacks
 8. **www redirect** -- JS redirect for browsers with `<noscript><meta http-equiv="refresh">` fallback for no-JS crawlers, plus `<link rel="canonical">` pointing to non-www
 8. **Internal linking** -- breadcrumbs on article pages, nav/footer link grids, content graph auto-generated related links
-9. **Search index** -- 85 entries with body text for client-side search
+9. **Search index** -- 293 entries with body text for client-side search
 10. **Sitemap** -- comprehensive with priorities, changefreq, and hreflang annotations per URL
 11. **AI crawler permissions** -- robots.txt explicitly allows GPTBot, anthropic-ai, PerplexityBot, Google-Extended, CCBot, and Bytespider for Generative Engine Optimization (GEO)
 
@@ -374,7 +374,7 @@ Generated from `src/sitemap.njk`. Features:
 - `<changefreq>`: daily (homepage), monthly (articles), weekly (everything else)
 - `<priority>`: 1.0 (homepage), 0.9 (encyclopedia), 0.8 (readings/other), 0.7 (articles)
 
-**Estimated URL count:** ~213 base pages x 3 languages = **639+ URLs** in the sitemap.
+**Estimated URL count:** ~293 base pages x 3 languages = **879 URLs** in the sitemap.
 
 ### 5.3 Atom/RSS Feed
 
@@ -401,8 +401,8 @@ Generated from `src/feed.njk`. Available at `/feed.xml`. Linked in `<head>`:
 | Reading pages | 12 |
 | Article pages | ~10 |
 | Utility pages (search, 404, etc.) | ~10 |
-| **Base pages total** | **~213** |
-| **x3 languages** | **~640+** |
+| **Base pages total** | **~293** |
+| **x3 languages** | **~879** |
 
 ---
 
@@ -590,7 +590,7 @@ Each entry contains:
 | `keywords` | `item.data.keywords` | From front matter |
 | `body` | `item.content \| striptags \| truncate(500)` | HTML stripped, truncated to 500 chars |
 
-**Current entry count:** 85 entries.
+**Current entry count:** ~293 entries.
 
 ### 8.3 Search Scoring
 
@@ -613,7 +613,7 @@ The search logic in `site.js` uses weighted field matching:
 
 | Limitation | Impact | When to Address |
 |------------|--------|-----------------|
-| Client-side only | All 85 entries (~200KB) loaded in browser | When content exceeds ~500 pages |
+| Client-side only | All ~293 entries (~400KB) loaded in browser | When content exceeds ~500 pages |
 | No fuzzy matching | Exact substring matching only | Low priority; current content is small |
 | Body truncated to 500 chars | May miss relevant content deep in articles | Acceptable design trade-off |
 | English index only | Chinese language variants not indexed | When Chinese search demand is validated |
@@ -670,6 +670,7 @@ All P1 items have been completed.
 | **Modularize `eleventy.config.js`** | When build config exceeds ~500 lines | 4-8 hours (extract i18n, minification, collections into separate modules) |
 | **Add Chinese language search index** | When Chinese search demand is validated | 2-4 hours (generate separate index for zh-Hant/zh-Hans content) |
 | **Implement incremental builds** | When build time exceeds 60 seconds | Depends on Eleventy 3.x incremental build support |
+| **Update `llms.txt` with missing URLs** | DONE | Added BaZi Calculator, Directory, Shop, News, Dynasties, Spring Festival, Taoism, Yi Jing, Tea Culture, Hanfu, Martial Arts, TCM, Qi Men Dun Jia URLs |
 
 ---
 

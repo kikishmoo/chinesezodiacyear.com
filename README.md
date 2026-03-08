@@ -123,7 +123,7 @@ scripts/
 
 ## Content Architecture
 
-The site generates **297 pages** (887 after i18n) across these content types:
+The site generates **293 pages** (879 after i18n) across these content types:
 
 | Type | Count | Source |
 |---|---|---|
@@ -199,7 +199,7 @@ The `eleventy.after` hook in `eleventy.config.js` performs these post-build step
 3. **i18n generation** — Copies all HTML pages into `/zh-hant/` and `/zh-hans/` directories, strips non-active language blocks, updates `<html lang>`, canonical URLs, and og:url
 4. **English stripping** — Strips TC/SC language blocks from base English pages
 
-Build output: ~298 HTML files pre-i18n, ~882+ after i18n generation.
+Build output: ~293 HTML files pre-i18n, ~879 after i18n generation.
 
 ## Adding Content
 
@@ -284,8 +284,9 @@ Videos are embedded inline near their related content sections rather than group
 Pushes to `main` trigger the GitHub Actions workflow (`.github/workflows/deploy.yml`):
 
 1. Checkout → Node 20 setup → `npm ci` → `npx @11ty/eleventy`
-2. Upload `_site/` as GitHub Pages artifact
-3. Deploy via `actions/deploy-pages@v4`
+2. Build validation — asserts i18n page counts (≥250 base, ≥200 per language variant), CSS/JS minification, and presence of critical files (sitemap, robots.txt, feed.xml, search-index.json, llms.txt)
+3. Upload `_site/` as GitHub Pages artifact
+4. Deploy via `actions/deploy-pages@v4`
 
 The Cloudflare Worker (`worker/`) is deployed separately via `wrangler deploy`.
 

@@ -1,7 +1,7 @@
 # Content Strategy: chinesezodiacyear.com
 
 > **Last updated:** 2026-03-08
-> **Scope:** 213 pages across 3 languages (English, Traditional Chinese, Simplified Chinese)
+> **Scope:** 293 pages across 3 languages (English, Traditional Chinese, Simplified Chinese)
 > **Editorial stance:** Pre-Qing Dynasty classical scholarship prioritized throughout
 
 ---
@@ -135,11 +135,12 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 | Zodiac animal profiles | 12 | `src/zodiac/*.njk` |
 | 2026 yearly readings | 12 | `src/readings/2026-*.njk` |
 | Long-form articles | 16 | `src/articles/*.njk` |
+| Compatibility pair pages | 78 | `src/compatibility-pair-pages.njk` + `compatibilityPairs.js` |
 | Year pages (data-generated) | 121 | `src/year-pages.njk` + `zodiacYears.js` |
 | Wu Xing element sub-pages | 5 | `src/wuxing-pages.njk` + `elements.json` |
 | Dynasty sub-pages | 10 | `src/dynasty-pages.njk` + `dynastiesData.json` |
 | Trivia quiz questions | 219 | `src/trivia.js` (15 topic sections, trilingual) |
-| **Total estimated pages** | **~213** | *Includes feed, sitemap, search-index* |
+| **Total estimated pages** | **~293** | *Includes feed, sitemap, search-index* |
 
 ### 2.2 Encyclopedia Pages (34 files in `src/pages/`)
 

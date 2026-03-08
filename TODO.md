@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-ChineseZodiacYear.com has a solid technical foundation (887 i18n pages, validated JSON-LD, GEO-ready infrastructure) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts), interactive news hub filters, and contextual video embeds across 10+ encyclopedia pages (YouTube and Twitter/X). The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
+ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validated JSON-LD, GEO-ready infrastructure, CI build validation) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts), interactive news hub filters, and contextual video embeds across 10+ encyclopedia pages (YouTube and Twitter/X). The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
 
 ---
 
@@ -36,6 +36,9 @@ ChineseZodiacYear.com has a solid technical foundation (887 i18n pages, validate
 | 18 | Implement A/B testing on reading sales pages          | LOW        | 4 hours  | Medium   | Technical  |
 | 19 | Create SOPs for content pipeline                      | LOW        | 4 hours  | Low      | Operations |
 | 20 | Audit and optimize Cloudflare Worker caching rules    | LOW        | 3 hours  | Low      | Technical  |
+| 21 | ~~Fix npm vulnerability (minimatch ReDoS)~~           | ~~HIGH~~   | ~~10 min~~   | ~~High~~     | ~~Technical~~  |
+| 22 | ~~Add CI build validation step~~                      | ~~HIGH~~   | ~~30 min~~   | ~~High~~     | ~~Technical~~  |
+| 23 | ~~Update llms.txt with missing URLs~~                 | ~~MEDIUM~~ | ~~15 min~~   | ~~Medium~~   | ~~GEO~~        |
 
 ---
 
@@ -312,6 +315,52 @@ Action steps:
 3. Ensure HTML pages have `Cache-Control: public, max-age=3600` (or use `stale-while-revalidate`).
 4. Verify the Worker is not interfering with GitHub Pages' own caching headers.
 5. Test with `curl -I` to confirm correct headers on production.
+
+#### 3.6 Fix npm Vulnerability [COMPLETED]
+
+- **Priority:** HIGH
+- **Status:** COMPLETED (2026-03-08)
+- **Impact:** Resolved a high-severity ReDoS vulnerability in the minimatch dependency
+
+Implementation details:
+
+1. `npm audit` identified a high-severity ReDoS vulnerability in `minimatch <3.1.4` (GHSA-23c5-xmqv-rm74).
+2. Ran `npm audit fix` which updated minimatch to a patched version.
+3. Verified with `npm audit` -- 0 vulnerabilities remaining.
+4. Full build confirmed passing after fix.
+
+#### 3.7 Add CI Build Validation Step [COMPLETED]
+
+- **Priority:** HIGH
+- **Status:** COMPLETED (2026-03-08)
+- **Impact:** Prevents deploying broken builds if the `eleventy.after` hook (i18n generation, CSS/JS minification) fails silently
+
+Implementation details:
+
+1. Added a "Validate build output" step to `.github/workflows/deploy.yml` between the Eleventy build and artifact upload.
+2. The validation step checks:
+   - Base HTML page count ≥ 250 (currently 293).
+   - `zh-hant/` language variant ≥ 200 HTML files (currently 293).
+   - `zh-hans/` language variant ≥ 200 HTML files (currently 293).
+   - CSS minification succeeded (output smaller than source).
+   - JS minification succeeded (output smaller than source).
+   - Critical files present: `sitemap.xml`, `robots.txt`, `feed.xml`, `search-index.json`, `llms.txt`.
+   - Homepage has valid `<html>` tag.
+3. If any check fails, the workflow exits with a non-zero code and deployment is blocked.
+4. Uses GitHub Actions `::error::` annotations for clear failure messages.
+
+#### 3.8 Update llms.txt with Missing URLs [COMPLETED]
+
+- **Priority:** MEDIUM
+- **Status:** COMPLETED (2026-03-08)
+- **Impact:** Improved AI crawler discoverability of all major site sections for Generative Engine Optimization (GEO)
+
+Implementation details:
+
+1. Added 13 missing URLs to `src/llms.txt` Key URLs section:
+   - BaZi Calculator, Chinese Dynasties, Spring Festival, Professional Directory, Digital Products (Shop), News & Articles, Taoism, Yi Jing, Tea Culture, Hanfu, Martial Arts, Traditional Chinese Medicine, Qi Men Dun Jia.
+2. Total key URLs now: 22 (was 9).
+3. All major content pillars and commercial pages are now documented for AI crawlers.
 
 ---
 
