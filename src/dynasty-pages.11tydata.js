@@ -9,6 +9,23 @@ export default {
         { label: d.name }
       ];
     },
+    toc: (data) => {
+      const d = data.dynasty;
+      if (!d) return [];
+      const items = [
+        { id: "overview", label: "Overview" },
+        { id: "capital", label: "Capital & Period" },
+        { id: "contributions", label: "Key Contributions" }
+      ];
+      if (d.relatedContent && d.relatedContent.length > 0) {
+        items.push({ id: "related-content", label: "Related Content" });
+      }
+      if (d.videos && d.videos.length > 0) {
+        items.push({ id: "watch", label: "Watch" });
+      }
+      items.push({ id: "faq", label: "FAQ" });
+      return items;
+    },
     faq: (data) => {
       const d = data.dynasty;
       if (!d) return [];

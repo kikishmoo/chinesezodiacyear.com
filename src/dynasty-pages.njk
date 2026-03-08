@@ -15,15 +15,6 @@ eleventyComputed:
   heroOverline: "Dynasties"
   heroTitle: "{{ dynasty.name }}"
   heroSubtitle: "{{ dynasty.nameTc }} · {{ dynasty.dates }}"
-  toc:
-    - id: "overview"
-      label: "Overview"
-    - id: "capital"
-      label: "Capital & Period"
-    - id: "contributions"
-      label: "Key Contributions"
-    - id: "faq"
-      label: "FAQ"
 tags: ["dynasty"]
 ---
 
@@ -85,5 +76,21 @@ tags: ["dynasty"]
     </div>
   </div>
   {%- endfor %}
+</section>
+{%- endif %}
+
+{%- if dynasty.videos and dynasty.videos.length > 0 %}
+<section id="watch">
+  <h2><span class="lang-en">Watch: {{ dynasty.name }}</span><span class="lang-tc">觀看：{{ dynasty.nameTc }}</span><span class="lang-sc">观看：{{ dynasty.nameSc }}</span></h2>
+  <div class="social-embed-grid social-embed-grid--{{ '1' if dynasty.videos.length == 1 else ('3' if dynasty.videos.length == 3 else '') }}">
+    {%- for video in dynasty.videos %}
+    <div class="social-embed-card">
+      <div class="embed-responsive">
+        <iframe src="https://www.youtube.com/embed/{{ video.id }}" title="{{ video.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="embed-caption"><span class="lang-en">{{ video.caption }}</span><span class="lang-tc">{{ video.captionTc }}</span><span class="lang-sc">{{ video.captionSc }}</span></div>
+    </div>
+    {%- endfor %}
+  </div>
 </section>
 {%- endif %}
