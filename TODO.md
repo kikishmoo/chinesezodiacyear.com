@@ -22,7 +22,7 @@ ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validate
 | 4  | ~~Publish Qingming seasonal article (April 5 deadline)~~  | ~~CRITICAL~~   | ~~3 hours~~  | ~~High~~     | ~~Content~~    |
 | 5  | Set up GA4 conversion funnels + e-commerce events     | CRITICAL   | 4 hours  | High     | Revenue    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
-| 7  | Translate article bodies to Chinese (zh-Hans/zh-Hant) | HIGH       | 16 hours | High     | Content    |
+| 7  | Translate encyclopedia page bodies to Chinese (7 pages ABSENT + 3 partial) | HIGH       | 24 hours | High     | Content    |
 | 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
 | 9  | Set up Pinterest business account + first 20 pins     | HIGH       | 4 hours  | Medium   | Marketing  |
 | 10 | ~~Make news hub filters interactive (JS filtering)~~  | ~~MEDIUM~~     | ~~6 hours~~  | ~~Medium~~   | ~~Technical~~  |
@@ -202,24 +202,37 @@ Action steps:
 3. Publish on a Tuesday/Wednesday schedule (historically better for indexing velocity).
 4. After each publish: submit to Search Console, share on social, send to newsletter if relevant.
 
-#### 2.3 Translate Article Bodies to Chinese [HIGH]
+#### 2.3 Translate Encyclopedia & Article Bodies to Chinese [HIGH]
 
 - **Priority:** HIGH
-- **Effort:** 16 hours (for 15 articles, approximately 1 hour each including review)
-- **Impact:** Unlocks the zh-Hans and zh-Hant audience segments; i18n infrastructure already exists but serves no translated content
+- **Effort:** 24 hours (7 pages fully absent + 3 pages partial + articles)
+- **Impact:** Unlocks the zh-Hans and zh-Hant audience segments; i18n infrastructure already exists
 - **Deadline:** May 15, 2026
+
+**Translation audit (2026-03-08) found:**
+
+| Status | Pages |
+|--------|-------|
+| **ABSENT** (English-only, zero TC/SC) | Yi Jing, TCM, Martial Arts, Tea Culture, Folk Arts, Wuxia, Qi Men Dun Jia |
+| **Partial** (~60-70%) | Compatibility hub (missing chart, self-punishment, elemental interactions), Zodiac hub (missing 12 detailed animal sections, Watch & Learn) |
+| **Stub** (~14%) | 12 zodiac animal profile pages (hero + summary only) |
+| **Full parity, EXCELLENT quality** | Homepage, BaZi, Feng Shui, Calendar, Spring Festival, Taoism, Hanfu, Dynasties, 12 readings, Readings hub, Wu Xing hub |
+
+Where translations exist, quality is **publication-grade native Chinese** -- no machine-translation smell, correct TC/SC character sets, accurate domain terminology. The translated files (especially Taoism, Hanfu, Spring Festival) serve as style references.
 
 Action steps:
 
-1. Prioritize translation order by traffic: check GA4 for top 5 articles by pageviews; translate those first.
-2. Translation workflow per article:
-   - Use AI translation (DeepL or similar) for the initial draft.
-   - Manual review by a native speaker (if budget allows, use Fiverr for $5--$15 per article; otherwise self-review).
-   - Place translated content in the appropriate i18n directory structure per the existing Eleventy setup.
-3. Verify hreflang tags are automatically generated correctly (the system already handles this per the current state).
-4. Test translated pages on staging before deploying: check for encoding issues, layout breaks with CJK characters, and correct font rendering.
-5. Submit translated URLs to Google Search Console.
-6. After the first 5 translations, assess traffic impact before committing to the remaining 10.
+1. Prioritize translation order by traffic impact:
+   - **Phase 1** (highest impact): Yi Jing, TCM, Martial Arts, Compatibility hub gaps
+   - **Phase 2**: Tea Culture, Wuxia, Folk Arts, Qi Men Dun Jia
+   - **Phase 3**: Zodiac hub missing sections, 12 zodiac animal detailed sections
+2. Translation workflow per page:
+   - Draft in the established trilingual block pattern (`lang-en`, `lang-tc`, `lang-sc`)
+   - Use domain-standard terminology (see existing Taoism/Hanfu/BaZi pages as reference)
+   - Proofread by native speaker -- no machine-translate-and-publish
+   - Include Chinese characters + pinyin for specialist terms per editorial standard
+3. After each batch: rebuild, verify i18n stripping produces clean output, submit to Search Console
+4. After Phase 1, assess zh traffic impact before committing to remaining phases
 
 #### 2.4 Add Dragon Boat Festival Content [LOW]
 

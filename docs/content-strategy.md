@@ -249,6 +249,50 @@ Language configuration is defined in `src/_data/languages.json`:
 
 **Implementation:** Content blocks use CSS classes `lang-en`, `lang-tc`, `lang-sc` for client-side language switching. All three versions exist in the same HTML document (not separate URLs), toggled via a language selector in the header.
 
+### 3.2.1 Translation Status (Audited 2026-03-08)
+
+Overall quality: Where Chinese translations exist, they are **publication-grade native quality** -- no machine-translation artifacts, correct TC/SC character sets throughout, accurate domain terminology (BaZi, feng shui, Wu Xing, calendar, dynastic terms), and culturally appropriate register. The main gap is **completeness**, not quality.
+
+| Page | TC/SC Status | Quality (where present) | Notes |
+|------|-------------|------------------------|-------|
+| **Homepage** (`index.njk`) | Full parity | EXCELLENT | All sections fully translated |
+| **Zodiac hub** (`zodiac.njk`) | ~70% coverage | EXCELLENT | Missing: 12 detailed animal descriptions, Watch & Learn extended content, some media embeds |
+| **BaZi hub** (`bazi.njk`) | Full parity | EXCELLENT | Complete, including all Ten Gods and Day Master descriptions |
+| **Feng Shui hub** (`fengshui.njk`) | Full parity | EXCELLENT | Complete, including Form School / Compass School sections |
+| **Calendar hub** (`calendar.njk`) | Full parity | EXCELLENT | Complete, including 24 solar terms table and Purple Mountain Observatory narrative |
+| **Spring Festival** (`spring-festival.njk`) | Full parity | EXCELLENT | Complete, including all 15 days, Lantern Festival, CNY vs LNY debate |
+| **Readings hub** (`readings.njk`) | Full parity (body) | EXCELLENT | FAQ section English-only |
+| **Wu Xing hub** (`wuxing.njk`) | Full parity (body) | EXCELLENT | FAQ section English-only |
+| **Compatibility hub** (`compatibility.njk`) | ~60% coverage | GOOD | Missing: 12x12 matrix table, self-punishment, elemental interactions, browse pairs grid, FAQ |
+| **Dynasties hub** (`dynasties.njk`) | Full parity | EXCELLENT | Gold standard -- includes trilingual FAQ |
+| **Taoism** (`taoism.njk`) | Full parity | EXCELLENT | Complete, literary quality |
+| **Hanfu** (`hanfu.njk`) | Full parity | EXCELLENT | Complete, literary quality |
+| **Yi Jing** (`yijing.njk`) | ABSENT | -- | English-only, needs full translation |
+| **TCM** (`tcm.njk`) | ABSENT | -- | English-only, needs full translation |
+| **Martial Arts** (`martial-arts.njk`) | ABSENT | -- | English-only, needs full translation |
+| **Tea Culture** (`tea-culture.njk`) | ABSENT | -- | English-only, needs full translation |
+| **Folk Arts** (`folk-arts.njk`) | ABSENT | -- | English-only, needs full translation |
+| **Wuxia** (`wuxia.njk`) | ABSENT | -- | English-only, needs full translation |
+| **Qi Men Dun Jia** (`qimen.njk`) | ABSENT | -- | English-only, needs full translation |
+| **Zodiac animal pages** (12) | ~14% coverage | EXCELLENT | TC/SC stubs present (hero + summary), detailed sections English-only |
+| **2026 reading pages** (12) | Full parity | EXCELLENT | Complete trilingual content |
+| **Year pages** (121) | Data-driven | GOOD | Generated from zodiacYears.js; structural labels translated |
+| **Compatibility pair pages** (78) | Generated | GOOD | Generated from template; structural labels translated |
+| **Dynasty sub-pages** (10) | Generated | GOOD | Generated from dynastiesData.json; data-driven labels translated |
+| **Wu Xing sub-pages** (5) | Generated | GOOD | Generated from elements.json; data-driven labels translated |
+
+**Translation priority queue** (ordered by traffic/SEO impact):
+1. Yi Jing -- foundational topic, high search volume for 易經/易经
+2. TCM -- high search volume for 中醫/中医 terms
+3. Martial Arts -- popular cultural topic
+4. Compatibility hub missing sections -- fills gap in high-traffic page
+5. Tea Culture -- popular cultural topic
+6. Wuxia -- popular cultural topic
+7. Folk Arts -- cultural topic
+8. Qi Men Dun Jia -- niche topic
+9. Zodiac animal detailed sections (12 pages) -- expands partial stubs
+10. Zodiac hub missing sections -- Watch & Learn, detailed animal descriptions
+
 ### 3.3 Terminology Pattern
 
 All Chinese terminology follows the pattern: **English name (Chinese characters, pinyin)**
