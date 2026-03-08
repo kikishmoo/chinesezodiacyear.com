@@ -1,0 +1,194 @@
+# Changelog — chinesezodiacyear.com
+
+> All notable changes to this project are documented in this file.
+> Format: grouped by logical feature/fix, ordered newest-first.
+
+---
+
+## 2026-03-08 — Hero TC/SC Consistency, Language Toggle Fix, CI Hardening
+
+**Author:** lavertenstyle@gmail.com
+
+### Hero Section TC/SC Translation Consistency (`7e46fe7`)
+
+- **Problem:** 20 pages using the shared `hero.njk` partial showed English-only hero sections when viewing zh-hant/zh-hans variants, while 7 pages with custom inline heroes displayed correct translations.
+- Updated `hero.njk` partial to accept optional trilingual frontmatter fields (`heroTitleTc/Sc`, `heroSubtitleTc/Sc`, `heroOverlineTc/Sc`) using `<div class="lang-XX">` wrappers compatible with build-time i18n stripping.
+- Added TC/SC translations to all 20 article-layout pages: zodiac, bazi, fengshui, calendar, spring-festival, wuxing, bazi-calculator, asian-new-year, folk-arts, hanfu, dynasties, taoism, qimen, yijing, tcm, martial-arts, tea-culture, wuxia, chinamaxxing, compatibility.
+- **Files:** `hero.njk`, 20 page frontmatters, `architecture.md`, `TODO.md`
+
+### Language Toggle Navigation Bug Fix (`fa707d2`)
+
+- **Problem:** Toggling to TC/SC on one page, then clicking a nav link, showed English content with the toggle stuck in TC/SC position.
+- Fixed inline language detection in `base.njk` to derive language from URL path (not localStorage).
+- Added language-aware nav link rewriting in `site.js` — on `/zh-hant/` or `/zh-hans/` pages, internal nav/footer links are rewritten to preserve the language prefix.
+- **Files:** `base.njk`, `site.js`, `architecture.md`, `TODO.md`
+
+### Translation Quality Audit (`ef1a889`)
+
+- Audited all 27 main pages for TC/SC translation quality and completeness.
+- Documented findings in `content-strategy.md` section 3.2.1 with per-page status table.
+- Fixed hanfu page pinyin annotations.
+- Identified 7 encyclopedia pages with absent translations and created prioritized translation queue.
+- **Files:** `content-strategy.md`, `hanfu.njk`
+
+### CI Build Validation & Security Fix (`5d0555c`)
+
+- Fixed npm vulnerability (minimatch ReDoS) by upgrading `@11ty/eleventy` 3.1.1 to 3.1.2.
+- Added "Validate build output" step to GitHub Actions `deploy.yml` — asserts page counts, minification, critical file existence, and HTML structure before deployment.
+- Expanded `llms.txt` with 13 additional key URLs for AI crawler discovery.
+- **Files:** `package.json`, `package-lock.json`, `deploy.yml`, `llms.txt`
+
+---
+
+## Historical Changes (pre-2026-03-08)
+
+> Changes made before the current development workflow was established.
+> Listed in reverse chronological order, grouped by feature.
+
+### 2026-03-08 — Video Embeds & Article Translations
+
+- Moved contextual video embeds inline with relevant dynasty/topic sections across 8 encyclopedia pages.
+- Added X/Twitter video embed to Hanfu page with full oEmbed markup.
+- Translated top 5 articles to Traditional and Simplified Chinese.
+- Updated documentation for video embed system.
+
+### 2026-03-07 — Content Pipeline, SEO, Compatibility Pages
+
+- Added 78 compatibility pair pages for pillar-cluster SEO architecture.
+- Added 5 keyword-targeted articles and Qingming Festival article.
+- Added news pagination, category archive pages, and news filters.
+- Added cross-sell CTA, directory credibility improvements.
+- Added CollectionPage schema to compatibility hub, categorized year pages.
+- Added strategic TODO roadmap.
+- Fixed hero subtitle HTML rendering, newsletter form persistence, article card clickability.
+- Enabled FormSubmit spam protection on newsletter fallback.
+
+### 2026-03-07 — Build-Time i18n URL Structure
+
+- Added i18n URL structure with `/zh-hant/` and `/zh-hans/` paths (build-time page generation).
+- Stripped trilingual bloat from generated pages, added hub-to-subpage links.
+- Added README.
+
+### 2026-03-06 — Dynasty Content, Newsletter Fix, Year Pages
+
+- Enriched dynasty data with trilingual FAQ and breadcrumb schema fix.
+- Added 121 programmatic year pages with unique astrological content.
+- Translated dynasties hub page to trilingual (EN/TC/SC) with tone-marked pinyin.
+- Fixed newsletter popup "Subscribing..." stuck state.
+- Improved mobile donate page layout and QR code lightbox.
+
+### 2026-03-05 — SEO Fixes, Accessibility, Content Enrichment
+
+- Fixed 4 critical SEO/structured-data issues (BreadcrumbList, schemas).
+- Resolved 5 major SEO and performance issues.
+- Sanitized BaZi innerHTML injections and corrected undefined CSS variables.
+- Improved accessibility: aria-expanded on FAQ/nav, reduced motion, skip-to-content link.
+- Moved Readings to More dropdown; renamed "Donate" to "Support Us".
+- Added Buy Me a Coffee as primary donation method with inline embed.
+- Expanded Lunisolar Mechanics section, Dream of the Red Chamber content, Calendar pinyin.
+- Added favicon, apple-touch-icon, and web manifest.
+- Fixed nav dropdown null safety, lang attribute; added RSS feed.
+- Dark mode CSS gap fixes and innerHTML XSS hardening.
+- Added email capture enhancements, useful 404 page, favicon improvements.
+
+### 2026-03-05 — Hanfu & Spring Festival Deep Content
+
+- Added pinyin annotations to all Chinese terms on Hanfu and Spring Festival pages.
+- Added Niya archaeological clothing, Joseon Wangjo Sillok evidence, qipao history.
+- Added Ming Lantern Festival, Korean folk customs, Hanfu revival content.
+- Fixed missing Article schema on 2026 Fire Horse article.
+- Added unique OG images for all 24 zodiac and reading pages.
+- Added Chiang Kai-shek/ROC qipao institutionalisation history.
+- Cross-referenced Hanfu and Spring Festival content to dynasty pages.
+
+### 2026-03-04 — Authority, Search, Comments, SEO
+
+- Added social links, verification meta tags (Bing, Google), IndexNow, Pinterest support.
+- Shortened page titles for SEO (Bing Site Scan fix).
+- Fixed BreadcrumbList schema.org validation.
+- Added interactive compatibility calculator with 12x12 chart.
+- Redesigned trivia game with gamified UI, added trilingual support (219 questions).
+- Added OG images, structured data schemas, directory URL fixes, dynamic copyright.
+- Added www-to-non-www redirect for canonical domain consolidation.
+- Replaced 21 Unsplash hotlinks with self-hosted WebP images.
+- Added programmatic internal linking system with content graph.
+- Added 15 high-value pages: 5 element + 10 dynasty sub-pages.
+- Added newsletter backend (Beehiiv + Formsubmit.co fallback).
+- Added client-side search with build-time JSON index.
+- Added giscus-based discussion system for article pages.
+- GEO optimization: answer-ready sections, HowTo schema, FAQ expansion.
+
+### 2026-03-03 — UI Redesign, Directory, Articles
+
+- Refined UI to ethereal paper + East Asian ink-wash aesthetic.
+- Built directory with data-driven template and 33 verified listings.
+- Added 16 curated video embeds from partner YouTube channels.
+- Trilingual translations for calendar, spring festival, CNY influence, and hanfu pages.
+- Added 4 new trilingual articles: lucky colors, zodiac chart, fire horse history, celebrity signs.
+- Made article cards fully clickable with stretched link pattern.
+- SEO/GEO quick wins: canonicalize URLs, Twitter handle, defer CJK fonts.
+- Added Purple Mountain Observatory, Kaifeng Jews, CNY vs LNY debate content.
+
+### 2026-03-02 — Analytics, P0 Fixes, Language Toggle
+
+- Enabled Google Analytics 4 (G-2QWWBEW512).
+- Fixed P0 issues: www/non-www redirect, CMS path, broken links, sitemap, legacy files.
+- Trilingual nav/footer, SEO improvements, minification, 12 zodiac pages.
+- Fixed language toggle showing all three languages simultaneously.
+- Reverted nav/footer to English-only, kept language toggle for content.
+
+### 2026-03-01 — Trilingual System & Page Translations
+
+- Trilingual toggle (EN/TC/SC) with PayPal payments and first page translations.
+- Translated all 12 reading pages (rat through pig) to TC/SC.
+- Translated BaZi, Wu Xing, Feng Shui encyclopedia pages to TC/SC.
+- TC/SC translations for shop, homepage, donate, and about pages.
+
+### 2026-02-28 — Language Toggle, SEO Batch
+
+- Added Traditional/Simplified Chinese language toggle.
+- Added FAQ schema to shop pages, breadcrumbs to readings.
+- SEO fixes: heading hierarchy, title lengths, Product schema, Twitter tags.
+- Updated calendar price to $3.99 and added chinesenewyear.wiki cross-links.
+
+### 2026-02-27 — Monetization System
+
+- Added shop, premium readings, affiliate links, AdSense integration.
+- Fixed contact emails and Amazon Associates tag.
+- Updated Stripe payment links.
+- Fixed sidebar scrollability and moved affiliate disclosure to sidebar.
+- Updated shop.json with real Gumroad product URLs.
+- Enabled Google AdSense (ca-pub-8962379324362674).
+- Added AdSense verification: ads.txt, meta tag, and script.
+
+### 2026-02-26 — Design & Content Overhaul
+
+- Major design overhaul, 217 trivia questions with timer, famous figures, video embeds.
+- Transformed encyclopedia pages to infographic style with visual components.
+- Fixed broken images, layout, news font; added donation page and social embeds.
+- Rewrote CNY Influence page with Chinese origins, transmission dates, de-Sinicization.
+- Added Jackie Chan Adventures content to wuxia, zodiac, and homepage.
+- SEO/GEO overhaul: meta descriptions, keywords, OG images, enhanced schema.
+- Fixed mobile nav menu scroll.
+
+### 2026-02-25 — Core Content Expansion
+
+- Added zodiac readings, BaZi calculator, Asian New Year page, enhanced zodiac calculator.
+- Added 4 encyclopedia pages, expanded existing content, fixed CSS and navigation.
+- Added wuxia & chinamaxxing pages, trivia game, video embeds, cross-links.
+
+### 2026-02-24 — SSG Migration & Branding
+
+- Converted to Eleventy SSG with Decap CMS.
+- Added GitHub Actions workflow for build and deploy.
+- Renamed site to "Chinese Zodiac", renamed Calendar to "Chinese Calendar", expanded 24 Solar Terms.
+- Fixed GitHub Pages subpath, redesigned CSS with Tang-Song-Ming aesthetics.
+
+### 2026-02-23 — Phase 1 & 2
+
+- Added dark mode, Beehiiv newsletter, and social sharing.
+- Added 5 encyclopedia pages, compatibility checker, nav dropdown.
+
+### 2026-02-22 — Initial Upload
+
+- Initial file upload to repository.
