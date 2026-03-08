@@ -1,7 +1,7 @@
 # Site Architecture: chinesezodiacyear.com
 
-> **Document version:** 1.0
-> **Last updated:** 2026-03-07
+> **Document version:** 1.1
+> **Last updated:** 2026-03-08
 > **Stack:** Eleventy 3.1.2 (ESM) | Nunjucks | GitHub Pages | Cloudflare Workers
 
 ---
@@ -258,8 +258,9 @@ Array of 10 dynasty objects spanning Xia through Ming:
 | `capital`          | string   | `"Chang'an (Xi'an)"`                                   |
 | `keyContributions` | array    | `["Poetry golden age", "Civil service exams", ...]`    |
 | `relatedContent`   | array    | Links to related encyclopedia/article pages            |
+| `videos`           | array?   | Optional YouTube video embeds: `[{ id, title, caption, captionTc, captionSc }]` |
 
-**Consumer:** Pagination template generates 10 dynasty pages at `/dynasties/{slug}/`.
+**Consumer:** Pagination template generates 10 dynasty pages at `/dynasties/{slug}/`. When `videos` is present, a Watch section is rendered and the computed TOC in `dynasty-pages.11tydata.js` dynamically includes it.
 
 #### `elements.json` -- Wu Xing (Five Elements)
 
@@ -474,6 +475,7 @@ Provides the full HTML document shell. Every page on the site ultimately renders
 
     <script src="/js/site.js" defer></script>
     {% block extraScripts %}{% endblock %}
+    {% if twitterEmbed %}<script async src="https://platform.twitter.com/widgets.js"></script>{% endif %}
 </body>
 </html>
 ```
@@ -902,6 +904,8 @@ Key sections:
 - Language visibility rules (`.lang-en`, `.lang-tc`, `.lang-sc` show/hide)
 - Responsive breakpoints: 500px, 600px, 700px, 800px, 900px
 - Component styles: header, footer, hero, cards, accordion, sidebar, TOC, trivia, shop, directory
+- Social embed grid: `.social-embed-grid` (auto-fit), `.social-embed-grid--1` (single video, max 640px), `.social-embed-grid--3` (3-column). Children: `.social-embed-card` → `.embed-responsive` → iframe + `.embed-caption`
+- Tweet embed overrides: `.embed-responsive--tweet` (static positioning for Twitter widget.js hydrated iframes)
 - Print styles
 - Utility classes
 

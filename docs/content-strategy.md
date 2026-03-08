@@ -1,6 +1,6 @@
 # Content Strategy: chinesezodiacyear.com
 
-> **Last updated:** 2026-03-07
+> **Last updated:** 2026-03-08
 > **Scope:** 213 pages across 3 languages (English, Traditional Chinese, Simplified Chinese)
 > **Editorial stance:** Pre-Qing Dynasty classical scholarship prioritized throughout
 
@@ -490,7 +490,7 @@ Supports a `variant` variable ("reading", "product", or "both" default). Opt-out
 |-----|--------|----------------|--------|
 | **Trivia game could expand** | 219 questions across 15 categories is solid but could grow | Add questions for new cultural events, celebrity zodiac facts, and seasonal content. Target 300+ questions. Consider a "daily question" feature tied to the newsletter. | LOW |
 | **No user-generated content strategy** | Comments exist via Giscus (GitHub Discussions) but no community contribution model | Explore user-submitted birth chart interpretations, compatibility stories, or cultural experience posts. Moderation overhead is the primary concern. | LOW |
-| **No video content strategy** | Premium readings include video but no public video content | Create short-form zodiac explainer videos for TikTok/YouTube Shorts. The social accounts (Instagram, Facebook, X) exist but lack content integration. | MEDIUM |
+| **No video content strategy** | Premium readings include video but no public video content | ~~Create short-form zodiac explainer videos for TikTok/YouTube Shorts.~~ **Partially addressed (2026-03-08):** YouTube video embeds are now integrated inline near related content sections across 10+ encyclopedia pages (hanfu, martial-arts, folk-arts, spring-festival, taoism, wuxing, fengshui, bazi, calendar, dynasties). Twitter/X embeds also supported via `twitterEmbed` frontmatter flag. A data-driven `videos` array in `dynastiesData.json` enables video embeds on dynasty pages. Still needed: original content production for TikTok/YouTube channels. | MEDIUM |
 | **Asian New Year redirect pages exist but lack content** | `asian-new-year.njk` and `asian-new-year-redirect.njk` suggest planned content | Develop an "Asian New Year" comparison page covering Chinese, Korean, Vietnamese, and Tibetan celebrations. Good for GEO capture. | LOW |
 
 ---

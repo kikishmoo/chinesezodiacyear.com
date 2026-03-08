@@ -59,7 +59,7 @@ src/
 │   └── buildInfo.js        # Build-time computed data
 ├── _includes/
 │   ├── layouts/
-│   │   ├── base.njk        # Master HTML layout (head, structured data, scripts)
+│   │   ├── base.njk        # Master HTML layout (head, structured data, scripts, conditional Twitter widget.js)
 │   │   └── article.njk     # Article layout (sidebar, TOC, FAQ, cross-sell CTA, related content)
 │   └── partials/           # 12 reusable components
 │       ├── header.njk      # Navigation, search, language/theme toggles
@@ -80,7 +80,7 @@ src/
 ├── readings/               # Yearly zodiac readings (12 files, each unique)
 ├── zodiac/                 # Individual animal pages (12 files)
 ├── img/                    # Images and OG media
-├── styles.css              # Master stylesheet (~5,250 lines)
+├── styles.css              # Master stylesheet (~5,350 lines, incl. social embed grid variants)
 ├── site.js                 # Main client-side JS (~1,020 lines)
 ├── trivia.js               # Homepage trivia game (72 questions, trilingual)
 ├── search-index.njk        # Build-time JSON search index with body text
@@ -108,7 +108,7 @@ scripts/
 |---|---|
 | `site.json` | Site config (URLs, API keys, social links, GA4, AdSense) |
 | `nav.json` | Trilingual navigation (primary, more, secondary, footer) |
-| `dynastiesData.json` | 10 Chinese dynasties (Xia–Ming) with dates, capitals, contributions |
+| `dynastiesData.json` | 10 Chinese dynasties (Xia–Ming) with dates, capitals, contributions, optional `videos` array |
 | `elements.json` | 5 Wu Xing elements with full correspondences |
 | `contentGraph.json` | Topic affinity map for auto-generated related links |
 | `compatibilityPairs.js` | Generates 78 zodiac compatibility pair objects (Six Harmonies, Clashes, Harms, neutral, self) |
@@ -250,6 +250,34 @@ The editorial content calendar is in `src/_data/contentCalendar.json` — it tra
 1. Add data to a JSON file in `src/_data/`
 2. Create a pagination template (see `dynasty-pages.njk` or `wuxing-pages.njk` as examples)
 3. Optionally add a `.11tydata.js` companion for computed data (breadcrumbs, FAQ)
+
+### Video Embeds
+
+Videos are embedded inline near their related content sections rather than grouped in a standalone "Watch" section (except when no contextually appropriate section exists).
+
+**YouTube embed pattern:**
+```html
+<div class="social-embed-grid social-embed-grid--1">
+  <div class="social-embed-card">
+    <div class="embed-responsive">
+      <iframe src="https://www.youtube.com/embed/{VIDEO_ID}" title="..." loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+    <div class="embed-caption">
+      <span class="lang-en">Caption</span>
+      <span class="lang-tc">字幕</span>
+      <span class="lang-sc">字幕</span>
+    </div>
+  </div>
+</div>
+```
+
+**Grid variants:** `social-embed-grid--1` (single video, max 640px), `social-embed-grid--3` (3-column), default (auto-fit).
+
+**Twitter/X embed:** Add `twitterEmbed: true` to frontmatter. Use full blockquote markup from the [Twitter oEmbed API](https://publish.twitter.com/) with `omit_script=true`. The `base.njk` layout conditionally loads `widgets.js` when the flag is set.
+
+**Data-driven dynasty videos:** Add a `videos` array to a dynasty entry in `dynastiesData.json`. The `dynasty-pages.njk` template renders a conditional Watch section and `dynasty-pages.11tydata.js` adds it to the computed TOC.
 
 ## Deployment
 

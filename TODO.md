@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-07
+**Last updated:** 2026-03-08
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-ChineseZodiacYear.com has a solid technical foundation (887 i18n pages, validated JSON-LD, GEO-ready infrastructure) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts) and interactive news hub filters. The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
+ChineseZodiacYear.com has a solid technical foundation (887 i18n pages, validated JSON-LD, GEO-ready infrastructure) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts), interactive news hub filters, and contextual video embeds across 10+ encyclopedia pages (YouTube and Twitter/X). The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
 
 ---
 
@@ -177,16 +177,16 @@ Action steps:
 5. Submit URL to Google Search Console immediately after publishing.
 6. Share across all active social channels (Instagram, Facebook, Twitter) with platform-specific formatting.
 
-#### 2.2 Write and Publish 7 Queued Calendar Articles [HIGH]
+#### 2.2 Write and Publish 6 Queued Calendar Articles [HIGH]
 
 - **Priority:** HIGH
-- **Effort:** 21 hours (approximately 3 hours per article)
+- **Effort:** 18 hours (approximately 3 hours per article)
 - **Impact:** Each article is a new organic search entry point; 16 -> 22 articles is a 38% content increase
 - **Deadline:** April 30, 2026 (stagger 2 per week)
 
 Action steps:
 
-1. Review `contentCalendar.json` and sort the 7 queued articles by:
+1. Review `contentCalendar.json` and sort the 6 queued articles by:
    - Seasonal urgency (anything tied to upcoming dates goes first).
    - Keyword search volume (use Google Search Console queries or free tools like Ubersuggest).
    - Funnel position (articles that naturally lead to product CTAs rank higher).
