@@ -35,6 +35,35 @@ faq:
 <div class="article-layout">
   <article class="article-content">
 
+    <section class="shop-section" id="affiliate">
+      <h2>Recommended Books &amp; Tools</h2>
+      <p>Curated resources we recommend for students and practitioners of Chinese astrology, feng shui, and traditional culture. <small class="affiliate-disclosure">As an Amazon Associate, we earn from qualifying purchases.</small></p>
+
+      <div class="shop-filters" id="affiliate-filters">
+        <button class="shop-filter-btn active" data-filter="all" data-scope="affiliate">All</button>
+        <button class="shop-filter-btn" data-filter="books" data-scope="affiliate">Books</button>
+        <button class="shop-filter-btn" data-filter="tools" data-scope="affiliate">Tools &amp; Supplies</button>
+        <button class="shop-filter-btn" data-filter="jewellery" data-scope="affiliate">Jewellery</button>
+        <button class="shop-filter-btn" data-filter="decor" data-scope="affiliate">Decor</button>
+        <button class="shop-filter-btn" data-filter="wellness" data-scope="affiliate">Wellness</button>
+      </div>
+
+      <div class="shop-products-grid" id="affiliate-grid">
+        {%- for item in shop.affiliateProducts %}
+        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}" data-scope="affiliate">
+          <h3>{{ item.name }}</h3>
+          <p class="product-subtitle">{{ item.subtitle }}</p>
+          <div class="product-footer">
+            <span class="product-price product-price--affiliate">Affiliate</span>
+            <a href="{{ item.amazonUrl }}" target="_blank" rel="noopener sponsored" class="btn btn-outline btn-sm">View on Amazon</a>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <hr class="gold-rule">
+
     <section class="shop-section" id="readings">
       <h2>Premium Personalized Readings</h2>
       <p>Our practitioners prepare detailed BaZi and zodiac reports using classical methodology — each one individually crafted for your birth data.</p>
@@ -89,32 +118,6 @@ faq:
 
     <hr class="gold-rule">
 
-    <section class="shop-section" id="affiliate">
-      <h2>Recommended Books &amp; Tools</h2>
-      <p>Curated resources we recommend for students and practitioners of Chinese astrology, feng shui, and traditional culture. <small class="affiliate-disclosure">As an Amazon Associate, we earn from qualifying purchases.</small></p>
-
-      <div class="shop-filters" id="affiliate-filters">
-        <button class="shop-filter-btn active" data-filter="all" data-scope="affiliate">All</button>
-        <button class="shop-filter-btn" data-filter="books" data-scope="affiliate">Books</button>
-        <button class="shop-filter-btn" data-filter="tools" data-scope="affiliate">Tools &amp; Supplies</button>
-      </div>
-
-      <div class="shop-products-grid" id="affiliate-grid">
-        {%- for item in shop.affiliateProducts %}
-        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}" data-scope="affiliate">
-          <h3>{{ item.name }}</h3>
-          <p class="product-subtitle">{{ item.subtitle }}</p>
-          <div class="product-footer">
-            <span class="product-price product-price--affiliate">Affiliate</span>
-            <a href="{{ item.amazonUrl }}" target="_blank" rel="noopener sponsored" class="btn btn-outline btn-sm">View on Amazon</a>
-          </div>
-        </div>
-        {%- endfor %}
-      </div>
-    </section>
-
-    <hr class="gold-rule">
-
     <section id="faq">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-section">
@@ -160,6 +163,35 @@ faq:
 
 <div class="article-layout">
   <article class="article-content">
+
+    <section class="shop-section">
+      <h2>推薦書籍與工具</h2>
+      <p>精選推薦資源，適合中國占星、風水與傳統文化的學習者與從業者。<small class="affiliate-disclosure">作為Amazon聯盟會員，我們從符合條件的購買中獲得佣金。</small></p>
+
+      <div class="shop-filters">
+        <button class="shop-filter-btn active" data-filter="all" data-scope="affiliate-tc">全部</button>
+        <button class="shop-filter-btn" data-filter="books" data-scope="affiliate-tc">書籍</button>
+        <button class="shop-filter-btn" data-filter="tools" data-scope="affiliate-tc">工具與用品</button>
+        <button class="shop-filter-btn" data-filter="jewellery" data-scope="affiliate-tc">首飾</button>
+        <button class="shop-filter-btn" data-filter="decor" data-scope="affiliate-tc">擺設</button>
+        <button class="shop-filter-btn" data-filter="wellness" data-scope="affiliate-tc">養生</button>
+      </div>
+
+      <div class="shop-products-grid" data-scope="affiliate-tc">
+        {%- for item in shop.affiliateProducts %}
+        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}" data-scope="affiliate-tc">
+          <h3>{{ item.name_tc if item.name_tc else item.name }}</h3>
+          <p class="product-subtitle">{{ item.subtitle_tc if item.subtitle_tc else item.subtitle }}</p>
+          <div class="product-footer">
+            <span class="product-price product-price--affiliate">聯盟推薦</span>
+            <a href="{{ item.amazonUrl }}" target="_blank" rel="noopener sponsored" class="btn btn-outline btn-sm">在Amazon查看</a>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <hr class="gold-rule">
 
     <section class="shop-section">
       <h2>付費個人化解讀</h2>
@@ -216,32 +248,6 @@ faq:
 
     <hr class="gold-rule">
 
-    <section class="shop-section">
-      <h2>推薦書籍與工具</h2>
-      <p>精選推薦資源，適合中國占星、風水與傳統文化的學習者與從業者。<small class="affiliate-disclosure">作為Amazon聯盟會員，我們從符合條件的購買中獲得佣金。</small></p>
-
-      <div class="shop-filters">
-        <button class="shop-filter-btn active" data-filter="all" data-scope="affiliate-tc">全部</button>
-        <button class="shop-filter-btn" data-filter="books" data-scope="affiliate-tc">書籍</button>
-        <button class="shop-filter-btn" data-filter="tools" data-scope="affiliate-tc">工具與用品</button>
-      </div>
-
-      <div class="shop-products-grid" data-scope="affiliate-tc">
-        {%- for item in shop.affiliateProducts %}
-        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}" data-scope="affiliate-tc">
-          <h3>{{ item.name_tc if item.name_tc else item.name }}</h3>
-          <p class="product-subtitle">{{ item.subtitle_tc if item.subtitle_tc else item.subtitle }}</p>
-          <div class="product-footer">
-            <span class="product-price product-price--affiliate">聯盟推薦</span>
-            <a href="{{ item.amazonUrl }}" target="_blank" rel="noopener sponsored" class="btn btn-outline btn-sm">在Amazon查看</a>
-          </div>
-        </div>
-        {%- endfor %}
-      </div>
-    </section>
-
-    <hr class="gold-rule">
-
     <section>
       <h2>常見問題</h2>
       <div class="faq-section">
@@ -287,6 +293,35 @@ faq:
 
 <div class="article-layout">
   <article class="article-content">
+
+    <section class="shop-section">
+      <h2>推荐书籍与工具</h2>
+      <p>精选推荐资源，适合中国占星、风水与传统文化的学习者与从业者。<small class="affiliate-disclosure">作为Amazon联盟会员，我们从符合条件的购买中获得佣金。</small></p>
+
+      <div class="shop-filters">
+        <button class="shop-filter-btn active" data-filter="all" data-scope="affiliate-sc">全部</button>
+        <button class="shop-filter-btn" data-filter="books" data-scope="affiliate-sc">书籍</button>
+        <button class="shop-filter-btn" data-filter="tools" data-scope="affiliate-sc">工具与用品</button>
+        <button class="shop-filter-btn" data-filter="jewellery" data-scope="affiliate-sc">首饰</button>
+        <button class="shop-filter-btn" data-filter="decor" data-scope="affiliate-sc">摆设</button>
+        <button class="shop-filter-btn" data-filter="wellness" data-scope="affiliate-sc">养生</button>
+      </div>
+
+      <div class="shop-products-grid" data-scope="affiliate-sc">
+        {%- for item in shop.affiliateProducts %}
+        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}" data-scope="affiliate-sc">
+          <h3>{{ item.name_sc if item.name_sc else item.name }}</h3>
+          <p class="product-subtitle">{{ item.subtitle_sc if item.subtitle_sc else item.subtitle }}</p>
+          <div class="product-footer">
+            <span class="product-price product-price--affiliate">联盟推荐</span>
+            <a href="{{ item.amazonUrl }}" target="_blank" rel="noopener sponsored" class="btn btn-outline btn-sm">在Amazon查看</a>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <hr class="gold-rule">
 
     <section class="shop-section">
       <h2>付费个人化解读</h2>
@@ -335,32 +370,6 @@ faq:
           <div class="product-footer">
             <span class="product-price">${{ item.price }}</span>
             <a href="{{ item.gumroadUrl }}" target="_blank" rel="noopener" class="btn btn-gold btn-sm">立即购买</a>
-          </div>
-        </div>
-        {%- endfor %}
-      </div>
-    </section>
-
-    <hr class="gold-rule">
-
-    <section class="shop-section">
-      <h2>推荐书籍与工具</h2>
-      <p>精选推荐资源，适合中国占星、风水与传统文化的学习者与从业者。<small class="affiliate-disclosure">作为Amazon联盟会员，我们从符合条件的购买中获得佣金。</small></p>
-
-      <div class="shop-filters">
-        <button class="shop-filter-btn active" data-filter="all" data-scope="affiliate-sc">全部</button>
-        <button class="shop-filter-btn" data-filter="books" data-scope="affiliate-sc">书籍</button>
-        <button class="shop-filter-btn" data-filter="tools" data-scope="affiliate-sc">工具与用品</button>
-      </div>
-
-      <div class="shop-products-grid" data-scope="affiliate-sc">
-        {%- for item in shop.affiliateProducts %}
-        <div class="product-card{% if item.featured %} product-card--featured{% endif %}" data-category="{{ item.category }}" data-scope="affiliate-sc">
-          <h3>{{ item.name_sc if item.name_sc else item.name }}</h3>
-          <p class="product-subtitle">{{ item.subtitle_sc if item.subtitle_sc else item.subtitle }}</p>
-          <div class="product-footer">
-            <span class="product-price product-price--affiliate">联盟推荐</span>
-            <a href="{{ item.amazonUrl }}" target="_blank" rel="noopener sponsored" class="btn btn-outline btn-sm">在Amazon查看</a>
           </div>
         </div>
         {%- endfor %}
