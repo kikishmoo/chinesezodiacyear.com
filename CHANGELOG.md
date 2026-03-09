@@ -5,6 +5,32 @@
 
 ---
 
+## 2026-03-09 — Technical Stabilisation: BaZi, Newsletter, Analytics Placeholders
+
+**Author:** CEO Agent (onboarding audit session)
+
+### Bug Fixes
+
+- **BaZi Calculator graceful offline mode** (`src/site.js`): Replaced hardcoded placeholder Worker URL (`YOUR_SUBDOMAIN`) with a configurable `data-worker-url` attribute approach. When no Worker URL is configured, users now see a friendly "BaZi Calculator Offline" message instead of a silent fetch failure. Once the Cloudflare Worker is deployed, the template just needs the `data-worker-url` attribute set.
+
+- **Newsletter popup stuck state fix** (`src/site.js`): Added an 8-second safety timeout to the Beehiiv newsletter iframe submission. Previously, if the iframe failed silently, the subscribe button would stay stuck on "Subscribing..." indefinitely (Regression #3). Now, after 8 seconds, the error state is shown with a retry option. The `beehiivDone` flag prevents the error from firing after a successful submission.
+
+### Added
+
+- **Facebook Pixel placeholder** (`src/_includes/layouts/base.njk`, `src/_data/site.json`): Added `facebookPixelId` config key (empty by default) and conditional Meta Pixel script block. When a Pixel ID is added to `site.json`, the standard `fbevents.js` loader and `PageView` tracking will activate automatically on all pages.
+
+- **Microsoft Clarity placeholder** (`src/_includes/layouts/base.njk`, `src/_data/site.json`): Added `clarityId` config key (empty by default) and conditional Clarity tag script. Same activation pattern as Facebook Pixel.
+
+### Verified
+
+- **Hub page ItemList schemas**: Confirmed all four hub pages (`zodiac.njk`, `wuxing.njk`, `dynasties.njk`, `readings.njk`) already have correct `hubSchema` frontmatter with ItemList structured data. No changes needed.
+
+- **Build validation**: Full build passes — 302 base pages, 596 i18n variants (898 total). CSS minified 123KB→98KB, JS minified 53KB→33KB.
+
+**Files changed:** `src/site.js`, `src/_data/site.json`, `src/_includes/layouts/base.njk`
+
+---
+
 ## 2026-03-09 — Meta-Learning Framework: Agent Boot File & SOPs
 
 **Author:** kiki.shmoo@gmail.com

@@ -471,10 +471,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.body.appendChild(proxyForm);
         proxyForm.submit();
+        /* Show success after a brief delay (Beehiiv iframe doesn't provide callbacks).
+           Add a safety timeout so the button never stays stuck on "Subscribing…" */
+        var beehiivDone = false;
         setTimeout(() => {
+          beehiivDone = true;
           showSuccess();
           try { document.body.removeChild(iframe); document.body.removeChild(proxyForm); } catch (ex) {}
         }, 1500);
+        /* Safety net: if still stuck after 8s, show error with retry */
+        setTimeout(() => {
+          if (!beehiivDone) {
+            showError();
+            try { document.body.removeChild(iframe); document.body.removeChild(proxyForm); } catch (ex) {}
+          }
+        }, 8000);
       } else {
         /* Formsubmit.co fallback — AJAX POST */
         const formData = { email: email };
@@ -846,7 +857,11 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        const WORKER_URL = 'https://bazi-calculator.YOUR_SUBDOMAIN.workers.dev';
+        const WORKER_URL = baziForm.dataset.workerUrl || '';
+        if (!WORKER_URL) {
+          baziResult.innerHTML = '<div class="bazi-error"><strong>BaZi Calculator Offline</strong><br><small>The BaZi calculation service is being set up. Please check back soon, or try our <a href="/zodiac/">zodiac calculator</a> instead.</small></div>';
+          return;
+        }
         const resp = await fetch(WORKER_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
