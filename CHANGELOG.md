@@ -5,6 +5,33 @@
 
 ---
 
+## 2026-03-09 — Affiliate Products Expansion & Repositioning (Session 4, continued)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Feature — Affiliate Products Expansion
+
+Expanded the Amazon Associates affiliate catalogue from 10 to 27 products, adding 3 new categories:
+
+**New categories:**
+- **Jewellery (4):** Natural jade bangle, Pixiu feng shui bracelet, zodiac pendant necklace, lucky coin set
+- **Decor (5):** Laughing Buddha statue, Bagua mirror, Maneki-Neko fortune cat, calligraphy wall scroll, Chinese incense burner set
+- **Wellness (3):** Acupressure mat and pillow set, jade gua sha tool, Chinese cupping therapy set
+
+**New books (5):** Chinese Astrology: Plain and Simple (Dee), Tao Te Ching (Laozi/Mitchell), The Art of War (Sun Tzu), Feng Shui Modern (Tan & Lee), Handbook of Chinese Horoscopes (Lau)
+
+All 17 new products include trilingual names and subtitles (EN/TC/SC), category tags, and Amazon URLs with `kikigreene-20` affiliate tag.
+
+### Layout — Affiliate Section Repositioned
+
+Moved the "Recommended Books & Tools" section to the top of the shop page in all 3 language blocks (EN/TC/SC), ahead of Premium Readings and Digital Products. Added new filter buttons for jewellery (首飾/首饰), decor (擺設/摆设), and wellness (養生/养生).
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified (32.7KB), zero errors
+
+---
+
 ## 2026-03-09 — Affiliate Products & Encyclopaedia Translations (Session 4)
 
 **Author:** kiki.peiqi.li@gmail.com

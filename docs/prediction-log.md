@@ -56,6 +56,17 @@
 
 ---
 
+### 2026-03-09 — Affiliate products expansion and repositioning
+
+**Decision:** Expand from 10 to 27 affiliate products with 3 new categories (jewellery, decor, wellness), and move the affiliate section to the top of the shop page
+**Prediction:** Adding 17 products and 3 new categories will work cleanly with the existing scoped filter JS. Moving the section to the top in all 3 language blocks will require careful surgery to avoid breaking the Nunjucks template. Build will pass.
+**Confidence:** High — the filter scoping was already designed for extensibility; the template structure is straightforward cut-and-paste
+**Actual result:** All 17 products added, 3 new filter buttons per language block. Affiliate section moved to top in EN/TC/SC. Build passed on first attempt (302 files, 596 variants, 0 errors).
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
+
 ### 2026-03-09 — Encyclopaedia translation completion (Yi Jing, Tea Culture, Qi Men Dun Jia)
 
 **Decision:** Translate the 3 remaining untranslated encyclopaedia pages to TC/SC, completing the translation backlog
