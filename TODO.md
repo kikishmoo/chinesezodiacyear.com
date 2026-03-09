@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validated JSON-LD, GEO-ready infrastructure, CI build validation) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts), interactive news hub filters, and contextual video embeds across 10+ encyclopaedia pages (YouTube and Twitter/X). The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
+ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validated JSON-LD, GEO-ready infrastructure, CI build validation) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts), interactive news hub filters, contextual video embeds across 10+ encyclopaedia pages (YouTube and Twitter/X), and a live BaZi Calculator powered by a Cloudflare Worker API proxy. The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
 
 ---
 
@@ -268,23 +268,17 @@ Implementation details:
 3. Updated the AJAX submission in `site.js` to include all hidden fields (honeypot, captcha, subject, template) in the JSON payload, not just the email.
 4. Note: The FormSubmit form is a fallback that only activates if the Beehiiv publication ID is removed from `site.json`. The primary newsletter form uses Beehiiv directly.
 
-#### 3.2 Install Heatmap Tracking -- Microsoft Clarity [MEDIUM]
+#### 3.2 Install Heatmap Tracking -- Microsoft Clarity [COMPLETED]
 
 - **Priority:** MEDIUM
-- **Effort:** 1 hour
+- **Status:** COMPLETED (2026-03-09)
 - **Impact:** Free tool that reveals exactly how users interact with pages; identifies UX friction before and after funnel changes
-- **Deadline:** March 21, 2026
 
-Action steps:
+Implementation details:
 
-1. Create a free Microsoft Clarity account at clarity.microsoft.com.
-2. Add the Clarity tracking script to the site's `<head>` partial (same location as GA4 and the future Facebook Pixel).
-3. Enable session recordings and heatmaps.
-4. After 1 week of data collection, review:
-   - Scroll depth on article pages (are users reaching the CTA at 60%?).
-   - Click patterns on the readings page (which tier gets the most clicks?).
-   - Rage clicks or dead clicks indicating UX issues.
-5. Clarity is free, GDPR-friendly (data stays in Azure), and has no impact on Core Web Vitals.
+1. Added Clarity tracking ID `vsv5yhdstc` to `src/_data/site.json` (`clarityId` field).
+2. The conditional Clarity script block in `base.njk` was already wired up -- setting the ID activated heatmap and session recording on all pages.
+3. Clarity is free, GDPR-friendly (data stays in Azure), and has no impact on Core Web Vitals.
 
 #### 3.3 Make News Hub Filters Interactive [COMPLETED]
 
@@ -537,7 +531,7 @@ Action steps:
 | Week  | Deliverables                                                                                      |
 |-------|---------------------------------------------------------------------------------------------------|
 | Wk 1  | Enable FormSubmit CAPTCHA. **DONE.** Install Facebook Pixel. Set up GA4 conversion funnels. **DONE.** Fix directory placeholder listings. **DONE.** Build cross-sell CTA. **DONE.** Make news filters interactive. **DONE.** |
-| Wk 2  | Install Microsoft Clarity. Publish Qingming article. **DONE.**                                     |
+| Wk 2  | Install Microsoft Clarity. **DONE.** Publish Qingming article. **DONE.** Deploy BaZi Calculator Cloudflare Worker. **DONE.** Add Chinese character/pinyin annotations to all CNY & Qingming articles. **DONE.** |
 | Wk 3  | Set up Pinterest business account + 20 initial pins.                                               |
 | Wk 4  | Publish 2 queued calendar articles.                                                                |
 

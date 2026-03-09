@@ -5,6 +5,18 @@
 
 ---
 
+## 2026-03-09 — BaZi Cloudflare Worker Deployment Fix
+
+**Author:** CEO Agent (session 3, continued)
+
+### Infrastructure — Worker Deployment
+
+- **`wrangler.jsonc`**: Replaced the Cloudflare autoconfig static-assets configuration with the actual BaZi API worker config. Changed `"assets": {"directory": "_site"}` to `"main": "worker/bazi-worker.js"` with `ALLOWED_ORIGINS` env var. The worker now correctly serves as an API proxy (fetching True Solar Time and BaZi chart data from upstream Chinese astrology services), not a static site host.
+- **Cloudflare build settings**: Root directory changed from `/worker` to `/`, build command removed (worker needs no build step), deploy command remains `npx wrangler deploy`.
+- **Worker verified live** at `bazi-calculator.kiki-peiqi-li.workers.dev` returning structured JSON with four pillars, Day Master, and Chinese reading text.
+
+---
+
 ## 2026-03-09 — Chinese Character & Pinyin Annotations + BaZi Worker URL
 
 **Author:** CEO Agent (session 3)

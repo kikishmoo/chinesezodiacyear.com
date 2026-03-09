@@ -83,7 +83,6 @@ Current project direction. Stable for months but may shift based on data.
 | Focus | Content | Set Date | Expiry | Remove When |
 |-------|---------|----------|--------|-------------|
 | Facebook Pixel | TODO item #1 — CRITICAL priority, not yet installed | 2026-03-09 | 2026-04-06 | Pixel is installed and verified |
-| Microsoft Clarity | TODO item #13 — MEDIUM priority, not yet installed | 2026-03-09 | 2026-04-06 | Clarity is installed and verified |
 | Translation backlog | 3 encyclopaedia pages need TC/SC: Yi Jing, Tea Culture, Qi Men Dun Jia | 2026-03-09 | 2026-04-15 | All 3 pages translated |
 
 ---
@@ -107,6 +106,9 @@ Current project direction. Stable for months but may shift based on data.
 | SEO docs | `docs/seo-performance.md` |
 | TODO roadmap | `TODO.md` |
 | Changelog | `CHANGELOG.md` |
+| Worker config | `wrangler.jsonc` (root — deploys `worker/bazi-worker.js`) |
+| Worker source | `worker/bazi-worker.js` |
+| Worker legacy config | `worker/wrangler.toml` (superseded by root `wrangler.jsonc`) |
 
 ---
 
