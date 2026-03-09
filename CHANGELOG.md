@@ -5,6 +5,34 @@
 
 ---
 
+## 2026-03-09 — Chinese Character & Pinyin Annotations + BaZi Worker URL
+
+**Author:** CEO Agent (session 3)
+
+### Content — Pinyin Annotations
+
+Added `<span class="chinese-char">` and `<span class="pinyin">` markup to all Chinese terms in English content sections across 7 articles (~75 annotation gaps fixed). TC/SC sections untouched. All pinyin uses HTML entities for tone marks per site standard.
+
+**Articles updated:**
+
+- **`chinese-new-year-global-celebration.njk`** — 7 fixes (Chunyun, tusu wine, Zong Lin, Jingchu Suishi Ji, etc.)
+- **`chinese-new-year-spring-festival.njk`** — 7 fixes (Yuanri, Zhengdan, Wang Anshi, Meng Yuanlao, etc.)
+- **`chinese-new-year-traditions.njk`** — 7 fixes (shansao, bianpao, Shenshu/Yulei, Meng Chang, etc.)
+- **`chinese-new-year-vs-lunar-new-year.njk`** — 2 fixes (Zhu Qiqian, Samguk Sagi)
+- **`fifteen-days-chinese-new-year.njk`** — 6 fixes (nian gao, yusheng, tangyuan/yuanxiao, etc.)
+- **`why-red-and-gold-chinese-new-year.njk`** — 11 fixes (Wu Xing, five elements, Shanhai Jing, yasuiqian, feng shui, etc.)
+- **`qingming-festival-guide.njk`** — 17 fixes (Chunfen, Guyu, Jie Zitui, Duke Wen of Jin, Du Mu, Zuo Zhuan, food table, Guo Pu, Zangshu, etc.)
+
+### Feature — BaZi Calculator Worker URL
+
+- **`bazi-calculator.njk`**: Added `data-worker-url="https://bazi-calculator.kiki-peiqi-li.workers.dev"` to the calculator form element, connecting the frontend to the Cloudflare Worker proxy.
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified, zero errors
+
+---
+
 ## 2026-03-09 — Adopt Classical "Encyclopaedia" Spelling
 
 **Author:** CEO Agent (session 2, continued)
