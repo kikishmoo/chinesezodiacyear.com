@@ -89,4 +89,15 @@
 
 ---
 
+### 2026-03-09 — Affiliate link fix: search URLs → direct product links
+
+**Decision:** Replace all 16 Amazon search URLs (`/s?k=...`) in shop.json with direct product links (`/dp/ASIN`) for reliable affiliate commission attribution
+**Prediction:** Finding real ASINs via web search will work for all 16 products. The URL format change is data-only (no template changes), so build will pass on first attempt with zero regressions.
+**Confidence:** High — URL format is a simple string replacement in shop.json; template already renders whatever URL is in the data
+**Actual result:** All 16 ASINs found via Amazon search. All URLs replaced. Build passed (302 files, 596 variants, 0 errors). Built shop page confirmed: 27 affiliate links with tag, 0 search URLs.
+**Delta:** None — prediction was accurate
+**Adjustment:** When adding affiliate products in future, always use direct `/dp/ASIN` links from the start, never search URLs
+
+---
+
 <!-- Add new entries above this line -->

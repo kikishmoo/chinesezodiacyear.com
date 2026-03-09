@@ -5,6 +5,20 @@
 
 ---
 
+## 2026-03-09 — Affiliate Link Fix: Search URLs → Direct Product Links (Session 4, continued)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Fix — Affiliate Product URLs
+
+Replaced all 16 Amazon search URLs (`/s?k=...`) with direct product links (`/dp/ASIN`) for reliable affiliate commission attribution. Search URLs can lose the affiliate tag during navigation; direct product links ensure the `kikigreene-20` tag is always passed to Amazon Associates.
+
+**Products fixed:** Luo Pan Compass, Calligraphy Brush Set, Gongfu Tea Set, Red Envelopes, Jade Bangle, Pixiu Bracelet, Zodiac Pendant, Lucky Coin Set, Laughing Buddha, Bagua Mirror, Fortune Cat, Calligraphy Wall Scroll, Incense Burner, Acupressure Mat, Gua Sha Tool, Cupping Set.
+
+All 27 affiliate products now point to concrete Amazon product pages. Zero search URLs remain.
+
+---
+
 ## 2026-03-09 — Affiliate Products Expansion & Repositioning (Session 4, continued)
 
 **Author:** kiki.peiqi.li@gmail.com
