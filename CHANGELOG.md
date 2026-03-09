@@ -5,6 +5,22 @@
 
 ---
 
+## 2026-03-09 — Onboarding Audit & Codebase Review
+
+**Author:** kiki.shmoo@gmail.com
+
+### Full Codebase Audit
+
+- Reviewed all documentation (README, TODO, CHANGELOG, architecture.md, content-strategy.md, seo-performance.md).
+- Verified build pipeline: `npm ci` + `npx @11ty/eleventy` — 297 files built in 6.47s, 0 vulnerabilities, CSS/JS minification passing, i18n generating 586 variant pages from 293 sources.
+- Confirmed CI/CD workflow (`deploy.yml`) validation step is robust: page count thresholds, minification assertions, critical file checks.
+- Audited content calendar: 5/11 articles published, 6 queued (next deadline: Dragon Boat Festival Apr 20 target).
+- Audited TODO roadmap: 12/25 items completed, 2 CRITICAL items remaining (Facebook Pixel, GA4 conversions).
+- No new code vulnerabilities (`npm audit` clean).
+- No broken build issues detected.
+
+---
+
 ## 2026-03-08 — Hero TC/SC Consistency, Language Toggle Fix, CI Hardening
 
 **Author:** lavertenstyle@gmail.com
