@@ -160,7 +160,7 @@ _site/
   js/trivia.js                    # Minified trivia game JS
   search-index.json               # Client-side search index
   sitemap.xml                     # Auto-generated sitemap
-  pages/                          # Encyclopedia pages (34)
+  pages/                          # Encyclopaedia pages (34)
   zodiac/                         # Zodiac animal pages (12)
   readings/                       # Yearly readings (12)
   articles/                       # Long-form articles (16)
@@ -241,7 +241,7 @@ Defines the full navigation structure across all three languages. Three tiers of
 | Tier        | Item Count | Examples                                                       |
 |-------------|------------|----------------------------------------------------------------|
 | Primary     | 6 items    | Home, Zodiac Animals, Wu Xing, Calculator, Readings, Articles  |
-| More        | 16 items   | Dynasty pages, specific encyclopedia topics, compatibility     |
+| More        | 16 items   | Dynasty pages, specific encyclopaedia topics, compatibility     |
 | Secondary   | 4 items    | Shop, Directory, Trivia, Newsletter                            |
 | Footer      | 3 columns  | About/Legal, Resources, Connect                                |
 
@@ -258,7 +258,7 @@ Array of 10 dynasty objects spanning Xia through Ming:
 | `dates`            | string   | `"618-907 CE"`                                          |
 | `capital`          | string   | `"Chang'an (Xi'an)"`                                   |
 | `keyContributions` | array    | `["Poetry golden age", "Civil service exams", ...]`    |
-| `relatedContent`   | array    | Links to related encyclopedia/article pages            |
+| `relatedContent`   | array    | Links to related encyclopaedia/article pages            |
 | `videos`           | array?   | Optional YouTube video embeds: `[{ id, title, caption, captionTc, captionSc }]` |
 
 **Consumer:** Pagination template generates 10 dynasty pages at `/dynasties/{slug}/`. When `videos` is present, a Watch section is rendered and the computed TOC in `dynasty-pages.11tydata.js` dynamically includes it.
@@ -438,7 +438,7 @@ Used in footer copyright text: `(c) 2023-{{ buildInfo.currentYear }}`
 base.njk
   |
   +-- article.njk (extends base.njk)
-  |     Used by: encyclopedia pages, zodiac pages, readings,
+  |     Used by: encyclopaedia pages, zodiac pages, readings,
   |              articles, year pages, wuxing pages, dynasty pages
   |
   +-- (direct use of base.njk)
@@ -579,7 +579,7 @@ src/_includes/
 
 | Page Type          | Count | Source Path            | Output Path            | Data Source                | Layout        |
 |--------------------|-------|------------------------|------------------------|----------------------------|---------------|
-| Encyclopedia       | 34    | `src/pages/*.njk`      | `/pages/{slug}/`       | Front matter               | `article.njk` |
+| Encyclopaedia       | 34    | `src/pages/*.njk`      | `/pages/{slug}/`       | Front matter               | `article.njk` |
 | Zodiac Animals     | 12    | `src/zodiac/*.njk`     | `/zodiac/{animal}/`    | Front matter               | `article.njk` |
 | Yearly Readings    | 12    | `src/readings/*.njk`   | `/readings/{animal}/`  | Front matter (unique astro section per animal) | `article.njk` |
 | Long-form Articles | 16    | `src/articles/*.njk`   | `/articles/{slug}/`    | Front matter + newsCategories | `article.njk` |
@@ -1030,7 +1030,7 @@ Browser                    Cloudflare Worker
 | Integration Point | `/admin/` path on the site |
 | Backend           | Git (commits directly to GitHub repository) |
 | Authentication    | GitHub OAuth                               |
-| Content Model     | Configured to edit encyclopedia pages, articles, readings |
+| Content Model     | Configured to edit encyclopaedia pages, articles, readings |
 
 Decap CMS provides a web-based editing interface at `/admin/`. Content editors authenticate via GitHub, and edits are committed directly to the repository. Pushing to `main` triggers the CI/CD pipeline to rebuild and deploy.
 

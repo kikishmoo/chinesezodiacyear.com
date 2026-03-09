@@ -106,7 +106,7 @@ Dynasty sub-pages are generated from `src/_data/dynastiesData.json` via `src/dyn
 
 ### 1.7 Cultural Topics
 
-Standalone encyclopedia pages covering traditional Chinese cultural subjects.
+Standalone encyclopaedia pages covering traditional Chinese cultural subjects.
 
 | Page | URL |
 |------|-----|
@@ -121,7 +121,7 @@ Standalone encyclopedia pages covering traditional Chinese cultural subjects.
 | Yi Jing (Book of Changes) | `/yijing/` |
 | Chinamaxxing | `/chinamaxxing/` |
 
-Each page is a single long-form encyclopedia entry with trilingual content. These pages serve as topical authorities and link outward to related pillars (e.g., TCM links to Wu Xing, Taoism links to Yi Jing, Martial Arts links to Wuxia and Dynasties).
+Each page is a single long-form encyclopaedia entry with trilingual content. These pages serve as topical authorities and link outward to related pillars (e.g., TCM links to Wu Xing, Taoism links to Yi Jing, Martial Arts links to Wuxia and Dynasties).
 
 ---
 
@@ -131,7 +131,7 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 
 | Content Type | Count | Source Location |
 |-------------|-------|-----------------|
-| Encyclopedia/utility pages | 34 | `src/pages/*.njk` |
+| Encyclopaedia/utility pages | 34 | `src/pages/*.njk` |
 | Zodiac animal profiles | 12 | `src/zodiac/*.njk` |
 | 2026 yearly readings | 12 | `src/readings/2026-*.njk` |
 | Long-form articles | 16 | `src/articles/*.njk` |
@@ -142,7 +142,7 @@ Each page is a single long-form encyclopedia entry with trilingual content. Thes
 | Trivia quiz questions | 219 | `src/trivia.js` (15 topic sections, trilingual) |
 | **Total estimated pages** | **~293** | *Includes feed, sitemap, search-index* |
 
-### 2.2 Encyclopedia Pages (34 files in `src/pages/`)
+### 2.2 Encyclopaedia Pages (34 files in `src/pages/`)
 
 **Hub/navigation pages:**
 - `index.njk` (homepage), `zodiac.njk`, `bazi.njk`, `fengshui.njk`, `wuxing.njk`, `dynasties.njk`, `readings.njk`, `calendar.njk`, `compatibility.njk`
@@ -423,7 +423,7 @@ Example affinity mapping:
 | **Element sub-pages** (`/wuxing/{element}/`) | Links to: Wu Xing hub, BaZi, TCM, Zodiac, Feng Shui |
 | **Dynasty sub-pages** (`/dynasties/{dynasty}/`) | Links to: Dynasties hub, Calendar, Zodiac, BaZi, Hanfu, Spring Festival |
 | **Year pages** (`/zodiac-year/{year}/`) | Links to: this animal's profile, 2026 reading, adjacent years, same-animal years (+/-12), zodiac hub, compatibility, Wu Xing, BaZi calculator |
-| **Encyclopedia pages** | Uses topicAffinity from contentGraph.json |
+| **Encyclopaedia pages** | Uses topicAffinity from contentGraph.json |
 | **Article pages** | Uses category-based mapping (zodiac, culture, fengshui, bazi, business) |
 
 ### 5.3 Linking Hierarchy
@@ -519,7 +519,7 @@ Supports a `variant` variable ("reading", "product", or "both" default). Opt-out
 |-----|--------|----------------|--------|
 | **No readings for years beyond 2026** | Limits annual traffic renewal; users searching "2027 zodiac" will find nothing | Create 2027 Fire Goat (Ding Wei 丁未) readings using same template structure. Begin authoring Q3 2026 for January 2027 launch. | HIGH -- 12 new reading pages + unique Five-Phase sections |
 | **No per-pair compatibility pages** | `/compatibility/` is a single page covering all pairings; misses long-tail SEO for "Rat and Horse compatibility" queries | Create 66 unique compatibility pair pages (or start with the 12 most-searched pairings). Each page would cover San He, Liu He, and Six Clashes analysis for the pair. | HIGH -- 12-66 new pages |
-| **Cultural topic pages lack depth** | Pages like `/hanfu/`, `/martial-arts/`, `/tea-culture/` are single encyclopedia entries without sub-pages | Expand top-traffic cultural pages into pillar structures with sub-pages (e.g., `/hanfu/tang-dynasty/`, `/tea-culture/gongfu-ceremony/`, `/martial-arts/tai-chi/`) | MEDIUM -- 3-5 sub-pages per expanded topic |
+| **Cultural topic pages lack depth** | Pages like `/hanfu/`, `/martial-arts/`, `/tea-culture/` are single encyclopaedia entries without sub-pages | Expand top-traffic cultural pages into pillar structures with sub-pages (e.g., `/hanfu/tang-dynasty/`, `/tea-culture/gongfu-ceremony/`, `/martial-arts/tai-chi/`) | MEDIUM -- 3-5 sub-pages per expanded topic |
 
 ### 7.2 Medium Priority
 
@@ -535,7 +535,7 @@ Supports a `variant` variable ("reading", "product", or "both" default). Opt-out
 |-----|--------|----------------|--------|
 | **Trivia game could expand** | 219 questions across 15 categories is solid but could grow | Add questions for new cultural events, celebrity zodiac facts, and seasonal content. Target 300+ questions. Consider a "daily question" feature tied to the newsletter. | LOW |
 | **No user-generated content strategy** | Comments exist via Giscus (GitHub Discussions) but no community contribution model | Explore user-submitted birth chart interpretations, compatibility stories, or cultural experience posts. Moderation overhead is the primary concern. | LOW |
-| **No video content strategy** | Premium readings include video but no public video content | ~~Create short-form zodiac explainer videos for TikTok/YouTube Shorts.~~ **Partially addressed (2026-03-08):** YouTube video embeds are now integrated inline near related content sections across 10+ encyclopedia pages (hanfu, martial-arts, folk-arts, spring-festival, taoism, wuxing, fengshui, bazi, calendar, dynasties). Twitter/X embeds also supported via `twitterEmbed` frontmatter flag. A data-driven `videos` array in `dynastiesData.json` enables video embeds on dynasty pages. Still needed: original content production for TikTok/YouTube channels. | MEDIUM |
+| **No video content strategy** | Premium readings include video but no public video content | ~~Create short-form zodiac explainer videos for TikTok/YouTube Shorts.~~ **Partially addressed (2026-03-08):** YouTube video embeds are now integrated inline near related content sections across 10+ encyclopaedia pages (hanfu, martial-arts, folk-arts, spring-festival, taoism, wuxing, fengshui, bazi, calendar, dynasties). Twitter/X embeds also supported via `twitterEmbed` frontmatter flag. A data-driven `videos` array in `dynastiesData.json` enables video embeds on dynasty pages. Still needed: original content production for TikTok/YouTube channels. | MEDIUM |
 | **Asian New Year redirect pages exist but lack content** | `asian-new-year.njk` and `asian-new-year-redirect.njk` suggest planned content | Develop an "Asian New Year" comparison page covering Chinese, Korean, Vietnamese, and Tibetan celebrations. Good for GEO capture. | LOW |
 
 ---
@@ -682,10 +682,10 @@ chinesezodiacyear.com
 |   +-- ...
 |   +-- /zodiac-year/2044/
 |
-+-- /bazi/                      [Encyclopedia]
++-- /bazi/                      [Encyclopaedia]
 +-- /bazi-calculator/           [Interactive tool]
-+-- /fengshui/                  [Encyclopedia]
-+-- /calendar/                  [Encyclopedia]
++-- /fengshui/                  [Encyclopaedia]
++-- /calendar/                  [Encyclopaedia]
 +-- /compatibility/             [Interactive tool]
 +-- /spring-festival/           [Cultural topic]
 +-- /tea-culture/               [Cultural topic]

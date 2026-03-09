@@ -5,6 +5,22 @@
 
 ---
 
+## 2026-03-09 — Adopt Classical "Encyclopaedia" Spelling
+
+**Author:** CEO Agent (session 2, continued)
+
+### Content — Spelling Standardisation
+
+- **Changed "encyclopedia" → "encyclopaedia"** in all user-facing prose across 41 files (titles, descriptions, hero overlines, button text, meta tags, manifest, llms.txt, nav labels, documentation).
+- Code identifiers preserved: `category: "encyclopedia"` frontmatter, CMS config, collection filters, sitemap priority logic, CSS class comments, and JS fallback links remain unchanged to avoid breaking the build pipeline.
+- **Files touched:** 30 source `.njk` files, `package.json`, `manifest.json`, `site.json`, `nav.json`, `llms.txt`, `README.md`, `CLAUDE.md`, `CHANGELOG.md`, `TODO.md`, and 4 docs files.
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified, zero errors
+
+---
+
 ## 2026-03-09 — MS Clarity Activation & British English Audit
 
 **Author:** CEO Agent (session 2)
@@ -199,7 +215,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 
 ---
 
-## 2026-03-09 — Favicon Fix, Encyclopedia Translations, Onboarding Audit
+## 2026-03-09 — Favicon Fix, Encyclopaedia Translations, Onboarding Audit
 
 **Author:** kiki.shmoo@gmail.com
 
@@ -209,9 +225,9 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 - **Fix:** Updated `favicon.svg` to use gold text, gold border stroke, and semi-transparent dark overlay matching the `.logo-seal` CSS styling. Added `-2deg` rotation (`1fbdc09`) to match the page logo's `transform: rotate(-2deg)`.
 - Regenerated all favicon variants: `favicon.ico`, `favicon-32.png`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png`.
 
-### Encyclopedia Pages — TC/SC Translations (`c7c71fe`)
+### Encyclopaedia Pages — TC/SC Translations (`c7c71fe`)
 
-- Translated 4 encyclopedia pages to Traditional Chinese (zh-hant) and Simplified Chinese (zh-hans):
+- Translated 4 encyclopaedia pages to Traditional Chinese (zh-hant) and Simplified Chinese (zh-hans):
   - **TCM** (`tcm.njk`): 11 sections — foundations, qi, zangfu, meridians, herbal medicine, food therapy, diagnosis, etc.
   - **Martial Arts** (`martial-arts.njk`): 8 sections — history, external/internal styles, five elements, animal styles, medicine connection.
   - **Folk Arts** (`folk-arts.njk`): 9 sections — lion dance, dragon dance, big-head buddha, yingge, deity procession, piaose, etc.
@@ -260,7 +276,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 - Audited all 27 main pages for TC/SC translation quality and completeness.
 - Documented findings in `content-strategy.md` section 3.2.1 with per-page status table.
 - Fixed hanfu page pinyin annotations.
-- Identified 7 encyclopedia pages with absent translations and created prioritized translation queue.
+- Identified 7 encyclopaedia pages with absent translations and created prioritized translation queue.
 - **Files:** `content-strategy.md`, `hanfu.njk`
 
 ### CI Build Validation & Security Fix (`5d0555c`)
@@ -279,7 +295,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 
 ### 2026-03-08 — Video Embeds & Article Translations
 
-- Moved contextual video embeds inline with relevant dynasty/topic sections across 8 encyclopedia pages.
+- Moved contextual video embeds inline with relevant dynasty/topic sections across 8 encyclopaedia pages.
 - Added X/Twitter video embed to Hanfu page with full oEmbed markup.
 - Translated top 5 articles to Traditional and Simplified Chinese.
 - Updated documentation for video embed system.
@@ -373,7 +389,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 
 - Trilingual toggle (EN/TC/SC) with PayPal payments and first page translations.
 - Translated all 12 reading pages (rat through pig) to TC/SC.
-- Translated BaZi, Wu Xing, Feng Shui encyclopedia pages to TC/SC.
+- Translated BaZi, Wu Xing, Feng Shui encyclopaedia pages to TC/SC.
 - TC/SC translations for shop, homepage, donate, and about pages.
 
 ### 2026-02-28 — Language Toggle, SEO Batch
@@ -396,7 +412,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 ### 2026-02-26 — Design & Content Overhaul
 
 - Major design overhaul, 217 trivia questions with timer, famous figures, video embeds.
-- Transformed encyclopedia pages to infographic style with visual components.
+- Transformed encyclopaedia pages to infographic style with visual components.
 - Fixed broken images, layout, news font; added donation page and social embeds.
 - Rewrote CNY Influence page with Chinese origins, transmission dates, de-Sinicization.
 - Added Jackie Chan Adventures content to wuxia, zodiac, and homepage.
@@ -406,7 +422,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 ### 2026-02-25 — Core Content Expansion
 
 - Added zodiac readings, BaZi calculator, Asian New Year page, enhanced zodiac calculator.
-- Added 4 encyclopedia pages, expanded existing content, fixed CSS and navigation.
+- Added 4 encyclopaedia pages, expanded existing content, fixed CSS and navigation.
 - Added wuxia & chinamaxxing pages, trivia game, video embeds, cross-links.
 
 ### 2026-02-24 — SSG Migration & Branding
@@ -419,7 +435,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 ### 2026-02-23 — Phase 1 & 2
 
 - Added dark mode, Beehiiv newsletter, and social sharing.
-- Added 5 encyclopedia pages, compatibility checker, nav dropdown.
+- Added 5 encyclopaedia pages, compatibility checker, nav dropdown.
 
 ### 2026-02-22 — Initial Upload
 

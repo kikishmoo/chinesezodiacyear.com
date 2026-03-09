@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validated JSON-LD, GEO-ready infrastructure, CI build validation) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts), interactive news hub filters, and contextual video embeds across 10+ encyclopedia pages (YouTube and Twitter/X). The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
+ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validated JSON-LD, GEO-ready infrastructure, CI build validation) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts), interactive news hub filters, and contextual video embeds across 10+ encyclopaedia pages (YouTube and Twitter/X). The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
 
 ---
 
@@ -22,7 +22,7 @@ ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validate
 | 4  | ~~Publish Qingming seasonal article (April 5 deadline)~~  | ~~CRITICAL~~   | ~~3 hours~~  | ~~High~~     | ~~Content~~    |
 | 5  | ~~Set up GA4 conversion funnels + e-commerce events~~     | ~~CRITICAL~~   | ~~4 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
-| 7  | Translate encyclopedia page bodies to Chinese (3 pages ABSENT, 4 DONE + 2 partial) | HIGH       | 16 hours | High     | Content    |
+| 7  | Translate encyclopaedia page bodies to Chinese (3 pages ABSENT, 4 DONE + 2 partial) | HIGH       | 16 hours | High     | Content    |
 | 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
 | 9  | Set up Pinterest business account + first 20 pins     | HIGH       | 4 hours  | Medium   | Marketing  |
 | 10 | ~~Make news hub filters interactive (JS filtering)~~  | ~~MEDIUM~~     | ~~6 hours~~  | ~~Medium~~   | ~~Technical~~  |
@@ -96,7 +96,7 @@ Implementation details:
    - **Reading card:** promotes BaZi readings ($29--$149), links to `/readings/` with UTM parameters.
    - **Product card:** promotes Gumroad digital products ($3.99--$19.99), links to `/shop/` with UTM parameters.
 2. The partial supports three variants via a `variant` variable: `"reading"`, `"product"`, or `"both"` (default).
-3. Integrated into `article.njk` layout -- automatically rendered on ALL pages using the article layout (16 articles, 12 zodiac pages, 12 readings, 34 encyclopedia pages, etc.) between the main content and the FAQ section.
+3. Integrated into `article.njk` layout -- automatically rendered on ALL pages using the article layout (16 articles, 12 zodiac pages, 12 readings, 34 encyclopaedia pages, etc.) between the main content and the FAQ section.
 4. Pages can opt out with `crossSellHidden: true` in frontmatter.
 5. CSS: responsive two-column grid on desktop, single column on mobile (breakpoint: 640px). Dark mode support included.
 6. UTM tracking: all CTA links include `utm_source=article&utm_medium=cross-sell&utm_campaign=reading-cta` or `product-cta`.
@@ -206,7 +206,7 @@ Action steps:
 3. Publish on a Tuesday/Wednesday schedule (historically better for indexing velocity).
 4. After each publish: submit to Search Console, share on social, send to newsletter if relevant.
 
-#### 2.3 Translate Encyclopedia & Article Bodies to Chinese [HIGH]
+#### 2.3 Translate Encyclopaedia & Article Bodies to Chinese [HIGH]
 
 - **Priority:** HIGH
 - **Effort:** 24 hours (7 pages fully absent + 3 pages partial + articles)

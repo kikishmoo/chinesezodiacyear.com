@@ -1,6 +1,6 @@
 # chinesezodiacyear.com
 
-Encyclopedia, directory, readings, and news platform for Chinese zodiac, BaZi, feng shui, and traditional Chinese culture rooted in classical pre-Qing scholarship.
+Encyclopaedia, directory, readings, and news platform for Chinese zodiac, BaZi, feng shui, and traditional Chinese culture rooted in classical pre-Qing scholarship.
 
 **Live site:** https://chinesezodiacyear.com
 
@@ -76,7 +76,7 @@ src/
 │       └── comments.njk    # Giscus GitHub Discussions
 ├── admin/                  # Decap CMS admin panel
 ├── articles/               # Long-form articles (16 files)
-├── pages/                  # Encyclopedia and utility pages (34 files)
+├── pages/                  # Encyclopaedia and utility pages (34 files)
 ├── readings/               # Yearly zodiac readings (12 files, each unique)
 ├── zodiac/                 # Individual animal pages (12 files)
 ├── img/                    # Images and OG media
@@ -127,7 +127,7 @@ The site generates **293 pages** (879 after i18n) across these content types:
 
 | Type | Count | Source |
 |---|---|---|
-| Encyclopedia pages | 35 | `src/pages/*.njk` |
+| Encyclopaedia pages | 35 | `src/pages/*.njk` |
 | Zodiac animal pages | 12 | `src/zodiac/*.njk` |
 | Yearly readings | 12 | `src/readings/*.njk` (each with unique astrological section) |
 | Compatibility pair pages | 78 | Generated from `compatibilityPairs.js` (66 unique + 12 same-sign) |
@@ -205,7 +205,7 @@ Build output: ~293 HTML files pre-i18n, ~879 after i18n generation.
 
 ### Via Decap CMS
 
-Navigate to `https://chinesezodiacyear.com/admin/` and authenticate with GitHub. The CMS supports three collections: Articles, Encyclopedia Pages, and Zodiac Readings.
+Navigate to `https://chinesezodiacyear.com/admin/` and authenticate with GitHub. The CMS supports three collections: Articles, Encyclopaedia Pages, and Zodiac Readings.
 
 ### Via the scaffolding script
 

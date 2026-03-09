@@ -71,7 +71,7 @@ The site has a strong technical SEO foundation. Meta tags, hreflang, canonical U
 | SEO-006 | **LOW** | Body text truncated at 500 characters (design choice -- acceptable) | `/search-index.json` |
 | SEO-007 | **INFO** | No `noindex` directive on search page (thin content risk) | `/search/` |
 | SEO-008 | **INFO** | Hub pages use shared OG image (`zodiac-stone-carving.webp`) vs reading pages which have custom images (`/img/og/2026-rat.png`) | `/zodiac/`, `/wuxing/`, `/readings/` |
-| SEO-009 | **INFO** | Homepage title "Encyclopedia, Directory & News \| Chinese Zodiac" does not lead with the primary keyword "Chinese Zodiac" | `/` |
+| SEO-009 | **INFO** | Homepage title "Encyclopaedia, Directory & News \| Chinese Zodiac" does not lead with the primary keyword "Chinese Zodiac" | `/` |
 
 ---
 
@@ -174,7 +174,7 @@ Where `site.name` = "Chinese Zodiac" (from `src/_data/site.json`).
 
 | Page | Rendered Title |
 |------|---------------|
-| Homepage | `Encyclopedia, Directory & News \| Chinese Zodiac` |
+| Homepage | `Encyclopaedia, Directory & News \| Chinese Zodiac` |
 | `/zodiac/` | `Chinese Zodiac Animals \| Chinese Zodiac` |
 | `/readings/2026-rat/` | `2026 Rat Reading -- Fire Horse \| Chinese Zodiac` |
 | `/wuxing/` | `Wu Xing -- The Five Elements Theory \| Chinese Zodiac` |
@@ -182,9 +182,9 @@ Where `site.name` = "Chinese Zodiac" (from `src/_data/site.json`).
 | `/readings/` | `2026 Zodiac Readings \| Chinese Zodiac` |
 | `/search/` | `Search \| Chinese Zodiac` |
 
-**Issue SEO-009:** The homepage title places "Encyclopedia, Directory & News" before the brand name. For SEO, the primary keyword should lead:
-- Current: `Encyclopedia, Directory & News | Chinese Zodiac`
-- Recommended: `Chinese Zodiac Encyclopedia, Directory & News | ChineseZodiacYear.com`
+**Issue SEO-009:** The homepage title places "Encyclopaedia, Directory & News" before the brand name. For SEO, the primary keyword should lead:
+- Current: `Encyclopaedia, Directory & News | Chinese Zodiac`
+- Recommended: `Chinese Zodiac Encyclopaedia, Directory & News | ChineseZodiacYear.com`
 
 ### 3.2 Meta Descriptions
 
@@ -192,7 +192,7 @@ Unique per page, set in front matter `description` field. Length range: 80-160 c
 
 | Page | Description |
 |------|-------------|
-| Homepage | "Chinese zodiac encyclopedia: zodiac animals, BaZi four pillars, feng shui, the Chinese calendar, and Spring Festival traditions from classical sources." |
+| Homepage | "Chinese zodiac encyclopaedia: zodiac animals, BaZi four pillars, feng shui, the Chinese calendar, and Spring Festival traditions from classical sources." |
 | `/zodiac/` | "The 12 Chinese zodiac animals: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog, Pig -- origins, traits, and compatibility." |
 | `/readings/2026-rat/` | "Complete 2026 forecast for the Rat. Career, love, health, and monthly outlook for Rat-born people in the Fire Horse year." |
 
@@ -393,7 +393,7 @@ Generated from `src/feed.njk`. Available at `/feed.xml`. Linked in `<head>`:
 
 | Content Type | Approximate Count |
 |-------------|-------------------|
-| Encyclopedia pages | ~25 |
+| Encyclopaedia pages | ~25 |
 | Zodiac animal pages | 12 |
 | Year pages | ~120 (zodiac-year/YYYY) |
 | Dynasty sub-pages | ~10 |
@@ -417,12 +417,12 @@ The site uses a content relationship system defined in two files:
 
 This system produces contextual "Related" and "Also Explore" link sections. The logic handles:
 - **Zodiac animal pages** (`/zodiac/{animal}/`): links to the animal's 2026 reading, San He allies, Liu He friend, nearby year pages, and core topics
-- **Reading pages** (`/readings/2026-{animal}/`): links to the animal's encyclopedia page and San He allies' readings
+- **Reading pages** (`/readings/2026-{animal}/`): links to the animal's encyclopaedia page and San He allies' readings
 - **Element sub-pages** (`/wuxing/{element}/`): links to parent hub and related topics
 - **Dynasty sub-pages** (`/dynasties/{dynasty}/`): links to parent hub and related topics
 - **Year pages** (`/zodiac-year/{year}/`): links to animal profile, adjacent years, and 12-year cycle years
-- **Encyclopedia pages**: uses topic affinity from the content graph
-- **Articles**: uses category mapping to find related encyclopedia pages
+- **Encyclopaedia pages**: uses topic affinity from the content graph
+- **Articles**: uses category mapping to find related encyclopaedia pages
 
 ### 6.2 Navigation Structure
 
@@ -439,7 +439,7 @@ This system produces contextual "Related" and "Also Explore" link sections. The 
 
 | Column | Link Count | Content |
 |--------|-----------|---------|
-| Encyclopedia | 13 | Zodiac, BaZi, Feng Shui, Calendar, etc. |
+| Encyclopaedia | 13 | Zodiac, BaZi, Feng Shui, Calendar, etc. |
 | Community | 5 | News, Directory, About, Donate, Contribute |
 | Resources | 9 | Calculators, Readings, Shop, Sitemap, Privacy, etc. |
 | **Total footer links** | **~27** | Plus social media links |
@@ -631,7 +631,7 @@ None currently. The site has no broken SEO elements or critical performance issu
 | Action | Status | Details |
 |--------|--------|---------|
 | **Google Search Console verification** | DONE | Meta tag added via `site.json` → `googleVerification` |
-| **Auto-generated FAQ schema on 30+ pages** | DONE | `eleventyComputed.js` → `autoFaq` property; covers all encyclopedia, zodiac, and year pages |
+| **Auto-generated FAQ schema on 30+ pages** | DONE | `eleventyComputed.js` → `autoFaq` property; covers all encyclopaedia, zodiac, and year pages |
 | **SEO-optimized title tags** | DONE | 20+ pages updated with long-tail keywords and Chinese characters |
 | **Enriched year pages (121 pages)** | DONE | Sexagenary cycle, element interactions, compatibility, BaZi, FAQ sections |
 | **High-volume landing page** | DONE | `/whats-my-zodiac/` targeting "what is my chinese zodiac sign" |
@@ -639,16 +639,16 @@ None currently. The site has no broken SEO elements or critical performance issu
 | **Web Vitals monitoring** | DONE | CLS, LCP, FCP, TTFB, INP → GA4 via web-vitals@4 |
 | **GEO optimization** | DONE | `llms.txt` for AI crawlers, robots.txt allows all AI bots |
 | **Image alt text improvement** | DONE | Homepage images updated with descriptive, keyword-rich alt text |
-| **Front-load homepage title keyword** | DONE | Changed to "Chinese Zodiac — Shēngxiào Encyclopedia, Directory & News" |
+| **Front-load homepage title keyword** | DONE | Changed to "Chinese Zodiac — Shēngxiào Encyclopaedia, Directory & News" |
 | **Pillar-cluster: Compatibility pair pages (78 pages)** | DONE | `compatibilityPairs.js` generates 66 unique + 12 same-sign pair pages at `/compatibility/{pair}/`; each includes Six Harmony/Clash/Harm/neutral analysis, element interaction, trilingual content, FAQ schema, auto-related links |
 | **Pillar-cluster: Hub→cluster linking** | DONE | Compatibility hub page now links to all key pair pages (H6, Clash, Harm categories); zodiac animal pages link to their specific pair pages |
 | **Pillar-cluster: Cross-cluster linking** | DONE | `eleventyComputed.js` auto-generates related links between pair pages, animal profiles, readings, and the compatibility hub |
 | **JSON-LD CollectionPage + ItemList on hub pages** | DONE | All 5 hubs (`/zodiac/`, `/wuxing/`, `/dynasties/`, `/readings/`, `/compatibility/`) emit CollectionPage + ItemList JSON-LD via `hubSchema` frontmatter |
-| **Cross-sell CTA partial in article layout** | DONE | `cross-sell-cta.njk` auto-included in all article-layout pages (articles, readings, zodiac, encyclopedia). Two-card layout (reading + product) with UTM tracking. Opt-out via `crossSellHidden: true` frontmatter. |
+| **Cross-sell CTA partial in article layout** | DONE | `cross-sell-cta.njk` auto-included in all article-layout pages (articles, readings, zodiac, encyclopaedia). Two-card layout (reading + product) with UTM tracking. Opt-out via `crossSellHidden: true` frontmatter. |
 | **News hub interactive filters** | DONE | `/news/` page now has client-side JS category filters with `<button>` elements, URL hash support (`#category=zodiac`), no-results state with "Show all" fallback, ARIA accessibility attributes. Pagination increased to 100 to show all articles on one page. |
 | **noindex on /search/ page** | DONE | Already had `noindex: true` in frontmatter; `base.njk` renders `<meta name="robots" content="noindex, follow">` |
 | **Categorize search index entries** | DONE | Year pages (121) now have `category: "encyclopedia"`; only homepage remains uncategorized (expected) |
-| **Homepage title keyword front-loaded** | DONE | Already changed to "Chinese Zodiac — Shēngxiào Encyclopedia, Directory & News" |
+| **Homepage title keyword front-loaded** | DONE | Already changed to "Chinese Zodiac — Shēngxiào Encyclopaedia, Directory & News" |
 
 ### P1 -- High Priority (Remaining)
 

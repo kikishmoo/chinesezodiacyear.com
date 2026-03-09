@@ -8,7 +8,7 @@
 
 ## 1. Project Identity
 
-- **Site:** chinesezodiacyear.com — Chinese zodiac encyclopedia, directory, readings, and cultural reference
+- **Site:** chinesezodiacyear.com — Chinese zodiac encyclopaedia, directory, readings, and cultural reference
 - **Stack:** Eleventy 3.1.2 (ESM), Nunjucks templates, GitHub Pages, Cloudflare Workers (BaZi API)
 - **Repo:** github.com/kikishmoo/chinesezodiacyear.com
 - **GA4:** G-2QWWBEW512
@@ -55,7 +55,7 @@ Current project direction. Stable for months but may shift based on data.
 
 - **Content calendar:** See `src/_data/contentCalendar.json` for queued articles and deadlines.
 - **Revenue model:** Gumroad digital products ($3.99–$19.99), AdSense, Amazon Associates, Beehiiv newsletter → premium readings funnel.
-- **Translation priority:** English first, then TC/SC. Three remaining encyclopedia pages need translation (Yi Jing, Tea Culture, Qi Men Dun Jia).
+- **Translation priority:** English first, then TC/SC. Three remaining encyclopaedia pages need translation (Yi Jing, Tea Culture, Qi Men Dun Jia).
 - **SEO architecture:** Pillar-cluster model. Hub pages → sub-pages. 78 compatibility pair pages for long-tail.
 - **Cross-sell:** `content-upgrade.njk` (email capture) + `cross-sell.njk` (product/reading CTA) on all article-layout pages.
 - **TODO roadmap:** See `TODO.md` for prioritised task list with effort/impact matrix.
@@ -84,7 +84,7 @@ Current project direction. Stable for months but may shift based on data.
 |-------|---------|----------|--------|-------------|
 | Facebook Pixel | TODO item #1 — CRITICAL priority, not yet installed | 2026-03-09 | 2026-04-06 | Pixel is installed and verified |
 | Microsoft Clarity | TODO item #13 — MEDIUM priority, not yet installed | 2026-03-09 | 2026-04-06 | Clarity is installed and verified |
-| Translation backlog | 3 encyclopedia pages need TC/SC: Yi Jing, Tea Culture, Qi Men Dun Jia | 2026-03-09 | 2026-04-15 | All 3 pages translated |
+| Translation backlog | 3 encyclopaedia pages need TC/SC: Yi Jing, Tea Culture, Qi Men Dun Jia | 2026-03-09 | 2026-04-15 | All 3 pages translated |
 
 ---
 

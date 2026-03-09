@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com
 
-> Chinese zodiac encyclopedia, directory, and news platform rooted in classical pre-Qing scholarship.
+> Chinese zodiac encyclopaedia, directory, and news platform rooted in classical pre-Qing scholarship.
 
 ## About This Site
 
@@ -23,7 +23,7 @@ ChineseZodiacYear.com is an independent editorial platform dedicated to preservi
 
 ## Content Structure
 
-- Encyclopedia: In-depth articles on each topic listed above
+- Encyclopaedia: In-depth articles on each topic listed above
 - Zodiac Year Pages: Detailed pages for each year from 1924 to 2044
 - Zodiac Animal Pages: Full profiles for all 12 animals
 - 2026 Readings: Year of the Fire Horse forecasts for each animal
