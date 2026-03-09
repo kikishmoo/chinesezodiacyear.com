@@ -5,6 +5,42 @@
 
 ---
 
+## 2026-03-09 — Content Articles: Chinese New Year Series (5 articles)
+
+**Author:** kiki.shmoo@gmail.com
+
+### New Articles Published
+
+Five new articles drafted and published, forming a Chinese New Year topical cluster:
+
+1. **Chinese New Year vs Lunar New Year** (`chinese-new-year-vs-lunar-new-year.njk`)
+   - Historical names for the lunisolar new year, calendar system (lunisolar ≠ lunar), the VANK campaign (2019–present), UNESCO 2024 inscription, regional celebrations (Seollal, Tết, Losar).
+   - Permalink: `/chinese-new-year-vs-lunar-new-year/`
+
+2. **Why Red and Gold Are the Colours of Chinese New Year** (`why-red-and-gold-chinese-new-year.njk`)
+   - Wu Xing colour theory, peachwood charms → red paper evolution (Han → Ming), gold/Metal element and imperial symbolism, Nian beast myth debunked, colours to avoid, modern adaptations.
+   - Permalink: `/why-red-and-gold-chinese-new-year/`
+
+3. **The Fifteen Days of Chinese New Year** (`fifteen-days-chinese-new-year.njk`)
+   - Day-by-day guide: New Year's Eve through Lantern Festival, Kitchen God, God of Wealth (Day 5), Renri/Birthday of Humanity (Day 7), Jade Emperor (Day 9), Lantern Festival (Day 15). Full taboos table.
+   - Permalink: `/fifteen-days-chinese-new-year/`
+
+4. **How Chinese New Year Became a Global Celebration** (`chinese-new-year-global-celebration.njk`)
+   - Migration waves (Southeast Asia, Gold Rush, Europe, modern), Chinatown celebrations worldwide, public holidays table, brand/commerce involvement, cultural bridge function.
+   - Permalink: `/chinese-new-year-global-celebration/`
+
+5. **Chinese New Year Traditions — From Firecrackers to Family Dinners** (`chinese-new-year-traditions.njk`)
+   - Each major tradition traced from origin to modern form: firecrackers (bamboo → gunpowder), red envelopes (Song coins → WeChat), reunion dinner, spring couplets (peachwood → red paper), lion/dragon dances, paper-cutting, evolution timeline table.
+   - Permalink: `/chinese-new-year-traditions/`
+
+### Content Calendar Updated
+
+- Added all 5 articles to `contentCalendar.json` as `status: "published"`.
+- Articles are English-only for now; TC/SC translations to follow.
+- Build verified: 302 pages written, all 5 new article URLs confirmed.
+
+---
+
 ## 2026-03-09 — Favicon Fix, Encyclopedia Translations, Onboarding Audit
 
 **Author:** kiki.shmoo@gmail.com

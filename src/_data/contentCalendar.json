@@ -113,6 +113,51 @@
       "targetDate": "2026-10-01",
       "targetKeywords": "Chinese New Year 2027, Year of the Snake 2027, Fire Snake",
       "notes": "Publish Q4 2026 to capture early search interest."
+    },
+    {
+      "slug": "chinese-new-year-vs-lunar-new-year",
+      "title": "Chinese New Year vs Lunar New Year — What Changed and Why It Matters",
+      "category": "culture",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "Chinese New Year vs Lunar New Year, Lunar New Year debate, Spring Festival, VANK, UNESCO Spring Festival",
+      "notes": "Trending topic. Strong SEO potential for naming debate queries. Links to Spring Festival, Calendar, Dynasties."
+    },
+    {
+      "slug": "why-red-and-gold-chinese-new-year",
+      "title": "Why Red and Gold Are the Colours of Chinese New Year",
+      "category": "culture",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "Chinese New Year colors, red Chinese New Year, gold Chinese New Year, Wu Xing five elements colors",
+      "notes": "Evergreen culture content. Strong image search and featured snippet potential. Links to Wu Xing, Feng Shui."
+    },
+    {
+      "slug": "fifteen-days-chinese-new-year",
+      "title": "The Fifteen Days of Chinese New Year — What Each Day Means",
+      "category": "culture",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "fifteen days Chinese New Year, Chinese New Year day by day, Spring Festival customs, Chinese New Year taboos",
+      "notes": "High search volume listicle. Detailed day-by-day guide. Links to Spring Festival, Folk Arts, Calendar."
+    },
+    {
+      "slug": "chinese-new-year-global-celebration",
+      "title": "How Chinese New Year Became a Global Celebration",
+      "category": "culture",
+      "priority": "medium",
+      "status": "published",
+      "targetKeywords": "Chinese New Year global, Chinese New Year worldwide, Chinatown celebrations, Chinese diaspora",
+      "notes": "Topical authority builder. Links to Spring Festival, Dynasties, Hanfu."
+    },
+    {
+      "slug": "chinese-new-year-traditions",
+      "title": "Chinese New Year Traditions — From Firecrackers to Family Dinners",
+      "category": "culture",
+      "priority": "high",
+      "status": "published",
+      "targetKeywords": "Chinese New Year traditions, Spring Festival customs, firecrackers, red envelopes, reunion dinner, lion dance",
+      "notes": "Comprehensive traditions overview. High search volume. Links to Spring Festival, Folk Arts, Martial Arts."
     }
   ]
 }
