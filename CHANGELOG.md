@@ -5,6 +5,28 @@
 
 ---
 
+## 2026-03-09 — Favicon Fix, Encyclopedia Translations, Onboarding Audit
+
+**Author:** kiki.shmoo@gmail.com
+
+### Favicon Updated to Match Page Logo
+
+- **Problem:** Browser tab favicon used ivory/white (`#FAF6EF`) text on red, while the page header logo uses imperial gold (`#BF9328`) text with a gold border — visual mismatch.
+- **Fix:** Updated `favicon.svg` to use gold text, gold border stroke, and semi-transparent dark overlay matching the `.logo-seal` CSS styling.
+- Regenerated all favicon variants: `favicon.ico`, `favicon-32.png`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png`.
+
+### Encyclopedia Pages — TC/SC Translations (`c7c71fe`)
+
+- Translated 4 encyclopedia pages to Traditional Chinese (zh-hant) and Simplified Chinese (zh-hans):
+  - **TCM** (`tcm.njk`): 11 sections — foundations, qi, zangfu, meridians, herbal medicine, food therapy, diagnosis, etc.
+  - **Martial Arts** (`martial-arts.njk`): 8 sections — history, external/internal styles, five elements, animal styles, medicine connection.
+  - **Folk Arts** (`folk-arts.njk`): 9 sections — lion dance, dragon dance, big-head buddha, yingge, deity procession, piaose, etc.
+  - **Wuxia** (`wuxia.njk`): 11 sections — origins through modern wuxia, code of xia, weapons, Jackie Chan Adventures.
+- All translations follow the established three-block i18n pattern (`lang-en`, `lang-tc`, `lang-sc`).
+- Build verified: 586 i18n variant pages generated, all 8 new zh-hant/zh-hans pages confirmed.
+
+---
+
 ## 2026-03-09 — Onboarding Audit & Codebase Review
 
 **Author:** kiki.shmoo@gmail.com
