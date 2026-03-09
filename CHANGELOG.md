@@ -5,6 +5,36 @@
 
 ---
 
+## 2026-03-09 — Meta-Learning Framework: Agent Boot File & SOPs
+
+**Author:** kiki.shmoo@gmail.com
+
+### Added Agent Self-Improvement Infrastructure
+
+Implemented the "9 Meta-Learning Tips" framework (based on @AtlasForgeAI's article) to enable persistent learning across agent sessions.
+
+**New files:**
+
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | Agent boot file — loaded every session. Contains canonical rules (editorial identity, technical identity, content standards), strategy rules (quarterly review), regressions/"never again" list, temporary attention points, key file locations, and documentation requirements. |
+| `docs/sop-agent-workflow.md` | Standard Operating Procedures — session start/end protocols, memory tiering (Tier 1 canonical / Tier 2 strategic / Tier 3 temporary), prediction-first decision making, contradiction resolution, creative vs. operational modes, structured iteration with exit criteria, nightly review checklist. |
+| `docs/prediction-log.md` | Decision prediction log — record predictions before major decisions, fill in actuals after, analyse deltas to reveal systematic biases. Pre-populated with 3 entries from today's session. |
+| `docs/contradiction-log.md` | Conflicting instruction log — when rules conflict, log both sides and the resolution rather than silently choosing. Pre-populated with 3 resolved contradictions. |
+
+**Key principles implemented:**
+1. **Regressions list** (Tip 1) — 5 historical mistakes documented with prevention rules
+2. **Tiered memory** (Tip 2) — Canonical/Strategic/Temporary with confidence tags
+3. **Prediction log** (Tip 3) — Forces think-before-act, reveals systematic biases
+4. **Nightly review** (Tip 4) — Checklist for periodic maintenance
+5. **Contradiction log** (Tip 5) — Prevents silent drift from conflicting instructions
+6. **Temporary attention points** (Tip 6) — Time-boxed focus items with auto-expiry
+7. **Self-labelling** (Tip 7) — Fact/observation/inference/speculation tagging
+8. **Creative vs. operational modes** (Tip 8) — Different rules for different work types
+9. **Structured iteration** (Tip 9) — Three-round rule with exit criteria
+
+---
+
 ## 2026-03-09 — CNY vs LNY Article: "No Single Lunar New Year" Argument
 
 **Author:** kiki.shmoo@gmail.com
