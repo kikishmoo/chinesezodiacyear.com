@@ -56,4 +56,26 @@
 
 ---
 
+### 2026-03-09 — Encyclopaedia translation completion (Yi Jing, Tea Culture, Qi Men Dun Jia)
+
+**Decision:** Translate the 3 remaining untranslated encyclopaedia pages to TC/SC, completing the translation backlog
+**Prediction:** Translations will follow the established three-block i18n pattern without issues; build will pass; all 3 pages will generate zh-hant and zh-hans variants correctly
+**Confidence:** High — same pattern used successfully for 4 pages in session 1
+**Actual result:** All 3 pages translated successfully. Build passed (302 pages, 596 i18n variants). All new zh-hant/zh-hans URLs confirmed working.
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
+
+### 2026-03-09 — Affiliate products addition to shop page
+
+**Decision:** Add 10 Amazon Associates affiliate products (6 books, 4 tools) to the shop page with trilingual support and independent filter controls
+**Prediction:** The existing shop filter JS will need refactoring since it uses global selectors — adding a second filter group will cause cross-interference. Expect 1 build pass after the refactor. Affiliate links with `rel="noopener sponsored"` will be SEO-safe.
+**Confidence:** Medium — confident about the need for JS refactoring, less certain about the exact scoping approach
+**Actual result:** JS refactored to per-`.shop-filters` group scoping using `nextElementSibling`. Build passed on first attempt. All 10 products render correctly in EN/TC/SC with independent filter controls.
+**Delta:** The `nextElementSibling` approach was simpler than anticipated — no need for explicit ID-based wiring between filter groups and grids
+**Adjustment:** When adding parallel UI components that share JS behaviour, check for global selectors early and scope them per-instance from the start
+
+---
+
 <!-- Add new entries above this line -->

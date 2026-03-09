@@ -5,6 +5,55 @@
 
 ---
 
+## 2026-03-09 — Affiliate Products & Encyclopaedia Translations (Session 4)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Content — Encyclopaedia TC/SC Translations
+
+Translated 3 remaining encyclopaedia pages to Traditional Chinese (zh-hant) and Simplified Chinese (zh-hans), completing the translation backlog:
+
+- **Yi Jing** (`yijing.njk`): Full TC/SC translation of all sections — origins, trigrams, hexagrams, divination methods, philosophical influence, modern applications.
+- **Tea Culture** (`tea-culture.njk`): Full TC/SC translation — Lu Yu and the Classic of Tea, six tea types, gongfu ceremony, tea and health, regional traditions.
+- **Qi Men Dun Jia** (`qimen.njk`): Full TC/SC translation — history, the nine stars, eight doors, cosmic board structure, modern applications.
+
+### Feature — Amazon Associates Affiliate Products
+
+Added 10 curated affiliate products to the shop page, creating a new "Recommended Books & Tools" section:
+
+**Books (6):**
+- The Complete Book of Chinese Horoscopes (Lori Reid)
+- The Definitive Book of Chinese Astrology (Shelly Wu)
+- BaZi — The Destiny Code (Joey Yap)
+- The Living Earth Manual of Feng Shui (Stephen Skinner)
+- I Ching: The Book of Changes (James Legge translation)
+- The Classic of Tea by Lu Yu (Francis Ross Carpenter)
+
+**Tools & Supplies (4):**
+- Professional Luo Pan Feng Shui Compass
+- Chinese Calligraphy Brush Set
+- Gongfu Tea Set (ceramic)
+- Chinese Red Envelopes (Hongbao) 50-pack
+
+**Technical implementation:**
+- `shop.json`: Added `affiliateProducts` array with trilingual names/subtitles (EN/TC/SC), categories, featured flags, and Amazon URLs with `kikigreene-20` affiliate tag.
+- `shop.njk`: Added affiliate section in all 3 language blocks (EN/TC/SC) with independent filter buttons (All/Books/Tools), affiliate disclosure, and `rel="noopener sponsored"` links.
+- `site.js`: Refactored shop filter JS from global selection to per-`.shop-filters` group scoping using `nextElementSibling`, so digital product and affiliate product filters operate independently. Added `data-scope` attribute for GA4 event label differentiation.
+- `styles.css`: Added `.product-price--affiliate` and `.affiliate-disclosure` styles with dark mode variants.
+
+### Documentation Updates
+
+- `CLAUDE.md`: Translation backlog marked RESOLVED
+- `TODO.md`: Translation audit table updated (0 ABSENT, all DONE), phases 1 & 2 complete
+- `docs/architecture.md`: 3 known issues marked RESOLVED, search index count updated to ~302
+- `docs/content-strategy.md`: All 7 translated pages marked Full parity EXCELLENT
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified (32.7KB), zero errors
+
+---
+
 ## 2026-03-09 — BaZi Cloudflare Worker Deployment Fix
 
 **Author:** CEO Agent (session 3, continued)
