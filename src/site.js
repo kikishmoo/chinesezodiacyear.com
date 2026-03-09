@@ -4,6 +4,13 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* --- GA4 Event Helper ---
+     Sends a gtag event only when GA4 is loaded.
+     Usage: track('event_name', { key: 'value' }); */
+  const track = (name, params) => {
+    if (window.gtag) gtag('event', name, params || {});
+  };
+
   /* --- Base Path Detection (for GitHub Pages subpath) --- */
   const basePath = (function() {
     const link = document.querySelector('link[rel="stylesheet"][href*="styles.css"]');
@@ -221,6 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       calcResult.classList.add('show');
       calcResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      track('zodiac_calculate', {
+        event_category: 'Calculator',
+        event_label: element + ' ' + zodiac.animal,
+        zodiac_animal: zodiac.animal,
+        zodiac_element: element,
+        birth_year: year,
+        lichun_adjusted: lichunAdjusted
+      });
     });
   }
 
@@ -238,6 +254,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!wasOpen) {
         item.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
+        track('faq_open', {
+          event_category: 'Engagement',
+          event_label: btn.textContent.trim().substring(0, 80)
+        });
       }
     });
   });
@@ -279,6 +299,10 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       var cat = btn.dataset.filter;
       applyFilter(cat);
+      track('filter_apply', {
+        event_category: 'Engagement',
+        event_label: cat
+      });
       if (cat && cat !== 'all') {
         history.replaceState(null, '', '#category=' + cat);
       } else {
@@ -406,12 +430,20 @@ document.addEventListener('DOMContentLoaded', () => {
         form.style.display = 'none';
         if (successEl) { successEl.hidden = false; successEl.style.display = ''; }
         if (errorEl) { errorEl.hidden = true; errorEl.style.display = 'none'; }
+        track('newsletter_subscribe', {
+          event_category: 'Newsletter',
+          event_label: form.dataset.beehiiv ? 'beehiiv' : 'formsubmit'
+        });
       };
       const showError = () => {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnHTML;
         if (errorEl) { errorEl.hidden = false; errorEl.style.display = ''; }
         if (successEl) { successEl.hidden = true; successEl.style.display = 'none'; }
+        track('newsletter_error', {
+          event_category: 'Newsletter',
+          event_label: form.dataset.beehiiv ? 'beehiiv' : 'formsubmit'
+        });
       };
 
       if (form.dataset.beehiiv) {
@@ -506,6 +538,13 @@ document.addEventListener('DOMContentLoaded', () => {
           .filter(item => item.score > 0)
           .sort((a, b) => b.score - a.score);
 
+        track('site_search', {
+          event_category: 'Search',
+          search_term: query.trim(),
+          event_label: query.trim(),
+          results_count: scored.length
+        });
+
         if (searchStatus) {
           searchStatus.hidden = false;
           searchStatus.textContent = scored.length
@@ -566,6 +605,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('czy-theme', next);
+      track('theme_toggle', {
+        event_category: 'Preferences',
+        event_label: next
+      });
     });
   }
 
@@ -655,6 +698,14 @@ document.addEventListener('DOMContentLoaded', () => {
       compatResult.innerHTML = html;
       compatResult.classList.add('show');
       compatResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      track('compatibility_check', {
+        event_category: 'Calculator',
+        event_label: zA.animal + ' + ' + zB.animal,
+        animal_a: zA.animal,
+        animal_b: zB.animal,
+        result_type: relations[0].type
+      });
     });
   }
 
@@ -664,6 +715,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = encodeURIComponent(document.title);
     container.querySelectorAll('a[data-share]').forEach(btn => {
       const type = btn.dataset.share;
+      btn.addEventListener('click', () => {
+        track('social_share', {
+          event_category: 'Social',
+          event_label: type,
+          share_method: type,
+          content_url: window.location.pathname
+        });
+      });
       switch (type) {
         case 'twitter':
           btn.href = 'https://twitter.com/intent/tweet?url=' + url + '&text=' + title; break;
@@ -798,9 +857,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await resp.json();
         if (data.error) throw new Error(data.error);
         renderBaziChart(data);
+        track('bazi_calculate', {
+          event_category: 'Calculator',
+          event_label: (data.dayMaster ? data.dayMaster.element + ' ' + data.dayMaster.stem : 'chart'),
+          birth_year: payload.year,
+          has_time: payload.hour !== null
+        });
       } catch (err) {
         baziResult.innerHTML = '<div class="bazi-error"><strong>Error:</strong> ' + esc(err.message) +
           '<br><small>The BaZi calculation service may be temporarily unavailable. Please try again later.</small></div>';
+        track('bazi_error', {
+          event_category: 'Calculator',
+          event_label: err.message.substring(0, 80)
+        });
       }
     });
   }
@@ -886,6 +955,10 @@ document.addEventListener('DOMContentLoaded', () => {
           card.classList.add('product-card--hidden');
         }
       });
+      if (window.gtag) gtag('event', 'shop_filter', {
+        event_category: 'Shop',
+        event_label: cat
+      });
     });
   });
 })();
@@ -922,6 +995,12 @@ document.addEventListener('DOMContentLoaded', () => {
       var next = CYCLE[(idx + 1) % 3];
       /* Save preference */
       localStorage.setItem('czy-lang', next);
+      if (window.gtag) gtag('event', 'language_switch', {
+        event_category: 'Preferences',
+        event_label: next,
+        language_from: current,
+        language_to: next
+      });
       /* Navigate to language-specific URL */
       var path = location.pathname;
       /* Strip existing language prefix */
@@ -969,6 +1048,10 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.style.display = 'flex';
     requestAnimationFrame(function() {
       overlay.classList.add('is-visible');
+    });
+    if (window.gtag) gtag('event', 'qr_view', {
+      event_category: 'Engagement',
+      event_label: alt || src.split('/').pop()
     });
   }
 
@@ -1030,6 +1113,11 @@ document.addEventListener('DOMContentLoaded', () => {
     sessionStorage.setItem(SESSION_KEY, '1');
     popup.classList.add('is-visible');
     popup.setAttribute('aria-hidden', 'false');
+    if (window.gtag) gtag('event', 'popup_shown', {
+      event_category: 'Popup',
+      event_label: 'exit_intent',
+      non_interaction: true
+    });
     var firstInput = popup.querySelector('input[type="email"]');
     if (firstInput) setTimeout(function() { firstInput.focus(); }, 350);
   }
@@ -1037,6 +1125,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function hidePopup(remember) {
     popup.classList.remove('is-visible');
     popup.setAttribute('aria-hidden', 'true');
+    if (window.gtag) gtag('event', 'popup_dismissed', {
+      event_category: 'Popup',
+      event_label: 'exit_intent'
+    });
     if (remember) {
       localStorage.setItem(STORAGE_KEY, Date.now().toString());
     }

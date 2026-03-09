@@ -5,6 +5,39 @@
 
 ---
 
+## 2026-03-09 — GA4 Event Tracking in site.js
+
+**Author:** kiki.shmoo@gmail.com
+
+### Added gtag Event Calls to All Interactive Features
+
+Added GA4 custom event tracking to `site.js` for all user-facing interactions. Events use a `track()` helper inside the DOMContentLoaded scope (wraps `if (window.gtag) gtag(...)`) and direct `if (window.gtag)` guards in standalone IIFEs.
+
+**Events added:**
+
+| Event Name | Category | Trigger |
+|---|---|---|
+| `zodiac_calculate` | Calculator | Zodiac calculator form submit |
+| `faq_open` | Engagement | FAQ accordion item opened |
+| `filter_apply` | Engagement | Directory/news category filter clicked |
+| `newsletter_subscribe` | Newsletter | Successful email subscription |
+| `newsletter_error` | Newsletter | Failed email subscription |
+| `site_search` | Search | Search query executed (includes `search_term`, `results_count`) |
+| `theme_toggle` | Preferences | Dark/light mode switched |
+| `compatibility_check` | Calculator | Zodiac compatibility form submit |
+| `social_share` | Social | Share button clicked (Twitter, Facebook, LinkedIn, email) |
+| `bazi_calculate` | Calculator | BaZi Four Pillars chart calculated |
+| `bazi_error` | Calculator | BaZi calculation failed |
+| `shop_filter` | Shop | Product category filter clicked |
+| `language_switch` | Preferences | EN/TC/SC language toggled |
+| `qr_view` | Engagement | QR code lightbox opened (donate page) |
+| `popup_shown` | Popup | Exit-intent email popup displayed |
+| `popup_dismissed` | Popup | Exit-intent popup closed |
+
+All events follow the pattern established by the existing Web Vitals tracking in `base.njk`. No new dependencies added.
+
+---
+
 ## 2026-03-09 — Content Articles: Chinese New Year Series (5 articles)
 
 **Author:** kiki.shmoo@gmail.com

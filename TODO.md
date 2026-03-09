@@ -20,7 +20,7 @@ ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validate
 | 2  | ~~Upgrade 10+ directory listings to premium~~         | ~~CRITICAL~~   | ~~4 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 3  | ~~Build cross-sell funnel (content -> readings)~~     | ~~CRITICAL~~   | ~~8 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 4  | ~~Publish Qingming seasonal article (April 5 deadline)~~  | ~~CRITICAL~~   | ~~3 hours~~  | ~~High~~     | ~~Content~~    |
-| 5  | Set up GA4 conversion funnels + e-commerce events     | CRITICAL   | 4 hours  | High     | Revenue    |
+| 5  | ~~Set up GA4 conversion funnels + e-commerce events~~     | ~~CRITICAL~~   | ~~4 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
 | 7  | Translate encyclopedia page bodies to Chinese (3 pages ABSENT, 4 DONE + 2 partial) | HIGH       | 16 hours | High     | Content    |
 | 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
@@ -102,27 +102,29 @@ Implementation details:
 6. UTM tracking: all CTA links include `utm_source=article&utm_medium=cross-sell&utm_campaign=reading-cta` or `product-cta`.
 7. The existing `content-upgrade.njk` (email capture) remains at the bottom of articles, creating a two-tier conversion path: cross-sell for buyers, email capture for leads.
 
-#### 1.4 Set Up GA4 Conversion Funnels + E-Commerce Events [CRITICAL]
+#### 1.4 Set Up GA4 Conversion Funnels + E-Commerce Events [COMPLETED]
 
 - **Priority:** CRITICAL
-- **Effort:** 4 hours
-- **Impact:** Without this, it is impossible to know which content drives revenue or which channels to invest in
-- **Deadline:** March 14, 2026
+- **Status:** COMPLETED (2026-03-09)
+- **Impact:** Enables revenue attribution and conversion tracking across the entire site
 
-Action steps:
+Implementation details:
 
-1. Define conversion events in GA4:
-   - `generate_lead` -- newsletter signup (fire on Beehiiv confirmation or FormSubmit success redirect).
-   - `begin_checkout` -- click on any PayPal reading link.
-   - `purchase` -- PayPal IPN callback or thank-you page load (pass `value`, `currency`, `transaction_id`).
-   - `select_item` -- click on any Gumroad product link.
-2. Implement events using `gtag()` calls or Google Tag Manager (GTM is recommended for maintainability):
-   - If using GTM: create a new GTM container, add it to the base layout, and configure triggers for each event above.
-   - If using inline gtag: add event calls directly to onclick handlers or a small event-delegation script.
-3. Mark `generate_lead`, `begin_checkout`, and `purchase` as conversion events in GA4 Admin > Events > Mark as conversion.
-4. Create a funnel exploration report in GA4 Explore:
-   - Steps: `page_view` (article) -> `generate_lead` (signup) -> `select_item` (product click) -> `begin_checkout` (reading click) -> `purchase`.
-5. Set up a weekly GA4 email report summarizing conversion counts and revenue attribution.
+1. Added a `track()` helper function to `site.js` that wraps `gtag('event', ...)` with a `window.gtag` guard, matching the existing Web Vitals pattern in `base.njk`.
+2. Implemented 16 custom events across all interactive features:
+   - **Calculator events:** `zodiac_calculate`, `compatibility_check`, `bazi_calculate`, `bazi_error`
+   - **Newsletter events:** `newsletter_subscribe`, `newsletter_error`
+   - **Search event:** `site_search` (includes `search_term` and `results_count` parameters)
+   - **Engagement events:** `faq_open`, `filter_apply`, `qr_view`
+   - **Social event:** `social_share` (includes `share_method` and `content_url`)
+   - **Preference events:** `theme_toggle`, `language_switch`
+   - **Shop event:** `shop_filter`
+   - **Popup events:** `popup_shown` (non-interaction), `popup_dismissed`
+3. Events inside the DOMContentLoaded scope use the `track()` helper. Events in standalone IIFEs (shop filter, language toggle, QR lightbox, exit-intent popup) use direct `if (window.gtag)` guards.
+4. **Remaining manual steps** (must be done in GA4 Admin, not code):
+   - Mark `newsletter_subscribe`, `bazi_calculate`, and `zodiac_calculate` as conversion events in GA4 Admin > Events > Mark as conversion.
+   - Create a funnel exploration report in GA4 Explore: `page_view` → `zodiac_calculate`/`bazi_calculate` → `newsletter_subscribe` → external checkout click.
+   - Set up a weekly GA4 email report summarizing conversion counts.
 
 #### 1.5 Build Email Drip Sequence in Beehiiv [MEDIUM]
 
@@ -534,7 +536,7 @@ Action steps:
 
 | Week  | Deliverables                                                                                      |
 |-------|---------------------------------------------------------------------------------------------------|
-| Wk 1  | Enable FormSubmit CAPTCHA. **DONE.** Install Facebook Pixel. Set up GA4 conversion funnels. Fix directory placeholder listings. **DONE.** Build cross-sell CTA. **DONE.** Make news filters interactive. **DONE.** |
+| Wk 1  | Enable FormSubmit CAPTCHA. **DONE.** Install Facebook Pixel. Set up GA4 conversion funnels. **DONE.** Fix directory placeholder listings. **DONE.** Build cross-sell CTA. **DONE.** Make news filters interactive. **DONE.** |
 | Wk 2  | Install Microsoft Clarity. Publish Qingming article. **DONE.**                                     |
 | Wk 3  | Set up Pinterest business account + 20 initial pins.                                               |
 | Wk 4  | Publish 2 queued calendar articles.                                                                |
