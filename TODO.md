@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-08
+**Last updated:** 2026-03-09
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -22,7 +22,7 @@ ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validate
 | 4  | ~~Publish Qingming seasonal article (April 5 deadline)~~  | ~~CRITICAL~~   | ~~3 hours~~  | ~~High~~     | ~~Content~~    |
 | 5  | Set up GA4 conversion funnels + e-commerce events     | CRITICAL   | 4 hours  | High     | Revenue    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
-| 7  | Translate encyclopedia page bodies to Chinese (7 pages ABSENT + 3 partial) | HIGH       | 24 hours | High     | Content    |
+| 7  | Translate encyclopedia page bodies to Chinese (3 pages ABSENT, 4 DONE + 2 partial) | HIGH       | 16 hours | High     | Content    |
 | 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
 | 9  | Set up Pinterest business account + first 20 pins     | HIGH       | 4 hours  | Medium   | Marketing  |
 | 10 | ~~Make news hub filters interactive (JS filtering)~~  | ~~MEDIUM~~     | ~~6 hours~~  | ~~Medium~~   | ~~Technical~~  |
@@ -215,7 +215,8 @@ Action steps:
 
 | Status | Pages |
 |--------|-------|
-| **ABSENT** (English-only, zero TC/SC) | Yi Jing, TCM, Martial Arts, Tea Culture, Folk Arts, Wuxia, Qi Men Dun Jia |
+| **ABSENT** (English-only, zero TC/SC) | Yi Jing, Tea Culture, Qi Men Dun Jia |
+| **COMPLETED** (2026-03-09) | ~~TCM~~, ~~Martial Arts~~, ~~Folk Arts~~, ~~Wuxia~~ |
 | **Partial** (~60-70%) | Compatibility hub (missing chart, self-punishment, elemental interactions), Zodiac hub (missing 12 detailed animal sections, Watch & Learn) |
 | **Stub** (~14%) | 12 zodiac animal profile pages (hero + summary only) |
 | **Full parity, EXCELLENT quality** | Homepage, BaZi, Feng Shui, Calendar, Spring Festival, Taoism, Hanfu, Dynasties, 12 readings, Readings hub, Wu Xing hub |

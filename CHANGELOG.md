@@ -12,7 +12,7 @@
 ### Favicon Updated to Match Page Logo
 
 - **Problem:** Browser tab favicon used ivory/white (`#FAF6EF`) text on red, while the page header logo uses imperial gold (`#BF9328`) text with a gold border — visual mismatch.
-- **Fix:** Updated `favicon.svg` to use gold text, gold border stroke, and semi-transparent dark overlay matching the `.logo-seal` CSS styling.
+- **Fix:** Updated `favicon.svg` to use gold text, gold border stroke, and semi-transparent dark overlay matching the `.logo-seal` CSS styling. Added `-2deg` rotation (`1fbdc09`) to match the page logo's `transform: rotate(-2deg)`.
 - Regenerated all favicon variants: `favicon.ico`, `favicon-32.png`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png`.
 
 ### Encyclopedia Pages — TC/SC Translations (`c7c71fe`)
