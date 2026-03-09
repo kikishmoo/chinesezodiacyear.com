@@ -5,6 +5,33 @@
 
 ---
 
+## 2026-03-09 — MS Clarity Activation & British English Audit
+
+**Author:** CEO Agent (session 2)
+
+### Features
+
+- **Microsoft Clarity activated** (`src/_data/site.json`): Added Clarity tracking ID `vsv5yhdstc`. The conditional Clarity script block in `base.njk` was already wired up — setting the ID enables heatmap and session recording on all pages.
+
+### Content Fixes — British English Spelling
+
+- **`src/pages/index.njk`**: "Organizations" → "Organisations" (heading + card label, 2 instances)
+- **`src/pages/zodiac.njk`**: 5 corrections:
+  - "standardized" → "standardised" (FAQ answer)
+  - "civilization" → "civilisation" (Ox description)
+  - "emphasize" → "emphasise" (Rabbit description)
+  - "symbolizes" → "symbolises" (Goat description)
+  - "symbolizes" → "symbolises" (Dog description)
+- **`src/pages/calendar.njk`**: Already correct British English — no changes needed
+- **`src/pages/spring-festival.njk`**: Already correct British English — no changes needed
+- **`src/pages/asian-new-year.njk`** (Chinese NY Influence): Already correct British English — no changes needed
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified
+
+---
+
 ## 2026-03-09 — Technical Stabilisation: BaZi, Newsletter, Analytics Placeholders
 
 **Author:** CEO Agent (onboarding audit session)

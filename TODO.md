@@ -28,7 +28,7 @@ ChineseZodiacYear.com has a solid technical foundation (879 i18n pages, validate
 | 10 | ~~Make news hub filters interactive (JS filtering)~~  | ~~MEDIUM~~     | ~~6 hours~~  | ~~Medium~~   | ~~Technical~~  |
 | 11 | Set up TikTok account + first 5 videos                | MEDIUM     | 8 hours  | Medium   | Marketing  |
 | 12 | Set up YouTube channel + first 3 videos               | MEDIUM     | 12 hours | Medium   | Marketing  |
-| 13 | Install heatmap tracking (Microsoft Clarity)          | MEDIUM     | 1 hour   | Medium   | Technical  |
+| 13 | ~~Install heatmap tracking (Microsoft Clarity)~~          | ~~MEDIUM~~     | ~~1 hour~~   | ~~Medium~~   | ~~Technical~~  |
 | 14 | Create retargeting audiences (FB, Google)             | MEDIUM     | 3 hours  | High     | Marketing  |
 | 15 | Build email drip sequence (Beehiiv automation)        | MEDIUM     | 6 hours  | High     | Revenue    |
 | 16 | Develop 2 new Gumroad products for Q2 seasonality    | LOW        | 16 hours | Medium   | Revenue    |
