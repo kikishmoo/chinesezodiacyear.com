@@ -1162,10 +1162,10 @@ Image processing via `@11ty/eleventy-img` is cached between builds. First builds
 
 | Issue | Severity | Detail | Recommendation |
 |-------|----------|--------|----------------|
-| Missing JSON-LD on hub pages | Medium | Zodiac index (`/zodiac/`), Wu Xing index (`/wuxing/`), and Dynasties index (`/dynasties/`) lack structured data schemas. Individual child pages have JSON-LD, but the hub/listing pages do not. | Add `CollectionPage` or `ItemList` JSON-LD schema to each hub page. |
-| Empty search index categories | Low | 15 of the ~213 search index entries have empty `category` strings. This causes the category filter in search to show an "(uncategorized)" bucket. | Audit pages with missing categories in front matter and assign appropriate values. |
-| No `noindex` on `/search/` | Low | The `/search/` page is indexable by search engines. It contains only a search form and dynamic results (thin content). Google may flag it as low-quality. | Add `<meta name="robots" content="noindex, follow">` to the search page. |
-| Client-side search scalability | Low (future) | Search loads the full JSON index (~213 entries, ~200KB) into memory and performs linear scanning. This works well at the current scale but will degrade past ~500 pages. | If page count grows significantly, consider a server-side search solution (e.g., Pagefind, Lunr pre-built index, or Algolia). |
+| ~~Missing JSON-LD on hub pages~~ | ~~Medium~~ | ~~Zodiac index, Wu Xing index, and Dynasties index lack structured data schemas.~~ | **RESOLVED** -- All 5 hubs now emit CollectionPage + ItemList JSON-LD via `hubSchema` frontmatter. |
+| ~~Empty search index categories~~ | ~~Low~~ | ~~15 search index entries had empty `category` strings.~~ | **RESOLVED** -- Year pages now have `category: "encyclopedia"`; only homepage remains uncategorized (expected). |
+| ~~No `noindex` on `/search/`~~ | ~~Low~~ | ~~The `/search/` page was indexable by search engines.~~ | **RESOLVED** -- `noindex: true` in frontmatter; `base.njk` renders `<meta name="robots" content="noindex, follow">`. |
+| Client-side search scalability | Low (future) | Search loads the full JSON index (~302 entries, ~250KB) into memory and performs linear scanning. This works well at the current scale but will degrade past ~500 pages. | If page count grows significantly, consider a server-side search solution (e.g., Pagefind, Lunr pre-built index, or Algolia). |
 | Monolithic build config | Low | `eleventy.config.js` handles collections, filters, shortcodes, CSS/JS minification, and i18n generation in a single file. As the site grows, this becomes harder to maintain. | Modularize into separate files: `config/collections.js`, `config/filters.js`, `config/shortcodes.js`, `config/i18n.js`, `config/minify.js`. Import them into the main config. |
 
 ### 10.2 Architecture Risks

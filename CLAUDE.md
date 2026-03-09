@@ -83,7 +83,7 @@ Current project direction. Stable for months but may shift based on data.
 | Focus | Content | Set Date | Expiry | Remove When |
 |-------|---------|----------|--------|-------------|
 | Facebook Pixel | TODO item #1 — CRITICAL priority, not yet installed | 2026-03-09 | 2026-04-06 | Pixel is installed and verified |
-| Translation backlog | 3 encyclopaedia pages need TC/SC: Yi Jing, Tea Culture, Qi Men Dun Jia | 2026-03-09 | 2026-04-15 | All 3 pages translated |
+| Translation backlog | **RESOLVED 2026-03-09.** All 7 encyclopaedia pages translated (Yi Jing, Tea Culture, Qi Men Dun Jia, TCM, Martial Arts, Folk Arts, Wuxia). Remaining: 2 partial pages (Compatibility hub, Zodiac hub) + 12 zodiac animal stubs. | 2026-03-09 | 2026-04-15 | All standalone encyclopaedia pages translated |
 
 ---
 

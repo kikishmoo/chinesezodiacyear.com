@@ -4839,6 +4839,20 @@ html:not([data-lang]) span.lang-en { display: inline; }
   font-weight: 700;
   color: var(--deep-red);
 }
+.product-price--affiliate {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--jade);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.affiliate-disclosure {
+  display: block;
+  margin-top: 0.5em;
+  font-size: 0.78rem;
+  color: var(--stone);
+  font-style: italic;
+}
 @media (max-width: 900px) {
   .shop-products-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -4885,6 +4899,12 @@ html:not([data-lang]) span.lang-en { display: inline; }
 }
 [data-theme="dark"] .product-price {
   color: var(--bright-gold);
+}
+[data-theme="dark"] .product-price--affiliate {
+  color: rgba(91,140,106,0.9);
+}
+[data-theme="dark"] .affiliate-disclosure {
+  color: #888070;
 }
 [data-theme="dark"] .product-features li {
   color: #C0B8A8;

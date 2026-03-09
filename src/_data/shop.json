@@ -215,5 +215,127 @@
       "features_sc": ["自我评估测试", "平衡练习", "四季养生指南"],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/ngzmx"
     }
+  ],
+  "affiliateProducts": [
+    {
+      "id": "the-complete-book-of-chinese-horoscopes",
+      "name": "The Complete Book of Chinese Horoscopes",
+      "name_tc": "中國生肖大全",
+      "name_sc": "中国生肖大全",
+      "subtitle": "By Lori Reid — comprehensive guide to all 12 animal signs, elements, and compatibility",
+      "subtitle_tc": "Lori Reid 著——涵蓋十二生肖、五行與配對的全面指南",
+      "subtitle_sc": "Lori Reid 著——涵盖十二生肖、五行与配对的全面指南",
+      "category": "books",
+      "featured": true,
+      "amazonUrl": "https://www.amazon.com/Complete-Book-Chinese-Horoscopes/dp/1862047502?tag=kikigreene-20"
+    },
+    {
+      "id": "the-definitive-book-of-chinese-astrology",
+      "name": "The Definitive Book of Chinese Astrology",
+      "name_tc": "中國占星權威指南",
+      "name_sc": "中国占星权威指南",
+      "subtitle": "By Shelly Wu — Four Pillars of Destiny, zodiac signs, and Five Elements explained in depth",
+      "subtitle_tc": "Shelly Wu 著——深入解讀四柱命理、生肖與五行",
+      "subtitle_sc": "Shelly Wu 著——深入解读四柱命理、生肖与五行",
+      "category": "books",
+      "featured": false,
+      "amazonUrl": "https://www.amazon.com/Definitive-Book-Chinese-Astrology/dp/1601630786?tag=kikigreene-20"
+    },
+    {
+      "id": "bazi-the-destiny-code",
+      "name": "BaZi — The Destiny Code",
+      "name_tc": "八字——命運密碼",
+      "name_sc": "八字——命运密码",
+      "subtitle": "By Joey Yap — bestselling introduction to Four Pillars chart reading and life analysis",
+      "subtitle_tc": "Joey Yap 著——暢銷四柱命盤解讀與人生分析入門",
+      "subtitle_sc": "Joey Yap 著——畅销四柱命盘解读与人生分析入门",
+      "category": "books",
+      "featured": true,
+      "amazonUrl": "https://www.amazon.com/BaZi-Destiny-Code-Your-Guide/dp/9833332005?tag=kikigreene-20"
+    },
+    {
+      "id": "the-living-earth-manual-of-feng-shui",
+      "name": "The Living Earth Manual of Feng Shui",
+      "name_tc": "風水生活實用手冊",
+      "name_sc": "风水生活实用手册",
+      "subtitle": "By Stephen Skinner — classical feng shui principles for home and office placement",
+      "subtitle_tc": "Stephen Skinner 著——經典風水原理用於住宅與辦公空間佈局",
+      "subtitle_sc": "Stephen Skinner 著——经典风水原理用于住宅与办公空间布局",
+      "category": "books",
+      "featured": false,
+      "amazonUrl": "https://www.amazon.com/Living-Earth-Manual-Feng-Shui/dp/0140191127?tag=kikigreene-20"
+    },
+    {
+      "id": "i-ching-book-of-changes",
+      "name": "I Ching: Book of Changes",
+      "name_tc": "易經：周易",
+      "name_sc": "易经：周易",
+      "subtitle": "Translated by James Legge — the classic English translation of the foundational Chinese divination text",
+      "subtitle_tc": "理雅各英譯——中國占卜經典的權威英文翻譯",
+      "subtitle_sc": "理雅各英译——中国占卜经典的权威英文翻译",
+      "category": "books",
+      "featured": false,
+      "amazonUrl": "https://www.amazon.com/Ching-Book-Changes-Forgotten-Books/dp/1605066869?tag=kikigreene-20"
+    },
+    {
+      "id": "the-classic-of-tea",
+      "name": "The Classic of Tea by Lu Yu",
+      "name_tc": "陸羽《茶經》",
+      "name_sc": "陆羽《茶经》",
+      "subtitle": "Translated by Francis Ross Carpenter — the world's first monograph on tea, written in 760 AD",
+      "subtitle_tc": "Francis Ross Carpenter 英譯——公元760年成書的世界首部茶學專著",
+      "subtitle_sc": "Francis Ross Carpenter 英译——公元760年成书的世界首部茶学专著",
+      "category": "books",
+      "featured": false,
+      "amazonUrl": "https://www.amazon.com/Classic-Tea-Origins-Rituals/dp/0880010053?tag=kikigreene-20"
+    },
+    {
+      "id": "luo-pan-compass",
+      "name": "Professional Luo Pan Feng Shui Compass",
+      "name_tc": "專業風水羅盤",
+      "name_sc": "专业风水罗盘",
+      "subtitle": "Traditional Chinese geomancy compass for directional feng shui analysis and practice",
+      "subtitle_tc": "傳統中國堪輿羅盤，用於方位風水分析與實踐",
+      "subtitle_sc": "传统中国堪舆罗盘，用于方位风水分析与实践",
+      "category": "tools",
+      "featured": false,
+      "amazonUrl": "https://www.amazon.com/s?k=luo+pan+feng+shui+compass&tag=kikigreene-20"
+    },
+    {
+      "id": "chinese-calligraphy-set",
+      "name": "Chinese Calligraphy Brush Set",
+      "name_tc": "中國書法毛筆套裝",
+      "name_sc": "中国书法毛笔套装",
+      "subtitle": "Traditional brush, ink stone, ink stick, and rice paper — the Four Treasures of the Study",
+      "subtitle_tc": "傳統毛筆、硯台、墨條與宣紙——文房四寶",
+      "subtitle_sc": "传统毛笔、砚台、墨条与宣纸——文房四宝",
+      "category": "tools",
+      "featured": false,
+      "amazonUrl": "https://www.amazon.com/s?k=chinese+calligraphy+brush+set+four+treasures&tag=kikigreene-20"
+    },
+    {
+      "id": "gongfu-tea-set",
+      "name": "Gongfu Tea Set",
+      "name_tc": "功夫茶具套裝",
+      "name_sc": "功夫茶具套装",
+      "subtitle": "Complete Yixing-style gongfu tea set with gaiwan, pitcher, and cups for traditional brewing",
+      "subtitle_tc": "完整宜興風格功夫茶具，含蓋碗、公道杯與茶杯，適合傳統沖泡",
+      "subtitle_sc": "完整宜兴风格功夫茶具，含盖碗、公道杯与茶杯，适合传统冲泡",
+      "category": "tools",
+      "featured": true,
+      "amazonUrl": "https://www.amazon.com/s?k=gongfu+tea+set+gaiwan+yixing&tag=kikigreene-20"
+    },
+    {
+      "id": "red-envelopes-hongbao",
+      "name": "Chinese Red Envelopes (Hongbao)",
+      "name_tc": "中國紅包（利是封）",
+      "name_sc": "中国红包（利是封）",
+      "subtitle": "Premium embossed red envelopes for Spring Festival, weddings, and lucky money gifts",
+      "subtitle_tc": "精緻燙金紅包，適用於春節、婚禮及壓歲錢",
+      "subtitle_sc": "精致烫金红包，适用于春节、婚礼及压岁钱",
+      "category": "tools",
+      "featured": false,
+      "amazonUrl": "https://www.amazon.com/s?k=chinese+red+envelopes+hongbao+spring+festival&tag=kikigreene-20"
+    }
   ]
 }

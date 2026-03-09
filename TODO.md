@@ -22,7 +22,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 4  | ~~Publish Qingming seasonal article (April 5 deadline)~~  | ~~CRITICAL~~   | ~~3 hours~~  | ~~High~~     | ~~Content~~    |
 | 5  | ~~Set up GA4 conversion funnels + e-commerce events~~     | ~~CRITICAL~~   | ~~4 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
-| 7  | Translate encyclopaedia page bodies to Chinese (3 pages ABSENT, 4 DONE + 2 partial) | HIGH       | 16 hours | High     | Content    |
+| 7  | Translate encyclopaedia page bodies to Chinese (3 pages ABSENT, 8 DONE + 2 partial) | HIGH       | 12 hours | High     | Content    |
 | 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
 | 9  | Set up Pinterest business account + first 20 pins     | HIGH       | 4 hours  | Medium   | Marketing  |
 | 10 | ~~Make news hub filters interactive (JS filtering)~~  | ~~MEDIUM~~     | ~~6 hours~~  | ~~Medium~~   | ~~Technical~~  |
@@ -209,28 +209,28 @@ Action steps:
 #### 2.3 Translate Encyclopaedia & Article Bodies to Chinese [HIGH]
 
 - **Priority:** HIGH
-- **Effort:** 24 hours (7 pages fully absent + 3 pages partial + articles)
+- **Effort:** 8 hours (0 pages fully absent + 2 pages partial + articles remaining)
 - **Impact:** Unlocks the zh-Hans and zh-Hant audience segments; i18n infrastructure already exists
 - **Deadline:** May 15, 2026
 
-**Translation audit (2026-03-08) found:**
+**Translation audit (2026-03-09 updated) found:**
 
 | Status | Pages |
 |--------|-------|
-| **ABSENT** (English-only, zero TC/SC) | Yi Jing, Tea Culture, Qi Men Dun Jia |
-| **COMPLETED** (2026-03-09) | ~~TCM~~, ~~Martial Arts~~, ~~Folk Arts~~, ~~Wuxia~~ |
+| **ABSENT** (English-only, zero TC/SC) | ~~Yi Jing, Tea Culture, Qi Men Dun Jia~~ **ALL COMPLETED 2026-03-09** |
+| **COMPLETED** (2026-03-09) | ~~TCM~~, ~~Martial Arts~~, ~~Folk Arts~~, ~~Wuxia~~, ~~Yi Jing~~, ~~Tea Culture~~, ~~Qi Men Dun Jia~~ |
 | **Partial** (~60-70%) | Compatibility hub (missing chart, self-punishment, elemental interactions), Zodiac hub (missing 12 detailed animal sections, Watch & Learn) |
 | **Stub** (~14%) | 12 zodiac animal profile pages (hero + summary only) |
-| **Full parity, EXCELLENT quality** | Homepage, BaZi, Feng Shui, Calendar, Spring Festival, Taoism, Hanfu, Dynasties, 12 readings, Readings hub, Wu Xing hub |
+| **Full parity, EXCELLENT quality** | Homepage, BaZi, Feng Shui, Calendar, Spring Festival, Taoism, Hanfu, Dynasties, 12 readings, Readings hub, Wu Xing hub, TCM, Martial Arts, Folk Arts, Wuxia, Yi Jing, Tea Culture, Qi Men Dun Jia |
 
 Where translations exist, quality is **publication-grade native Chinese** -- no machine-translation smell, correct TC/SC character sets, accurate domain terminology. The translated files (especially Taoism, Hanfu, Spring Festival) serve as style references.
 
 Action steps:
 
 1. Prioritize translation order by traffic impact:
-   - **Phase 1** (highest impact): Yi Jing, TCM, Martial Arts, Compatibility hub gaps
-   - **Phase 2**: Tea Culture, Wuxia, Folk Arts, Qi Men Dun Jia
-   - **Phase 3**: Zodiac hub missing sections, 12 zodiac animal detailed sections
+   - ~~**Phase 1** (highest impact): Yi Jing, TCM, Martial Arts, Compatibility hub gaps~~ **DONE** (except Compatibility hub gaps)
+   - ~~**Phase 2**: Tea Culture, Wuxia, Folk Arts, Qi Men Dun Jia~~ **DONE**
+   - **Phase 3** (remaining): Compatibility hub missing sections, Zodiac hub missing sections, 12 zodiac animal detailed sections
 2. Translation workflow per page:
    - Draft in the established trilingual block pattern (`lang-en`, `lang-tc`, `lang-sc`)
    - Use domain-standard terminology (see existing Taoism/Hanfu/BaZi pages as reference)

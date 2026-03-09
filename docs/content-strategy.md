@@ -249,7 +249,7 @@ Language configuration is defined in `src/_data/languages.json`:
 
 **Implementation:** Content blocks use CSS classes `lang-en`, `lang-tc`, `lang-sc` for client-side language switching. All three versions exist in the same HTML document (not separate URLs), toggled via a language selector in the header.
 
-### 3.2.1 Translation Status (Audited 2026-03-08)
+### 3.2.1 Translation Status (Audited 2026-03-09)
 
 Overall quality: Where Chinese translations exist, they are **publication-grade native quality** -- no machine-translation artifacts, correct TC/SC character sets throughout, accurate domain terminology (BaZi, feng shui, Wu Xing, calendar, dynastic terms), and culturally appropriate register. The main gap is **completeness**, not quality.
 
@@ -267,13 +267,13 @@ Overall quality: Where Chinese translations exist, they are **publication-grade 
 | **Dynasties hub** (`dynasties.njk`) | Full parity | EXCELLENT | Gold standard -- includes trilingual FAQ |
 | **Taoism** (`taoism.njk`) | Full parity | EXCELLENT | Complete, literary quality |
 | **Hanfu** (`hanfu.njk`) | Full parity | EXCELLENT | Complete, literary quality |
-| **Yi Jing** (`yijing.njk`) | ABSENT | -- | English-only, needs full translation |
-| **TCM** (`tcm.njk`) | ABSENT | -- | English-only, needs full translation |
-| **Martial Arts** (`martial-arts.njk`) | ABSENT | -- | English-only, needs full translation |
-| **Tea Culture** (`tea-culture.njk`) | ABSENT | -- | English-only, needs full translation |
-| **Folk Arts** (`folk-arts.njk`) | ABSENT | -- | English-only, needs full translation |
-| **Wuxia** (`wuxia.njk`) | ABSENT | -- | English-only, needs full translation |
-| **Qi Men Dun Jia** (`qimen.njk`) | ABSENT | -- | English-only, needs full translation |
+| **Yi Jing** (`yijing.njk`) | Full parity | EXCELLENT | Translated 2026-03-09 -- 7 sections including trigrams, hexagrams, divination, Ten Wings, philosophy |
+| **TCM** (`tcm.njk`) | Full parity | EXCELLENT | Translated 2026-03-09 -- 11 sections including foundations, qi, zangfu, meridians, herbal medicine, food therapy, diagnosis |
+| **Martial Arts** (`martial-arts.njk`) | Full parity | EXCELLENT | Translated 2026-03-09 -- 8 sections including history, external/internal styles, five elements, animal styles |
+| **Tea Culture** (`tea-culture.njk`) | Full parity | EXCELLENT | Translated 2026-03-09 -- 7 sections including origins, Lu Yu, six categories, gongfu, philosophy, global legacy |
+| **Folk Arts** (`folk-arts.njk`) | Full parity | EXCELLENT | Translated 2026-03-09 -- 9 sections including lion dance, dragon dance, big-head buddha, yingge, deity procession |
+| **Wuxia** (`wuxia.njk`) | Full parity | EXCELLENT | Translated 2026-03-09 -- 11 sections including origins through modern wuxia, code of xia, weapons |
+| **Qi Men Dun Jia** (`qimen.njk`) | Full parity | EXCELLENT | Translated 2026-03-09 -- 8 sections including eight gates, nine stars, military applications, modern use |
 | **Zodiac animal pages** (12) | ~14% coverage | EXCELLENT | TC/SC stubs present (hero + summary), detailed sections English-only |
 | **2026 reading pages** (12) | Full parity | EXCELLENT | Complete trilingual content |
 | **Year pages** (121) | Data-driven | GOOD | Generated from zodiacYears.js; structural labels translated |
@@ -282,14 +282,14 @@ Overall quality: Where Chinese translations exist, they are **publication-grade 
 | **Wu Xing sub-pages** (5) | Generated | GOOD | Generated from elements.json; data-driven labels translated |
 
 **Translation priority queue** (ordered by traffic/SEO impact):
-1. Yi Jing -- foundational topic, high search volume for 易經/易经
-2. TCM -- high search volume for 中醫/中医 terms
-3. Martial Arts -- popular cultural topic
+1. ~~Yi Jing -- foundational topic, high search volume for 易經/易经~~ **COMPLETED 2026-03-09**
+2. ~~TCM -- high search volume for 中醫/中医 terms~~ **COMPLETED 2026-03-09**
+3. ~~Martial Arts -- popular cultural topic~~ **COMPLETED 2026-03-09**
 4. Compatibility hub missing sections -- fills gap in high-traffic page
-5. Tea Culture -- popular cultural topic
-6. Wuxia -- popular cultural topic
-7. Folk Arts -- cultural topic
-8. Qi Men Dun Jia -- niche topic
+5. ~~Tea Culture -- popular cultural topic~~ **COMPLETED 2026-03-09**
+6. ~~Wuxia -- popular cultural topic~~ **COMPLETED 2026-03-09**
+7. ~~Folk Arts -- cultural topic~~ **COMPLETED 2026-03-09**
+8. ~~Qi Men Dun Jia -- niche topic~~ **COMPLETED 2026-03-09**
 9. Zodiac animal detailed sections (12 pages) -- expands partial stubs
 10. Zodiac hub missing sections -- Watch & Learn, detailed animal descriptions
 
