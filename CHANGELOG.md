@@ -5,6 +5,48 @@
 
 ---
 
+## 2026-03-09 — CNY vs LNY Article: "No Single Lunar New Year" Argument
+
+**Author:** kiki.shmoo@gmail.com
+
+### Strengthened Calendar-System Section with Cross-Cultural Evidence
+
+Added a new subsection **"There Is No Single 'Lunar New Year'"** to `chinese-new-year-vs-lunar-new-year.njk`, within the existing Lunisolar Calendar section. The argument: multiple civilisations maintain their own lunar or lunisolar calendars with completely different new year dates — proving "Lunar New Year" is incoherent as a collective term.
+
+**Comparison table added (7 calendars):**
+
+| Calendar | Type | New Year | Approximate Date |
+|---|---|---|---|
+| Chinese | Lunisolar | Spring Festival | Late Jan – mid Feb |
+| Islamic (Hijri) | Purely lunar | 1 Muharram | Drifts (~June 2026) |
+| Hebrew | Lunisolar | Rosh Hashanah | Sept – Oct |
+| Hindu (Vikram Samvat) | Lunisolar | Various regional | March – April |
+| Hindu (Shalivahana Saka) | Lunisolar | Ugadi / Gudi Padwa | March – April |
+| Thai (Buddhist) | Lunisolar | Songkran | 13–15 April |
+| Tibetan | Lunisolar | Losar | Varies |
+
+Also updated the "Lunar New Year" bullet in "What Should You Call It?" and the first FAQ answer to reference this argument. Read time updated 10 → 12 min.
+
+---
+
+## 2026-03-09 — CNY vs LNY Terminology Rejection (Site-Wide)
+
+**Author:** kiki.shmoo@gmail.com
+
+### Editorial Voice Updated Across 4 Files
+
+Updated all editorial-voice references to "Lunar New Year" across the site. The site's position: "Lunar New Year" is a mistranslation (lunisolar ≠ lunar) and a deliberate erasure of Chinese origin. Recommended terms: "Chinese New Year" or "Spring Festival."
+
+**Files updated:**
+- `chinese-new-year-vs-lunar-new-year.njk` — "What Should You Call It?" section rewritten, FAQ updated, overview updated
+- `chinese-new-year-spring-festival.njk` — FAQ answer updated
+- `spring-festival.njk` — FAQ answer updated
+- `asian-new-year.njk` — FAQ answer updated
+
+SEO keywords and factual reporting (VANK campaign documentation, regional celebration names) kept intact.
+
+---
+
 ## 2026-03-09 — GA4 Event Tracking in site.js
 
 **Author:** kiki.shmoo@gmail.com
