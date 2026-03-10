@@ -123,7 +123,7 @@ scripts/
 
 ## Content Architecture
 
-The site generates **293 pages** (879 after i18n) across these content types:
+The site generates **302 pages** (895 after i18n) across these content types:
 
 | Type | Count | Source |
 |---|---|---|
@@ -131,7 +131,7 @@ The site generates **293 pages** (879 after i18n) across these content types:
 | Zodiac animal pages | 12 | `src/zodiac/*.njk` |
 | Yearly readings | 12 | `src/readings/*.njk` (each with unique astrological section) |
 | Compatibility pair pages | 78 | Generated from `compatibilityPairs.js` (66 unique + 12 same-sign) |
-| Long-form articles | 16 | `src/articles/*.njk` |
+| Long-form articles | 21 | `src/articles/*.njk` |
 | Year pages | 121 | Generated from `zodiacYears.js` (1924–2044) |
 | Wu Xing element pages | 5 | Generated from `elements.json` |
 | Dynasty pages | 10 | Generated from `dynastiesData.json` |
@@ -199,7 +199,7 @@ The `eleventy.after` hook in `eleventy.config.js` performs these post-build step
 3. **i18n generation** — Copies all HTML pages into `/zh-hant/` and `/zh-hans/` directories, strips non-active language blocks, updates `<html lang>`, canonical URLs, and og:url
 4. **English stripping** — Strips TC/SC language blocks from base English pages
 
-Build output: ~293 HTML files pre-i18n, ~879 after i18n generation.
+Build output: ~302 HTML files pre-i18n, ~895 after i18n generation.
 
 ## Adding Content
 

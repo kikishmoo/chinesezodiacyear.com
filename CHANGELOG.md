@@ -5,6 +5,50 @@
 
 ---
 
+## 2026-03-10 — Onboarding Audit & Document Corrections (Session 8)
+
+**Author:** yunneoi.yn@gmail.com
+
+### Audit — Full Codebase & Documentation Review
+
+New CEO agent session. Complete onboarding audit of repository, live site, documentation, build pipeline, and GitHub state.
+
+**Build verification:**
+- Build passes: 302 base pages (299 HTML + 3 non-HTML), 596 i18n variants (298 zh-hant + 298 zh-hans), total 895 HTML files
+- CSS minified: 126.7KB → 101.0KB
+- JS minified: site.js 58.6KB → 35.4KB, trivia.js 130.5KB → 118.2KB
+- Build time: 7.21 seconds
+- Live site confirmed accessible and healthy
+
+**npm vulnerability found:**
+- `liquidjs <10.25.0` — high-severity path traversal fallback vulnerability (GHSA-wmfp-5q7x-987x)
+- Fix available via `npm audit fix`
+
+**Documentation corrections applied:**
+- CLAUDE.md Section 6: Removed phantom `src/_data/zodiac.json` reference (file does not exist; zodiac data comes from `zodiacYears.js` and individual `.njk` files)
+- CLAUDE.md Section 5: Added npm vulnerability attention point
+- README.md: Corrected article count from 16 → 21 (5 CNY articles added 2026-03-09 were not reflected)
+- Page counts updated: 302 base → 895 total (was documented as 293 → 879)
+
+**Audit findings (no action taken yet — for board review):**
+1. npm high-severity vulnerability in liquidjs needs `npm audit fix`
+2. 21 article files exist but only 12 are in contentCalendar.json — 9 articles not tracked in calendar
+3. CHANGELOG author emails inconsistent (5 different emails used across sessions)
+4. docs/seo-performance.md dated 2026-03-07 has stale P0/P1 status markers that have since been resolved
+5. No deployment runbook for Cloudflare Worker (separate from GitHub Pages deploy)
+6. No translation QA checklist documented
+7. Year 2026 readings will need 2027 versions created before Q4 2026
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `CHANGELOG.md` | This entry |
+| `CLAUDE.md` | Removed phantom zodiac.json ref; added npm vuln attention point |
+| `README.md` | Corrected article count (16 → 21), page counts (293/879 → 302/895) |
+
+---
+
 ## 2026-03-10 — BaZi Calculator Complete Fix: Frontend + Backend + Geocoding (Session 7 cont.)
 
 **Author:** lavertenstyle@gmail.com
