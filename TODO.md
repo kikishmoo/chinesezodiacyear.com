@@ -24,9 +24,9 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
 | 7  | Translate encyclopaedia page bodies to Chinese (3 pages ABSENT, 8 DONE + 2 partial) | HIGH       | 12 hours | High     | Content    |
 | 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
-| 9  | Set up Pinterest business account + first 20 pins     | HIGH       | 4 hours  | Medium   | Marketing  |
+| 9  | Set up Pinterest business account + first 20 pins (account created, linked on site) | HIGH | 3 hours | Medium | Marketing |
 | 10 | ~~Make news hub filters interactive (JS filtering)~~  | ~~MEDIUM~~     | ~~6 hours~~  | ~~Medium~~   | ~~Technical~~  |
-| 11 | Set up TikTok account + first 5 videos                | MEDIUM     | 8 hours  | Medium   | Marketing  |
+| 11 | Set up TikTok account + first 5 videos (account created, linked on site) | MEDIUM | 7 hours | Medium | Marketing |
 | 12 | Set up YouTube channel + first 3 videos               | MEDIUM     | 12 hours | Medium   | Marketing  |
 | 13 | ~~Install heatmap tracking (Microsoft Clarity)~~          | ~~MEDIUM~~     | ~~1 hour~~   | ~~Medium~~   | ~~Technical~~  |
 | 14 | Create retargeting audiences (FB, Google)             | MEDIUM     | 3 hours  | High     | Marketing  |

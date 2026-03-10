@@ -133,4 +133,15 @@
 
 ---
 
+### 2026-03-09 — Pinterest & TikTok social links addition
+
+**Decision:** Add Pinterest Business and TikTok profile URLs to site.json, activating the pre-existing conditional social icons in the footer
+**Prediction:** Setting two string values in site.json will activate the footer icons on all pages. Build will pass on first attempt. No template changes needed — the footer already has conditional rendering for both platforms.
+**Confidence:** High — identical pattern to the Meta Pixel activation (data-only change gated by existing template conditionals)
+**Actual result:** Both icons activated on all 891 built pages. Build passed (302 files, 596 variants, 0 errors). Footer confirmed showing Pinterest and TikTok SVG icons with correct links.
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
+
 <!-- Add new entries above this line -->

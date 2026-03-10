@@ -5,6 +5,25 @@
 
 ---
 
+## 2026-03-09 — Pinterest & TikTok Social Links (Session 5, continued)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Feature — Pinterest & TikTok Social Integration
+
+Added Pinterest Business and TikTok account links to `site.json`, activating the pre-existing conditional social icons in the footer across all pages:
+
+- Pinterest: `https://www.pinterest.com/ChineseZodiacYear/`
+- TikTok: `https://www.tiktok.com/@chinesezodiacyear`
+- Both icons now render in the site footer on all 891 built pages (302 base + 596 i18n variants)
+- TODO #9 and #11 updated to reflect account creation progress
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified (32.7KB), zero errors
+
+---
+
 ## 2026-03-09 — Favicon Consistency Fix (Session 5)
 
 **Author:** kiki.peiqi.li@gmail.com
