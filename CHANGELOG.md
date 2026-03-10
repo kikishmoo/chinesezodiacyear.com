@@ -5,6 +5,35 @@
 
 ---
 
+## 2026-03-09 — Affiliate Recommended Reading Sidebars (Session 4, continued)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Feature — Sidebar Book Recommendations on 12 Pages
+
+Added "Recommended Reading" affiliate sidebar to 12 encyclopaedia pages that were missing them, linking to topically relevant books from the shop catalogue:
+
+- **Yi Jing:** I Ching (Legge), Tao Te Ching (Mitchell)
+- **Tea Culture:** The Classic of Tea (Carpenter)
+- **Qi Men Dun Jia:** BaZi Destiny Code (Yap), Art of War (Sun Tzu)
+- **TCM:** Web That Has No Weaver (Kaptchuk), Between Heaven and Earth (Beinfield)
+- **Spring Festival:** Handbook of Chinese Horoscopes (Lau), Complete Book (Reid)
+- **Calendar:** I Ching (Legge), Definitive Book of Chinese Astrology (Wu)
+- **Folk Arts:** Complete Book of Chinese Horoscopes (Reid)
+- **Hanfu:** Art of War (Sun Tzu)
+- **Martial Arts:** Art of War (Sun Tzu), Tao Te Ching (Mitchell)
+- **Dynasties:** Art of War (Sun Tzu), Tao Te Ching (Mitchell)
+- **Wuxia:** Art of War (Sun Tzu)
+- **Chinamaxxing:** Tao Te Ching (Mitchell), Art of War (Sun Tzu)
+
+All links use `kikigreene-20` affiliate tag with direct `/dp/ASIN` URLs. Pages with sidebar recommendations: 19 → 31.
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified (32.7KB), zero errors
+
+---
+
 ## 2026-03-09 — Affiliate Link Fix: Search URLs → Direct Product Links (Session 4, continued)
 
 **Author:** kiki.peiqi.li@gmail.com

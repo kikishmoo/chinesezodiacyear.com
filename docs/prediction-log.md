@@ -89,6 +89,17 @@
 
 ---
 
+### 2026-03-09 — Affiliate recommended reading sidebars on 12 pages
+
+**Decision:** Add `sidebarProducts` affiliate book recommendations to all 12 encyclopaedia pages that were missing them
+**Prediction:** Adding frontmatter-only changes (no template modification needed — the article layout already supports `sidebarProducts`). All 12 pages will render the "Recommended Reading" sidebar correctly. Build will pass on first attempt.
+**Confidence:** High — the template pattern is proven on 19 existing pages; this is purely frontmatter data addition
+**Actual result:** All 12 pages updated, "Recommended Reading" sidebar confirmed rendering on spot-checked pages (yijing, tea-culture, qimen, dynasties, chinamaxxing). Build passed (302 files, 596 variants, 0 errors). Pages with sidebar: 19 → 31.
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
+
 ### 2026-03-09 — Affiliate link fix: search URLs → direct product links
 
 **Decision:** Replace all 16 Amazon search URLs (`/s?k=...`) in shop.json with direct product links (`/dp/ASIN`) for reliable affiliate commission attribution
