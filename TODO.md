@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-09
+**Last updated:** 2026-03-10
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validated JSON-LD, GEO-ready infrastructure, CI build validation) with a cross-sell funnel now in place (CTA partial auto-included in all article layouts), interactive news hub filters, contextual video embeds across 10+ encyclopaedia pages (YouTube and Twitter/X), and a live BaZi Calculator powered by a Cloudflare Worker API proxy. The immediate remaining priorities are closing the revenue attribution gap (GA4 conversions, Facebook Pixel), continuing seasonal content publishing, and activating marketing channels -- all achievable within 30 days with zero additional spend.
+ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validated JSON-LD, GEO-ready infrastructure, CI build validation) with a cross-sell funnel, interactive news hub, contextual video embeds, and a live BaZi Calculator (Cloudflare Worker API). All encyclopaedia pages and zodiac profiles now have full trilingual parity. The **strategic priority has shifted to automated passive revenue** — building a server-side PDF report generation system that converts existing free BaZi calculator traffic into paid downloads ($5–$9 per report) with zero marginal cost per sale. Secondary priorities: compatibility PDF reports, directory lead-gen expansion, and continuing seasonal content publishing.
 
 ---
 
@@ -16,19 +16,14 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 
 | #  | Item                                                  | Priority   | Effort   | Impact   | Category   |
 |----|-------------------------------------------------------|------------|----------|----------|------------|
-| 1  | ~~Install Facebook Pixel + conversion tracking~~     | ~~CRITICAL~~   | ~~2 hours~~  | ~~High~~     | ~~Revenue~~    |
-| 2  | ~~Upgrade 10+ directory listings to premium~~         | ~~CRITICAL~~   | ~~4 hours~~  | ~~High~~     | ~~Revenue~~    |
-| 3  | ~~Build cross-sell funnel (content -> readings)~~     | ~~CRITICAL~~   | ~~8 hours~~  | ~~High~~     | ~~Revenue~~    |
-| 4  | ~~Publish Qingming seasonal article (April 5 deadline)~~  | ~~CRITICAL~~   | ~~3 hours~~  | ~~High~~     | ~~Content~~    |
-| 5  | ~~Set up GA4 conversion funnels + e-commerce events~~     | ~~CRITICAL~~   | ~~4 hours~~  | ~~High~~     | ~~Revenue~~    |
+| **A** | **Build automated BaZi PDF report system**        | **CRITICAL** | Medium | **Very High** | **Revenue** |
+| **B** | **Build automated Compatibility PDF reports**     | **CRITICAL** | Low    | **High**     | **Revenue** |
+| **C** | **Expand directory for lead-gen (scrape + enrich)** | HIGH     | Medium-High | High  | Revenue    |
+| **D** | **Build embeddable BaZi API/widget**              | MEDIUM   | Medium | Medium       | Revenue    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
-| 7  | ~~Translate all page bodies to Chinese (encyclopaedia, hubs, 12 animal profiles)~~ | ~~HIGH~~   | ~~12 hours~~ | ~~High~~   | ~~Content~~  |
-| 8  | ~~Enable FormSubmit CAPTCHA on newsletter fallback~~  | ~~HIGH~~   | ~~30 min~~   | ~~Medium~~   | ~~Technical~~  |
 | 9  | Set up Pinterest business account + first 20 pins (account created, linked on site) | HIGH | 3 hours | Medium | Marketing |
-| 10 | ~~Make news hub filters interactive (JS filtering)~~  | ~~MEDIUM~~     | ~~6 hours~~  | ~~Medium~~   | ~~Technical~~  |
 | 11 | Set up TikTok account + first 5 videos (account created, linked on site) | MEDIUM | 7 hours | Medium | Marketing |
 | 12 | Set up YouTube channel + first 3 videos               | MEDIUM     | 12 hours | Medium   | Marketing  |
-| 13 | ~~Install heatmap tracking (Microsoft Clarity)~~          | ~~MEDIUM~~     | ~~1 hour~~   | ~~Medium~~   | ~~Technical~~  |
 | 14 | Create retargeting audiences (FB, Google)             | MEDIUM     | 3 hours  | High     | Marketing  |
 | 15 | Build email drip sequence (Beehiiv automation)        | MEDIUM     | 6 hours  | High     | Revenue    |
 | 16 | Develop 2 new Gumroad products for Q2 seasonality    | LOW        | 16 hours | Medium   | Revenue    |
@@ -36,11 +31,78 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 18 | Implement A/B testing on reading sales pages          | LOW        | 4 hours  | Medium   | Technical  |
 | 19 | Create SOPs for content pipeline                      | LOW        | 4 hours  | Low      | Operations |
 | 20 | Audit and optimize Cloudflare Worker caching rules    | LOW        | 3 hours  | Low      | Technical  |
-| 21 | ~~Fix npm vulnerability (minimatch ReDoS)~~           | ~~HIGH~~   | ~~10 min~~   | ~~High~~     | ~~Technical~~  |
-| 22 | ~~Add CI build validation step~~                      | ~~HIGH~~   | ~~30 min~~   | ~~High~~     | ~~Technical~~  |
-| 23 | ~~Update llms.txt with missing URLs~~                 | ~~MEDIUM~~ | ~~15 min~~   | ~~Medium~~   | ~~GEO~~        |
-| 24 | ~~Fix language toggle navigation bug~~                | ~~HIGH~~   | ~~30 min~~   | ~~High~~     | ~~Technical~~  |
-| 25 | ~~Hero section TC/SC translation consistency~~        | ~~HIGH~~   | ~~1 hour~~   | ~~High~~     | ~~Technical~~  |
+
+### Completed Items (moved from matrix)
+
+| # | Item | Completed |
+|---|------|-----------|
+| 1 | Install Facebook Pixel + conversion tracking | 2026-03-09 |
+| 2 | Upgrade 10+ directory listings to premium | 2026-03-07 |
+| 3 | Build cross-sell funnel (content -> readings) | 2026-03-07 |
+| 4 | Publish Qingming seasonal article | 2026-03-07 |
+| 5 | Set up GA4 conversion funnels + e-commerce events | 2026-03-09 |
+| 7 | Translate all page bodies to Chinese | 2026-03-09 |
+| 8 | Enable FormSubmit CAPTCHA on newsletter fallback | 2026-03-07 |
+| 10 | Make news hub filters interactive | 2026-03-07 |
+| 13 | Install heatmap tracking (Microsoft Clarity) | 2026-03-09 |
+| 21 | Fix npm vulnerability (minimatch ReDoS) | 2026-03-08 |
+| 22 | Add CI build validation step | 2026-03-08 |
+| 23 | Update llms.txt with missing URLs | 2026-03-08 |
+| 24 | Fix language toggle navigation bug | 2026-03-08 |
+| 25 | Hero section TC/SC translation consistency | 2026-03-08 |
+
+---
+
+## NEW: Monetisation Strategy — Automated Passive Revenue
+
+> **Context:** The current revenue model relies on per-transaction manual effort (premium readings) or low-yield channels (AdSense, affiliate commissions). The strategic pivot is to build automated, template-based digital products that convert existing free tool traffic into revenue with zero marginal cost per sale.
+
+### A. Automated BaZi PDF Report System [CRITICAL — #1 PRIORITY]
+
+**What:** Users enter birth data in the existing free BaZi calculator. They get a summary on-screen (free, unchanged). Below the results, a CTA offers "Download your full 15-page BaZi report" for $5–$9. The PDF is generated server-side from pre-written templates, assembled per the user's specific birth data (animal, element, Day Master, Heavenly Stem/Earthly Branch combinations).
+
+**Why this is the highest-leverage play:**
+- BaZi calculator already exists (Cloudflare Worker API at `/worker/`)
+- Domain expertise content already written across the site
+- Templates written once; every sale is automated (zero ongoing effort)
+- Converts free tool traffic directly into revenue (no content treadmill)
+- Price point ($5–$9) is low enough for impulse purchase, high enough for meaningful revenue at scale
+
+**Technical approach:**
+1. Write templated content sections: 12 animal profiles, 5 element analyses, 10 Heavenly Stems, 12 Earthly Branches, 60 stem-branch pillar combinations, 10 Day Master interpretations, Ten Gods analysis templates
+2. Build PDF generation service (Cloudflare Worker or Node.js serverless function) that assembles sections based on user's BaZi chart
+3. Integrate payment gate (Stripe Checkout or Gumroad) — user pays, receives instant PDF download
+4. Add CTA to existing BaZi calculator results page
+5. Track conversions via GA4 custom events
+
+**Revenue model:** $5–$9 per download. At 1% conversion of calculator users, even 100 daily calculator uses = 1 sale/day = $150–$270/month minimum. At scale with SEO traffic growth, $500–$3,000/month.
+
+### B. Automated Compatibility PDF Reports [CRITICAL — #2 PRIORITY]
+
+**What:** Same model as BaZi reports, applied to the compatibility checker. User picks two animals (free), gets summary on-screen (free), "Download your detailed compatibility report" for $3.99–$7.99.
+
+**Why:** 78 compatibility pair pages already exist with detailed content. Templates can be derived from existing page content. The compatibility checker already exists as a free tool.
+
+**Technical approach:**
+1. Extract and template compatibility content from existing 78 pair pages
+2. Add relationship dynamics, communication tips, key dates, element interaction analysis
+3. Same PDF generation + payment gate infrastructure as BaZi reports
+4. Add CTA to existing compatibility checker results
+
+### C. Directory Lead-Gen Expansion [HIGH — MEDIUM TERM]
+
+**What:** Expand from 33 free listings to 200+ practitioners. Add "Request a Consultation" forms per listing. Collect leads, forward to practitioners. Charge per qualified lead ($25–$50) or monthly subscription ($49/mo for lead access).
+
+**Approach (per Video 1 "AI-Curated Directory" model):**
+1. Scrape feng shui / BaZi practitioners from Google Maps using Outscraper
+2. Clean and verify data using AI (remove junk, verify websites)
+3. Enrich with specific data: specialties, service areas, pricing transparency
+4. Build consultation request forms per listing
+5. Organic lead flow from existing SEO traffic
+
+### D. Embeddable BaZi API/Widget [MEDIUM — LONG TERM]
+
+**What:** Offer the BaZi calculator as an embeddable widget for other astrology/wellness sites. They get a free tool for their visitors; we get backlinks (SEO value), brand exposure, and optionally the PDF upsell happens on our domain.
 
 ---
 

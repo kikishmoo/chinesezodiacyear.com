@@ -5,6 +5,28 @@
 
 ---
 
+## 2026-03-10 — Strategic Pivot: Automated PDF Revenue + Document Updates (Session 7)
+
+**Author:** lavertenstyle@gmail.com
+
+### Documentation — Strategic Monetisation Update
+
+Updated core project documents to reflect the new revenue strategy agreed with the owner:
+
+- **TODO.md:** Added new top-priority monetisation section (items A–D) covering automated BaZi PDF reports, compatibility PDF reports, directory lead-gen expansion, and embeddable API/widget. Cleaned up priority matrix — moved 14 completed items to a separate "Completed Items" table. Updated executive summary.
+- **CLAUDE.md:** Updated Section 3 (Strategy Rules) with new revenue model details. Updated Section 5 (Temporary Attention Points) — Facebook Pixel now marked as installed, translation backlog resolved, added new attention point for BaZi PDF report system.
+- **docs/content-strategy.md:** Section 6.8 added for automated PDF report products.
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `TODO.md` | New monetisation strategy section; cleaned priority matrix; updated summary |
+| `CLAUDE.md` | Revenue model update (Section 3); attention points update (Section 5) |
+| `CHANGELOG.md` | This entry |
+
+---
+
 ## 2026-03-09 — Full TC/SC Translation: Compatibility Hub, Zodiac Hub, 12 Animal Profiles (Session 6)
 
 **Author:** kiki.peiqi.li@gmail.com

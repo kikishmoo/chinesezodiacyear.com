@@ -509,6 +509,39 @@ Supports a `variant` variable ("reading", "product", or "both" default). Opt-out
 - **Amazon Associates** affiliate tag: `kikigreene-20`, with disclosure partial at `src/_includes/partials/affiliate-disclosure.njk`
 - `ads.txt` file present at `src/ads.txt`
 
+### 6.8 Automated PDF Report Products (Planned)
+
+> **Status:** In development (added 2026-03-10). This is the #1 revenue priority.
+
+**Product A: Automated BaZi PDF Report ($5–$9)**
+
+Users enter birth data in the free BaZi calculator, get a summary on-screen (free), then can purchase a full 15-page personalised PDF report. The report is assembled server-side from pre-written template sections based on the user's specific BaZi chart:
+
+| Template Section | Content Scope | Combinations |
+|-----------------|---------------|--------------|
+| Animal profile | Personality, strengths, challenges | 12 |
+| Element analysis | Birth element characteristics and balance | 5 |
+| Day Master interpretation | Core identity and life direction | 10 |
+| Heavenly Stem analysis | Outer personality and social energy | 10 |
+| Earthly Branch analysis | Inner drives and hidden strengths | 12 |
+| Stem-Branch pillar readings | Year, month, day, hour pillar meanings | 60 |
+| Ten Gods analysis | Relationship dynamics and career tendencies | 10 |
+| 2026 Fire Horse year outlook | Personalised annual forecast | 12 |
+
+All template content follows the same editorial standards as the site: pre-Qing classical sources cited, trilingual terminology pattern, E-E-A-T compliant. Templates are written once and reused for every sale.
+
+**Product B: Automated Compatibility PDF Report ($3.99–$7.99)**
+
+Same model applied to the compatibility checker. User selects two animals, gets a summary on-screen (free), then can download a detailed compatibility report covering:
+
+- Zodiac relationship classification (San He, Liu He, Six Clashes, Six Harms, neutral)
+- Element interaction analysis (generating, controlling, draining cycles)
+- Communication style comparison
+- Key dates and auspicious timing
+- Practical relationship advice
+
+Content derived from the existing 78 compatibility pair pages, expanded and formatted for PDF delivery.
+
 ---
 
 ## 7. Content Gaps & Opportunities

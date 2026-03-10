@@ -1,7 +1,7 @@
 # CLAUDE.md — Agent Boot File for chinesezodiacyear.com
 
 > **Purpose:** This file is loaded at the start of every agent session. It contains rules, preferences, regressions, and context that must persist across conversations.
-> **Last updated:** 2026-03-09
+> **Last updated:** 2026-03-10
 > **Owner:** kiki.shmoo@gmail.com (Kiki Shmoo)
 
 ---
@@ -54,8 +54,13 @@ These are absolute rules. Security, hard constraints, and identity-level decisio
 Current project direction. Stable for months but may shift based on data.
 
 - **Content calendar:** See `src/_data/contentCalendar.json` for queued articles and deadlines.
-- **Revenue model:** Gumroad digital products ($3.99–$19.99), AdSense, Amazon Associates, Beehiiv newsletter → premium readings funnel.
-- **Translation priority:** English first, then TC/SC. Three remaining encyclopaedia pages need translation (Yi Jing, Tea Culture, Qi Men Dun Jia).
+- **Revenue model (updated 2026-03-10):**
+  - **Primary new initiative:** Automated BaZi PDF report generation — templated reports assembled from pre-written sections per user's birth data. $5–$9 per download. Zero marginal cost per sale. Converts existing free BaZi calculator traffic into revenue.
+  - **Secondary new initiative:** Automated Compatibility PDF reports — same model, $3.99–$7.99 per download, built from existing 78 compatibility pair page content.
+  - **Existing channels (retain):** Gumroad digital products ($3.99–$19.99), AdSense, Amazon Associates (27 products), premium manual readings ($29–$149 via PayPal), Beehiiv newsletter → funnel.
+  - **Future plays (medium-term):** Directory lead-gen expansion (scrape + enrich → sell consultation leads to practitioners), embeddable BaZi API widget for third-party sites.
+  - **Guiding principle:** Prioritise passive, automated revenue over content-treadmill models (subscriptions, paid newsletters). Write templates once, sell forever.
+- **Translation status:** All encyclopaedia pages and zodiac profiles now have full TC/SC parity (completed 2026-03-09). Remaining: 16 long-form articles are English-only.
 - **SEO architecture:** Pillar-cluster model. Hub pages → sub-pages. 78 compatibility pair pages for long-tail.
 - **Cross-sell:** `content-upgrade.njk` (email capture) + `cross-sell.njk` (product/reading CTA) on all article-layout pages.
 - **TODO roadmap:** See `TODO.md` for prioritised task list with effort/impact matrix.
@@ -82,8 +87,9 @@ Current project direction. Stable for months but may shift based on data.
 
 | Focus | Content | Set Date | Expiry | Remove When |
 |-------|---------|----------|--------|-------------|
-| Facebook Pixel | TODO item #1 — CRITICAL priority, not yet installed | 2026-03-09 | 2026-04-06 | Pixel is installed and verified |
-| Translation backlog | **RESOLVED 2026-03-09.** All 7 encyclopaedia pages translated (Yi Jing, Tea Culture, Qi Men Dun Jia, TCM, Martial Arts, Folk Arts, Wuxia). Remaining: 2 partial pages (Compatibility hub, Zodiac hub) + 12 zodiac animal stubs. | 2026-03-09 | 2026-04-15 | All standalone encyclopaedia pages translated |
+| Facebook Pixel | Installed 2026-03-09. Pixel ID: 1461477519098003. Verify events are firing in Meta Events Manager. | 2026-03-09 | 2026-04-06 | Verified 500+ PageView events in Events Manager |
+| Translation backlog | **RESOLVED 2026-03-09.** All encyclopaedia pages and zodiac profiles translated to full TC/SC parity. | 2026-03-09 | 2026-04-15 | Archive — completed |
+| Automated BaZi PDF reports | **CRITICAL new revenue initiative.** Build server-side PDF generation from BaZi calculator output. Template-based, zero marginal cost per sale. See TODO.md for full spec. | 2026-03-10 | 2026-05-10 | PDF report system live and processing sales |
 
 ---
 
