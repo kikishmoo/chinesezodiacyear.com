@@ -155,4 +155,15 @@
 
 ---
 
+### 2026-03-09 — Full TC/SC translation of Compatibility hub, Zodiac hub, and 12 animal profiles
+
+**Decision:** Translate all remaining partial/stub pages to full TC/SC: Compatibility hub (missing chart, self-punishment, elemental interactions, CTA), Zodiac hub (missing 12 animal detail sections, Watch & Learn), and 12 zodiac animal profile pages (stub → full 7-section)
+**Prediction:** The 14 files can be translated using the established three-block i18n pattern. The 12 animal profiles will be done in parallel via subagents. Build will pass on first attempt. No template changes needed — purely content additions within existing lang-tc/lang-sc blocks.
+**Confidence:** High — same pattern proven across 20+ pages; parallel subagents used successfully for encyclopaedia translations in previous sessions
+**Actual result:** All 14 files translated successfully. 12 subagents completed without errors. Build passed on first attempt (302 files, 596 i18n variants, 0 errors, 7.13s).
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
+
 <!-- Add new entries above this line -->

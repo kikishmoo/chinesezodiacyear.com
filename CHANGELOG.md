@@ -5,6 +5,56 @@
 
 ---
 
+## 2026-03-09 — Full TC/SC Translation: Compatibility Hub, Zodiac Hub, 12 Animal Profiles (Session 6)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Content — Compatibility Hub TC/SC Completion
+
+Expanded the Compatibility hub page (`compatibility.njk`) TC/SC translations from ~60% to full parity:
+
+- **Compatibility chart table** with all 12 animal interactions translated
+- **Self-punishment section** (自刑) with explanations and examples
+- **Elemental interactions** (Six Harmonies, Three Harmonies, Six Clashes, Six Harms) with closing paragraphs
+- **Expanded truncated introductions** in existing sections
+- **Premium CTA callout** translated for both TC and SC
+
+### Content — Zodiac Hub TC/SC Completion
+
+Expanded the Zodiac hub page (`zodiac.njk`) TC/SC translations from ~70% to full parity:
+
+- **12 animal detail sections** after the zodiac grid (overview, personality traits, compatibility highlights for each animal)
+- **Watch & Learn section** with Jackie Chan Adventures video embeds and social media content
+
+### Content — 12 Zodiac Animal Profile Pages (Stub → Full)
+
+Translated all 12 zodiac animal profile pages from stub (~14% — hero + summary only) to full 7-section TC/SC:
+
+| Page | Key Cultural Content (TC/SC) |
+|------|------------------------------|
+| Rat (`rat.njk`) | Cang Jie legend, first-to-arrive myth, Zi hour |
+| Ox (`ox.njk`) | Shennong agriculture, iron plough history, Lao Tzu's mount |
+| Tiger (`tiger.njk`) | King of Beasts, 王 character on forehead, tiger-head shoes, Door Gods |
+| Rabbit (`rabbit.njk`) | Jade Rabbit mythology, Taiping Yulan, Mid-Autumn Festival, Rabbit Lord figurines |
+| Dragon (`dragon.njk`) | Hongshan jade dragons, Yijing Qian hexagram, imperial five-clawed dragon, Dragon Boat Festival |
+| Snake (`snake.njk`) | "Little Dragon" folk name, Nuwa mythology, White Snake legend, Samantabhadra Bodhisattva |
+| Horse (`horse.njk`) | Zhou Rites, blood-sweating horses, Xu Beihong paintings, 2026 Fire Horse year |
+| Goat (`goat.njk`) | Shuowen Jiezi etymology, 三羊開泰, kneeling-to-nurse filial piety, Twenty-Four Filial Exemplars |
+| Monkey (`monkey.njk`) | Sun Wukong/Journey to the West, Monkey Opera in Peking Opera, Qitian Dasheng temple worship |
+| Rooster (`rooster.njk`) | Five Virtues from Hanshu, Dong Zhongshu's Chunqiu Fanlu, jī/jí homophone |
+| Dog (`dog.njk`) | Hemudu culture domestication, Erya dictionary, Tiangou eclipse mythology |
+| Pig (`pig.njk`) | 家 character etymology (roof + pig), Kuahuqiao archaeology, Zhu Bajie, 肥豬拱門 |
+
+Each page follows the established 7-section structure: overview (with info-grid), personality (core strengths + potential challenges), earthly-branch (with data-table), compatibility (with data-table), years (with data-table + Lichun note), career (5 items), culture (2 paragraphs).
+
+**Files changed:** `compatibility.njk`, `zodiac.njk`, `rat.njk`, `ox.njk`, `tiger.njk`, `rabbit.njk`, `dragon.njk`, `snake.njk`, `horse.njk`, `goat.njk`, `monkey.njk`, `rooster.njk`, `dog.njk`, `pig.njk` (14 files total)
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, zero errors, 7.13 seconds
+
+---
+
 ## 2026-03-09 — Pinterest Domain Verification (Session 5, continued)
 
 **Author:** kiki.peiqi.li@gmail.com
