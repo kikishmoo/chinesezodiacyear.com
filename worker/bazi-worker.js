@@ -49,6 +49,9 @@ export default {
       const hasTime = (hour !== undefined && hour !== null && hour !== '');
       let solarHour = hasTime ? hour : null;
       let solarMinute = hasTime ? (minute || 0) : null;
+      let solarYear = year;
+      let solarMonth = month;
+      let solarDay = day;
 
       // Step 1: Get True Solar Time if location + time are provided
       if (hasTime && lat && lng && tz) {
@@ -59,6 +62,10 @@ export default {
           if (solarTime) {
             solarHour = solarTime.hour;
             solarMinute = solarTime.minute;
+            // True Solar Time may cross a day boundary
+            if (solarTime.year) solarYear = solarTime.year;
+            if (solarTime.month) solarMonth = solarTime.month;
+            if (solarTime.day) solarDay = solarTime.day;
           }
         } catch (e) {
           // Fall back to clock time if solar time API fails
@@ -68,7 +75,7 @@ export default {
 
       // Step 2: Get BaZi chart from zhouyi.cc
       const baziResult = await getBaziChart({
-        year, month, day,
+        year: solarYear, month: solarMonth, day: solarDay,
         hour: solarHour,
         minute: solarMinute,
         sex: sex || 'male',
@@ -77,7 +84,10 @@ export default {
 
       return Response.json({
         ...baziResult,
-        trueSolarTime: (hasTime && lat && lng) ? { hour: solarHour, minute: solarMinute } : null,
+        trueSolarTime: (hasTime && lat && lng) ? {
+          hour: solarHour, minute: solarMinute,
+          year: solarYear, month: solarMonth, day: solarDay
+        } : null,
         input: { year, month, day, hour, minute, lat, lng, tz, sex }
       }, { headers: { ...headers, 'Content-Type': 'application/json' } });
 
@@ -89,9 +99,11 @@ export default {
 
 /**
  * Fetch True Solar Time from fate.windada.com
+ * Uses the BDayInfo function which returns a static result table.
  */
 async function getTrueSolarTime({ year, month, day, hour, minute, lat, lng, tz }) {
   const params = new URLSearchParams({
+    FUNC: 'BDayInfo',
     latitude: String(lat),
     longitude: String(lng),
     TZName: tz,
@@ -105,23 +117,28 @@ async function getTrueSolarTime({ year, month, day, hour, minute, lat, lng, tz }
 
   const resp = await fetch('https://fate.windada.com/cgi-bin/SolarTime_gb', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': 'Mozilla/5.0 (compatible; BaZiCalc/1.0)'
+    },
     body: params.toString()
   });
 
   const html = await resp.text();
 
-  // Parse the True Solar Time from the response HTML
-  // The page returns the adjusted time in a specific format
-  const timeMatch = html.match(/真太阳时[^0-9]*(\d{1,2})[^\d]+(\d{1,2})/);
-  if (timeMatch) {
-    return { hour: parseInt(timeMatch[1]), minute: parseInt(timeMatch[2]) };
-  }
-
-  // Alternative parsing pattern
-  const altMatch = html.match(/(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日\s*(\d{1,2})\s*[时時:]\s*(\d{1,2})/);
-  if (altMatch) {
-    return { hour: parseInt(altMatch[4]), minute: parseInt(altMatch[5]) };
+  // Response format: 真太阳时:</td><td...>YYYY/MM/DD HH:MM:SS</td>
+  const tsMatch = html.match(
+    /真太阳时[^<]*<\/td>\s*<td[^>]*>\s*(\d{4})\/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{1,2}):(\d{1,2})/
+  );
+  if (tsMatch) {
+    return {
+      year: parseInt(tsMatch[1]),
+      month: parseInt(tsMatch[2]),
+      day: parseInt(tsMatch[3]),
+      hour: parseInt(tsMatch[4]),
+      minute: parseInt(tsMatch[5]),
+      second: parseInt(tsMatch[6])
+    };
   }
 
   return null;
@@ -159,17 +176,32 @@ async function getBaziChart({ year, month, day, hour, minute, sex, useTrueSolarT
 }
 
 /**
- * Parse BaZi chart HTML from zhouyi.cc into structured JSON
+ * Parse BaZi chart HTML from zhouyi.cc into structured JSON.
+ *
+ * The response contains a <ul class='bazilist f14'> with 35 <li> items
+ * arranged in a 7-row × 5-column grid:
+ *   Row 1 (0-4):   Ten Gods labels
+ *   Row 2 (5-9):   [5]=gender, [6-9]=Heavenly Stems (Year,Month,Day,Hour)
+ *   Row 3 (10-14): [10]=label, [11-14]=Earthly Branches
+ *   Row 4 (15-19): [15]=label, [16-19]=Hidden Stems
+ *   Row 5 (20-24): Hidden Gods
+ *   Row 6 (25-29): Life Stages
+ *   Row 7 (30-34): [30]=label, [31-34]=Na Yin
  */
 function parseBaziHtml(html) {
   const result = {
     pillars: { year: {}, month: {}, day: {}, hour: {} },
-    elements: {},
-    reading: '',
+    gender: '',
+    hiddenStems: { year: '', month: '', day: '', hour: '' },
+    naYin: { year: '', month: '', day: '', hour: '' },
+    daYun: [],
+    basicInfo: {},
+    fiveElements: '',
+    readingSections: [],
+    dayMaster: null,
     rawExcerpt: ''
   };
 
-  // Heavenly Stems and Earthly Branches lookup
   const stems = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
   const branches = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
   const stemPinyin = ['Jia','Yi','Bing','Ding','Wu','Ji','Geng','Xin','Ren','Gui'];
@@ -177,66 +209,113 @@ function parseBaziHtml(html) {
   const stemElements = ['Wood','Wood','Fire','Fire','Earth','Earth','Metal','Metal','Water','Water'];
   const branchAnimals = ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
 
-  // Try to extract four pillars from the HTML
-  // zhouyi.cc outputs pillars in a table or structured div
-  const pillarNames = ['year', 'month', 'day', 'hour'];
+  function stripTags(s) { return s.replace(/<[^>]+>/g, '').trim(); }
 
-  // Pattern: look for stem-branch pairs in the HTML
-  // Common format: 天干地支 in table cells
-  const stemBranchPattern = new RegExp(`([${stems.join('')}])\\s*([${branches.join('')}])`, 'g');
-  const pairs = [];
-  let match;
-  while ((match = stemBranchPattern.exec(html)) !== null) {
-    pairs.push({ stem: match[1], branch: match[2] });
-  }
-
-  // Take the first 4 unique pairs as the four pillars (Year, Month, Day, Hour)
-  const usedPairs = pairs.slice(0, 4);
-  usedPairs.forEach((pair, i) => {
-    if (i < 4) {
-      const stemIdx = stems.indexOf(pair.stem);
-      const branchIdx = branches.indexOf(pair.branch);
-      const pillarName = pillarNames[i];
-      result.pillars[pillarName] = {
-        stem: pair.stem,
-        branch: pair.branch,
-        stemPinyin: stemIdx >= 0 ? stemPinyin[stemIdx] : '',
-        branchPinyin: branchIdx >= 0 ? branchPinyin[branchIdx] : '',
-        stemElement: stemIdx >= 0 ? stemElements[stemIdx] : '',
-        branchAnimal: branchIdx >= 0 ? branchAnimals[branchIdx] : '',
-        combined: pair.stem + pair.branch
-      };
+  // --- Parse the bazilist grid (Four Pillars) ---
+  const bazilistMatch = html.match(/<ul\s+class=['"]bazilist\s+f14['"]>([\s\S]*?)<\/ul>/);
+  if (bazilistMatch) {
+    const liItems = [];
+    const liRegex = /<li[^>]*>([\s\S]*?)<\/li>/g;
+    let m;
+    while ((m = liRegex.exec(bazilistMatch[1])) !== null) {
+      liItems.push(stripTags(m[1]));
     }
-  });
 
-  // Extract reading text — look for main content sections
-  // Remove HTML tags for the reading text
-  const readingMatch = html.match(/<div[^>]*class="[^"]*content[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
-  if (readingMatch) {
-    result.reading = readingMatch[1]
-      .replace(/<[^>]+>/g, '\n')
-      .replace(/\n{3,}/g, '\n\n')
-      .trim()
-      .substring(0, 5000);
+    if (liItems.length >= 15) {
+      // Gender indicator
+      const genderText = liItems[5] || '';
+      result.gender = genderText.includes('乾造') ? 'male'
+                    : genderText.includes('坤造') ? 'female' : '';
+
+      const pillarNames = ['year', 'month', 'day', 'hour'];
+      for (let i = 0; i < 4; i++) {
+        const stemChar = liItems[6 + i] || '';
+        const branchChar = liItems[11 + i] || '';
+        const stemIdx = stems.indexOf(stemChar);
+        const branchIdx = branches.indexOf(branchChar);
+
+        result.pillars[pillarNames[i]] = {
+          stem: stemChar,
+          branch: branchChar,
+          stemPinyin: stemIdx >= 0 ? stemPinyin[stemIdx] : '',
+          branchPinyin: branchIdx >= 0 ? branchPinyin[branchIdx] : '',
+          stemElement: stemIdx >= 0 ? stemElements[stemIdx] : '',
+          branchAnimal: branchIdx >= 0 ? branchAnimals[branchIdx] : '',
+          combined: stemChar + branchChar
+        };
+      }
+
+      // Hidden stems (Row 4, items 16-19)
+      if (liItems.length >= 20) {
+        for (let i = 0; i < 4; i++) {
+          result.hiddenStems[pillarNames[i]] = liItems[16 + i] || '';
+        }
+      }
+
+      // Na Yin (Row 7, items 31-34)
+      if (liItems.length >= 35) {
+        for (let i = 0; i < 4; i++) {
+          result.naYin[pillarNames[i]] = liItems[31 + i] || '';
+        }
+      }
+    }
   }
 
-  // Extract a broader text excerpt for display
-  const bodyText = html
-    .replace(/<script[\s\S]*?<\/script>/gi, '')
-    .replace(/<style[\s\S]*?<\/style>/gi, '')
-    .replace(/<[^>]+>/g, '\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
-
-  // Find the section after the pillars table
-  const readingStart = bodyText.indexOf('日主');
-  if (readingStart > -1) {
-    result.rawExcerpt = bodyText.substring(readingStart, readingStart + 3000).trim();
-  } else {
-    result.rawExcerpt = bodyText.substring(0, 2000).trim();
+  // --- Parse Da Yun (luck cycles) from bazilist2 ---
+  const dayunMatch = html.match(/<ul\s+class=['"]bazilist2\s+f14['"]>([\s\S]*?)<\/ul>/);
+  if (dayunMatch) {
+    const dayunItems = [];
+    const liRegex2 = /<li[^>]*>([\s\S]*?)<\/li>/g;
+    let m2;
+    while ((m2 = liRegex2.exec(dayunMatch[1])) !== null) {
+      dayunItems.push(stripTags(m2[1]));
+    }
+    // 45 items in 5×9 grid: label + 8 periods
+    // Row 2 (items 9-17): Da Yun stem-branch
+    // Row 4 (items 27-35): start age
+    // Row 5 (items 36-44): start year
+    if (dayunItems.length >= 45) {
+      for (let i = 1; i < 9; i++) {
+        const combined = dayunItems[9 + i] || '';
+        const age = dayunItems[27 + i] || '';
+        const yr = dayunItems[36 + i] || '';
+        if (combined) {
+          result.daYun.push({ combined, startAge: age, startYear: yr });
+        }
+      }
+    }
   }
 
-  // Extract Day Master element
+  // --- Parse basic info ---
+  const infoPatterns = [
+    { key: 'trueSolarTimeStr', regex: /真太阳时[间間）)]*[：:]\s*([^\n<]+)/ },
+    { key: 'lunarDate',        regex: /农历[：:]\s*([^\n<]+)/ },
+    { key: 'zodiac',           regex: /生肖[：:]\s*([^\n<]+)/ },
+    { key: 'constellation',    regex: /星座[：:]\s*([^\n<]+)/ }
+  ];
+  for (const { key, regex } of infoPatterns) {
+    const m = html.match(regex);
+    if (m) result.basicInfo[key] = m[1].trim();
+  }
+
+  // --- Parse Five Elements analysis ---
+  const wuhfxMatch = html.match(/五行力量[^<]*([\s\S]*?)(?=<div\s+class=['"]baziboxtop|<ul\s+class)/);
+  if (wuhfxMatch) {
+    result.fiveElements = stripTags(wuhfxMatch[0]).substring(0, 1000);
+  }
+
+  // --- Parse reading sections ---
+  const sectionRegex = /<div\s+class=['"]baziboxtop['"][^>]*>([\s\S]*?)<\/div>\s*<div\s+class=['"]baziboxmain3[^'"]*['"][^>]*>([\s\S]*?)<\/div>/g;
+  let sMatch;
+  while ((sMatch = sectionRegex.exec(html)) !== null) {
+    const title = stripTags(sMatch[1]);
+    const content = stripTags(sMatch[2]).substring(0, 2000);
+    if (title && content) {
+      result.readingSections.push({ title, content });
+    }
+  }
+
+  // --- Extract Day Master ---
   const dayPillar = result.pillars.day;
   if (dayPillar && dayPillar.stem) {
     const dayIdx = stems.indexOf(dayPillar.stem);
@@ -248,6 +327,32 @@ function parseBaziHtml(html) {
         yinYang: dayIdx % 2 === 0 ? 'Yang' : 'Yin'
       };
     }
+  }
+
+  // --- Build rawExcerpt fallback ---
+  if (result.readingSections.length > 0) {
+    result.rawExcerpt = result.readingSections
+      .slice(0, 5)
+      .map(s => s.title + '\n' + s.content)
+      .join('\n\n')
+      .substring(0, 3000);
+  } else {
+    const bodyText = html
+      .replace(/<script[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[\s\S]*?<\/style>/gi, '')
+      .replace(/<[^>]+>/g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    const readingStart = bodyText.indexOf('日主');
+    result.rawExcerpt = readingStart > -1
+      ? bodyText.substring(readingStart, readingStart + 3000).trim()
+      : bodyText.substring(0, 2000).trim();
+  }
+
+  // Validation: if all pillars are empty, the parser likely failed
+  const hasPillars = Object.values(result.pillars).some(p => p.stem);
+  if (!hasPillars) {
+    result.parseError = 'Could not extract BaZi pillars from upstream service. The service may have changed its response format.';
   }
 
   return result;

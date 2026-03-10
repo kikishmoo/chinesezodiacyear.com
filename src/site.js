@@ -748,11 +748,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* --- BaZi Calculator --- */
-  const baziForm = document.getElementById('bazi-form');
+  const baziForm = document.getElementById('bazi-calc-form');
   const baziResult = document.getElementById('bazi-result');
   const baziCityInput = document.getElementById('bazi-city');
   const citySuggestions = document.getElementById('city-suggestions');
-  const unknownTimeCheck = document.getElementById('bazi-unknown-time');
+  const unknownTimeCheck = document.getElementById('bazi-no-time');
 
   let citiesData = null;
   let selectedCity = null;
@@ -782,44 +782,100 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // City autocomplete
+    // Resolve IANA timezone from lat/lng using nearest city in cities.json
+    function resolveTimezone(lat, lng) {
+      if (citiesData) {
+        var best = null, bestDist = Infinity;
+        for (var i = 0; i < citiesData.length; i++) {
+          var c = citiesData[i];
+          var d = Math.abs(c.lat - lat) + Math.abs(c.lng - lng);
+          if (d < bestDist) { bestDist = d; best = c; }
+        }
+        if (best && bestDist < 5) return best.tz;
+      }
+      try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(_) {}
+      return null;
+    }
+
+    // City autocomplete — Nominatim primary, cities.json fallback
     if (baziCityInput && citySuggestions) {
       let acTimeout;
-      baziCityInput.addEventListener('input', () => {
+      let acController = null;
+
+      function searchCitiesJson(q) {
+        if (!citiesData) return [];
+        return citiesData.filter(function(c) {
+          return c.city.toLowerCase().includes(q) || c.country.toLowerCase().includes(q);
+        }).slice(0, 8).map(function(c) {
+          return { city: c.city, country: c.country, lat: c.lat, lng: c.lng, tz: c.tz, displayName: c.city + ', ' + c.country };
+        });
+      }
+
+      function renderSuggestions(matches) {
+        if (!matches || matches.length === 0) { citySuggestions.hidden = true; return; }
+        var safe = function(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+        citySuggestions.innerHTML = matches.map(function(c, i) {
+          return '<div class="city-option" data-idx="' + i + '">' + safe(c.displayName) + '</div>';
+        }).join('');
+        citySuggestions.hidden = false;
+        citySuggestions._matches = matches;
+      }
+
+      baziCityInput.addEventListener('input', function() {
         clearTimeout(acTimeout);
-        acTimeout = setTimeout(() => {
-          const q = baziCityInput.value.trim().toLowerCase();
-          if (q.length < 2 || !citiesData) {
-            citySuggestions.hidden = true;
-            return;
-          }
-          const matches = citiesData.filter(c =>
-            c.c.toLowerCase().includes(q) || c.co.toLowerCase().includes(q)
-          ).slice(0, 8);
-          if (matches.length === 0) {
-            citySuggestions.hidden = true;
-            return;
-          }
-          citySuggestions.innerHTML = matches.map((c, i) => {
-            const safe = (s) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-            return '<div class="city-option" data-idx="' + i + '">' + safe(c.c) + ', ' + safe(c.co) + '</div>';
-          }).join('');
-          citySuggestions.hidden = false;
-          citySuggestions._matches = matches;
-        }, 200);
+        acTimeout = setTimeout(async function() {
+          var q = baziCityInput.value.trim().toLowerCase();
+          if (q.length < 2) { citySuggestions.hidden = true; return; }
+          // Cancel any in-flight Nominatim request
+          if (acController) { try { acController.abort(); } catch(_) {} }
+          acController = new AbortController();
+          // Try Nominatim first
+          try {
+            var url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6'
+              + '&accept-language=en&featuretype=city&q=' + encodeURIComponent(q);
+            var resp = await fetch(url, {
+              headers: { 'User-Agent': 'ChineseZodiacYear-BaZi/1.0 (chinesezodiacyear.com)' },
+              signal: acController.signal
+            });
+            if (resp.ok) {
+              var data = await resp.json();
+              var results = data
+                .filter(function(r) { return r.class === 'place' || r.class === 'boundary'; })
+                .slice(0, 6)
+                .map(function(r) {
+                  var parts = r.display_name.split(',');
+                  return {
+                    city: parts[0].trim(),
+                    country: parts[parts.length - 1].trim(),
+                    lat: parseFloat(r.lat),
+                    lng: parseFloat(r.lon),
+                    tz: null,
+                    displayName: r.display_name
+                  };
+                });
+              if (results.length > 0) { renderSuggestions(results); return; }
+            }
+          } catch (_) { /* Nominatim failed or aborted, fall through */ }
+          // Fallback to cities.json
+          renderSuggestions(searchCitiesJson(q));
+        }, 350);
       });
 
-      citySuggestions.addEventListener('click', (e) => {
-        const opt = e.target.closest('.city-option');
+      citySuggestions.addEventListener('click', function(e) {
+        var opt = e.target.closest('.city-option');
         if (!opt) return;
-        const idx = parseInt(opt.dataset.idx);
-        const city = citySuggestions._matches[idx];
+        var idx = parseInt(opt.dataset.idx);
+        var city = citySuggestions._matches[idx];
         selectedCity = city;
-        baziCityInput.value = city.c + ', ' + city.co;
+        baziCityInput.value = city.displayName;
         citySuggestions.hidden = true;
+        // Resolve timezone if from Nominatim (no tz)
+        if (!city.tz && city.lat && city.lng) {
+          selectedCity.tz = resolveTimezone(city.lat, city.lng);
+        }
       });
 
-      document.addEventListener('click', (e) => {
+      document.addEventListener('click', function(e) {
         if (!baziCityInput.contains(e.target) && !citySuggestions.contains(e.target)) {
           citySuggestions.hidden = true;
         }
@@ -834,7 +890,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const day = parseInt(document.getElementById('bazi-day').value);
       const hour = document.getElementById('bazi-hour').value;
       const minute = document.getElementById('bazi-minute').value;
-      const sex = document.getElementById('bazi-sex').value;
+      const sexRadio = document.querySelector('input[name="bazi-sex"]:checked');
+      const sex = sexRadio ? sexRadio.value : 'male';
 
       if (!year || !month || !day) {
         alert('Please enter your birth year, month, and day.');
@@ -850,8 +907,8 @@ document.addEventListener('DOMContentLoaded', () => {
         year, month, day,
         hour: hour !== '' ? parseInt(hour) : null,
         minute: minute !== '' ? parseInt(minute) : null,
-        lat: selectedCity ? selectedCity.la : null,
-        lng: selectedCity ? selectedCity.lo : null,
+        lat: selectedCity ? selectedCity.lat : null,
+        lng: selectedCity ? selectedCity.lng : null,
         tz: selectedCity ? selectedCity.tz : null,
         sex
       };
@@ -891,36 +948,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderBaziChart(data) {
     if (!baziResult) return;
-    const pillars = data.pillars || {};
-    const names = ['hour', 'day', 'month', 'year'];
-    const labels = ['Hour Pillar', 'Day Pillar', 'Month Pillar', 'Year Pillar'];
-    const cnLabels = ['时柱', '日柱', '月柱', '年柱'];
+    var pillars = data.pillars || {};
+    var names = ['hour', 'day', 'month', 'year'];
+    var labels = ['Hour Pillar', 'Day Pillar', 'Month Pillar', 'Year Pillar'];
+    var cnLabels = ['\u65F6\u67F1', '\u65E5\u67F1', '\u6708\u67F1', '\u5E74\u67F1'];
+    var hiddenStems = data.hiddenStems || {};
+    var naYin = data.naYin || {};
 
-    let html = '';
+    var html = '';
 
     // Day Master section
     if (data.dayMaster) {
-      const dm = data.dayMaster;
+      var dm = data.dayMaster;
       html += '<div class="bazi-day-master">';
-      html += '<h4>Your Day Master (日主)</h4>';
+      html += '<h4>Your Day Master (\u65E5\u4E3B)</h4>';
       html += '<span style="font-family:var(--font-chinese);font-size:2.4rem;color:var(--deep-red);">' + esc(dm.stem) + '</span>';
-      html += '<p style="margin:0.5rem 0 0;">' + esc(dm.pinyin) + ' — ' + esc(dm.yinYang) + ' ' + esc(dm.element) + '</p>';
+      html += '<p style="margin:0.5rem 0 0;">' + esc(dm.pinyin) + ' \u2014 ' + esc(dm.yinYang) + ' ' + esc(dm.element) + '</p>';
       html += '</div>';
     }
 
-    // Four Pillars grid
+    // Four Pillars grid (with hidden stems and Na Yin)
     html += '<div class="bazi-pillars">';
-    names.forEach((name, i) => {
-      const p = pillars[name] || {};
+    names.forEach(function(name, i) {
+      var p = pillars[name] || {};
       html += '<div class="bazi-pillar">';
       html += '<div class="pillar-label">' + labels[i] + '<br><span style="font-family:var(--font-chinese);">' + cnLabels[i] + '</span></div>';
       if (p.stem) {
-        const elClass = p.stemElement ? 'element-' + esc(p.stemElement.toLowerCase()) : '';
+        var elClass = p.stemElement ? 'element-' + esc(p.stemElement.toLowerCase()) : '';
         html += '<div class="pillar-stem">' + esc(p.stem) + '</div>';
         html += '<div class="pillar-branch">' + esc(p.branch) + '</div>';
         html += '<div class="pillar-pinyin">' + esc(p.stemPinyin || '') + ' ' + esc(p.branchPinyin || '') + '</div>';
         if (p.stemElement) html += '<span class="pillar-element ' + elClass + '">' + esc(p.stemElement) + '</span>';
         if (p.branchAnimal) html += '<div class="pillar-animal">' + esc(p.branchAnimal) + '</div>';
+        if (hiddenStems[name]) html += '<div class="pillar-hidden">\u85CF\u5E72: ' + esc(hiddenStems[name]) + '</div>';
+        if (naYin[name]) html += '<div class="pillar-nayin">' + esc(naYin[name]) + '</div>';
       } else {
         html += '<div style="color:var(--stone);font-size:0.9rem;padding:1rem 0;">Not available</div>';
       }
@@ -930,7 +991,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // True Solar Time note
     if (data.trueSolarTime) {
-      const tst = data.trueSolarTime;
+      var tst = data.trueSolarTime;
       html += '<div class="lichun-note lichun-note-ok" style="max-width:100%;">';
       html += '<strong>True Solar Time:</strong> Your birth time was adjusted to ' +
         String(tst.hour).padStart(2, '0') + ':' + String(tst.minute).padStart(2, '0') +
@@ -938,12 +999,63 @@ document.addEventListener('DOMContentLoaded', () => {
       html += '</div>';
     }
 
-    // Reading text
-    if (data.rawExcerpt) {
+    // Basic info section (lunar date, zodiac, constellation)
+    if (data.basicInfo && Object.keys(data.basicInfo).length > 0) {
+      var info = data.basicInfo;
+      html += '<div class="bazi-info-grid">';
+      if (info.lunarDate) html += '<div><strong>\u8FB2\u66C6:</strong> ' + esc(info.lunarDate) + '</div>';
+      if (info.zodiac) html += '<div><strong>\u751F\u8096:</strong> ' + esc(info.zodiac) + '</div>';
+      if (info.constellation) html += '<div><strong>\u661F\u5EA7:</strong> ' + esc(info.constellation) + '</div>';
+      if (info.trueSolarTimeStr) html += '<div><strong>\u771F\u592A\u9633\u65F6:</strong> ' + esc(info.trueSolarTimeStr) + '</div>';
+      html += '</div>';
+    }
+
+    // Five Elements analysis
+    if (data.fiveElements) {
+      html += '<div class="bazi-five-elements">';
+      html += '<h4>Five Elements Balance (\u4E94\u884C\u529B\u91CF)</h4>';
+      html += esc(data.fiveElements);
+      html += '</div>';
+    }
+
+    // Da Yun luck cycles
+    if (data.daYun && data.daYun.length > 0) {
+      html += '<div class="bazi-dayun">';
+      html += '<h4>Major Luck Cycles (\u5927\u8FD0)</h4>';
+      html += '<div class="bazi-dayun-row">';
+      data.daYun.forEach(function(dy) {
+        html += '<div class="bazi-dayun-card">';
+        html += '<div class="dayun-combo">' + esc(dy.combined) + '</div>';
+        if (dy.startAge) html += '<div class="dayun-age">Age ' + esc(dy.startAge) + '</div>';
+        if (dy.startYear) html += '<div class="dayun-year">' + esc(dy.startYear) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '</div>';
+    }
+
+    // Reading sections as collapsible details
+    if (data.readingSections && data.readingSections.length > 0) {
+      html += '<div class="bazi-sections">';
+      html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
+      data.readingSections.forEach(function(section) {
+        html += '<details>';
+        html += '<summary>' + esc(section.title) + '</summary>';
+        html += '<div class="section-content">' + esc(section.content) + '</div>';
+        html += '</details>';
+      });
+      html += '</div>';
+    } else if (data.rawExcerpt) {
+      // Fallback to raw excerpt if no structured sections
       html += '<div style="margin-top:var(--sp-xl);">';
       html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
       html += '<div class="bazi-reading-text">' + esc(data.rawExcerpt.substring(0, 2000)) + '</div>';
       html += '</div>';
+    }
+
+    // Parse error warning
+    if (data.parseError) {
+      html += '<div class="bazi-error" style="margin-top:var(--sp-lg);">' + esc(data.parseError) + '</div>';
     }
 
     html += '<p style="margin-top:var(--sp-xl);font-size:0.85rem;color:var(--stone);text-align:center;">For a comprehensive reading, consult a qualified BaZi practitioner. <a href="' + basePath + '/directory/">Find one in our directory.</a></p>';

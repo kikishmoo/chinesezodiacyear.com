@@ -5,6 +5,68 @@
 
 ---
 
+## 2026-03-10 — BaZi Calculator Complete Fix: Frontend + Backend + Geocoding (Session 7 cont.)
+
+**Author:** lavertenstyle@gmail.com
+
+### Bug Fix — BaZi Calculator Non-Functional (3-layer fix)
+
+The BaZi calculator was completely non-functional due to bugs across frontend, backend, and geocoding. All three layers have been fixed:
+
+**Frontend fixes (src/site.js):**
+- Fixed form ID mismatch: `getElementById('bazi-form')` corrected to `getElementById('bazi-calc-form')`
+- Fixed checkbox ID mismatch: `getElementById('bazi-unknown-time')` corrected to `getElementById('bazi-no-time')`
+- Fixed sex selector: `getElementById('bazi-sex')` replaced with `querySelector('input[name="bazi-sex"]:checked')` (radios use `name` not `id`)
+- Fixed city data key references: `c.c`/`c.co`/`c.la`/`c.lo` corrected to `c.city`/`c.country`/`c.lat`/`c.lng` matching cities.json schema
+
+**Geocoding upgrade (src/site.js):**
+- Replaced city-only autocomplete (~200 major cities) with hybrid Nominatim + cities.json fallback
+- Primary: OpenStreetMap Nominatim API (worldwide coverage, towns and villages)
+- Fallback: cities.json offline search for Nominatim failures
+- Added `resolveTimezone()` helper — finds nearest city in cities.json for IANA timezone lookup
+- 350ms debounce with AbortController respects Nominatim 1 req/sec rate limit
+
+**Backend fixes (worker/bazi-worker.js):**
+- Added missing `FUNC: 'BDayInfo'` parameter to windada True Solar Time API call (was returning empty form)
+- Fixed windada response regex to match actual HTML table format
+- Added full date extraction (year/month/day) to handle True Solar Time crossing midnight
+- Rewrote `parseBaziHtml()` to properly parse zhouyi.cc's structured grid (`<ul class='bazilist f14'>` 7x5 grid)
+- Now extracts: Four Pillars, hidden stems, Na Yin, Da Yun luck cycles, basic info, Five Elements analysis, 23 reading sections, Day Master
+- Added parser validation: clear error message if pillar extraction fails
+
+**Chart renderer rewrite (src/site.js):**
+- Enhanced Four Pillars grid with hidden stems and Na Yin rows per pillar
+- Added basic info section (lunar date, zodiac, constellation)
+- Added Five Elements balance display
+- Added Da Yun major luck cycles as horizontal scrollable card row
+- Added reading sections as collapsible `<details>` elements
+- Added parse error display for upstream format changes
+- All dynamic content wrapped in `esc()` for XSS safety
+
+**CSS additions (src/styles.css):**
+- New classes: `.pillar-hidden`, `.pillar-nayin`, `.bazi-info-grid`, `.bazi-five-elements`, `.bazi-dayun`, `.bazi-dayun-row`, `.bazi-dayun-card`, `.bazi-sections`
+- Full dark mode support for all new elements
+
+**HTML tweak (src/pages/bazi-calculator.njk):**
+- Updated city field placeholder to "Start typing any city or town name…"
+- Added note: "Covers cities and towns worldwide via OpenStreetMap."
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `src/site.js` | 3 ID fixes, city key fixes, Nominatim geocoding, chart renderer rewrite |
+| `worker/bazi-worker.js` | windada API fix, zhouyi.cc parser rewrite, enriched response JSON |
+| `src/styles.css` | New BaZi result CSS classes + dark mode overrides |
+| `src/pages/bazi-calculator.njk` | City field placeholder + OpenStreetMap note |
+| `CHANGELOG.md` | This entry |
+
+### Deployment Note
+
+The Cloudflare Worker changes require `npx wrangler deploy` to go live. Frontend changes deploy with the normal Eleventy build to GitHub Pages.
+
+---
+
 ## 2026-03-10 — Strategic Pivot: Automated PDF Revenue + Document Updates (Session 7)
 
 **Author:** lavertenstyle@gmail.com

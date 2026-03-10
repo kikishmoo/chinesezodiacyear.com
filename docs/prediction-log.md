@@ -166,4 +166,15 @@
 
 ---
 
+### 2026-03-10 — BaZi calculator 3-layer fix (frontend + backend + geocoding)
+
+**Decision:** Fix the completely non-functional BaZi calculator by addressing 3 frontend ID mismatches, adding Nominatim geocoding, fixing the windada API call, rewriting the zhouyi.cc parser, and rewriting the chart renderer
+**Prediction:** Build will pass on first attempt after all changes. Frontend fixes are straightforward string corrections. Nominatim integration may need careful debounce handling. Worker changes are the riskiest — regex patterns depend on upstream HTML format which could change.
+**Confidence:** High for frontend fixes, Medium for worker parser (depends on upstream HTML stability)
+**Actual result:** Build passed on first attempt (302 files, 596 variants, 0 errors, 7.11s). All frontend fixes clean. Nominatim integration with AbortController and timezone resolution worked as designed. Worker parser rewrite completed — awaits deployment via `wrangler deploy`.
+**Delta:** None for build. Worker deployment not testable in this environment (requires Cloudflare credentials).
+**Adjustment:** When fixing multi-layer bugs, address them systematically from frontend inward rather than trying to fix everything at once. The layered approach (IDs → data keys → geocoding → worker → renderer) prevented cascading confusion.
+
+---
+
 <!-- Add new entries above this line -->
