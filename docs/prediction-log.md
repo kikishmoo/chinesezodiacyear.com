@@ -144,4 +144,15 @@
 
 ---
 
+### 2026-03-09 — Pinterest domain verification
+
+**Decision:** Add Pinterest domain verification code to site.json to enable Rich Pins and website claiming
+**Prediction:** Setting the `pinterestVerification` string in site.json will activate the `<meta name="p:domain_verify">` tag on all pages. Build will pass on first attempt. No template changes needed.
+**Confidence:** High — same conditional pattern as all other verification codes (Google, Bing) already in the template
+**Actual result:** Verification meta tag active on all pages. Build passed (302 files, 596 variants, 0 errors).
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
+
 <!-- Add new entries above this line -->

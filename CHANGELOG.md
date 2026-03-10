@@ -5,6 +5,20 @@
 
 ---
 
+## 2026-03-09 — Pinterest Domain Verification (Session 5, continued)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Feature — Pinterest Domain Verification
+
+Added Pinterest domain verification code (`d1ac131191ba6ba1d8f137aae6929019`) to `site.json`, activating the `<meta name="p:domain_verify">` tag on all pages. This enables Rich Pins and website claiming in Pinterest Business.
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified (32.7KB), zero errors
+
+---
+
 ## 2026-03-09 — Pinterest & TikTok Social Links (Session 5, continued)
 
 **Author:** kiki.peiqi.li@gmail.com
