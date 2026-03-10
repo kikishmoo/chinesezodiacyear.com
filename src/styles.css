@@ -279,7 +279,7 @@ blockquote {
   color: var(--imperial-gold);
   flex-shrink: 0;
   background: rgba(0,0,0,0.15);
-  transform: rotate(-2deg);
+  transform: rotate(-5deg);
 }
 
 .site-logo span { color: var(--imperial-gold); }
