@@ -16,7 +16,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 
 | #  | Item                                                  | Priority   | Effort   | Impact   | Category   |
 |----|-------------------------------------------------------|------------|----------|----------|------------|
-| 1  | Install Facebook Pixel + conversion tracking          | CRITICAL   | 2 hours  | High     | Revenue    |
+| 1  | ~~Install Facebook Pixel + conversion tracking~~     | ~~CRITICAL~~   | ~~2 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 2  | ~~Upgrade 10+ directory listings to premium~~         | ~~CRITICAL~~   | ~~4 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 3  | ~~Build cross-sell funnel (content -> readings)~~     | ~~CRITICAL~~   | ~~8 hours~~  | ~~High~~     | ~~Revenue~~    |
 | 4  | ~~Publish Qingming seasonal article (April 5 deadline)~~  | ~~CRITICAL~~   | ~~3 hours~~  | ~~High~~     | ~~Content~~    |

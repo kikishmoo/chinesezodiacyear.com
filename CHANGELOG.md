@@ -5,6 +5,31 @@
 
 ---
 
+## 2026-03-09 — Favicon Consistency Fix (Session 5)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Fix — Favicon Gold Color and Tilt
+
+Regenerated all favicon raster files from the SVG source to ensure consistency with the webpage nav logo:
+- Increased seal tilt from -2deg to -5deg for visibility at small sizes (16-32px)
+- All raster files (favicon.ico, PNG 32/192/512, apple-touch-icon) regenerated via `rsvg-convert` with Noto Serif CJK SC Bold font
+- CSS `.logo-seal` rotation updated from -2deg to -5deg to match
+
+### Feature — Meta Pixel Installation
+
+Installed Facebook/Meta Pixel (ID: `1461477519098003`) by setting `facebookPixelId` in `site.json`. The base template already had the conditional pixel code wired up — only the data value was missing.
+
+- Pixel fires `PageView` on every page (302 base + 596 i18n variants)
+- Noscript fallback image included for tracking without JavaScript
+- TODO #1 (CRITICAL) marked complete
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, CSS/JS minified (32.7KB), zero errors
+
+---
+
 ## 2026-03-09 — Affiliate Recommended Reading Sidebars (Session 4, continued)
 
 **Author:** kiki.peiqi.li@gmail.com

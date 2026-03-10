@@ -111,4 +111,26 @@
 
 ---
 
+### 2026-03-09 — Meta Pixel installation
+
+**Decision:** Install Facebook Meta Pixel (ID 1461477519098003) by setting the `facebookPixelId` value in site.json — the base template already has the conditional pixel code
+**Prediction:** Setting a single string value in site.json will activate the pixel on all pages. Build will pass on first attempt. No template changes needed.
+**Confidence:** High — the template conditional and pixel code were already implemented; this is purely a data change
+**Actual result:** Pixel activated on all 302 base pages + 596 i18n variants. Build passed (302 files, 0 errors). Verified `fbq('init', '1461477519098003')` and noscript fallback present in built HTML.
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
+
+### 2026-03-09 — Favicon consistency fix (gold color and tilt)
+
+**Decision:** Increase favicon/logo seal tilt from -2deg to -5deg and regenerate all raster favicon files from the SVG source
+**Prediction:** Regenerating PNGs and ICO from the SVG via rsvg-convert will produce correct gold-colored, tilted favicons. Build will pass. The CSS change is a single property update.
+**Confidence:** High — rsvg-convert with Noto Serif CJK SC Bold font available; change is SVG + CSS only
+**Actual result:** All raster files regenerated correctly. Build passed (302 files, 0 errors). Visual verification confirmed gold text and visible tilt at all sizes.
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
+
 <!-- Add new entries above this line -->
