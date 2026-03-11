@@ -90,7 +90,7 @@ Current project direction. Stable for months but may shift based on data.
 | Facebook Pixel | Installed 2026-03-09. Pixel ID: 1461477519098003. Verify events are firing in Meta Events Manager. | 2026-03-09 | 2026-04-06 | Verified 500+ PageView events in Events Manager |
 | Translation backlog | **RESOLVED 2026-03-09.** All encyclopaedia pages and zodiac profiles translated to full TC/SC parity. | 2026-03-09 | 2026-04-15 | Archive — completed |
 | Automated BaZi PDF reports | **CRITICAL new revenue initiative.** Build server-side PDF generation from BaZi calculator output. Template-based, zero marginal cost per sale. See TODO.md for full spec. | 2026-03-10 | 2026-05-10 | PDF report system live and processing sales |
-| npm vulnerability | **HIGH.** `liquidjs <10.25.0` path traversal vulnerability (GHSA-wmfp-5q7x-987x). Fix with `npm audit fix`. | 2026-03-10 | 2026-03-17 | `npm audit` returns 0 vulnerabilities |
+| npm vulnerability | **RESOLVED 2026-03-10.** `liquidjs` path traversal vulnerability fixed via `npm audit fix`. 0 vulnerabilities remaining. | 2026-03-10 | 2026-03-17 | Archive — completed |
 
 ---
 

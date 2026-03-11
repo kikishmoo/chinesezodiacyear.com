@@ -5,6 +5,24 @@
 
 ---
 
+## 2026-03-10 — Fix npm Vulnerability: liquidjs Path Traversal (Session 8 cont.)
+
+**Author:** yunneoi.yn@gmail.com
+
+### Security Fix — liquidjs Path Traversal Vulnerability
+
+Resolved high-severity path traversal fallback vulnerability in `liquidjs <10.25.0` (GHSA-wmfp-5q7x-987x). Fixed via `npm audit fix`. Build verified passing (302 pages, 6.68s). 0 vulnerabilities remaining.
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `package-lock.json` | Updated liquidjs to patched version |
+| `CLAUDE.md` | Marked npm vulnerability attention point as RESOLVED |
+| `CHANGELOG.md` | This entry |
+
+---
+
 ## 2026-03-10 — Onboarding Audit & Document Corrections (Session 8)
 
 **Author:** yunneoi.yn@gmail.com
