@@ -380,7 +380,7 @@ Added 10 curated affiliate products to the shop page, creating a new "Recommende
 
 ## 2026-03-09 — BaZi Cloudflare Worker Deployment Fix
 
-**Author:** CEO Agent (session 3, continued)
+**Author:** chinesezodiacyear@gmail.com (session 3, continued)
 
 ### Infrastructure — Worker Deployment
 
@@ -392,7 +392,7 @@ Added 10 curated affiliate products to the shop page, creating a new "Recommende
 
 ## 2026-03-09 — Chinese Character & Pinyin Annotations + BaZi Worker URL
 
-**Author:** CEO Agent (session 3)
+**Author:** chinesezodiacyear@gmail.com (session 3)
 
 ### Content — Pinyin Annotations
 
@@ -420,7 +420,7 @@ Added `<span class="chinese-char">` and `<span class="pinyin">` markup to all Ch
 
 ## 2026-03-09 — Adopt Classical "Encyclopaedia" Spelling
 
-**Author:** CEO Agent (session 2, continued)
+**Author:** chinesezodiacyear@gmail.com (session 2, continued)
 
 ### Content — Spelling Standardisation
 
@@ -436,7 +436,7 @@ Added `<span class="chinese-char">` and `<span class="pinyin">` markup to all Ch
 
 ## 2026-03-09 — MS Clarity Activation & British English Audit
 
-**Author:** CEO Agent (session 2)
+**Author:** chinesezodiacyear@gmail.com (session 2)
 
 ### Features
 
@@ -463,7 +463,7 @@ Added `<span class="chinese-char">` and `<span class="pinyin">` markup to all Ch
 
 ## 2026-03-09 — Technical Stabilisation: BaZi, Newsletter, Analytics Placeholders
 
-**Author:** CEO Agent (onboarding audit session)
+**Author:** chinesezodiacyear@gmail.com (onboarding audit session)
 
 ### Bug Fixes
 
