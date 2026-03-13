@@ -5,6 +5,42 @@
 
 ---
 
+## 2026-03-10 — Calendar Page: Detailed Calendar Evolution History (Session 8 cont.)
+
+**Author:** yunneoi.yn@gmail.com
+
+### Content — New Section: "Evolution of the Calendar: From Oracle Bones to the Shoushi System"
+
+Added comprehensive new section to the Chinese Calendar encyclopaedia page covering the full evolution of the Chinese calendar system from legendary origins through the Ming dynasty. Content spans 13 subsections covering every major calendar reform in Chinese history, with full trilingual parity (EN/TC/SC).
+
+**Subsections added:**
+- Legendary Origins & Xia Almanac
+- Shang Dynasty oracle bone calendar (c. 1600–1046 BCE)
+- Zhou Dynasty & the Six Ancient Calendars (with comparison table)
+- Qin Unification — Zhuanxu Calendar
+- Taichu Reform of 104 BCE (the most important reform)
+- Han astronomers: Jia Kui, Liu Hong, Zhang Heng
+- Zu Chongzhi's Daming Calendar — precession enters the calendar (462 CE)
+- Sui Dynasty — Liu Zhuo's interpolation breakthrough
+- Tang Dynasty — Yi Xing & the Dayan Calendar (727 CE), first meridian survey
+- Li Chunfeng's Linde Calendar (665 CE)
+- Song Dynasty — Shen Kuo, Su Song, Yang Zhongfu
+- Guo Shoujing & the Shoushi Calendar (1281 CE) — the pinnacle
+- Ming Dynasty — Datong Calendar & Jesuit encounter
+- Summary table of 10 major calendar reforms
+- Source citation from Shiji
+
+All content follows pre-Qing classical scholarship priority (Shiji, Hanshu, Nan Qi Shu, etc.) as per site editorial rules. Build verified passing (302 pages, 10.31s).
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `src/pages/calendar.njk` | New `calendar-evolution` section in EN/TC/SC blocks; updated TOC, FAQ, and dateModified in frontmatter |
+| `CHANGELOG.md` | This entry |
+
+---
+
 ## 2026-03-10 — Fix npm Vulnerability: liquidjs Path Traversal (Session 8 cont.)
 
 **Author:** yunneoi.yn@gmail.com
