@@ -37,6 +37,7 @@ All content follows pre-Qing classical scholarship priority (Shiji, Hanshu, Nan 
 | File | Change |
 |------|--------|
 | `src/pages/calendar.njk` | New `calendar-evolution` section in EN/TC/SC blocks; updated TOC, FAQ, and dateModified in frontmatter |
+| `src/pages/bazi.njk` | Fixed 2 YAML parse errors: unescaped ASCII double quotes in SC FAQ strings replaced with Chinese quotation marks `「」` |
 | `CHANGELOG.md` | This entry |
 
 ---
