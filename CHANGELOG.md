@@ -5,6 +5,76 @@
 
 ---
 
+## 2026-03-15 — FAQ TC/SC Translations: Zodiac Animal Pages + YAML Fix (Session 10)
+
+**Author:** kiki.shmoo@gmail.com
+
+### Content — Trilingual FAQ for All 12 Zodiac Animal Pages
+
+Added `qTc`/`aTc`/`qSc`/`aSc` fields to all 48 FAQ items (4 per animal) across the 12 zodiac animal profile pages. Each translation includes correct Heavenly Stem + Earthly Branch (干支) year labels, San He (三合) trio names, Liu He (六合) pairings, and fixed element correspondences. Translations follow classical pre-Qing terminology consistent with existing site style.
+
+### Bug Fix — YAML Parse Errors in bazi.njk
+
+Fixed 2 YAML parse errors in `bazi.njk` where Simplified Chinese FAQ answers contained unescaped ASCII double quotes (`"子平法"`, `"八个字"`) inside YAML double-quoted strings. Replaced with corner brackets (`「」`).
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `src/zodiac/rat.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/ox.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/tiger.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/rabbit.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/dragon.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/snake.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/horse.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/goat.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/monkey.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/rooster.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/dog.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/zodiac/pig.njk` | Added TC/SC FAQ translations (4 items) |
+| `src/pages/bazi.njk` | Fixed 2 YAML quoting errors in SC FAQ strings |
+
+---
+
+## 2026-03-15 — FAQ TC/SC Translations: Encyclopaedia & Hub Pages (Session 9)
+
+**Author:** kiki.shmoo@gmail.com
+
+### Content — Trilingual FAQ for 23 Encyclopaedia/Hub Pages
+
+Added `qTc`/`aTc`/`qSc`/`aSc` fields to all FAQ items across 23 encyclopaedia and hub pages. This fixes the blank FAQ/Q&A sections that appeared on TC and SC language variants — the root cause was that FAQ items only had English `q`/`a` fields, so when build-time i18n stripping removed `lang-en` spans, accordion items were empty.
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `src/pages/calendar.njk` | Added TC/SC FAQ translations |
+| `src/pages/fengshui.njk` | Added TC/SC FAQ translations |
+| `src/pages/wuxing.njk` | Added TC/SC FAQ translations |
+| `src/pages/spring-festival.njk` | Added TC/SC FAQ translations |
+| `src/pages/taoism.njk` | Added TC/SC FAQ translations |
+| `src/pages/yijing.njk` | Added TC/SC FAQ translations |
+| `src/pages/tcm.njk` | Added TC/SC FAQ translations |
+| `src/pages/hanfu.njk` | Added TC/SC FAQ translations |
+| `src/pages/martial-arts.njk` | Added TC/SC FAQ translations |
+| `src/pages/tea-culture.njk` | Added TC/SC FAQ translations |
+| `src/pages/folk-arts.njk` | Added TC/SC FAQ translations |
+| `src/pages/wuxia.njk` | Added TC/SC FAQ translations |
+| `src/pages/qimen.njk` | Added TC/SC FAQ translations |
+| `src/pages/chinamaxxing.njk` | Added TC/SC FAQ translations |
+| `src/pages/whats-my-zodiac.njk` | Added TC/SC FAQ translations |
+| `src/pages/bazi-calculator.njk` | Added TC/SC FAQ translations |
+| `src/pages/premium-readings.njk` | Added TC/SC FAQ translations |
+| `src/pages/shop.njk` | Added TC/SC FAQ translations |
+| `src/pages/readings.njk` | Added TC/SC FAQ translations |
+| `src/pages/compatibility.njk` | Added TC/SC FAQ translations |
+| `src/pages/asian-new-year.njk` | Added TC/SC FAQ translations |
+| `src/pages/zodiac.njk` | Added TC/SC FAQ translations |
+| `src/pages/bazi.njk` | Added TC/SC FAQ translations |
+
+---
+
 ## 2026-03-10 — Calendar Page: Detailed Calendar Evolution History (Session 8 cont.)
 
 **Author:** yunneoi.yn@gmail.com

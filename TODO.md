@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-10
+**Last updated:** 2026-03-15
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -50,6 +50,9 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 23 | Update llms.txt with missing URLs | 2026-03-08 |
 | 24 | Fix language toggle navigation bug | 2026-03-08 |
 | 25 | Hero section TC/SC translation consistency | 2026-03-08 |
+| 26 | FAQ TC/SC translations: 23 encyclopaedia/hub pages | 2026-03-15 |
+| 27 | FAQ TC/SC translations: 12 zodiac animal pages | 2026-03-15 |
+| 28 | Fix YAML quoting errors in bazi.njk SC FAQ | 2026-03-15 |
 
 ---
 

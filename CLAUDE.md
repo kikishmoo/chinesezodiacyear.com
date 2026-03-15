@@ -1,7 +1,7 @@
 # CLAUDE.md — Agent Boot File for chinesezodiacyear.com
 
 > **Purpose:** This file is loaded at the start of every agent session. It contains rules, preferences, regressions, and context that must persist across conversations.
-> **Last updated:** 2026-03-10
+> **Last updated:** 2026-03-15
 > **Owner:** kiki.shmoo@gmail.com (Kiki Shmoo)
 
 ---
@@ -91,6 +91,7 @@ Current project direction. Stable for months but may shift based on data.
 | Translation backlog | **RESOLVED 2026-03-09.** All encyclopaedia pages and zodiac profiles translated to full TC/SC parity. | 2026-03-09 | 2026-04-15 | Archive — completed |
 | Automated BaZi PDF reports | **CRITICAL new revenue initiative.** Build server-side PDF generation from BaZi calculator output. Template-based, zero marginal cost per sale. See TODO.md for full spec. | 2026-03-10 | 2026-05-10 | PDF report system live and processing sales |
 | npm vulnerability | **RESOLVED 2026-03-10.** `liquidjs` path traversal vulnerability fixed via `npm audit fix`. 0 vulnerabilities remaining. | 2026-03-10 | 2026-03-17 | Archive — completed |
+| FAQ translation backlog | **IN PROGRESS 2026-03-15.** Encyclopaedia/hub pages (23) and zodiac animal pages (12) DONE. Remaining: 12 readings pages (`src/readings/2026-*.njk`), ~19 article pages (`src/articles/`), and `eleventyComputed.js` autoFaq function (English-only). | 2026-03-15 | 2026-04-15 | All FAQ items have TC/SC translations site-wide |
 
 ---
 
