@@ -212,7 +212,7 @@ function parseBaziHtml(html) {
   function stripTags(s) { return s.replace(/<[^>]+>/g, '').trim(); }
 
   // --- Parse the bazilist grid (Four Pillars) ---
-  const bazilistMatch = html.match(/<ul\s+class=['"]bazilist\s+f14['"]>([\s\S]*?)<\/ul>/);
+  const bazilistMatch = html.match(/<ul\s+class=['"]bazilist1?\s+f14['"]>([\s\S]*?)<\/ul>/);
   if (bazilistMatch) {
     const liItems = [];
     const liRegex = /<li[^>]*>([\s\S]*?)<\/li>/g;
@@ -288,10 +288,10 @@ function parseBaziHtml(html) {
 
   // --- Parse basic info ---
   const infoPatterns = [
-    { key: 'trueSolarTimeStr', regex: /真太阳时[间間）)]*[：:]\s*([^\n<]+)/ },
-    { key: 'lunarDate',        regex: /农历[：:]\s*([^\n<]+)/ },
-    { key: 'zodiac',           regex: /生肖[：:]\s*([^\n<]+)/ },
-    { key: 'constellation',    regex: /星座[：:]\s*([^\n<]+)/ }
+    { key: 'trueSolarTimeStr', regex: /真太阳时[间間）)]*(?:<\/span>|[：:])\s*([^\n<]+)/ },
+    { key: 'lunarDate',        regex: /农历(?:<\/span>|[：:])\s*([^\n<]+)/ },
+    { key: 'zodiac',           regex: /生肖(?:<\/span>|[：:])\s*([^\n<]+)/ },
+    { key: 'constellation',    regex: /星座(?:<\/span>|[：:])\s*([^\n<]+)/ }
   ];
   for (const { key, regex } of infoPatterns) {
     const m = html.match(regex);

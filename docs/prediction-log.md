@@ -2,7 +2,7 @@
 
 > **Purpose:** Record predictions before making decisions. Fill in actuals after. The "Delta" column reveals systematic biases over time.
 > **Rule:** Every major decision gets a prediction entry BEFORE execution. Don't skip this — it's the fastest way to calibrate agent judgement.
-> **Last updated:** 2026-03-09
+> **Last updated:** 2026-03-16
 
 ---
 
@@ -22,6 +22,28 @@
 ---
 
 ## Log Entries
+
+### 2026-03-16 — BaZi calculator parser fix (upstream format change)
+
+**Decision:** Fix the BaZi calculator worker parser to handle zhouyi.cc's CSS class rename from `bazilist` to `bazilist1`, and update basicInfo regex patterns for span-wrapped label format
+**Prediction:** Changing the regex from `bazilist\s+f14` to `bazilist1?\s+f14` will match both old and new formats. The grid structure (7×5, 35 li items) is unchanged — only the class name differs. BasicInfo patterns updated to accept `</span>` delimiter will extract zodiac, constellation, and lunar date correctly. No other parsing changes needed.
+**Confidence:** High — verified by fetching live HTML from zhouyi.cc and testing the new regex locally (all 35 li items parsed, all basicInfo fields extracted)
+**Actual result:** (pending worker deployment)
+**Delta:** (pending)
+**Adjustment:** (pending)
+
+---
+
+### 2026-03-16 — FAQ i18n fallback for untranslated content
+
+**Decision:** Update the FAQ template in article.njk so English text is only wrapped in `lang-en` spans when TC/SC translations exist. Untranslated FAQ items render as plain text.
+**Prediction:** Build will pass. Pages with translations (e.g. BaZi calculator FAQ with `qSc`/`aSc`) will continue working as before. Pages without translations (e.g. Calendar FAQ) will show English text in all language variants instead of empty accordions.
+**Confidence:** High — the logic is a simple conditional wrapper; build already verified passing (302 pages, 596 variants)
+**Actual result:** Build passed. Template correctly conditionalises `lang-en` wrapping.
+**Delta:** None — prediction was accurate
+**Adjustment:** None needed
+
+---
 
 ### 2026-03-09 — GA4 event tracking implementation
 

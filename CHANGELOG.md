@@ -5,6 +5,30 @@
 
 ---
 
+## 2026-03-16 — BaZi Calculator Parser Fix + FAQ i18n Fallback (Session 8)
+
+**Author:** Claude (via agent session)
+
+### Bug Fix — BaZi Calculator Returns Empty Pillars
+
+The upstream BaZi service (zhouyi.cc) renamed its HTML class from `bazilist f14` to `bazilist1 f14`, breaking the four-pillar parser. All chart results returned empty pillars and no Day Master. Da Yun (luck cycles) still worked because `bazilist2` was unchanged.
+
+Additionally, the `basicInfo` regex patterns failed because the HTML label format changed from colon-separated (`生肖：属马`) to span-wrapped (`<span>命主生肖</span>属马`).
+
+**Files changed:**
+- `worker/bazi-worker.js` — Updated `bazilist` regex to `bazilist1?` (matches both old and new class names). Updated `basicInfo` patterns to accept `</span>` as alternative delimiter to colons.
+
+**Requires:** Cloudflare Worker redeployment (`npx wrangler deploy`).
+
+### Bug Fix — FAQ Empty in TC/SC Language Modes
+
+FAQ accordion items on pages without TC/SC translations (e.g. Calendar) showed empty buttons (just "+" with no text) when viewed in Traditional or Simplified Chinese. The i18n build stripped `<span class="lang-en">` content, but no `lang-tc`/`lang-sc` spans existed as fallback.
+
+**Files changed:**
+- `src/_includes/layouts/article.njk` — FAQ template now only wraps English text in `lang-en` spans when TC/SC translations exist. If no translations are provided, English text renders as plain text (survives i18n stripping).
+
+---
+
 ## 2026-03-15 — FAQ TC/SC Translations: Zodiac Animal Pages + YAML Fix (Session 10)
 
 **Author:** kiki.shmoo@gmail.com

@@ -27,13 +27,13 @@
         {%- for item in faqData %}
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            <span class="lang-en">{{ item.q }}</span>
+            {%- if item.qTc or item.qSc %}<span class="lang-en">{{ item.q }}</span>{% else %}{{ item.q }}{% endif %}
             {%- if item.qTc %}<span class="lang-tc">{{ item.qTc }}</span>{% endif %}
             {%- if item.qSc %}<span class="lang-sc">{{ item.qSc }}</span>{% endif %}
           </button>
           <div class="faq-answer">
             <p>
-              <span class="lang-en">{{ item.a }}</span>
+              {%- if item.aTc or item.aSc %}<span class="lang-en">{{ item.a }}</span>{% else %}{{ item.a }}{% endif %}
               {%- if item.aTc %}<span class="lang-tc">{{ item.aTc }}</span>{% endif %}
               {%- if item.aSc %}<span class="lang-sc">{{ item.aSc }}</span>{% endif %}
             </p>

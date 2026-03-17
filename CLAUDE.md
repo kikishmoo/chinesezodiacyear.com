@@ -1,7 +1,7 @@
 # CLAUDE.md — Agent Boot File for chinesezodiacyear.com
 
 > **Purpose:** This file is loaded at the start of every agent session. It contains rules, preferences, regressions, and context that must persist across conversations.
-> **Last updated:** 2026-03-15
+> **Last updated:** 2026-03-16
 > **Owner:** kiki.shmoo@gmail.com (Kiki Shmoo)
 
 ---
@@ -78,6 +78,8 @@ Current project direction. Stable for months but may shift based on data.
 | 3 | 2026-03-08 | Newsletter popup got stuck on "Subscribing..." with no error feedback | All async UI operations must have: (a) loading state, (b) success state, (c) error state with recovery. Never leave users in a dead-end loading state. |
 | 4 | 2026-03-05 | BaZi calculator had innerHTML XSS vulnerability | Never use `innerHTML` with user-supplied data. Use `textContent` or sanitise first. |
 | 5 | 2026-03-08 | Language toggle showed English content when navigating between pages on TC/SC | Language detection must derive from URL path (`/zh-hant/`, `/zh-hans/`), not localStorage. Nav links must be rewritten to preserve language prefix. |
+| 6 | 2026-03-16 | BaZi upstream service (zhouyi.cc) changed CSS class `bazilist` → `bazilist1`, breaking parser silently | Upstream HTML scrapers are fragile. Use defensive regex (e.g. `bazilist1?`) and always validate that parsed pillars are non-empty before returning results. Monitor upstream format changes. |
+| 7 | 2026-03-16 | FAQ items rendered empty in TC/SC when no translations existed — English text wrapped in `lang-en` spans got stripped by i18n build | When content may lack translations, only wrap in `lang-en` spans when alternative language content exists. Untranslated content must render as plain text to survive i18n stripping. |
 
 ---
 
