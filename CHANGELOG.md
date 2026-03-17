@@ -72,6 +72,34 @@ Added `qTc`/`aTc`/`qSc`/`aSc` fields to all FAQ items across 23 encyclopaedia an
 | `src/pages/asian-new-year.njk` | Added TC/SC FAQ translations |
 | `src/pages/zodiac.njk` | Added TC/SC FAQ translations |
 | `src/pages/bazi.njk` | Added TC/SC FAQ translations |
+---
+
+## 2026-03-17 — Calendar Page: Naming History Section (EN/TC/SC)
+
+**Author:** yunneoi.yn@gmail.com
+
+### Content — New Section: "What's in a Name? The Naming History of the Chinese Calendar"
+
+Added a comprehensive naming history section to the Chinese Calendar encyclopaedia page, covering the etymology and political history of every common name for the Chinese calendar. Full trilingual parity (EN/TC/SC).
+
+**Topics covered:**
+- Pre-1912 naming context (no generic label needed)
+- 1912 Sun Yat-sen decree: two calendars require two names
+- The 1928 calendar ban under Chiang Kai-shek (callout box)
+- 農曆 (Nónglì) — official status from 1947, irony of the "agricultural" label
+- 陰曆 (Yīnlì) — why "lunar calendar" is a misclassification (stat-highlight with 陰陽合曆)
+- "Lunar Calendar" in English — a mistranslation of a misnomer
+- The "Lunar New Year" VANK controversy (callout box, factual reporting)
+- 9-row naming guide table (農曆, 陰曆, 陰陽合曆, 舊曆, 夏曆, 黃曆, 公曆, 陽曆, 國曆)
+- Sun Yat-sen 1912 source quote
+
+**Frontmatter updates:**
+- Added `naming-history` to TOC between `lunisolar` and `solar-terms`
+- Added new FAQ: "Why is the Chinese calendar called the 'lunar calendar' when it is actually lunisolar?" (EN/TC/SC)
+- Updated `dateModified` to 2026-03-15
+
+**Files changed:**
+- `src/pages/calendar.njk` — +228 lines (naming history section in all three language blocks + frontmatter)
 
 ---
 
