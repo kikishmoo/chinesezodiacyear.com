@@ -5,6 +5,32 @@
 
 ---
 
+## 2026-03-17 — Monetisation Strategy Research + Doc Audit (Session 11)
+
+**Author:** kiki.peiqi.li@gmail.com
+
+### Strategy — Monetisation Analysis from YouTube Business Model Research
+
+Analysed two YouTube business model videos against the site's current revenue channels:
+
+1. **"Claude Code built me a $273/Day online directory"** — AI-curated directory model using Outscraper + Crawl4AI for data enrichment, monetised via lead generation. Validated directory expansion approach (TODO item C).
+2. **"'Stupid Simple' Apps Are Making Millions"** — SaaS cloning model: give away free tool, monetise backend. Directly validates automated PDF report strategy (TODO items A & B): free BaZi calculator → paid PDF report download.
+
+**Conclusion:** Automated BaZi PDF reports confirmed as #1 priority. Subscriptions/memberships explicitly rejected (no existing subscriber base, requires active content production). "Write templates once, sell forever" principle documented as guiding principle in CLAUDE.md and TODO.md.
+
+### Documentation — Audit & Cleanup
+
+- **CLAUDE.md:** Cleaned 2 expired temporary attention points (translation backlog — resolved, npm vulnerability — resolved). Updated revenue model section with YouTube research basis. Updated date to 2026-03-17.
+- **TODO.md:** Added YouTube video research reference and key insight to monetisation strategy section. Added 4 completed items (#29–#32) from sessions 8–10. Updated date to 2026-03-17.
+- **prediction-log.md:** Added monetisation strategy analysis prediction entry. Updated date to 2026-03-17.
+- **Rebased** 5 local commits onto 14 new remote commits (sessions 7–10 work).
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, zero errors, 7.90 seconds
+
+---
+
 ## 2026-03-16 — BaZi Calculator Parser Fix + FAQ i18n Fallback (Session 8)
 
 **Author:** Claude (via agent session)

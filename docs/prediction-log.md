@@ -2,7 +2,7 @@
 
 > **Purpose:** Record predictions before making decisions. Fill in actuals after. The "Delta" column reveals systematic biases over time.
 > **Rule:** Every major decision gets a prediction entry BEFORE execution. Don't skip this — it's the fastest way to calibrate agent judgement.
-> **Last updated:** 2026-03-16
+> **Last updated:** 2026-03-17
 
 ---
 
@@ -22,6 +22,17 @@
 ---
 
 ## Log Entries
+
+### 2026-03-17 — Monetisation strategy analysis: YouTube business model research
+
+**Decision:** Analysed two YouTube videos on AI-era business models to evaluate whether chinesezodiacyear.com should pivot monetisation strategy. Video 1: AI-curated directories ($273/day via lead-gen). Video 2: "Stupid Simple" SaaS cloning (give away free tool, monetise backend). Compared against current revenue channels (manual readings, Gumroad, AdSense, Amazon Associates).
+**Prediction:** Automated PDF report generation (BaZi + Compatibility) will be the highest-leverage play because: (a) free BaZi calculator already exists and drives traffic, (b) content templates can be written once from existing domain expertise, (c) zero marginal cost per sale, (d) no subscription/content treadmill required. Subscriptions and paid newsletters will be rejected — no existing subscriber base makes them a content production burden with uncertain ROI.
+**Confidence:** High — the "give away free tool, sell premium output" model is directly validated by Video 2 (Signaturely/UpLead pattern) and the site already has the free tool infrastructure. Directory lead-gen (Video 1) is a valid secondary play but requires more upfront scraping/enrichment work.
+**Actual result:** Owner confirmed the analysis and approved the automated PDF report system as the next build priority. Subscriptions rejected as predicted — owner explicitly noted they don't have subscribers yet and don't want to actively produce custom content on a schedule.
+**Delta:** None — prediction aligned with owner's priorities
+**Adjustment:** When evaluating monetisation options, always weight "existing infrastructure leverage" (what's already built) above theoretical revenue ceiling. The best monetisation converts existing traffic, not hypothetical future audiences.
+
+---
 
 ### 2026-03-16 — BaZi calculator parser fix (upstream format change)
 

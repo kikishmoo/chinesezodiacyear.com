@@ -1,7 +1,7 @@
 # CLAUDE.md — Agent Boot File for chinesezodiacyear.com
 
 > **Purpose:** This file is loaded at the start of every agent session. It contains rules, preferences, regressions, and context that must persist across conversations.
-> **Last updated:** 2026-03-16
+> **Last updated:** 2026-03-17
 > **Owner:** kiki.shmoo@gmail.com (Kiki Shmoo)
 
 ---
@@ -54,12 +54,13 @@ These are absolute rules. Security, hard constraints, and identity-level decisio
 Current project direction. Stable for months but may shift based on data.
 
 - **Content calendar:** See `src/_data/contentCalendar.json` for queued articles and deadlines.
-- **Revenue model (updated 2026-03-10):**
+- **Revenue model (updated 2026-03-17):**
   - **Primary new initiative:** Automated BaZi PDF report generation — templated reports assembled from pre-written sections per user's birth data. $5–$9 per download. Zero marginal cost per sale. Converts existing free BaZi calculator traffic into revenue.
   - **Secondary new initiative:** Automated Compatibility PDF reports — same model, $3.99–$7.99 per download, built from existing 78 compatibility pair page content.
   - **Existing channels (retain):** Gumroad digital products ($3.99–$19.99), AdSense, Amazon Associates (27 products), premium manual readings ($29–$149 via PayPal), Beehiiv newsletter → funnel.
   - **Future plays (medium-term):** Directory lead-gen expansion (scrape + enrich → sell consultation leads to practitioners), embeddable BaZi API widget for third-party sites.
   - **Guiding principle:** Prioritise passive, automated revenue over content-treadmill models (subscriptions, paid newsletters). Write templates once, sell forever.
+  - **Research basis (2026-03-17):** Strategy informed by two YouTube analyses — (1) "Claude Code built me a $273/Day online directory" (AI-curated directory + lead-gen model) and (2) "'Stupid Simple' Apps Are Making Millions" (clone existing SaaS, give away free tool, monetise backend). Both models validated the approach of converting free tools into revenue via automated reports rather than pursuing subscriptions or content treadmills.
 - **Translation status:** All encyclopaedia pages and zodiac profiles now have full TC/SC parity (completed 2026-03-09). Remaining: 16 long-form articles are English-only.
 - **SEO architecture:** Pillar-cluster model. Hub pages → sub-pages. 78 compatibility pair pages for long-tail.
 - **Cross-sell:** `content-upgrade.njk` (email capture) + `cross-sell.njk` (product/reading CTA) on all article-layout pages.
@@ -90,9 +91,7 @@ Current project direction. Stable for months but may shift based on data.
 | Focus | Content | Set Date | Expiry | Remove When |
 |-------|---------|----------|--------|-------------|
 | Facebook Pixel | Installed 2026-03-09. Pixel ID: 1461477519098003. Verify events are firing in Meta Events Manager. | 2026-03-09 | 2026-04-06 | Verified 500+ PageView events in Events Manager |
-| Translation backlog | **RESOLVED 2026-03-09.** All encyclopaedia pages and zodiac profiles translated to full TC/SC parity. | 2026-03-09 | 2026-04-15 | Archive — completed |
 | Automated BaZi PDF reports | **CRITICAL new revenue initiative.** Build server-side PDF generation from BaZi calculator output. Template-based, zero marginal cost per sale. See TODO.md for full spec. | 2026-03-10 | 2026-05-10 | PDF report system live and processing sales |
-| npm vulnerability | **RESOLVED 2026-03-10.** `liquidjs` path traversal vulnerability fixed via `npm audit fix`. 0 vulnerabilities remaining. | 2026-03-10 | 2026-03-17 | Archive — completed |
 | FAQ translation backlog | **IN PROGRESS 2026-03-15.** Encyclopaedia/hub pages (23) and zodiac animal pages (12) DONE. Remaining: 12 readings pages (`src/readings/2026-*.njk`), ~19 article pages (`src/articles/`), and `eleventyComputed.js` autoFaq function (English-only). | 2026-03-15 | 2026-04-15 | All FAQ items have TC/SC translations site-wide |
 
 ---

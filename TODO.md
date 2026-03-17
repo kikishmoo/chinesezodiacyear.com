@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-15
+**Last updated:** 2026-03-17
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -53,12 +53,22 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 26 | FAQ TC/SC translations: 23 encyclopaedia/hub pages | 2026-03-15 |
 | 27 | FAQ TC/SC translations: 12 zodiac animal pages | 2026-03-15 |
 | 28 | Fix YAML quoting errors in bazi.njk SC FAQ | 2026-03-15 |
+| 29 | FAQ TC/SC translations: 12 readings pages | 2026-03-16 |
+| 30 | BaZi calculator parser fix (upstream class rename) | 2026-03-16 |
+| 31 | FAQ i18n fallback for untranslated content | 2026-03-16 |
+| 32 | Calendar naming history section (EN/TC/SC) | 2026-03-16 |
 
 ---
 
 ## NEW: Monetisation Strategy — Automated Passive Revenue
 
 > **Context:** The current revenue model relies on per-transaction manual effort (premium readings) or low-yield channels (AdSense, affiliate commissions). The strategic pivot is to build automated, template-based digital products that convert existing free tool traffic into revenue with zero marginal cost per sale.
+>
+> **Research basis (2026-03-17):** Strategy validated against two YouTube business model analyses:
+> 1. **"Claude Code built me a $273/Day online directory"** — AI-curated directory + programmatic SEO + lead-gen monetisation. Relevant to item C (directory expansion).
+> 2. **"'Stupid Simple' Apps Are Making Millions While You Overthink"** — Clone existing SaaS, give away free tool, monetise backend/ancillary services. Directly validates items A & B (give away free calculator, sell automated PDF reports).
+>
+> **Key insight from analysis:** Subscriptions/memberships were rejected because they require active content production with no existing subscriber base. Automated PDF reports are the highest-leverage play: write templates once, sell forever, zero marginal cost, converts existing free tool traffic.
 
 ### A. Automated BaZi PDF Report System [CRITICAL — #1 PRIORITY]
 
