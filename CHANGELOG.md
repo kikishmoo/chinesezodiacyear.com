@@ -31,6 +31,33 @@ Analysed two YouTube business model videos against the site's current revenue ch
 
 ---
 
+## 2026-03-16 — Calendar Naming History: Enhancements & New FAQ Items
+
+**Author:** Agent session (via MuleRun Super Agent)
+
+### Content — Enhanced "Naming the Calendar" Section
+
+Enhanced the existing naming-history section on the Calendar encyclopaedia page based on reader feedback and in-depth research. Additions include:
+- New subsection "Before 1912: Every Calendar Had Its Own Name" with dynastic names table (Taichu, Shoushi, Datong, Shixian) and 皇曆/黃曆/通書 context
+- Added GB/T 33661-2017 standardisation and 1922 Zhejiang 農家曆 first-attestation detail to the 農曆 subsection
+- Added scholarly citation: Zhu Wenzhe (朱文哲), "Rectification of Names of Calendars in Modern China," Shilin (史林), 2019
+
+### Content — 2 New FAQ Items (Trilingual)
+
+- "Why is it called 農曆 (nónglì) and when did this name originate?" (EN/TC/SC)
+- "What was the Chinese calendar called before 1912?" (EN/TC/SC)
+
+### Content — Calendar Explained Article Cross-Reference
+
+Added callout box to `/chinese-calendar-explained/` linking to the naming-history section.
+
+**Files changed:**
+- `src/pages/calendar.njk` — Enhanced naming-history section + 2 new FAQ items
+- `src/articles/chinese-calendar-explained.njk` — New callout box
+- `CHANGELOG.md` — This entry
+
+---
+
 ## 2026-03-16 — BaZi Calculator Parser Fix + FAQ i18n Fallback (Session 8)
 
 **Author:** Claude (via agent session)
