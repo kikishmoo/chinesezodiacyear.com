@@ -298,20 +298,53 @@ function parseBaziHtml(html) {
     if (m) result.basicInfo[key] = m[1].trim();
   }
 
-  // --- Parse Five Elements analysis ---
-  const wuhfxMatch = html.match(/五行力量[^<]*([\s\S]*?)(?=<div\s+class=['"]baziboxtop|<ul\s+class)/);
-  if (wuhfxMatch) {
-    result.fiveElements = stripTags(wuhfxMatch[0]).substring(0, 1000);
+  // --- Parse Five Elements analysis from wuhfx divs ---
+  const wuhfxRegex = /<div\s+class=['"]wuhfx[^'"]*['"][^>]*>([\s\S]*?)<\/div>/g;
+  const wuhfxParts = [];
+  let wm;
+  while ((wm = wuhfxRegex.exec(html)) !== null) {
+    const text = stripTags(wm[1]).replace(/&nbsp;/g, ' ').replace(/\s{2,}/g, ' ').trim();
+    if (text) wuhfxParts.push(text);
+  }
+  if (wuhfxParts.length > 0) {
+    result.fiveElements = wuhfxParts.join('\n');
   }
 
-  // --- Parse reading sections ---
-  const sectionRegex = /<div\s+class=['"]baziboxtop['"][^>]*>([\s\S]*?)<\/div>\s*<div\s+class=['"]baziboxmain3[^'"]*['"][^>]*>([\s\S]*?)<\/div>/g;
-  let sMatch;
-  while ((sMatch = sectionRegex.exec(html)) !== null) {
-    const title = stripTags(sMatch[1]);
-    const content = stripTags(sMatch[2]).substring(0, 2000);
-    if (title && content) {
-      result.readingSections.push({ title, content });
+  // --- Parse reading sections from baziboxbg2 blocks ---
+  // Each block contains a title in 'baziboxtop cf fb f14 tleft' div,
+  // explanatory notes in 'baziboxmain3' divs, and detailed content in
+  // inline-styled divs with line-height:24px.
+  const skipTitles = new Set(['基本信息', '八字排盘', '']);
+  const blockRegex = /<div\s+class=['"]baziboxbg2['"]>([\s\S]*?)(?=<div\s+class=['"]baziboxbg2['"]>|<div\s+class=['"]bazism)/g;
+  let bm;
+  while ((bm = blockRegex.exec(html)) !== null) {
+    const block = bm[1];
+    const titleMatch = block.match(/<div\s+class=['"]baziboxtop cf[^'"]*['"][^>]*>([\s\S]*?)<\/div>/);
+    const title = titleMatch ? stripTags(titleMatch[1]).trim() : '';
+    if (skipTitles.has(title)) continue;
+
+    // Collect explanatory notes from baziboxmain3
+    const contentParts = [];
+    const mainRegex = /<div\s+class=['"]baziboxmain3[^'"]*['"][^>]*>([\s\S]*?)<\/div>/g;
+    let mm;
+    while ((mm = mainRegex.exec(block)) !== null) {
+      const t = stripTags(mm[1]).replace(/&nbsp;/g, ' ').trim();
+      if (t) contentParts.push(t);
+    }
+
+    // Collect detailed content from line-height styled divs
+    const extraRegex = /<div\s+style=['"]line-height:24px[^'"]*['"][^>]*>([\s\S]*?)<\/div>/g;
+    let em;
+    while ((em = extraRegex.exec(block)) !== null) {
+      const t = stripTags(em[1]).replace(/&nbsp;/g, ' ').replace(/\s{2,}/g, ' ').trim();
+      if (t) contentParts.push(t);
+    }
+
+    if (contentParts.length > 0) {
+      result.readingSections.push({
+        title,
+        content: contentParts.join('\n\n').substring(0, 3000)
+      });
     }
   }
 

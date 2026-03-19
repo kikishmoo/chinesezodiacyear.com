@@ -2796,6 +2796,9 @@ html:not([data-lang]) span.lang-en { display: inline; }
   line-height: 1.7;
   color: var(--graphite);
 }
+.bazi-five-elements div {
+  padding: 2px 0;
+}
 .bazi-five-elements h4 {
   margin: 0 0 var(--sp-sm);
   font-family: var(--font-display);

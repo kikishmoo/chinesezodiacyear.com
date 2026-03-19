@@ -760,6 +760,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Escape HTML special characters to prevent XSS when inserting into innerHTML
   function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
+  // Clean raw Chinese text: strip &nbsp;, collapse whitespace, normalise line breaks
+  function cleanText(s) {
+    return s
+      .replace(/&nbsp;/g, ' ')
+      .replace(/[ \t]+/g, ' ')
+      .replace(/ *\n */g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
   // Load cities data lazily when BaZi form exists
   if (baziForm) {
     fetch(basePath + '/cities.json')
@@ -1012,9 +1022,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Five Elements analysis
     if (data.fiveElements) {
+      var feText = cleanText(data.fiveElements);
       html += '<div class="bazi-five-elements">';
       html += '<h4>Five Elements Balance (\u4E94\u884C\u529B\u91CF)</h4>';
-      html += esc(data.fiveElements);
+      feText.split('\n').forEach(function(line) {
+        if (line.trim()) html += '<div>' + esc(line.trim()) + '</div>';
+      });
       html += '</div>';
     }
 
@@ -1039,17 +1052,19 @@ document.addEventListener('DOMContentLoaded', () => {
       html += '<div class="bazi-sections">';
       html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
       data.readingSections.forEach(function(section) {
+        var cleaned = cleanText(section.content);
         html += '<details>';
         html += '<summary>' + esc(section.title) + '</summary>';
-        html += '<div class="section-content">' + esc(section.content) + '</div>';
+        html += '<div class="section-content">' + esc(cleaned).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
         html += '</details>';
       });
       html += '</div>';
     } else if (data.rawExcerpt) {
       // Fallback to raw excerpt if no structured sections
+      var cleanExcerpt = cleanText(data.rawExcerpt).substring(0, 2000);
       html += '<div style="margin-top:var(--sp-xl);">';
       html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
-      html += '<div class="bazi-reading-text">' + esc(data.rawExcerpt.substring(0, 2000)) + '</div>';
+      html += '<div class="bazi-reading-text">' + esc(cleanExcerpt).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
       html += '</div>';
     }
 
