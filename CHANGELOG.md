@@ -5,6 +5,37 @@
 
 ---
 
+## 2026-03-19 — BaZi Calculator: Fix Result Formatting (Session 13)
+
+**Author:** yunneoi.yn@gmail.com
+
+### Bug Fix — Upstream HTML Parser Broken by Class Name Changes
+
+The upstream service (zhouyi.cc) changed its HTML class names, silently breaking the BaZi calculator's result parsing. Three parser fixes in the worker and three display fixes in the client.
+
+**Worker fixes (`worker/bazi-worker.js`):**
+- Pillar grid regex updated: `bazilist` → `bazilist1?` (upstream renamed class)
+- Reading sections: replaced fragile `baziboxtop`+`baziboxmain3` pair regex with block-based extraction using `baziboxbg2` parent containers (now extracts 12 sections instead of 0)
+- Five Elements: extract from `wuhfx` divs instead of broken heading-based regex (now returns 7 structured lines instead of just the header text)
+
+**Client fixes (`src/site.js`):**
+- Added `cleanText()` helper to strip `&nbsp;`, collapse whitespace, normalise line breaks
+- Five Elements: split into individual `<div>` lines for readability
+- Reading sections + rawExcerpt: clean text and convert newlines to `<br>` tags for proper paragraph formatting
+
+**CSS (`src/styles.css`):**
+- Added spacing rule for `.bazi-five-elements div` child elements
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `worker/bazi-worker.js` | Updated `parseBaziHtml()` — pillar regex, reading sections, five elements extraction |
+| `src/site.js` | Added `cleanText()`, improved `renderBaziChart()` display formatting |
+| `src/styles.css` | Added `.bazi-five-elements div` spacing |
+
+---
+
 ## 2026-03-19 — FAQ TC/SC Translations: All 16 Article Pages (Session 12)
 
 **Author:** kiki.shmoo@gmail.com
