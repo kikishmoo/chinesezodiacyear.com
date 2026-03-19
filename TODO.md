@@ -57,6 +57,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 30 | BaZi calculator parser fix (upstream class rename) | 2026-03-16 |
 | 31 | FAQ i18n fallback for untranslated content | 2026-03-16 |
 | 32 | Calendar naming history section (EN/TC/SC) | 2026-03-16 |
+| 33 | FAQ TC/SC translations: all 16 article pages (78 items) | 2026-03-19 |
 
 ---
 

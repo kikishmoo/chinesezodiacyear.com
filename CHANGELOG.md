@@ -5,6 +5,40 @@
 
 ---
 
+## 2026-03-19 — FAQ TC/SC Translations: All 16 Article Pages (Session 12)
+
+**Author:** kiki.shmoo@gmail.com
+
+### Content — Article FAQ Translations
+
+Added Traditional Chinese (qTc/aTc) and Simplified Chinese (qSc/aSc) translations to all FAQ items across every article page. This completes the FAQ translation backlog for articles — all 16 files now have full trilingual FAQ support.
+
+**Files edited (16):**
+- `src/articles/article-2026-horse.njk` (5 FAQs)
+- `src/articles/bazi-four-pillars-guide.njk` (5 FAQs)
+- `src/articles/celebrity-chinese-zodiac-signs.njk` (4 FAQs)
+- `src/articles/chinese-calendar-explained.njk` (5 FAQs)
+- `src/articles/chinese-new-year-global-celebration.njk` (4 FAQs)
+- `src/articles/chinese-new-year-spring-festival.njk` (5 FAQs)
+- `src/articles/chinese-new-year-traditions.njk` (5 FAQs)
+- `src/articles/chinese-new-year-vs-lunar-new-year.njk` (5 FAQs)
+- `src/articles/chinese-zodiac-compatibility-guide.njk` (5 FAQs)
+- `src/articles/feng-shui-2026-guide.njk` (5 FAQs)
+- `src/articles/fifteen-days-chinese-new-year.njk` (5 FAQs)
+- `src/articles/fire-horse-1966-2026.njk` (5 FAQs)
+- `src/articles/heavenly-stems-earthly-branches.njk` (5 FAQs)
+- `src/articles/lucky-colors-numbers-2026.njk` (5 FAQs)
+- `src/articles/why-red-and-gold-chinese-new-year.njk` (5 FAQs)
+- `src/articles/zodiac-years-chart.njk` (5 FAQs)
+
+**Total:** 78 FAQ items translated (TC + SC = 312 new YAML fields)
+
+### Build Verification
+
+- Build passes: 302 base pages, 596 i18n variants, zero errors
+
+---
+
 ## 2026-03-17 — Monetisation Strategy Research + Doc Audit (Session 11)
 
 **Author:** kiki.peiqi.li@gmail.com
