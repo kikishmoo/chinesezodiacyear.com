@@ -86,6 +86,162 @@ const elementInteractions = {
   'Metal-Earth': { cycle: 'generating', desc: 'Earth yields Metal', descCn: '土生金', descSc: '土生金' },
 };
 
+// Per-animal personality traits for generating unique pair-specific content
+const animalTraits = {
+  Rat: {
+    strengths: ['resourceful', 'quick-witted', 'adaptable', 'socially perceptive'],
+    challenges: ['opportunistic tendencies', 'restlessness', 'difficulty with long-term commitment'],
+    loveStyle: 'charming and attentive, showing affection through thoughtful gestures and lively conversation',
+    workStyle: 'strategic and opportunistic, excelling at spotting openings and navigating complex social dynamics',
+    socialNeed: 'intellectual stimulation and variety',
+    stressTrigger: 'monotony and feeling trapped in rigid routines',
+    classicalRef: 'The Shiji (史記) associates the Rat with the Zi (子) hour (11pm–1am), the moment when Yin gives way to Yang — a symbol of new beginnings and quiet initiative.',
+    classicalRefTc: '《史記》將鼠與子時（晚上11點至凌晨1點）聯繫——陰轉陽的時刻，象徵新的開始和靜默的主動。',
+    classicalRefSc: '《史记》将鼠与子时（晚上11点至凌晨1点）联系——阴转阳的时刻，象征新的开始和静默的主动。',
+  },
+  Ox: {
+    strengths: ['dependable', 'patient', 'methodical', 'physically and mentally enduring'],
+    challenges: ['stubbornness', 'resistance to change', 'difficulty expressing emotions'],
+    loveStyle: 'steady and loyal, demonstrating devotion through consistent actions rather than grand declarations',
+    workStyle: 'diligent and systematic, preferring structured environments where effort is rewarded predictably',
+    socialNeed: 'stability and predictability in relationships',
+    stressTrigger: 'chaos, broken promises, and having their routine disrupted',
+    classicalRef: 'The Ox represents Chou (丑), the second Earthly Branch, associated with pre-dawn agricultural labour. Classical texts praise the Ox for its tireless cultivation of the land — a metaphor for building lasting foundations.',
+    classicalRefTc: '牛代表丑（第二地支），與黎明前的農耕勞作相關。古典文獻讚揚牛不知疲倦地耕耘——建立持久基礎的隱喻。',
+    classicalRefSc: '牛代表丑（第二地支），与黎明前的农耕劳作相关。古典文献赞扬牛不知疲倦地耕耘——建立持久基础的隐喻。',
+  },
+  Tiger: {
+    strengths: ['courageous', 'charismatic', 'competitive', 'natural leader'],
+    challenges: ['impulsiveness', 'difficulty accepting authority', 'can be domineering'],
+    loveStyle: 'passionate and protective, pursuing partners with intensity and expecting equal devotion',
+    workStyle: 'bold and visionary, thriving when leading projects but struggling under micromanagement',
+    socialNeed: 'respect, autonomy, and the freedom to act on instinct',
+    stressTrigger: 'feeling controlled, disrespected, or forced into subordinate positions',
+    classicalRef: 'The Tiger governs Yin (寅), the third Branch, marking the hour when predators are most active (3–5am). In the Huainanzi, the Tiger embodies martial courage (武勇) and the protective power of the forest king.',
+    classicalRefTc: '虎主寅（第三地支），標誌著捕食者最活躍的時辰（凌晨3-5點）。《淮南子》中，虎體現武勇和森林之王的庇護力量。',
+    classicalRefSc: '虎主寅（第三地支），标志着捕食者最活跃的时辰（凌晨3-5点）。《淮南子》中，虎体现武勇和森林之王的庇护力量。',
+  },
+  Rabbit: {
+    strengths: ['diplomatic', 'refined', 'perceptive', 'conflict-averse peacemaker'],
+    challenges: ['indecisiveness', 'avoidance of confrontation', 'can be overly cautious'],
+    loveStyle: 'gentle and romantic, creating harmonious atmospheres and expressing love through aesthetic gestures',
+    workStyle: 'diplomatic and detail-oriented, excelling in roles requiring negotiation and artistic sensibility',
+    socialNeed: 'harmony, beauty, and emotional safety',
+    stressTrigger: 'conflict, harsh criticism, and environments lacking refinement',
+    classicalRef: 'The Rabbit occupies Mao (卯), the fourth Branch (5–7am), when morning light illuminates gently. Associated with the Moon in folklore (玉兔, the Jade Rabbit), this sign carries lunar grace and quiet wisdom.',
+    classicalRefTc: '兔佔卯位（第四地支，早上5-7點），晨光柔和照耀之時。民間傳說中與月亮相關（玉兔），此生肖承載月之優雅與靜默智慧。',
+    classicalRefSc: '兔占卯位（第四地支，早上5-7点），晨光柔和照耀之时。民间传说中与月亮相关（玉兔），此生肖承载月之优雅与静默智慧。',
+  },
+  Dragon: {
+    strengths: ['ambitious', 'visionary', 'magnetic', 'naturally authoritative'],
+    challenges: ['arrogance', 'unrealistic expectations', 'intolerance of perceived mediocrity'],
+    loveStyle: 'grand and generous, showering partners with attention but expecting admiration in return',
+    workStyle: 'entrepreneurial and commanding, drawn to leadership and large-scale ventures',
+    socialNeed: 'recognition, purpose, and a sense of significance',
+    stressTrigger: 'being ignored, restricted to small tasks, or forced into anonymity',
+    classicalRef: 'The Dragon rules Chen (辰), the fifth Branch (7–9am), when morning mist rises — the hour of transformation. As the only mythical zodiac animal, the Dragon represents the imperial ideal (龍) and the power to command heaven and earth.',
+    classicalRefTc: '龍主辰（第五地支，早上7-9點），晨霧升起之時——變化的時辰。作為唯一的神話生肖動物，龍代表帝王理想（龍）和統御天地的力量。',
+    classicalRefSc: '龙主辰（第五地支，早上7-9点），晨雾升起之时——变化的时辰。作为唯一的神话生肖动物，龙代表帝王理想（龙）和统御天地的力量。',
+  },
+  Snake: {
+    strengths: ['intuitive', 'strategic', 'enigmatic', 'deeply analytical'],
+    challenges: ['secretiveness', 'jealousy', 'tendency to manipulate rather than confront directly'],
+    loveStyle: 'intense and possessive, forming deep bonds but requiring trust and exclusivity',
+    workStyle: 'calculated and observant, excelling in research, finance, and strategic planning',
+    socialNeed: 'intellectual depth, privacy, and emotional exclusivity',
+    stressTrigger: 'betrayal of trust, superficiality, and being forced into the spotlight',
+    classicalRef: 'The Snake governs Si (巳), the sixth Branch (9–11am), when the sun warms the earth. In Daoist symbolism, the Snake represents transformation and hidden wisdom, coiled potential waiting for the right moment to strike.',
+    classicalRefTc: '蛇主巳（第六地支，上午9-11點），太陽溫暖大地之時。道教象徵中，蛇代表轉化和隱藏的智慧，蟄伏的潛力等待適當時機。',
+    classicalRefSc: '蛇主巳（第六地支，上午9-11点），太阳温暖大地之时。道教象征中，蛇代表转化和隐藏的智慧，蛰伏的潜力等待适当时机。',
+  },
+  Horse: {
+    strengths: ['energetic', 'freedom-loving', 'charismatic', 'action-oriented'],
+    challenges: ['impatience', 'commitment anxiety', 'can be self-centred when pursuing goals'],
+    loveStyle: 'passionate and spontaneous, craving adventure and excitement in relationships',
+    workStyle: 'fast-paced and independent, performing best with autonomy and variety',
+    socialNeed: 'freedom, movement, and new experiences',
+    stressTrigger: 'confinement, repetitive tasks, and emotional clinginess from partners',
+    classicalRef: 'The Horse rules Wu (午), the seventh Branch (11am–1pm), the zenith of Yang energy. Classical texts describe the Horse as the embodiment of pure forward momentum — in warfare, commerce, and the Silk Road trade that connected civilisations.',
+    classicalRefTc: '馬主午（第七地支，上午11點至下午1點），陽氣的頂峰。古典文獻形容馬為純粹前進動力的化身——在戰爭、商業和連結文明的絲綢之路貿易中。',
+    classicalRefSc: '马主午（第七地支，上午11点至下午1点），阳气的顶峰。古典文献形容马为纯粹前进动力的化身——在战争、商业和连结文明的丝绸之路贸易中。',
+  },
+  Goat: {
+    strengths: ['creative', 'empathetic', 'artistic', 'nurturing'],
+    challenges: ['dependency', 'indecisiveness', 'vulnerability to pessimism under pressure'],
+    loveStyle: 'tender and devoted, creating warm, aesthetically pleasing environments for loved ones',
+    workStyle: 'imaginative and collaborative, thriving in creative and supportive team settings',
+    socialNeed: 'emotional security, appreciation, and a sense of belonging',
+    stressTrigger: 'harsh criticism, financial instability, and feeling unappreciated',
+    classicalRef: 'The Goat occupies Wei (未), the eighth Branch (1–3pm), the hour of gentle afternoon warmth. The character 羊 (yang) is embedded in the word for auspiciousness (祥) and righteousness (義), reflecting the Goat\'s cultural role as a symbol of benevolence.',
+    classicalRefTc: '羊佔未位（第八地支，下午1-3點），柔和午後溫暖的時辰。「羊」字嵌入「祥」和「義」中，反映羊在文化中作為仁慈象徵的角色。',
+    classicalRefSc: '羊占未位（第八地支，下午1-3点），柔和午后温暖的时辰。"羊"字嵌入"祥"和"义"中，反映羊在文化中作为仁慈象征的角色。',
+  },
+  Monkey: {
+    strengths: ['clever', 'versatile', 'entertaining', 'quick problem-solver'],
+    challenges: ['dishonesty when cornered', 'restlessness', 'difficulty with sustained focus'],
+    loveStyle: 'playful and witty, keeping relationships lively but sometimes struggling with emotional depth',
+    workStyle: 'innovative and agile, excelling at improvisation and finding unconventional solutions',
+    socialNeed: 'mental stimulation, variety, and an audience that appreciates their wit',
+    stressTrigger: 'boredom, being outsmarted, and rigid hierarchies that limit creative freedom',
+    classicalRef: 'The Monkey governs Shen (申), the ninth Branch (3–5pm), when alertness peaks. Sun Wukong (孫悟空) in Journey to the West embodies the Monkey archetype: brilliant, irrepressible, and ultimately redeemed through discipline.',
+    classicalRefTc: '猴主申（第九地支，下午3-5點），警覺性達到頂峰之時。《西遊記》中的孫悟空體現猴的原型：才華橫溢、不可壓制，最終通過修行得到救贖。',
+    classicalRefSc: '猴主申（第九地支，下午3-5点），警觉性达到顶峰之时。《西游记》中的孙悟空体现猴的原型：才华横溢、不可压制，最终通过修行得到救赎。',
+  },
+  Rooster: {
+    strengths: ['observant', 'hardworking', 'forthright', 'impeccably organised'],
+    challenges: ['critical nature', 'perfectionism', 'can be abrasive in communication'],
+    loveStyle: 'devoted and practical, showing care through acts of service and maintaining high standards',
+    workStyle: 'meticulous and efficient, excelling in structured environments that reward precision',
+    socialNeed: 'order, recognition for competence, and honest communication',
+    stressTrigger: 'disorganisation, dishonesty, and having their expertise questioned',
+    classicalRef: 'The Rooster rules You (酉), the tenth Branch (5–7pm), the hour of sunset gathering. The cock\'s crow (雞鳴) was the ancient world\'s alarm clock, and Chinese culture venerates the Rooster\'s five virtues: literary, martial, courageous, benevolent, and trustworthy (文武勇仁信).',
+    classicalRefTc: '雞主酉（第十地支，下午5-7點），日落聚集的時辰。雞鳴是古代的鬧鐘，中國文化尊崇雞的五德：文、武、勇、仁、信。',
+    classicalRefSc: '鸡主酉（第十地支，下午5-7点），日落聚集的时辰。鸡鸣是古代的闹钟，中国文化尊崇鸡的五德：文、武、勇、仁、信。',
+  },
+  Dog: {
+    strengths: ['loyal', 'honest', 'protective', 'strong sense of justice'],
+    challenges: ['anxiety', 'pessimism', 'difficulty trusting until loyalty is proven'],
+    loveStyle: 'faithful and protective, offering unwavering support but needing reassurance of reciprocal loyalty',
+    workStyle: 'reliable and principled, excelling in roles that serve others and uphold ethical standards',
+    socialNeed: 'trust, moral alignment, and a cause worth defending',
+    stressTrigger: 'injustice, disloyalty, and environments where ethics are compromised',
+    classicalRef: 'The Dog occupies Xu (戌), the eleventh Branch (7–9pm), the hour of guarding the home. The Dog\'s loyalty is proverbial in Chinese culture — the phrase "a faithful dog at the door" (義犬守門) represents incorruptible devotion.',
+    classicalRefTc: '狗佔戌位（第十一地支，晚上7-9點），守護家園的時辰。狗的忠誠在中國文化中是典範——「義犬守門」代表不可腐蝕的忠誠。',
+    classicalRefSc: '狗占戌位（第十一地支，晚上7-9点），守护家园的时辰。狗的忠诚在中国文化中是典范——"义犬守门"代表不可腐蚀的忠诚。',
+  },
+  Pig: {
+    strengths: ['generous', 'warm-hearted', 'optimistic', 'enjoys life fully'],
+    challenges: ['naivety', 'overindulgence', 'can be taken advantage of due to trusting nature'],
+    loveStyle: 'affectionate and generous, creating comfortable, indulgent spaces for partners to relax',
+    workStyle: 'enthusiastic and good-natured, excelling in collaborative settings that value harmony',
+    socialNeed: 'comfort, genuine connection, and reciprocated generosity',
+    stressTrigger: 'exploitation, meanness, and being forced into competitive confrontation',
+    classicalRef: 'The Pig governs Hai (亥), the twelfth and final Branch (9–11pm), when the world settles into rest. Hai is the last stage before the cycle restarts at Zi — the Pig represents completion, contentment, and the wisdom of knowing when enough is enough.',
+    classicalRefTc: '豬主亥（第十二也是最後一個地支，晚上9-11點），世界歸於安寧之時。亥是循環在子重新開始前的最後階段——豬代表圓滿、知足和懂得適可而止的智慧。',
+    classicalRefSc: '猪主亥（第十二也是最后一个地支，晚上9-11点），世界归于安宁之时。亥是循环在子重新开始前的最后阶段——猪代表圆满、知足和懂得适可而止的智慧。',
+  },
+};
+
+// Generate pair-specific personality analysis
+function generatePairAnalysis(animalA, animalB, isSelf, relType) {
+  const tA = animalTraits[animalA];
+  const tB = animalTraits[animalB];
+
+  if (isSelf) {
+    return {
+      en: `Both partners share the ${animalA}'s core qualities: ${tA.strengths.join(', ')}. This creates instant recognition and understanding. ${tA.classicalRef} In love, two ${animalA} people are both ${tA.loveStyle}. The shared approach means neither partner needs to explain themselves — but it also means shared blind spots (${tA.challenges.join(', ')}) may go unchallenged. At work, both gravitate toward being ${tA.workStyle}. The risk is competition for the same role rather than complementary division of labour. Both need ${tA.socialNeed}, so ensuring each partner has independent sources of fulfilment prevents the relationship from becoming claustrophobic. The shared stress trigger — ${tA.stressTrigger} — can affect both simultaneously, requiring external support systems.`,
+      tc: `${tA.classicalRefTc} 兩個${animalTraits[animalA] ? animalA : animalA}人共享相同的核心品質：他們在愛情中都是${tA.loveStyle.split(',')[0]}的。這種共同方式意味著無需解釋——但共同的盲點可能不受挑戰。在工作中，兩人都傾向於相同的風格。確保每位伴侶有獨立的滿足來源，防止關係變得過於封閉。`,
+      sc: `${tA.classicalRefSc} 两个${animalA}人共享相同的核心品质：他们在爱情中都是${tA.loveStyle.split(',')[0]}的。这种共同方式意味着无需解释——但共同的盲点可能不受挑战。在工作中，两人都倾向于相同的风格。确保每位伴侣有独立的满足来源，防止关系变得过于封闭。`,
+    };
+  }
+
+  return {
+    en: `The ${animalA} brings ${tA.strengths.slice(0, 2).join(' and ')} energy, while the ${animalB} contributes ${tB.strengths.slice(0, 2).join(' and ')} qualities. ${tA.classicalRef} ${tB.classicalRef} In romantic relationships, the ${animalA} is ${tA.loveStyle}, whereas the ${animalB} is ${tB.loveStyle}. ${relType === 'liuHe' || relType === 'sanHe' ? 'These complementary styles create a rich, multi-dimensional bond.' : relType === 'clash' ? 'These contrasting styles can spark intense attraction but also friction when expectations diverge.' : relType === 'harm' ? 'These different emotional languages may cause quiet misunderstandings if not explicitly discussed.' : 'Whether these styles mesh well depends on individual maturity and communication.'} In professional settings, the ${animalA} is ${tA.workStyle}, while the ${animalB} is ${tB.workStyle}. The ${animalA} needs ${tA.socialNeed}, whereas the ${animalB} craves ${tB.socialNeed}. Understanding these different needs is the foundation of a lasting connection. The ${animalA} becomes stressed by ${tA.stressTrigger}, while the ${animalB} struggles with ${tB.stressTrigger}. Recognising each other's triggers allows partners to provide support precisely when it matters most.`,
+    tc: `${tA.classicalRefTc} ${tB.classicalRefTc} 在感情中，兩者展現不同但可能互補的風格。在職業環境中，雙方各有優勢。理解彼此的不同需求是建立持久連結的基礎。認識對方的壓力觸發點，能在最關鍵的時刻提供適當的支持。`,
+    sc: `${tA.classicalRefSc} ${tB.classicalRefSc} 在感情中，两者展现不同但可能互补的风格。在职业环境中，双方各有优势。理解彼此的不同需求是建立持久连结的基础。认识对方的压力触发点，能在最关键的时刻提供适当的支持。`,
+  };
+}
+
 // Detailed relationship descriptions per type
 const relationshipContent = {
   liuHe: {
@@ -274,6 +430,9 @@ export default function () {
       const advice = adviceContent[relType];
       const score = compatScores[relType];
 
+      // Generate pair-specific personality analysis
+      const pairAnalysis = generatePairAnalysis(animals[i], animals[j], isSelf, relType);
+
       // Slug: always alphabetical for canonical URLs
       const slug = isSelf ? `${aSlug}-${bSlug}` : key;
 
@@ -312,6 +471,9 @@ export default function () {
         adviceEn: advice.en,
         adviceTc: advice.tc,
         adviceSc: advice.sc,
+        pairAnalysisEn: pairAnalysis.en,
+        pairAnalysisTc: pairAnalysis.tc,
+        pairAnalysisSc: pairAnalysis.sc,
         permalink: `/compatibility/${slug}/`,
       });
     }

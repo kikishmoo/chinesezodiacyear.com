@@ -313,9 +313,16 @@ export default function(eleventyConfig) {
       return result;
     }
 
+    let i18nSkipped = 0;
     for (const filePath of htmlFiles) {
       const relPath = relative(outputDir, filePath);
       const html = readFileSync(filePath, 'utf8');
+
+      // Skip i18n variant generation for English-only pages (marked with <!-- no-i18n -->)
+      if (html.includes('<!-- no-i18n -->')) {
+        i18nSkipped++;
+        continue;
+      }
 
       for (const variant of langVariants) {
         const destPath = join(outputDir, variant.prefix, relPath);
@@ -345,7 +352,7 @@ export default function(eleventyConfig) {
         i18nCount++;
       }
     }
-    console.log(`[i18n] Generated ${i18nCount} language variant pages from ${htmlFiles.length} source pages`);
+    console.log(`[i18n] Generated ${i18nCount} language variant pages from ${htmlFiles.length} source pages (skipped ${i18nSkipped} English-only pages)`);
 
     // Strip non-English language blocks from base English pages
     let enStrippedCount = 0;

@@ -32,6 +32,8 @@ eleventyComputed:
       label: "Element Interaction"
     - id: "advice"
       label: "Practical Advice"
+    - id: "pair-analysis"
+      label: "Personality Dynamics"
     - id: "explore"
       label: "Explore Further"
     - id: "faq"
@@ -180,6 +182,11 @@ tags: ["compatibilityPair"]
   <p>Remember: zodiac compatibility based on the birth year is the most <em>general</em> level of analysis. A complete assessment examines the full <a href="/bazi/">BaZi chart</a> (Year, Month, Day, and Hour pillars), the <a href="/wuxing/">five element</a> balance, and the interactions between all eight characters. For deeper insight, consult a qualified <a href="/directory/">BaZi practitioner</a> or explore our <a href="/shop/">premium readings</a>.</p>
 </section>
 
+<section id="pair-analysis">
+  <h2>{{ pair.animalA }} &amp; {{ pair.animalB }} — Personality Dynamics</h2>
+  <p>{{ pair.pairAnalysisEn }}</p>
+</section>
+
 <section id="explore">
   <h2>Explore Further</h2>
   <div class="reading-grid" style="max-width:600px;">
@@ -266,6 +273,11 @@ tags: ["compatibilityPair"]
 </section>
 
 <section>
+  <h2>{{ pair.animalACn }}與{{ pair.animalBCn }} — 性格動態</h2>
+  <p>{{ pair.pairAnalysisTc }}</p>
+</section>
+
+<section>
   <h2>延伸探索</h2>
   <div class="reading-grid" style="max-width:600px;">
     <a href="/zodiac/{{ pair.animalA | lower }}/" class="reading-card"><span class="reading-card-name">{{ pair.animalACn }}完整檔案</span></a>
@@ -330,6 +342,11 @@ tags: ["compatibilityPair"]
   <h2>实用建议</h2>
   <p>{{ pair.adviceSc }}</p>
   <p>请记住：仅基于出生年份的生肖配对是最概括性的分析。完整的评估需要检视完整的<a href="/bazi/">八字命盘</a>。如需全面的个人分析，请咨询合格的<a href="/directory/">八字命理师</a>。</p>
+</section>
+
+<section>
+  <h2>{{ pair.animalASc }}与{{ pair.animalBSc }} — 性格动态</h2>
+  <p>{{ pair.pairAnalysisSc }}</p>
 </section>
 
 <section>

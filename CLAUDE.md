@@ -1,7 +1,7 @@
 # CLAUDE.md — Agent Boot File for chinesezodiacyear.com
 
 > **Purpose:** This file is loaded at the start of every agent session. It contains rules, preferences, regressions, and context that must persist across conversations.
-> **Last updated:** 2026-03-19
+> **Last updated:** 2026-03-20
 > **Owner:** kiki.shmoo@gmail.com (Kiki Shmoo)
 
 ---
@@ -31,6 +31,7 @@ These are absolute rules. Security, hard constraints, and identity-level decisio
 ### 2.2 Technical Identity
 
 - **i18n pattern:** Three-block `<div class="lang-en/tc/sc">` with build-time stripping in `eleventy.config.js` `eleventy.after` hook.
+- **noI18n pattern:** Pages without Chinese translations must set `noI18n: true` in frontmatter. This: (a) emits `<!-- no-i18n -->` marker instead of hreflang tags, (b) skips zh-hant/zh-hans variant generation, (c) excludes from sitemap language entries. Always check for lang-tc/lang-sc blocks before deciding.
 - **Git config:** user.email `kiki.shmoo@gmail.com`, user.name `Kiki Shmoo`.
 - **Build command:** `npx @11ty/eleventy` — always verify build succeeds before committing.
 - **JS minification:** terser (post-build). CSS: clean-css.
@@ -61,7 +62,7 @@ Current project direction. Stable for months but may shift based on data.
   - **Future plays (medium-term):** Directory lead-gen expansion (scrape + enrich → sell consultation leads to practitioners), embeddable BaZi API widget for third-party sites.
   - **Guiding principle:** Prioritise passive, automated revenue over content-treadmill models (subscriptions, paid newsletters). Write templates once, sell forever.
   - **Research basis (2026-03-17):** Strategy informed by two YouTube analyses — (1) "Claude Code built me a $273/Day online directory" (AI-curated directory + lead-gen model) and (2) "'Stupid Simple' Apps Are Making Millions" (clone existing SaaS, give away free tool, monetise backend). Both models validated the approach of converting free tools into revenue via automated reports rather than pursuing subscriptions or content treadmills.
-- **Translation status:** All encyclopaedia pages and zodiac profiles now have full TC/SC parity (completed 2026-03-09). Remaining: 16 long-form articles are English-only.
+- **Translation status:** All encyclopaedia pages and zodiac profiles now have full TC/SC parity (completed 2026-03-09). Remaining: 16 long-form articles are English-only (flagged with `noI18n: true` to prevent duplicate zh-hant/zh-hans variants). 121 year pages are also English-only (`noI18n: true`).
 - **SEO architecture:** Pillar-cluster model. Hub pages → sub-pages. 78 compatibility pair pages for long-tail.
 - **Cross-sell:** `content-upgrade.njk` (email capture) + `cross-sell.njk` (product/reading CTA) on all article-layout pages.
 - **TODO roadmap:** See `TODO.md` for prioritised task list with effort/impact matrix.

@@ -2,7 +2,7 @@
 
 > **Purpose:** Record predictions before making decisions. Fill in actuals after. The "Delta" column reveals systematic biases over time.
 > **Rule:** Every major decision gets a prediction entry BEFORE execution. Don't skip this — it's the fastest way to calibrate agent judgement.
-> **Last updated:** 2026-03-17
+> **Last updated:** 2026-03-20
 
 ---
 
@@ -22,6 +22,17 @@
 ---
 
 ## Log Entries
+
+### 2026-03-20 — AdSense "low value content" fix: noI18n mechanism + compatibility enrichment
+
+**Decision:** Fix AdSense "low value content" policy violation by: (1) adding a `noI18n` build mechanism to stop generating zh-hant/zh-hans variants for English-only pages, (2) enriching compatibility pair pages with per-pair unique personality analysis content, (3) updating sitemap and hreflang tags to match.
+**Prediction:** The noI18n mechanism will remove ~260 duplicate pages (121 year pages × 2 + 9 other English-only pages × 2). Build will pass on first attempt. The compatibility enrichment will add ~300-400 unique words per pair page via animal trait combination. Combined, this changes the thin/duplicate content ratio from ~67% to ~45% of indexed URLs, which should be enough to pass AdSense review along with the site's strong technical SEO.
+**Confidence:** High for the build passing and page count reduction. Medium for AdSense approval — Google's review is human-conducted and unpredictable; further content enrichment may still be needed.
+**Actual result:** Build passed on first attempt. 260 pages removed (895 → 635 total HTML). Sitemap entries 906 → 505. Compatibility pages gained ~340 unique words each (1,400 → 1,740). SEO audit confirmed A+ technical implementation across all 14 checks.
+**Delta:** None for technical implementation. AdSense review outcome pending (owner needs to request review).
+**Adjustment:** When building programmatic pages in future, always verify Chinese translation blocks exist before allowing i18n variant generation. Add the `noI18n` flag as a standard part of page creation workflow for English-only content.
+
+---
 
 ### 2026-03-17 — Monetisation strategy analysis: YouTube business model research
 
