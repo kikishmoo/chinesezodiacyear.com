@@ -192,6 +192,7 @@ When refining output, follow a structured process — don't just "keep polishing
 Before ending any work session:
 
 1. **Update CHANGELOG.md** with all changes made
+   - **Author format:** Use the email username only (e.g. `kiki.shmoo`), **not** the full email address. Never include `@gmail.com` or any domain. For agent sessions, use `Agent session (via <agent name>)`.
 2. **Update TODO.md** if items were completed or new items discovered
 3. **Update CLAUDE.md** if new regressions, rule changes, or attention points arose
 4. **Fill in prediction log** actuals if any predictions were made this session

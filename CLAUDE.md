@@ -111,6 +111,7 @@ Current project direction. Stable for months but may shift based on data.
 | Build config | `eleventy.config.js` |
 | CI/CD | `.github/workflows/deploy.yml` |
 | Architecture docs | `docs/architecture.md` |
+| Architecture redesign | `docs/architecture-redesign.md` |
 | Content strategy | `docs/content-strategy.md` |
 | SEO docs | `docs/seo-performance.md` |
 | TODO roadmap | `TODO.md` |

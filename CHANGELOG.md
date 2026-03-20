@@ -7,7 +7,7 @@
 
 ## 2026-03-19 — BaZi Calculator: Fix Result Formatting (Session 13)
 
-**Author:** yunneoi.yn@gmail.com
+**Author:** yunneoi.yn
 
 ### Bug Fix — Upstream HTML Parser Broken by Class Name Changes
 
@@ -38,7 +38,7 @@ The upstream service (zhouyi.cc) changed its HTML class names, silently breaking
 
 ## 2026-03-19 — FAQ TC/SC Translations: All 16 Article Pages (Session 12)
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Content — Article FAQ Translations
 
@@ -70,9 +70,34 @@ Added Traditional Chinese (qTc/aTc) and Simplified Chinese (qSc/aSc) translation
 
 ---
 
+## 2026-03-19 — Architecture Redesign Proposal + CHANGELOG Author Cleanup
+
+**Author:** Agent session (via MuleRun Super Agent)
+
+### Documentation — Full-Stack Architecture Redesign Proposal
+
+Created `docs/architecture-redesign.md` — a comprehensive proposal to restructure both backend and frontend from monolithic files into modular, testable architectures. Covers 5 migration phases:
+
+1. **Backend (Worker):** Decompose `bazi-worker.js` (359 lines) into router/service/adapter layers with error handling, caching, retry logic, and vitest parser tests
+2. **Frontend JS:** Split `site.js` (1,313 lines) into ES modules bundled by esbuild, with event bus, centralised analytics, and lazy-loaded trivia/BaZi
+3. **Frontend CSS:** Split `styles.css` (5,531 lines) into component files with consolidated dark mode and design tokens
+4. **Templates/Data:** Break `eleventyComputed.js` (545 lines) into testable modules; reorganise partials by function
+5. **CI/CD:** Unified pipeline with test gating, automated worker deployment, and i18n validation
+
+### Housekeeping — CHANGELOG Author Format
+
+Removed `@gmail.com` from all author entries across the entire CHANGELOG (31 entries, 5 email addresses). Added author format convention to `docs/sop-agent-workflow.md` Section 10.
+
+**Files changed:**
+- `docs/architecture-redesign.md` — New file (architecture proposal)
+- `docs/sop-agent-workflow.md` — Added author format convention
+- `CHANGELOG.md` — Stripped `@gmail.com` from all authors + this entry
+
+---
+
 ## 2026-03-17 — Monetisation Strategy Research + Doc Audit (Session 11)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Strategy — Monetisation Analysis from YouTube Business Model Research
 
@@ -149,7 +174,7 @@ FAQ accordion items on pages without TC/SC translations (e.g. Calendar) showed e
 
 ## 2026-03-15 — FAQ TC/SC Translations: Zodiac Animal Pages + YAML Fix (Session 10)
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Content — Trilingual FAQ for All 12 Zodiac Animal Pages
 
@@ -181,7 +206,7 @@ Fixed 2 YAML parse errors in `bazi.njk` where Simplified Chinese FAQ answers con
 
 ## 2026-03-15 — FAQ TC/SC Translations: Encyclopaedia & Hub Pages (Session 9)
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Content — Trilingual FAQ for 23 Encyclopaedia/Hub Pages
 
@@ -218,7 +243,7 @@ Added `qTc`/`aTc`/`qSc`/`aSc` fields to all FAQ items across 23 encyclopaedia an
 
 ## 2026-03-17 — Calendar Page: Naming History Section (EN/TC/SC)
 
-**Author:** yunneoi.yn@gmail.com
+**Author:** yunneoi.yn
 
 ### Content — New Section: "What's in a Name? The Naming History of the Chinese Calendar"
 
@@ -247,7 +272,7 @@ Added a comprehensive naming history section to the Chinese Calendar encyclopaed
 
 ## 2026-03-10 — Calendar Page: Detailed Calendar Evolution History (Session 8 cont.)
 
-**Author:** yunneoi.yn@gmail.com
+**Author:** yunneoi.yn
 
 ### Content — New Section: "Evolution of the Calendar: From Oracle Bones to the Shoushi System"
 
@@ -284,7 +309,7 @@ All content follows pre-Qing classical scholarship priority (Shiji, Hanshu, Nan 
 
 ## 2026-03-10 — Fix npm Vulnerability: liquidjs Path Traversal (Session 8 cont.)
 
-**Author:** yunneoi.yn@gmail.com
+**Author:** yunneoi.yn
 
 ### Security Fix — liquidjs Path Traversal Vulnerability
 
@@ -302,7 +327,7 @@ Resolved high-severity path traversal fallback vulnerability in `liquidjs <10.25
 
 ## 2026-03-10 — Onboarding Audit & Document Corrections (Session 8)
 
-**Author:** yunneoi.yn@gmail.com
+**Author:** yunneoi.yn
 
 ### Audit — Full Codebase & Documentation Review
 
@@ -346,7 +371,7 @@ New CEO agent session. Complete onboarding audit of repository, live site, docum
 
 ## 2026-03-10 — BaZi Calculator Complete Fix: Frontend + Backend + Geocoding (Session 7 cont.)
 
-**Author:** lavertenstyle@gmail.com
+**Author:** lavertenstyle
 
 ### Bug Fix — BaZi Calculator Non-Functional (3-layer fix)
 
@@ -408,7 +433,7 @@ The Cloudflare Worker changes require `npx wrangler deploy` to go live. Frontend
 
 ## 2026-03-10 — Strategic Pivot: Automated PDF Revenue + Document Updates (Session 7)
 
-**Author:** lavertenstyle@gmail.com
+**Author:** lavertenstyle
 
 ### Documentation — Strategic Monetisation Update
 
@@ -430,7 +455,7 @@ Updated core project documents to reflect the new revenue strategy agreed with t
 
 ## 2026-03-09 — Full TC/SC Translation: Compatibility Hub, Zodiac Hub, 12 Animal Profiles (Session 6)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Content — Compatibility Hub TC/SC Completion
 
@@ -480,7 +505,7 @@ Each page follows the established 7-section structure: overview (with info-grid)
 
 ## 2026-03-09 — Pinterest Domain Verification (Session 5, continued)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Feature — Pinterest Domain Verification
 
@@ -494,7 +519,7 @@ Added Pinterest domain verification code (`d1ac131191ba6ba1d8f137aae6929019`) to
 
 ## 2026-03-09 — Pinterest & TikTok Social Links (Session 5, continued)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Feature — Pinterest & TikTok Social Integration
 
@@ -513,7 +538,7 @@ Added Pinterest Business and TikTok account links to `site.json`, activating the
 
 ## 2026-03-09 — Favicon Consistency Fix (Session 5)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Fix — Favicon Gold Color and Tilt
 
@@ -538,7 +563,7 @@ Installed Facebook/Meta Pixel (ID: `1461477519098003`) by setting `facebookPixel
 
 ## 2026-03-09 — Affiliate Recommended Reading Sidebars (Session 4, continued)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Feature — Sidebar Book Recommendations on 12 Pages
 
@@ -567,7 +592,7 @@ All links use `kikigreene-20` affiliate tag with direct `/dp/ASIN` URLs. Pages w
 
 ## 2026-03-09 — Affiliate Link Fix: Search URLs → Direct Product Links (Session 4, continued)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Fix — Affiliate Product URLs
 
@@ -581,7 +606,7 @@ All 27 affiliate products now point to concrete Amazon product pages. Zero searc
 
 ## 2026-03-09 — Affiliate Products Expansion & Repositioning (Session 4, continued)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Feature — Affiliate Products Expansion
 
@@ -608,7 +633,7 @@ Moved the "Recommended Books & Tools" section to the top of the shop page in all
 
 ## 2026-03-09 — Affiliate Products & Encyclopaedia Translations (Session 4)
 
-**Author:** kiki.peiqi.li@gmail.com
+**Author:** kiki.peiqi.li
 
 ### Content — Encyclopaedia TC/SC Translations
 
@@ -657,7 +682,7 @@ Added 10 curated affiliate products to the shop page, creating a new "Recommende
 
 ## 2026-03-09 — BaZi Cloudflare Worker Deployment Fix
 
-**Author:** chinesezodiacyear@gmail.com (session 3, continued)
+**Author:** chinesezodiacyear (session 3, continued)
 
 ### Infrastructure — Worker Deployment
 
@@ -669,7 +694,7 @@ Added 10 curated affiliate products to the shop page, creating a new "Recommende
 
 ## 2026-03-09 — Chinese Character & Pinyin Annotations + BaZi Worker URL
 
-**Author:** chinesezodiacyear@gmail.com (session 3)
+**Author:** chinesezodiacyear (session 3)
 
 ### Content — Pinyin Annotations
 
@@ -697,7 +722,7 @@ Added `<span class="chinese-char">` and `<span class="pinyin">` markup to all Ch
 
 ## 2026-03-09 — Adopt Classical "Encyclopaedia" Spelling
 
-**Author:** chinesezodiacyear@gmail.com (session 2, continued)
+**Author:** chinesezodiacyear (session 2, continued)
 
 ### Content — Spelling Standardisation
 
@@ -713,7 +738,7 @@ Added `<span class="chinese-char">` and `<span class="pinyin">` markup to all Ch
 
 ## 2026-03-09 — MS Clarity Activation & British English Audit
 
-**Author:** chinesezodiacyear@gmail.com (session 2)
+**Author:** chinesezodiacyear (session 2)
 
 ### Features
 
@@ -740,7 +765,7 @@ Added `<span class="chinese-char">` and `<span class="pinyin">` markup to all Ch
 
 ## 2026-03-09 — Technical Stabilisation: BaZi, Newsletter, Analytics Placeholders
 
-**Author:** chinesezodiacyear@gmail.com (onboarding audit session)
+**Author:** chinesezodiacyear (onboarding audit session)
 
 ### Bug Fixes
 
@@ -766,7 +791,7 @@ Added `<span class="chinese-char">` and `<span class="pinyin">` markup to all Ch
 
 ## 2026-03-09 — Meta-Learning Framework: Agent Boot File & SOPs
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Added Agent Self-Improvement Infrastructure
 
@@ -796,7 +821,7 @@ Implemented the "9 Meta-Learning Tips" framework (based on @AtlasForgeAI's artic
 
 ## 2026-03-09 — CNY vs LNY Article: "No Single Lunar New Year" Argument
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Strengthened Calendar-System Section with Cross-Cultural Evidence
 
@@ -820,7 +845,7 @@ Also updated the "Lunar New Year" bullet in "What Should You Call It?" and the f
 
 ## 2026-03-09 — CNY vs LNY Terminology Rejection (Site-Wide)
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Editorial Voice Updated Across 4 Files
 
@@ -838,7 +863,7 @@ SEO keywords and factual reporting (VANK campaign documentation, regional celebr
 
 ## 2026-03-09 — GA4 Event Tracking in site.js
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Added gtag Event Calls to All Interactive Features
 
@@ -871,7 +896,7 @@ All events follow the pattern established by the existing Web Vitals tracking in
 
 ## 2026-03-09 — Content Articles: Chinese New Year Series (5 articles)
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### New Articles Published
 
@@ -907,7 +932,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 
 ## 2026-03-09 — Favicon Fix, Encyclopaedia Translations, Onboarding Audit
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Favicon Updated to Match Page Logo
 
@@ -929,7 +954,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 
 ## 2026-03-09 — Onboarding Audit & Codebase Review
 
-**Author:** kiki.shmoo@gmail.com
+**Author:** kiki.shmoo
 
 ### Full Codebase Audit
 
@@ -945,7 +970,7 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 
 ## 2026-03-08 — Hero TC/SC Consistency, Language Toggle Fix, CI Hardening
 
-**Author:** lavertenstyle@gmail.com
+**Author:** lavertenstyle
 
 ### Hero Section TC/SC Translation Consistency (`7e46fe7`)
 
