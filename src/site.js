@@ -908,6 +908,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Validate date range (calculator accurate for 1900–2100)
+      if (year < 1900 || year > 2100) {
+        alert('Birth year must be between 1900 and 2100.');
+        return;
+      }
+      var testDate = new Date(year, month - 1, day);
+      if (testDate.getFullYear() !== year || testDate.getMonth() !== month - 1 || testDate.getDate() !== day) {
+        alert('The date entered is not valid.');
+        return;
+      }
+
       // Show loading state
       baziResult.innerHTML = '<div class="bazi-loading">Calculating your BaZi chart</div>';
       baziResult.classList.add('show');

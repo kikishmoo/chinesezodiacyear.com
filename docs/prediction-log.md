@@ -50,9 +50,9 @@
 **Decision:** Fix the BaZi calculator worker parser to handle zhouyi.cc's CSS class rename from `bazilist` to `bazilist1`, and update basicInfo regex patterns for span-wrapped label format
 **Prediction:** Changing the regex from `bazilist\s+f14` to `bazilist1?\s+f14` will match both old and new formats. The grid structure (7×5, 35 li items) is unchanged — only the class name differs. BasicInfo patterns updated to accept `</span>` delimiter will extract zodiac, constellation, and lunar date correctly. No other parsing changes needed.
 **Confidence:** High — verified by fetching live HTML from zhouyi.cc and testing the new regex locally (all 35 li items parsed, all basicInfo fields extracted)
-**Actual result:** (pending worker deployment)
-**Delta:** (pending)
-**Adjustment:** (pending)
+**Actual result:** Worker deployed via Cloudflare dashboard. API confirmed returning full pillar data (庚午/辛巳/庚辰/丁丑), Day Master (庚 Geng, Yang Metal), zodiac, constellation. Parse error: none.
+**Delta:** None — prediction was accurate
+**Adjustment:** When upstream HTML scrapers break, always test with a direct curl to the worker endpoint before and after deploying fixes
 
 ---
 
@@ -218,6 +218,17 @@
 **Actual result:** Build passed on first attempt (302 files, 596 variants, 0 errors, 7.11s). All frontend fixes clean. Nominatim integration with AbortController and timezone resolution worked as designed. Worker parser rewrite completed — awaits deployment via `wrangler deploy`.
 **Delta:** None for build. Worker deployment not testable in this environment (requires Cloudflare credentials).
 **Adjustment:** When fixing multi-layer bugs, address them systematically from frontend inward rather than trying to fix everything at once. The layered approach (IDs → data keys → geocoding → worker → renderer) prevented cascading confusion.
+
+---
+
+### 2026-03-20 — Implement quick wins from technical audit (5 items)
+
+**Decision:** Implement 5 quick wins identified in the 2026-03-18 audit: npm audit in CI, CSP meta tag, prefers-color-scheme dark mode, BaZi date validation (client + server), security.txt. These touch 7 files across the frontend, worker, build config, and CI pipeline.
+**Prediction:** All changes will pass the Eleventy build on first attempt. The CSP policy may need tuning in production — third-party scripts (especially AdSense and Facebook Pixel) are known to inject sub-resources from domains not easily predicted. The `prefers-color-scheme` integration will work correctly because it sets `data-theme="dark"` which activates the existing 200+ dark mode CSS rules. Date validation is straightforward and low-risk.
+**Confidence:** High for build pass, Medium for CSP not needing production adjustments
+**Actual result:** Build passed on first attempt (302 pages, 596 i18n variants, minification all correct). security.txt confirmed in `_site/.well-known/`. CSP confirmed in built HTML output.
+**Delta:** None for build. CSP may need post-deploy adjustments if AdSense loads sub-resources from unlisted domains (e.g. `tpc.googlesyndication.com`, `googleads.g.doubleclick.net`).
+**Adjustment:** After deploying, check browser console for CSP violation reports. Be prepared to add additional domains to the CSP policy.
 
 ---
 

@@ -18,6 +18,7 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/favicon.ico");
   eleventyConfig.addPassthroughCopy("src/apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy("src/manifest.json");
+  eleventyConfig.addPassthroughCopy("src/.well-known");
 
   // HTML Base Plugin for URL handling
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);

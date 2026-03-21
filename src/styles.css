@@ -5521,6 +5521,62 @@ html:not([data-lang]) span.lang-en { display: inline; }
 }
 
 /* ============================================
+   AUTO DARK MODE — respect OS preference when
+   user has not explicitly chosen a theme
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    color-scheme: dark;
+  }
+  html:not([data-theme]) body {
+    background: #1A1714;
+    color: #C8C0B4;
+  }
+  html:not([data-theme]) h1,
+  html:not([data-theme]) h2,
+  html:not([data-theme]) h3,
+  html:not([data-theme]) h4,
+  html:not([data-theme]) h5 {
+    color: var(--ivory);
+  }
+  html:not([data-theme]) a {
+    color: var(--bright-gold);
+  }
+  html:not([data-theme]) .site-header {
+    background: #1A1714;
+    border-bottom-color: rgba(191,147,40,0.12);
+  }
+  html:not([data-theme]) .article-content {
+    background: transparent;
+  }
+  html:not([data-theme]) .article-card,
+  html:not([data-theme]) .zodiac-card,
+  html:not([data-theme]) .feature-item,
+  html:not([data-theme]) .sidebar-widget {
+    background: #22201C;
+    border-color: rgba(191,147,40,0.08);
+  }
+  html:not([data-theme]) .faq-item {
+    background: #22201C;
+    border-color: rgba(191,147,40,0.08);
+  }
+  html:not([data-theme]) .faq-question {
+    color: var(--ivory);
+  }
+  html:not([data-theme]) .site-footer {
+    background: #16120E;
+    color: rgba(250,246,238,0.6);
+  }
+  html:not([data-theme]) .page-hero,
+  html:not([data-theme]) .home-hero {
+    background: #16120E;
+  }
+  html:not([data-theme]) .newsletter-section {
+    background: #16120E;
+  }
+}
+
+/* ============================================
    REDUCED MOTION — accessibility for
    motion-sensitive users (vestibular disorders)
    ============================================ */

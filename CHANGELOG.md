@@ -212,6 +212,74 @@ Added callout box to `/chinese-calendar-explained/` linking to the naming-histor
 
 ---
 
+## 2026-03-20 — Rate Limiting on BaZi Worker (Session 9 cont.)
+
+**Author:** Claude (via agent session)
+
+### Security — In-memory sliding window rate limiter
+
+Added rate limiting to `worker/bazi-worker.js` to prevent DOS attacks and automated scraping of upstream BaZi services. Implementation uses an in-memory sliding window (15 requests per 60 seconds per IP). Client IP is identified via `CF-Connecting-IP` header (set by Cloudflare edge). Exceeding the limit returns HTTP 429 with a `Retry-After: 60` header and a user-friendly error message. Includes periodic cleanup of stale entries to prevent memory growth in long-lived isolates.
+
+**Files changed:**
+- `worker/bazi-worker.js` — Added rate limiter (constants, `ipRequestLog` Map, `isRateLimited()` function, 429 response in handler)
+
+---
+
+## 2026-03-20 — Implement Quick Wins from Technical Audit (Session 9)
+
+**Author:** Claude (via agent session)
+
+### Security — npm audit in CI
+
+Added `npm audit --audit-level=high` step to `.github/workflows/deploy.yml` between dependency install and Eleventy build. Deploys now fail if high-severity vulnerabilities exist in dependencies.
+
+### Security — Content Security Policy
+
+Added `<meta http-equiv="Content-Security-Policy">` to `base.njk` with directives covering all third-party services (AdSense, GA4, Facebook Pixel, Clarity, Giscus, Beehiiv, Nominatim, web-vitals). Key protections: `object-src 'none'`, `base-uri 'self'`, `form-action` restricted to known endpoints.
+
+### Compatibility — Auto dark mode from OS preference
+
+Added `@media (prefers-color-scheme: dark)` to `styles.css` with core dark-mode styles for `html:not([data-theme])` (users who haven't explicitly toggled). Updated inline theme-init script in `base.njk` to set `data-theme="dark"` from OS preference via `matchMedia`, activating the full existing `[data-theme="dark"]` ruleset automatically.
+
+### Security — BaZi date range validation
+
+Added client-side validation in `site.js` (year 1900–2100, valid calendar date) and server-side validation in `worker/bazi-worker.js` (integer checks, range checks, `Date` existence validation). Invalid dates are rejected with clear error messages before any upstream API calls.
+
+### Security — security.txt
+
+Created `src/.well-known/security.txt` per RFC 9116 with contact email, preferred languages, canonical URL, and 1-year expiry. Added `.well-known` passthrough in `eleventy.config.js`.
+
+**Files changed:**
+- `.github/workflows/deploy.yml` — Added npm audit step
+- `src/_includes/layouts/base.njk` — Added CSP meta tag, updated theme-init script for OS dark mode
+- `src/styles.css` — Added `prefers-color-scheme: dark` media query
+- `src/site.js` — Added BaZi date range validation
+- `worker/bazi-worker.js` — Added server-side date validation
+- `eleventy.config.js` — Added `.well-known` passthrough
+- `src/.well-known/security.txt` — New file
+
+---
+
+## 2026-03-18 — Technical Audit: Architecture, APIs, Deployment, Compatibility, Testing, Security (Session 8 cont.)
+
+**Author:** Claude (via agent session)
+
+### Audit — 7-area technical review
+
+Full technical audit performed across architecture (架构), APIs/interfaces (接口), database (数据库), deployment (部署), compatibility (兼容), testing (测试), and security (安全). No code changes — findings documented in TODO.md as new action items.
+
+**Key findings:**
+- Architecture, data layer, CI/CD pipeline, i18n, CORS: all solid
+- **Critical gaps:** No rate limiting on BaZi Worker, zero test coverage, no CSP headers, no npm audit in CI
+- **Quick wins identified:** Add `npm audit` to deploy.yml, add CSP meta tag, add `prefers-color-scheme`, add BaZi input range validation, create security.txt
+
+**Files changed:**
+- `CHANGELOG.md` — This entry
+- `TODO.md` — Added 6 new technical/security items from audit
+- `CLAUDE.md` — Updated last-updated date, added audit attention point
+
+---
+
 ## 2026-03-16 — BaZi Calculator Parser Fix + FAQ i18n Fallback (Session 8)
 
 **Author:** Claude (via agent session)

@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-17
+**Last updated:** 2026-03-20
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -58,6 +58,12 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 31 | FAQ i18n fallback for untranslated content | 2026-03-16 |
 | 32 | Calendar naming history section (EN/TC/SC) | 2026-03-16 |
 | 33 | FAQ TC/SC translations: all 16 article pages (78 items) | 2026-03-19 |
+| 34 | Add `npm audit` step to CI deploy pipeline | 2026-03-20 |
+| 35 | Add CSP meta tag to base.njk | 2026-03-20 |
+| 36 | Add `prefers-color-scheme` media query for dark mode | 2026-03-20 |
+| 37 | Add BaZi input date range validation (form + worker) | 2026-03-20 |
+| 38 | Create security.txt for vulnerability disclosure | 2026-03-20 |
+| 39 | Add rate limiting to BaZi Worker | 2026-03-20 |
 
 ---
 

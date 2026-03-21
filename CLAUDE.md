@@ -94,6 +94,7 @@ Current project direction. Stable for months but may shift based on data.
 | Facebook Pixel | Installed 2026-03-09. Pixel ID: 1461477519098003. Verify events are firing in Meta Events Manager. | 2026-03-09 | 2026-04-06 | Verified 500+ PageView events in Events Manager |
 | Automated BaZi PDF reports | **CRITICAL new revenue initiative.** Build server-side PDF generation from BaZi calculator output. Template-based, zero marginal cost per sale. See TODO.md for full spec. | 2026-03-10 | 2026-05-10 | PDF report system live and processing sales |
 | FAQ translation backlog | **NEARLY COMPLETE 2026-03-19.** Encyclopaedia/hub pages (23), zodiac animal pages (12), readings pages (12), and article pages (16) ALL DONE. Only remaining: `eleventyComputed.js` autoFaq function (English-only). | 2026-03-15 | 2026-04-15 | All FAQ items have TC/SC translations site-wide |
+| Technical audit follow-ups | **2026-03-18 audit completed.** All HIGH-priority items resolved 2026-03-20: CSP meta tag, `npm audit` in CI, `prefers-color-scheme`, BaZi date validation, security.txt, rate limiting on BaZi Worker. **Remaining:** Zero test coverage (no automated tests). | 2026-03-18 | 2026-05-18 | All HIGH-priority audit items resolved |
 
 ---
 

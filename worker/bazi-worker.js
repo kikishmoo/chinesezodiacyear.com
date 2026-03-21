@@ -9,6 +9,56 @@
  *         ←  { pillars, reading, trueSolarTime, ... }
  */
 
+/* ============================================
+   Rate Limiter — in-memory sliding window
+   ============================================
+   Limits each IP to RATE_LIMIT requests per RATE_WINDOW_MS.
+   In-memory state persists within a single Worker isolate
+   (typically 30s–5min on Cloudflare). This stops burst abuse
+   and scripted scraping. For cross-edge persistence, upgrade
+   to Durable Objects or Cloudflare Rate Limiting rules.
+   ============================================ */
+
+const RATE_LIMIT = 15;            // max requests per window per IP
+const RATE_WINDOW_MS = 60 * 1000; // 60-second sliding window
+const CLEANUP_INTERVAL_MS = 120 * 1000; // purge stale entries every 2 min
+
+const ipRequestLog = new Map();   // IP → [timestamp, timestamp, …]
+let lastCleanup = Date.now();
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const cutoff = now - RATE_WINDOW_MS;
+
+  // Periodic cleanup of stale IPs to prevent memory growth
+  if (now - lastCleanup > CLEANUP_INTERVAL_MS) {
+    for (const [key, timestamps] of ipRequestLog) {
+      const fresh = timestamps.filter(t => t > cutoff);
+      if (fresh.length === 0) ipRequestLog.delete(key);
+      else ipRequestLog.set(key, fresh);
+    }
+    lastCleanup = now;
+  }
+
+  let timestamps = ipRequestLog.get(ip);
+  if (!timestamps) {
+    timestamps = [];
+    ipRequestLog.set(ip, timestamps);
+  }
+
+  // Drop expired entries for this IP
+  while (timestamps.length > 0 && timestamps[0] <= cutoff) {
+    timestamps.shift();
+  }
+
+  if (timestamps.length >= RATE_LIMIT) {
+    return true; // over limit
+  }
+
+  timestamps.push(now);
+  return false;
+}
+
 const CORS_HEADERS = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -38,12 +88,40 @@ export default {
       return Response.json({ error: 'Method not allowed' }, { status: 405, headers });
     }
 
+    // Rate limiting — identify client by CF-Connecting-IP (set by Cloudflare edge)
+    const clientIp = request.headers.get('CF-Connecting-IP')
+                  || request.headers.get('X-Forwarded-For')
+                  || 'unknown';
+    if (isRateLimited(clientIp)) {
+      return Response.json(
+        { error: 'Too many requests. Please wait a minute before trying again.' },
+        { status: 429, headers: { ...headers, 'Retry-After': '60' } }
+      );
+    }
+
     try {
       const body = await request.json();
       const { year, month, day, hour, minute, lat, lng, tz, sex } = body;
 
       if (!year || !month || !day) {
         return Response.json({ error: 'year, month, and day are required' }, { status: 400, headers });
+      }
+
+      // Validate date ranges (calculator is accurate for 1900–2100)
+      const y = Number(year), m = Number(month), d = Number(day);
+      if (!Number.isInteger(y) || y < 1900 || y > 2100) {
+        return Response.json({ error: 'Year must be between 1900 and 2100' }, { status: 400, headers });
+      }
+      if (!Number.isInteger(m) || m < 1 || m > 12) {
+        return Response.json({ error: 'Month must be between 1 and 12' }, { status: 400, headers });
+      }
+      if (!Number.isInteger(d) || d < 1 || d > 31) {
+        return Response.json({ error: 'Day must be between 1 and 31' }, { status: 400, headers });
+      }
+      // Validate the date actually exists
+      const testDate = new Date(y, m - 1, d);
+      if (testDate.getFullYear() !== y || testDate.getMonth() !== m - 1 || testDate.getDate() !== d) {
+        return Response.json({ error: 'Invalid date' }, { status: 400, headers });
       }
 
       const hasTime = (hour !== undefined && hour !== null && hour !== '');
