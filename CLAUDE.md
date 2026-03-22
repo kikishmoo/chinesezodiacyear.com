@@ -118,8 +118,9 @@ Current project direction. Stable for months but may shift based on data.
 | SEO docs | `docs/seo-performance.md` |
 | TODO roadmap | `TODO.md` |
 | Changelog | `CHANGELOG.md` |
-| Worker config | `wrangler.jsonc` (root — deploys `worker/bazi-worker.js`) |
-| Worker source | `worker/bazi-worker.js` |
+| Worker config | `wrangler.jsonc` (root — deploys `worker/index.js`) |
+| Worker entry | `worker/index.js` (router + middleware wiring) |
+| Worker legacy | `worker/bazi-worker.js` (monolithic, superseded by modular structure) |
 | Worker legacy config | `worker/wrangler.toml` (superseded by root `wrangler.jsonc`) |
 
 ---

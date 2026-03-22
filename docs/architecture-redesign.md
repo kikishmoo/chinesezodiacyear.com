@@ -2,7 +2,7 @@
 
 > **Date:** 2026-03-19
 > **Author:** Architecture review (via MuleRun Super Agent)
-> **Status:** Approved — pending implementation
+> **Status:** Phase 1 (Worker restructure) complete (2026-03-21). Phases 2–5 pending.
 > **Scope:** Full stack (Cloudflare Worker backend + Eleventy frontend)
 
 ---

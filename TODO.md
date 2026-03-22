@@ -89,11 +89,12 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 - Price point ($5–$9) is low enough for impulse purchase, high enough for meaningful revenue at scale
 
 **Technical approach:**
-1. Write templated content sections: 12 animal profiles, 5 element analyses, 10 Heavenly Stems, 12 Earthly Branches, 60 stem-branch pillar combinations, 10 Day Master interpretations, Ten Gods analysis templates
-2. Build PDF generation service (Cloudflare Worker or Node.js serverless function) that assembles sections based on user's BaZi chart
-3. Integrate payment gate (Stripe Checkout or Gumroad) — user pays, receives instant PDF download
-4. Add CTA to existing BaZi calculator results page
-5. Track conversions via GA4 custom events
+1. ~~Restructure Worker API into modular architecture (router/service/adapter) to support multiple endpoints~~ **DONE (Session 14, 2026-03-21)** — `worker/index.js` entry, `/v1/bazi/calculate`, `/v1/health`, 40 vitest tests
+2. Write templated content sections: 12 animal profiles, 5 element analyses, 10 Heavenly Stems, 12 Earthly Branches, 60 stem-branch pillar combinations, 10 Day Master interpretations, Ten Gods analysis templates
+3. Build PDF generation route (`POST /v1/bazi/report`) that assembles sections based on user's BaZi chart
+4. Integrate payment gate (Stripe Checkout or Gumroad) — user pays, receives instant PDF download
+5. Add CTA to existing BaZi calculator results page
+6. Track conversions via GA4 custom events
 
 **Revenue model:** $5–$9 per download. At 1% conversion of calculator users, even 100 daily calculator uses = 1 sale/day = $150–$270/month minimum. At scale with SEO traffic growth, $500–$3,000/month.
 

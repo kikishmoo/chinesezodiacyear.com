@@ -4,6 +4,8 @@
   "type": "module",
   "description": "Encyclopaedia, directory, and news platform for Chinese zodiac, BaZi, feng shui, and traditional Chinese culture.",
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
     "build": "npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve --port=8080",
     "dev": "npx @11ty/eleventy --serve --port=8080",
@@ -23,6 +25,7 @@
     "@11ty/eleventy-img": "^6.0.4",
     "clean-css": "^5.3.3",
     "terser": "^5.46.0",
+    "vitest": "^4.1.0",
     "wrangler": "^4.71.0"
   }
 }

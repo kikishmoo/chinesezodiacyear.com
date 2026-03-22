@@ -69,6 +69,66 @@ Full 14-point technical SEO audit completed. **All checks passed (A+ grade):**
 
 ---
 
+## 2026-03-21 — Worker Architecture Restructure: Phase 1 (Session 15)
+
+**Author:** Agent session (via MuleRun Super Agent)
+
+### Architecture — Modular Worker API
+
+Decomposed monolithic `worker/bazi-worker.js` (393 lines, single file) into a modular architecture with router, service layer, adapters, models, middleware, and tests. Implements Phase 1 of the approved architecture redesign (`docs/architecture-redesign.md`).
+
+**New structure (17 files):**
+
+| Layer | Files | Purpose |
+|-------|-------|---------|
+| Entry | `worker/index.js` | Router dispatch + CORS + error handler |
+| Router | `worker/router.js` | Lightweight path/method router |
+| Routes | `worker/routes/bazi.js`, `health.js` | Request handlers (v1 API + legacy `/` alias) |
+| Services | `worker/services/bazi-service.js` | Business logic orchestrator |
+| Adapters | `worker/adapters/windada-adapter.js`, `zhouyi-adapter.js` | Upstream scrapers with `fetch()` + `parse()` interface |
+| Models | `worker/models/errors.js`, `bazi-request.js`, `pillar.js` | Typed errors, validation, data structures |
+| Data | `worker/data/stems.js` | Heavenly Stems + Earthly Branches reference |
+| Lib | `worker/lib/html-parser.js` | Shared `stripTags()`, `cleanText()` |
+| Middleware | `worker/middleware/cors.js`, `error-handler.js` | CORS origin validation, structured error responses |
+| Tests | `worker/__tests__/` (4 test files, 4 HTML fixtures) | 40 tests covering parsers, validation, routing |
+
+**Key improvements:**
+- **Typed errors:** `ValidationError` (400), `UpstreamError` (502), `TimeoutError` (504), `CircuitOpenError` (503) — each with `retryable` flag
+- **Request validation:** Year 1900–2100 range, lat/lng bounds, type coercion
+- **API versioning:** `POST /v1/bazi/calculate` (canonical), `POST /` (backwards-compatible alias), `GET /v1/health`
+- **Parser tests:** Zhouyi adapter tested against HTML fixtures (addresses Regression #6)
+- **Structured error responses:** `{ error: { code, message, retryable } }`
+
+### Testing
+
+- 40 vitest tests, all passing
+- Eleventy build: 302 pages, 596 i18n variants, zero errors
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `worker/index.js` | New — entry point with router wiring |
+| `worker/router.js` | New — lightweight path/method router |
+| `worker/routes/bazi.js` | New — BaZi calculate route handler |
+| `worker/routes/health.js` | New — health check endpoint |
+| `worker/services/bazi-service.js` | New — business logic orchestrator |
+| `worker/adapters/windada-adapter.js` | New — True Solar Time adapter |
+| `worker/adapters/zhouyi-adapter.js` | New — BaZi chart parser adapter |
+| `worker/models/errors.js` | New — typed error classes |
+| `worker/models/bazi-request.js` | New — request validation |
+| `worker/models/pillar.js` | New — pillar data structure + Day Master |
+| `worker/data/stems.js` | New — stems/branches reference data |
+| `worker/lib/html-parser.js` | New — shared HTML utilities |
+| `worker/middleware/cors.js` | New — CORS middleware |
+| `worker/middleware/error-handler.js` | New — error-to-response mapper |
+| `worker/__tests__/` | New — 4 test files + 4 HTML fixtures |
+| `wrangler.jsonc` | Updated main entry to `worker/index.js` |
+| `package.json` | Added vitest, test scripts |
+| `CLAUDE.md` | Updated worker file locations |
+
+---
+
 ## 2026-03-19 — BaZi Calculator: Fix Result Formatting (Session 13)
 
 **Author:** yunneoi.yn
