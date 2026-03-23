@@ -12,6 +12,7 @@
 
 import { Router } from './router.js';
 import { resolveCorsOrigin, buildCorsHeaders, handlePreflight } from './middleware/cors.js';
+import { checkRateLimit } from './middleware/rate-limiter.js';
 import { errorToResponse } from './middleware/error-handler.js';
 import { handleBaziCalculate } from './routes/bazi.js';
 import { handleHealth } from './routes/health.js';
@@ -38,6 +39,10 @@ export default {
     if (request.method === 'OPTIONS') {
       return handlePreflight(corsHeaders);
     }
+
+    // Rate limiting (dual-layer: in-memory + KV)
+    const rateLimited = await checkRateLimit(request, env, corsHeaders);
+    if (rateLimited) return rateLimited;
 
     // Route dispatch
     const url = new URL(request.url);
