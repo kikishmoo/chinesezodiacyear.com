@@ -64,6 +64,8 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 37 | Add BaZi input date range validation (form + worker) | 2026-03-20 |
 | 38 | Create security.txt for vulnerability disclosure | 2026-03-20 |
 | 39 | Add rate limiting to BaZi Worker | 2026-03-20 |
+| 40 | Refine CSP — add AdSense/GA4/FB Pixel sub-resource domains | 2026-03-24 |
+| 41 | Upgrade rate limiting to dual-layer (in-memory + Cloudflare KV) | 2026-03-24 |
 
 ---
 

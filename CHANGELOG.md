@@ -5,6 +5,28 @@
 
 ---
 
+## 2026-03-24 — CSP Refinement + KV-backed Rate Limiting (Session 15)
+
+**Author:** Claude (agent)
+
+### CSP Refinement
+
+Audited all external domains loaded by the site against the CSP policy. Added missing Google ad-tech domains (AdSense loads scripts/iframes from doubleclick, googleadservices, tpc.googlesyndication), GA4 beacon transport endpoint, and Facebook Pixel graph API. Added `upgrade-insecure-requests` directive for HTTPS-only enforcement.
+
+**Files changed:** `src/_includes/layouts/base.njk`
+
+### Upgrade Rate Limiting to Dual-Layer (In-Memory + Cloudflare KV)
+
+Replaced the single in-memory rate limiter with a dual-layer system:
+- **Layer 1 (in-memory):** Zero-latency burst protection within a single Worker isolate.
+- **Layer 2 (KV):** Cross-edge persistent counters via Cloudflare KV namespace (`bazi-rate-limit`). Keys auto-expire after 120s. Graceful degradation if KV unavailable.
+
+KV namespace ID: `bfd6972986044803961150f924c8f40f`, bound as `RATE_LIMIT_KV`.
+
+**Files changed:** `worker/middleware/rate-limiter.js` (new), `worker/index.js`, `wrangler.jsonc`
+
+---
+
 ## 2026-03-20 — AdSense "Low Value Content" Fix + SEO Audit (Session 14)
 
 **Author:** kiki.peiqi.li
