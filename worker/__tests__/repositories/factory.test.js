@@ -1,12 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { createRepositories } from '../../repositories/index.js';
+import { ValidationError } from '../../models/errors.js';
 
 describe('repository factory', () => {
-  it('returns null repositories when DB binding is missing', () => {
-    const repositories = createRepositories({});
-    expect(repositories.hasDatabase).toBe(false);
-    expect(repositories.reportTemplates).toBeNull();
-    expect(repositories.reportJobs).toBeNull();
+  it('throws validation error when DB binding is missing', () => {
+    expect(() => createRepositories({})).toThrow(ValidationError);
   });
 
   it('creates repositories when DB binding exists', () => {
@@ -25,7 +23,6 @@ describe('repository factory', () => {
     };
 
     const repositories = createRepositories({ DB: fakeDb });
-    expect(repositories.hasDatabase).toBe(true);
     expect(repositories.reportTemplates).toBeTruthy();
     expect(repositories.reportJobs).toBeTruthy();
   });

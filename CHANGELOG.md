@@ -5,22 +5,21 @@
 
 ---
 
-## 2026-03-27 — Phase 6 Step 3: Repository Layer Scaffold + Boundary Enforcement (Session 21)
+## 2026-03-27 — Phase 6 Step 3: Repository Layer Scaffold (Session 21)
 
 **Author:** Cody
 
-### Worker Repository Foundation
+### Worker Repository Pattern + SQL Boundary Guard
 
-Implemented the next architecture-priority item by scaffolding a Worker repository layer and adding an automated guardrail that keeps SQL out of service modules.
+Implemented the next architecture item by scaffolding repository ownership for D1 queries and adding a CI-enforced boundary that prevents SQL from being written in service files.
 
 **Changes:**
-- Added `worker/repositories/base-d1-repository.js` with shared D1 helpers (`first`, `all`, `run`).
-- Added `worker/repositories/report-template-repository.js` and `worker/repositories/report-job-repository.js` as initial data-access modules for report monetisation flows.
-- Added `worker/repositories/index.js` repository factory (`createRepositories(env)`) with graceful behavior when D1 binding is absent.
-- Added `scripts/check-no-sql-in-services.sh` and npm script `infra:repositories:check` to enforce the no-SQL-in-services boundary.
-- Updated CI test job in `.github/workflows/deploy.yml` to run `npm run infra:repositories:check`.
-- Added repository factory tests in `worker/__tests__/repositories/factory.test.js`.
-- Updated `TODO.md` Phase 6 notes to reflect Item O scaffolding completion state.
+- Added repository infrastructure: `worker/repositories/db-client.js`, `worker/repositories/report-templates-repository.js`, `worker/repositories/report-jobs-repository.js`, `worker/repositories/index.js`.
+- Added SQL boundary guard script: `scripts/check-service-sql-boundary.sh`.
+- Added npm script: `infra:boundaries:check`.
+- Updated CI (`.github/workflows/deploy.yml`) to run boundary checks in the test job.
+- Added repository unit tests in `worker/__tests__/repositories/` for report template/job query behavior.
+- Updated `TODO.md`, `CLAUDE.md`, and `docs/architecture-redesign.md` with Step 3 progress status.
 
 ---
 
@@ -1619,3 +1618,12 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 ### 2026-02-22 — Initial Upload
 
 - Initial file upload to repository.
+
+## 2026-03-27 (Session 22) — Repository Layer Scaffold + SQL Boundary Guard
+
+- **Author:** Cody
+- Added `worker/repositories/base-repository.js` and `worker/repositories/report-template-repository.js` to establish a dedicated D1 repository layer where SQL is owned.
+- Added `worker/services/report-template-service.js` as a service-layer example consuming repositories without inline SQL.
+- Added `scripts/check-no-sql-in-services.sh` and wired `npm run infra:architecture:check` to enforce the no-SQL-in-services rule.
+- Updated CI (`.github/workflows/deploy.yml`) test job to run the architecture boundary check after migration validation.
+
