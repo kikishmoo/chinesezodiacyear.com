@@ -5,6 +5,22 @@
 
 ---
 
+## 2026-03-27 — Phase 6 Step 3 Bootstrap: Repository Layer Scaffold + SQL Guardrail (Session 21)
+
+**Author:** Cody
+
+### Worker Repository Baseline (Item O)
+
+Implemented the next architecture item by introducing repository-layer scaffolding for D1 and a CI guardrail that blocks SQL from service modules.
+
+**Changes:**
+- Added `worker/repositories/` scaffold with `db-context.js` and aggregate repositories for report templates, report jobs, transactions, and directory leads.
+- Added `worker/repositories/README.md` documenting repository ownership and no-SQL-in-services rule.
+- Added `scripts/check-no-sql-in-services.sh` to fail when SQL or D1 `prepare/exec` appears under `worker/services/*`.
+- Added npm script `infra:services:check-sql` and wired it into `.github/workflows/deploy.yml` test job.
+- Updated `TODO.md` and `CLAUDE.md` to reflect Item O bootstrap progress.
+
+---
 ## 2026-03-27 — Phase 6 Step 2: Migration Workflow Bootstrap (Session 20)
 
 **Author:** Cody

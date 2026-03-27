@@ -37,6 +37,9 @@ jobs:
       - name: Validate D1 migrations scaffold
         run: npm run infra:migrations:check
 
+      - name: Enforce no-SQL-in-services guardrail
+        run: npm run infra:services:check-sql
+
       - name: Audit dependencies
         run: npm audit --audit-level=high
 
