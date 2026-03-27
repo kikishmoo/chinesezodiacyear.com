@@ -756,13 +756,13 @@ push to main
 | Pillar model | ✅ Done | Data structure definition |
 | Request validation | ✅ Done | Year/month/day/hour/lat/lon validation |
 | Tests (55 cases) | ✅ Done | Adapters, models, routes tested |
-| **Cache middleware** | ❌ Missing | Not implemented |
-| **Retry logic** | ❌ Missing | Not implemented |
-| **Circuit breaker** | ❌ Missing | Not implemented |
-| **Solar time service** | ⚠️ Partial | Logic in windada adapter, not extracted |
-| **Response schema** | ⚠️ Partial | Shape informal, no JSDoc/schema |
-| **PDF report route** | ❌ Missing | Blocks revenue initiative A |
-| **Compatibility route** | ❌ Missing | Blocks revenue initiative B |
+| **Cache middleware** | ✅ Implemented | `worker/lib/cache.js` with SHA-256 keying + 24h TTL |
+| **Retry logic** | ✅ Implemented | `worker/lib/retry.js` exponential backoff (max 2 retries) |
+| **Circuit breaker** | ✅ Implemented | `worker/lib/circuit-breaker.js` per-host state machine |
+| **Solar time service** | ✅ Implemented | Extracted to `worker/services/solar-time-service.js` |
+| **Response schema** | ✅ Implemented | Formalised in `worker/models/bazi-response.js` |
+| **PDF report route** | ❌ Missing | Still blocks revenue initiative A (next execution target) |
+| **Compatibility route** | ❌ Missing | Still blocks revenue initiative B (next execution target) |
 | **Widget route** | ❌ Missing | Low priority |
 
 ---
@@ -803,3 +803,19 @@ push to main
 3. Daily/weekly horoscopes (recurring engagement driver)
 4. Flying Star annual charts (interactive feng shui tool)
 5. Advanced BaZi features (symbolic stars, Na Yin, day master strength)
+
+
+
+## 10. Industrial-Standard Gap Checklist (2026-03-27 Addendum)
+
+To align with mature production backends, the current architecture should add:
+
+1. **Repository layer standardisation** for all D1 access (`worker/repositories/*`) with query ownership separated from services.
+2. **Database migration workflow** (`migrations/` + CI migration checks + rollback notes).
+3. **Contract-first API docs** (OpenAPI spec for `/v1/*` routes, including error envelopes).
+4. **Admin authN/authZ** for future write endpoints (JWT/service token, role-scoped permissions, audit trail).
+5. **Observability baseline** (request IDs, structured JSON logs, route latency/error metrics, alert thresholds).
+6. **Data governance controls** (PII minimisation for birth data, retention windows, deletion workflow, access policy).
+7. **Asynchronous job model** for report generation (`report_jobs`) with retry/dead-letter semantics.
+
+These controls are mandatory before scaling paid-report volume or opening partner-facing APIs.

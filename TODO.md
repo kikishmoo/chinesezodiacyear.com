@@ -39,6 +39,9 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 42 | Template/data refactor — Phase 4 architecture         | LOW        | Medium | Medium   | Technical  |
 | **J** | **Set up Cloudflare D1 database + R2 bucket**     | **HIGH**   | Low    | **High** | **Technical** |
 | **K** | **Migrate revenue data to D1 (directory, shop, report templates)** | **HIGH** | Medium | **Very High** | **Revenue** |
+| **L** | **Define D1 migration workflow (schema versioning + rollback SOP)** | **HIGH** | Low | **High** | **Technical** |
+| **M** | **Add OpenAPI contract for Worker `/v1/*` routes** | **MEDIUM** | Medium | **High** | **Technical** |
+| **N** | **Implement data governance policy for birth-data retention/deletion** | **HIGH** | Low | **High** | **Compliance** |
 | 43 | Add daily/weekly horoscope feature                    | LOW        | High   | Medium   | Product    |
 | 44 | Add AI-powered BaZi chat (LLM integration)           | LOW        | High   | High     | Product    |
 
