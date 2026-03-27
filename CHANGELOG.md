@@ -1618,3 +1618,12 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 ### 2026-02-22 — Initial Upload
 
 - Initial file upload to repository.
+
+## 2026-03-27 (Session 22) — Repository Layer Scaffold + SQL Boundary Guard
+
+- **Author:** Cody
+- Added `worker/repositories/base-repository.js` and `worker/repositories/report-template-repository.js` to establish a dedicated D1 repository layer where SQL is owned.
+- Added `worker/services/report-template-service.js` as a service-layer example consuming repositories without inline SQL.
+- Added `scripts/check-no-sql-in-services.sh` and wired `npm run infra:architecture:check` to enforce the no-SQL-in-services rule.
+- Updated CI (`.github/workflows/deploy.yml`) test job to run the architecture boundary check after migration validation.
+

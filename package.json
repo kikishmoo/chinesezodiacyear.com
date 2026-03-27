@@ -18,7 +18,8 @@
     "infra:migrations:check": "bash ./scripts/check-migrations.sh",
     "infra:migrations:apply:local": "npx --no-install wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --local",
     "infra:migrations:apply:remote": "npx --no-install wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --remote",
-    "infra:boundaries:check": "bash ./scripts/check-service-sql-boundary.sh"
+    "infra:boundaries:check": "bash ./scripts/check-service-sql-boundary.sh",
+    "infra:architecture:check": "bash ./scripts/check-service-sql-boundary.sh"
   },
   "keywords": [
     "chinese-zodiac",
