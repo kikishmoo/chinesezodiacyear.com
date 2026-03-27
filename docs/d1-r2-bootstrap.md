@@ -70,3 +70,7 @@ npm run infra:migrations:apply:remote
 ```
 
 Migration naming rules and rollback SOP are documented in `migrations/README.md`.
+## 5) Scope note
+
+This runbook intentionally covers **infrastructure provisioning only** (Step 1).
+Schema/migrations, repository layer, and API contracts are handled in subsequent steps.

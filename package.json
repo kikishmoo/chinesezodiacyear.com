@@ -18,6 +18,7 @@
     "infra:migrations:check": "bash ./scripts/check-migrations.sh",
     "infra:migrations:apply:local": "wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --local",
     "infra:migrations:apply:remote": "wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --remote"
+    "infra:list": "wrangler d1 list && wrangler r2 bucket list"
   },
   "keywords": [
     "chinese-zodiac",
