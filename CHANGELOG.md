@@ -5,6 +5,24 @@
 
 ---
 
+## 2026-03-27 — Phase 6 Step 2: Migration Workflow Bootstrap (Session 20)
+
+**Author:** Cody
+
+### D1 Migration Baseline + CI Scaffolding
+
+Implemented Item 2 from the architecture priority order by introducing migration conventions, the first schema migration, and CI checks.
+
+**Changes:**
+- Added `migrations/202603271300_phase6_initial_schema.sql` with baseline Phase 6 tables: `report_templates`, `report_jobs`, `transactions`, `directory_listings`, `directory_leads`, `products`, plus supporting indexes.
+- Added `migrations/README.md` with naming convention, append-only rules, apply commands, and rollback SOP.
+- Added `scripts/check-migrations.sh` to validate migration filename format/order and execute SQL against in-memory SQLite as a syntax safety check.
+- Added npm scripts in `package.json`: `infra:migrations:check`, `infra:migrations:apply:local`, `infra:migrations:apply:remote`.
+- Updated `.github/workflows/deploy.yml` test job to run `npm run infra:migrations:check`.
+- Updated `docs/d1-r2-bootstrap.md`, `TODO.md`, and `CLAUDE.md` to reflect Step 2 migration bootstrap completion.
+
+---
+
 ## 2026-03-27 — Phase 6 Step 1: D1/R2 Bootstrap Assets (Session 19)
 
 **Author:** Cody

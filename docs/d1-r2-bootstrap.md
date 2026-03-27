@@ -58,7 +58,15 @@ npx wrangler d1 list
 npx wrangler r2 bucket list
 ```
 
-## 5) Scope note
+## 5) Migration bootstrap (Step 2)
 
-This runbook intentionally covers **infrastructure provisioning only** (Step 1).
-Schema/migrations, repository layer, and API contracts are handled in subsequent steps.
+After binding D1 in `wrangler.jsonc`, run the migration workflow:
+
+```bash
+export D1_DATABASE_BINDING=DB
+npm run infra:migrations:check
+npm run infra:migrations:apply:local
+npm run infra:migrations:apply:remote
+```
+
+Migration naming rules and rollback SOP are documented in `migrations/README.md`.
