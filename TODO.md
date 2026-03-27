@@ -52,6 +52,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 - Item **J** bootstrap assets added: `scripts/bootstrap-d1-r2.sh` and `docs/d1-r2-bootstrap.md` (resource creation + binding instructions).
 - Still pending: actual resource creation in Cloudflare account and binding IDs committed to `wrangler.jsonc`.
 - Item **L** bootstrap assets added: `migrations/202603271300_phase6_initial_schema.sql`, `migrations/README.md`, and CI migration scaffold (`scripts/check-migrations.sh`, `npm run infra:migrations:check`).
+- Item **O** scaffold added: `worker/repositories/*` plus SQL-boundary CI guard (`scripts/check-service-sql-boundary.sh`, `npm run infra:boundaries:check`).
 
 ### Completed Items (moved from matrix)
 
