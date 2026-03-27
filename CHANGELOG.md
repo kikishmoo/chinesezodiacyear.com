@@ -5,6 +5,37 @@
 
 ---
 
+## 2026-03-27 — Onboarding Audit Revision (Session 18)
+
+**Author:** Cody
+
+### Follow-up Documentation Tightening
+
+Refined the onboarding audit and architecture redesign docs to make recommendations implementation-specific and to remove stale action wording.
+
+**Documentation updates:**
+- `docs/onboarding-audit-2026-03-27.md` — Added explicit evidence reviewed section (worker files, wrangler config, CI workflow, architecture docs) and an industrial-standard scorecard with quantified maturity ratings.
+- `docs/architecture-redesign.md` — Updated `Critical Files` table wording so completed Phase 1 modules are no longer shown as pending implementation; added Section 11 with a concrete Phase 6 D1/R2 execution blueprint and Definition of Done.
+- `TODO.md` — Added item O to scaffold a repository layer and enforce no-SQL-in-services rule.
+
+---
+
+## 2026-03-27 — Onboarding Audit, Industrial-Standard Gap Review & Documentation Revision (Session 17)
+
+**Author:** Cody
+
+### Quick Audit + Business Execution Baseline
+
+Completed an onboarding audit focused on minimum-fund business execution and production-readiness of the current architecture.
+
+**Documentation updates:**
+- `docs/onboarding-audit-2026-03-27.md` — New onboarding audit report covering business strengths, architecture gaps, D1 backend standards, 30-day execution plan, team-of-teams operating model, and decision requests.
+- `docs/architecture-redesign.md` — Corrected stale Phase 1 audit table entries (cache/retry/circuit breaker/solar-time/response-schema now marked implemented), and added Section 10 industrial-standard backend gap checklist (repository pattern, migrations, OpenAPI, auth, observability, governance, async job model).
+- `TODO.md` — Added items L/M/N for D1 migration workflow, Worker OpenAPI contract, and birth-data retention/deletion governance policy.
+- `CLAUDE.md` — Added temporary attention point to track industrial-standard backend controls from onboarding audit.
+
+---
+
 ## 2026-03-27 — Architecture Review & Documentation Update (Session 16, part 6)
 
 **Author:** kiki.peiqi.greene
