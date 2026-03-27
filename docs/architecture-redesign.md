@@ -848,5 +848,5 @@ To convert the proposed data layer into implementation-ready work, execute in th
 - D1 schema migrations run successfully in CI and production.
 - At least one write endpoint and one read endpoint are backed by repository-layer D1 queries.
 - OpenAPI file published and validated in CI.
-- Retention/deletion policy documented and linked from docs + TODO.
+- Retention/deletion policy documented and linked from docs + TODO (`docs/birth-data-governance-policy.md`).
 - End-to-end paid-report happy path completes with persisted transaction + report job record.

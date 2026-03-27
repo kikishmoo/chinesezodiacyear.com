@@ -40,6 +40,9 @@ jobs:
       - name: Validate service/repository SQL boundary
         run: npm run infra:boundaries:check
 
+      - name: Validate OpenAPI contract
+        run: npm run infra:openapi:check
+
       - name: Audit dependencies
         run: npm audit --audit-level=high
 
