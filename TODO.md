@@ -19,7 +19,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | **A** | **Build automated BaZi PDF report system**        | **CRITICAL** | Medium | **Very High** | **Revenue** |
 | **B** | **Build automated Compatibility PDF reports**     | **CRITICAL** | Low    | **High**     | **Revenue** |
 | ~~**E**~~ | ~~**Fix CI/CD: add test job + worker deploy (Phase 5)**~~ | ~~**CRITICAL**~~ | ~~Low~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
-| **F** | **Complete Worker Phase 1 gaps (cache, retry, circuit breaker)** | **HIGH** | Medium | **High** | **Technical** |
+| ~~**F**~~ | ~~**Complete Worker Phase 1 gaps (cache, retry, circuit breaker)**~~ | ~~**HIGH**~~ | ~~Medium~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
 | **C** | **Expand directory for lead-gen (scrape + enrich)** | HIGH     | Medium-High | High  | Revenue    |
 | **G** | **JS modularisation — Phase 2 architecture**      | HIGH       | High   | Medium   | Technical  |
 | **D** | **Build embeddable BaZi API/widget**              | MEDIUM   | Medium | Medium       | Revenue    |
@@ -75,6 +75,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 40 | Refine CSP — add AdSense/GA4/FB Pixel sub-resource domains | 2026-03-24 |
 | 41 | Upgrade rate limiting to dual-layer (in-memory + Cloudflare KV) | 2026-03-24 |
 | E | Fix CI/CD: add test job + worker deploy (Phase 5) | 2026-03-27 |
+| F | Complete Worker Phase 1 gaps (cache, retry, circuit breaker) | 2026-03-27 |
 
 ---
 

@@ -5,6 +5,39 @@
 
 ---
 
+## 2026-03-27 — Phase 1 Completion: Cache, Retry, Circuit Breaker, Solar Time Service (Session 16, part 3)
+
+**Author:** kiki.peiqi.greene
+
+### Worker Resilience Stack
+
+Implemented the 5 remaining Phase 1 gaps to complete the modular Worker architecture:
+
+- **Cache middleware** (`worker/lib/cache.js`): Cloudflare Cache API wrapper. Keys on SHA-256 of canonical request JSON. 24h TTL. BaZi charts are deterministic — same input always returns same output, so caching is safe. Graceful degradation on cache errors.
+- **Retry logic** (`worker/lib/retry.js`): Exponential backoff wrapper. Max 2 retries, 500ms/1s delays. Non-retryable errors (ValidationError) thrown immediately. Retryable errors (UpstreamError, TimeoutError) retried.
+- **Circuit breaker** (`worker/lib/circuit-breaker.js`): Per-host state machine (CLOSED → OPEN → HALF_OPEN). 5 failures → OPEN, 30s recovery timeout. In-memory state per Worker isolate. Registry pattern via `getBreaker(source)`.
+- **Solar time service** (`worker/services/solar-time-service.js`): Extracted True Solar Time logic from bazi-service.js into standalone module. Wraps windada adapter with retry + circuit breaker. Graceful degradation to clock time on any failure.
+- **Response schema** (`worker/models/bazi-response.js`): JSDoc typedefs for full BaziResponse shape (pillars, dayMaster, daYun, readingSections, etc.) + `validateResponse()` function.
+
+### Wiring
+
+Updated `bazi-service.js` to use the full resilience stack:
+- Cache check before any upstream calls
+- Solar time via dedicated service (handles own retry/circuit)
+- Zhouyi chart call wrapped in circuit breaker + retry
+- Cache store after successful calculation (fire-and-forget)
+
+### Tests
+
+Added 24 new test cases (total: 64):
+- `retry.test.js` (6 tests): success, retry-and-recover, non-retryable bail, exhaustion, zero-retry, default retryable
+- `circuit-breaker.test.js` (10 tests): states, transitions, thresholds, recovery, half-open probe, reset
+- `bazi-response.test.js` (8 tests): validation of all required fields, multiple error collection
+
+**Files changed:** `worker/lib/cache.js` (new), `worker/lib/retry.js` (new), `worker/lib/circuit-breaker.js` (new), `worker/services/solar-time-service.js` (new), `worker/models/bazi-response.js` (new), `worker/services/bazi-service.js` (updated), `worker/__tests__/lib/retry.test.js` (new), `worker/__tests__/lib/circuit-breaker.test.js` (new), `worker/__tests__/models/bazi-response.test.js` (new)
+
+---
+
 ## 2026-03-27 — Phase 5 CI/CD: Test Gate + Worker Auto-Deploy (Session 16, part 2)
 
 **Author:** kiki.peiqi.greene
