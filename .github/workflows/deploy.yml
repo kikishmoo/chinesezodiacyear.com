@@ -34,6 +34,9 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Validate D1 migrations scaffold
+        run: npm run infra:migrations:check
+
       - name: Audit dependencies
         run: npm audit --audit-level=high
 
