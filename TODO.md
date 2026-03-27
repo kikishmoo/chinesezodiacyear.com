@@ -41,7 +41,9 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | **K** | **Migrate revenue data to D1 (directory, shop, report templates)** | **HIGH** | Medium | **Very High** | **Revenue** |
 | **L** | **Define D1 migration workflow (schema versioning + rollback SOP)** | **HIGH** | Low | **High** | **Technical** |
 | ~~**M**~~ | ~~**Add OpenAPI contract for Worker `/v1/*` routes~~ | ~~**MEDIUM**~~ | ~~Medium~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
-| **N** | **Implement data governance policy for birth-data retention/deletion** | **HIGH** | Low | **High** | **Compliance** |
+| ~~**N**~~ | ~~**Implement data governance policy for birth-data retention/deletion**~~ | ~~**HIGH**~~ | ~~Low~~ | ~~**High**~~ | ~~**Compliance**~~ → **DONE 2026-03-27** |
+| ~~**M**~~ | ~~**Add OpenAPI contract for Worker `/v1/*` routes~~ | ~~**MEDIUM**~~ | ~~Medium~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
+| ~~**N**~~ | ~~**Implement data governance policy for birth-data retention/deletion**~~ | ~~**HIGH**~~ | ~~Low~~ | ~~**High**~~ | ~~**Compliance**~~ → **DONE 2026-03-27** |
 | ~~**O**~~ | ~~**Scaffold Worker repository layer (`worker/repositories/*`) and enforce no-SQL-in-services rule~~ | ~~**HIGH**~~ | ~~Medium~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
 | 43 | Add daily/weekly horoscope feature                    | LOW        | High   | Medium   | Product    |
 | 44 | Add AI-powered BaZi chat (LLM integration)           | LOW        | High   | High     | Product    |
@@ -54,6 +56,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 - Item **L** bootstrap assets added: `migrations/202603271300_phase6_initial_schema.sql`, `migrations/README.md`, and CI migration scaffold (`scripts/check-migrations.sh`, `npm run infra:migrations:check`).
 - Item **M** contract bootstrap completed: `docs/openapi/worker-v1.openapi.json` plus CI contract guard (`scripts/check-openapi-contract.js`, `npm run infra:openapi:check`).
 - Item **O** scaffold completed: `worker/repositories/*` plus SQL-boundary CI guard (`scripts/check-service-sql-boundary.sh`, `npm run infra:boundaries:check`).
+- Item **N** policy completed: `docs/birth-data-governance-policy.md` defines minimisation, retention windows, deletion SOP, and audit-log requirements for birth-data handling.
 
 ### Completed Items (moved from matrix)
 

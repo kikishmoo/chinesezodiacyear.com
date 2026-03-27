@@ -18,6 +18,19 @@ Added a versioned OpenAPI contract for Worker `/v1/*` routes and gated CI with a
 - Added `scripts/check-openapi-contract.js` to validate spec presence/shape (required paths + schemas).
 - Added npm script `infra:openapi:check` and wired it into `.github/workflows/deploy.yml` test job.
 - Updated `TODO.md` and `CLAUDE.md` to reflect Item M contract bootstrap completion and remaining governance focus.
+## 2026-03-27 — Phase 6 Step 4: Birth-Data Governance Policy (Session 22)
+
+**Author:** Cody
+
+### Retention + Deletion Compliance Baseline (Item N)
+
+Implemented Item N by adding a formal governance policy for sensitive birth-data handling in report workflows.
+
+**Changes:**
+- Added `docs/birth-data-governance-policy.md` with data classification, minimisation rules, retention windows, deletion SOP, access controls, audit-log requirements, and incident workflow.
+- Updated `TODO.md` to mark item N as completed and note the policy asset in Phase 6 execution notes.
+- Updated `CLAUDE.md` temporary attention point to reflect that policy documentation is complete and the next compliance step is enforcement wiring.
+- Updated `docs/architecture-redesign.md` Definition of Done wording to reference the concrete governance policy document.
 
 ---
 
