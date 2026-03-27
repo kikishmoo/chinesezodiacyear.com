@@ -49,7 +49,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 
 ### Phase 6 Execution Notes (2026-03-27)
 
-- Item **O** scaffold completed: `worker/repositories/*` + `worker/lib/db.js` added, and CI boundary guard `npm run infra:service-boundary:check` enforces no SQL in `worker/services/*`.
+- Item **O** scaffold completed: `worker/repositories/*` added, and CI boundary guard `npm run infra:boundaries:check` enforces no SQL in `worker/services/*`.
 
 - Item **J** bootstrap assets added: `scripts/bootstrap-d1-r2.sh` and `docs/d1-r2-bootstrap.md` (resource creation + binding instructions).
 - Still pending: actual resource creation in Cloudflare account and binding IDs committed to `wrangler.jsonc`.
