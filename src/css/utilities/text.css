@@ -1,0 +1,9 @@
+/* --- Pinyin class --- */
+.pinyin {
+  font-style: italic;
+  font-family: var(--font-body);
+  font-size: 0.95em;
+}
+
+
+.text-center { text-align: center; }

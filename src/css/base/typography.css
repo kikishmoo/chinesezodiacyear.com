@@ -1,0 +1,97 @@
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+  color: var(--deep-red);
+  text-decoration: none;
+  transition: color 0.35s var(--ease-out);
+}
+a:hover { color: var(--vermillion); }
+
+::selection {
+  background: var(--imperial-gold);
+  color: var(--ink-black);
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink-black);
+  letter-spacing: -0.01em;
+}
+
+h1, .page-hero-title { font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: -0.03em; }
+h2 { font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.02em; }
+h3 { font-size: clamp(1.35rem, 2.8vw, 2rem); letter-spacing: -0.01em; }
+h4 { font-size: 1.25rem; }
+/* Visually match h1 for non-primary-language hero titles (avoids multiple h1 in DOM) */
+.page-hero-title { font-family: var(--font-display); font-weight: 700; line-height: 1.2; color: var(--ink-black); margin: 0; }
+
+p { margin-bottom: 1rem; max-width: 72ch; }
+
+.text-gold { color: var(--imperial-gold); }
+.text-red { color: var(--deep-red); }
+.text-jade { color: var(--jade); }
+.text-stone { color: var(--stone); }
+
+.chinese-char {
+  font-family: var(--font-chinese);
+  font-size: 1.1em;
+}
+
+.overline {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+}
+
+.subtitle {
+  font-family: var(--font-accent);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--stone);
+  line-height: 1.5;
+}
+
+blockquote {
+  border-left: 3px solid var(--vermillion);
+  padding: var(--sp-md) var(--sp-lg);
+  margin: var(--sp-xl) 0;
+  font-family: var(--font-accent);
+  font-size: 1.18rem;
+  font-style: italic;
+  color: var(--graphite);
+  background: linear-gradient(135deg, rgba(176,58,46,0.025), rgba(191,147,40,0.02));
+  border-radius: 0 6px 6px 0;
+}
+
+/* --- Decorative Dividers --- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: var(--sp-xl) 0;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(191,147,40,0.35), transparent);
+}
+.divider-icon {
+  font-size: 1.2rem;
+  color: var(--vermillion);
+  opacity: 0.7;
+}
+
+.gold-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(191,147,40,0.4) 20%, rgba(191,147,40,0.4) 80%, transparent);
+  margin: var(--sp-xl) 0;
+}
+

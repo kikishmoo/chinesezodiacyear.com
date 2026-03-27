@@ -1,0 +1,99 @@
+/* ============================================
+   EXIT-INTENT EMAIL POPUP
+   ============================================ */
+.email-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: var(--sp-lg);
+}
+.email-popup-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+.email-popup {
+  background: var(--ivory);
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 100%;
+  padding: var(--sp-2xl) var(--sp-xl);
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.email-popup-overlay.is-visible .email-popup {
+  transform: translateY(0);
+}
+.email-popup-close {
+  position: absolute;
+  top: var(--sp-sm);
+  right: var(--sp-md);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--sp-xs);
+  line-height: 1;
+}
+.email-popup-close:hover {
+  color: var(--deep-red);
+}
+.email-popup-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--sp-md);
+}
+.email-popup h3 {
+  font-family: var(--font-display);
+  color: var(--deep-red);
+  font-size: 1.4rem;
+  margin-bottom: var(--sp-sm);
+}
+.email-popup p {
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-lg);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.email-popup .newsletter-form {
+  display: flex;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+}
+.email-popup .newsletter-input {
+  flex: 1;
+  min-width: 180px;
+  background: var(--parchment);
+  border: 1px solid var(--stroke);
+  color: var(--text-body);
+}
+.email-popup .newsletter-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+.email-popup .newsletter-message {
+  margin-top: var(--sp-md);
+}
+.email-popup-dismiss {
+  display: block;
+  margin-top: var(--sp-md);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.email-popup-dismiss:hover {
+  color: var(--text-secondary);
+}

@@ -1,6 +1,6 @@
 import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
 import Image from '@11ty/eleventy-img';
-import CleanCSS from 'clean-css';
+// CleanCSS removed — esbuild handles CSS bundling + minification now
 import esbuild from 'esbuild';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { join, dirname, relative } from 'path';
@@ -155,7 +155,7 @@ export default function(eleventyConfig) {
   });
 
   // Watch targets
-  eleventyConfig.addWatchTarget("src/styles.css");
+  eleventyConfig.addWatchTarget("src/css/");
   eleventyConfig.addWatchTarget("src/js/");
   eleventyConfig.addWatchTarget("src/trivia.js");
 
@@ -163,17 +163,22 @@ export default function(eleventyConfig) {
   eleventyConfig.on('eleventy.after', async () => {
     const outputDir = '_site';
 
-    // Minify CSS (CleanCSS)
+    // Bundle + minify CSS (esbuild) — replaces CleanCSS
     try {
-      const cssPath = join(outputDir, 'styles.css');
-      const cssInput = readFileSync(join('src', 'styles.css'), 'utf8');
-      const cssOutput = new CleanCSS({ level: 2 }).minify(cssInput);
-      if (cssOutput.styles) {
-        writeFileSync(cssPath, cssOutput.styles);
-        console.log('[Minify] styles.css:', (cssInput.length / 1024).toFixed(1) + 'KB →', (cssOutput.styles.length / 1024).toFixed(1) + 'KB');
-      }
+      const cssResult = await esbuild.build({
+        entryPoints: ['src/css/main.css'],
+        bundle: true,
+        minify: true,
+        charset: 'utf8',
+        outfile: join(outputDir, 'styles.css'),
+        metafile: true
+      });
+      const cssInputs = Object.keys(cssResult.metafile.inputs);
+      const cssInputSize = cssInputs.reduce((sum, k) => sum + cssResult.metafile.inputs[k].bytes, 0);
+      const cssOutputSize = Object.values(cssResult.metafile.outputs)[0].bytes;
+      console.log('[esbuild] styles.css:', (cssInputSize / 1024).toFixed(1) + 'KB (' + cssInputs.length + ' files) →', (cssOutputSize / 1024).toFixed(1) + 'KB');
     } catch (e) {
-      console.error('[Minify] CSS error:', e.message);
+      console.error('[esbuild] CSS error:', e.message);
     }
 
     // Bundle + minify JS (esbuild) — replaces terser

@@ -1,0 +1,25 @@
+/* --- Social Share --- */
+.share-buttons {
+  display: flex;
+  gap: var(--sp-sm);
+  margin: var(--sp-lg) 0;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  transition: opacity 0.3s;
+}
+
+.share-btn:hover { opacity: 0.85; color: white; }
+.share-twitter { background: #1DA1F2; }
+.share-facebook { background: #1877F2; }
+.share-linkedin { background: #0A66C2; }
+.share-email { background: var(--graphite); }
+

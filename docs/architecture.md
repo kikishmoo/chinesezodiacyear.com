@@ -1,9 +1,9 @@
 # Site Architecture: chinesezodiacyear.com
 
-> **Document version:** 1.1
+> **Document version:** 2.0
 > **Last updated:** 2026-03-27
-> **Timestamp:** 2026-03-27 — Author: Codex
-> **Stack:** Eleventy 3.1.2 (ESM) | Nunjucks | GitHub Pages | Cloudflare Workers
+> **Timestamp:** 2026-03-27 — Author: kiki.peiqi.greene (architecture review)
+> **Stack:** Eleventy 3.1.2 (ESM) | Nunjucks | GitHub Pages | Cloudflare Workers (D1 planned)
 
 ---
 
@@ -19,6 +19,7 @@
 8. [Integration Points](#8-integration-points)
 9. [Deployment Flow](#9-deployment-flow)
 10. [Current Limitations & Future Considerations](#10-current-limitations--future-considerations)
+11. [Data Layer Review & Database Plan](#11-data-layer-review--database-plan)
 
 ---
 
@@ -68,17 +69,18 @@
 | CI/CD              | GitHub Actions                      | `deploy.yml`, triggered on push to `main`  |
 | Serverless API     | Cloudflare Worker                   | BaZi calculator proxy, deployed via Wrangler |
 | CMS                | Decap CMS                           | Git-backed, commits directly to repo       |
-| CSS                | Vanilla CSS                         | ~5,250 lines source, minified via CleanCSS |
-| JavaScript         | Vanilla JS                          | site.js (~1,087 lines) + trivia.js (~526 lines), minified via Terser |
+| CSS                | esbuild CSS bundling              | 43 modular CSS files → single minified bundle          |
+| JavaScript         | esbuild JS bundling               | 22 ES modules → single IIFE bundle (`site.js`), `trivia.js` minified separately |
 | Image Processing   | @11ty/eleventy-img                  | WebP + JPEG fallback at 400/800/1200px widths |
 | Node Runtime       | Node.js 20                          | Specified in CI workflow                   |
 
 ### 1.3 Key Design Decisions
 
-- **No frontend framework.** Vanilla CSS and JS keep the bundle small and eliminate framework churn. Total client JS is under 1,600 lines pre-minification.
+- **No frontend framework.** Vanilla CSS and JS keep the bundle small and eliminate framework churn. Total client JS is 22 ES modules bundled to ~36KB minified. Total CSS is 43 files bundled to ~100KB minified.
 - **Build-time i18n** rather than runtime translation. All three language variants (English, Traditional Chinese, Simplified Chinese) are pre-rendered as static HTML. No translation API calls at runtime.
 - **Git-backed CMS.** Decap CMS writes directly to the repository. No external database or headless CMS API to maintain.
-- **Single build config.** `eleventy.config.js` handles collections, filters, shortcodes, CSS/JS minification, and i18n page generation in one file via the `eleventy.after` hook.
+- **Modular build.** esbuild handles both JS and CSS bundling/minification in the `eleventy.after` hook. Single build config file `eleventy.config.js`.
+- **No persistent database yet.** All data lives in JSON/JS files at build time. Revenue-critical data (directory, shop, reports) is planned for migration to Cloudflare D1 — see Section 11.
 
 ---
 
@@ -109,16 +111,22 @@ eleventy.config.js
         |
         +-- 4. eleventy.after HOOK (post-build)
                 |
-                +-- 4a. CSS Minification
-                |       - Read src/css/style.css (~5,260 lines)
-                |       - Process through CleanCSS
-                |       - Write to _site/css/style.css
+                +-- 4a. CSS Bundling (esbuild)
+                |       - Entry: src/css/main.css (43 @import files)
+                |       - esbuild bundles + minifies
+                |       - Write to _site/styles.css
+                |       - 131.6KB source → 100.4KB minified
                 |
-                +-- 4b. JS Minification
-                |       - Read src/js/site.js (~1,087 lines)
-                |       - Read src/js/trivia.js (~526 lines)
-                |       - Process each through Terser
-                |       - Write to _site/js/site.js and _site/js/trivia.js
+                +-- 4b. JS Bundling (esbuild)
+                |       - Entry: src/js/main.js (22 ES modules)
+                |       - esbuild bundles into single IIFE
+                |       - Write to _site/site.js
+                |       - 59.8KB source → 36.2KB minified
+                |
+                +-- 4b2. Trivia JS (esbuild)
+                |       - Entry: src/trivia.js (standalone)
+                |       - esbuild minifies (no bundling)
+                |       - Write to _site/trivia.js
                 |
                 +-- 4c. i18n Page Generation
                         - For each HTML file in _site/:
@@ -156,9 +164,9 @@ eleventy.config.js
 ```
 _site/
   index.html                      # Homepage
-  css/style.css                   # Minified CSS
-  js/site.js                      # Minified site JS
-  js/trivia.js                    # Minified trivia game JS
+  styles.css                      # Bundled + minified CSS (esbuild)
+  site.js                         # Bundled + minified site JS (esbuild)
+  trivia.js                       # Minified trivia game JS (esbuild)
   search-index.json               # Client-side search index
   sitemap.xml                     # Auto-generated sitemap
   pages/                          # Encyclopaedia pages (34)
@@ -798,105 +806,87 @@ Total output files:        880+
 
 ## 7. Client-Side Architecture
 
-### 7.1 JavaScript Files
+### 7.1 JavaScript Architecture
 
-The site ships two JavaScript files, both minified by Terser during the build:
+The site ships two JavaScript bundles, both built by esbuild during the `eleventy.after` hook:
 
-| File         | Source Lines | Purpose                                    | Loaded On          |
+| File         | Architecture | Purpose                                    | Loaded On          |
 |--------------|-------------|--------------------------------------------|--------------------|
-| `site.js`    | ~1,087      | Core site functionality                    | Every page (defer) |
-| `trivia.js`  | ~526        | Trivia game engine                         | `/trivia/` only    |
+| `site.js`    | 22 ES modules → single IIFE (36.2KB) | Core site functionality  | Every page (defer) |
+| `trivia.js`  | Standalone minified | Trivia game engine                 | `/trivia/` only    |
 
-No framework. No bundler. No npm runtime dependencies in the browser.
+No framework. No npm runtime dependencies in the browser.
 
-### 7.2 `site.js` Module Breakdown
-
-```
-site.js (~1,087 lines)
-  |
-  +-- Zodiac Calculator (~500 lines)
-  |     - Lichun (Start of Spring) date table: 1900-2079
-  |     - Determines zodiac animal for a given birth date
-  |       (accounts for Lichun, not just Jan 1 or Lunar New Year)
-  |     - Famous figures database for "born in the same year" feature
-  |     - Heavenly Stem + Earthly Branch calculation
-  |     - Element derivation from stem
-  |     - Result display with trilingual output
-  |
-  +-- Language Toggle + Nav Rewriting (~80 lines)
-  |     - Detect language from URL path (not localStorage)
-  |     - Toggle button navigates between language URL variants
-  |     - On /zh-hant/ or /zh-hans/ pages, rewrites nav/footer hrefs
-  |       to preserve language prefix when navigating
-  |
-  +-- Theme Toggle (~40 lines)
-  |     - Dark/light mode switch
-  |     - Persisted to localStorage
-  |     - Respects prefers-color-scheme on first visit
-  |
-  +-- FAQ Accordions (~50 lines)
-  |     - Progressive enhancement on FAQ sections
-  |     - Click-to-expand with ARIA attributes
-  |     - Smooth height animation via max-height transition
-  |
-  +-- Client-Side Search (~200 lines)
-  |     - Fetches /search-index.json on search page load
-  |     - Weighted scoring algorithm:
-  |         title match:       weight 10
-  |         description match: weight 5
-  |         keywords match:    weight 3
-  |         body match:        weight 1
-  |         category match:    weight 2
-  |     - Debounced input (300ms)
-  |     - Renders results with highlighted match snippets
-  |
-  +-- Newsletter Signup (~40 lines)
-  |     - Beehiiv form submission handler
-  |     - Email validation
-  |     - Success/error state management
-  |
-  +-- Email Popup (~50 lines)
-  |     - Triggered by: scroll depth (60%) OR exit intent (mouse leave viewport)
-  |     - Suppressed for 7 days after dismiss (localStorage timestamp)
-  |     - Suppressed permanently after successful signup
-  |
-  +-- Analytics Events (~80 lines)
-        - Custom GA4 events for:
-          calculator_use, language_switch, theme_toggle,
-          newsletter_signup, search_query, trivia_start,
-          faq_expand, share_click, outbound_link
-```
-
-### 7.3 `trivia.js` Module Breakdown
+### 7.2 JS Module Structure
 
 ```
-trivia.js (~526 lines)
-  |
-  +-- Question Bank: 72 trilingual questions
-  |     - Each question has en/tc/sc text variants
-  |     - 4 answer options per question (also trilingual)
-  |     - Distributed across 5 categories:
-  |         zodiac-basics, wu-xing, compatibility, culture, history
-  |
-  +-- Game Mechanics
-  |     - Category selection (play all or pick category)
-  |     - Randomized question order per session
-  |     - 10-question rounds
-  |     - Score tracking with percentage
-  |     - Timer per question (15 seconds)
-  |     - Streak counter for consecutive correct answers
-  |
-  +-- UI Rendering
-  |     - Dynamic DOM construction (no template engine)
-  |     - Progress bar
-  |     - Answer feedback (correct/incorrect with explanation)
-  |     - Final score screen with share prompt
-  |
-  +-- Language Integration
-        - Reads active language from <html> class
-        - Renders question text in the active language
-        - Answer options displayed in the active language
+src/js/
+  main.js                         # Entry point — imports + initialises all features
+  analytics.js                    # Centralised GA4 tracking (track() helper)
+  utils/
+    sanitise.js                   # Unified escapeHtml() + cleanText()
+    base-path.js                  # GitHub Pages subpath detection
+  data/
+    zodiac-data.js                # 12 zodiac animals + getZodiac(), getElement(), getHeavenlyStem()
+    famous-figures.js             # Historical figures array (one per animal)
+    lichun-dates.js               # 1900-2100 Lichun boundary table + getZodiacYear()
+    compatibility-data.js         # Six Harmonies, Three Harmonies, Clashes, Harms, Self-Penalty
+  features/
+    nav.js                        # Mobile nav toggle, dropdown menus, active state
+    theme.js                      # Dark mode toggle + localStorage + prefers-color-scheme
+    faq.js                        # FAQ accordion open/close with ARIA
+    calculator.js                 # Zodiac calculator form + result rendering
+    compatibility.js              # Compatibility checker form + result rendering
+    search.js                     # Search index fetch, weighted scoring, results
+    bazi-client.js                # BaZi API client + chart result renderer
+    newsletter.js                 # Beehiiv form submission (loading/success/error states)
+    popup.js                      # Exit-intent email popup (desktop + mobile triggers)
+    filters.js                    # Directory/shop/news filter buttons
+    lightbox.js                   # QR code lightbox (donate page)
+    language.js                   # Language toggle + URL rewriting + nav link preservation
+    share-buttons.js              # Social share buttons
+    shop.js                       # Shop filters + AdSense init
 ```
+
+**Legacy:** `src/site.js` (1,339-line monolithic) remains in the repo but is no longer used by the build. esbuild's output overwrites `_site/site.js`.
+
+### 7.3 CSS Architecture
+
+43 modular CSS files under `src/css/`, bundled by esbuild into a single `_site/styles.css` (100.4KB minified):
+
+```
+src/css/
+  main.css                        # @import chain — cascade order preserved
+  tokens/                         # Design tokens (5 files)
+    colors.css                    # Colour palette (~25 custom properties)
+    typography.css                # Font stacks (5 families)
+    spacing.css                   # Spacing scale + layout vars
+    shadows.css                   # Shadows, transitions, border radii
+    animations.css                # Gold scale, paper texture, ink-wash mist
+  base/                           # Foundation (4 files)
+    reset.css                     # Box-sizing, html, body
+    accessibility.css             # Skip-to-content, .sr-only
+    typography.css                # Headings, paragraphs, links, decorative dividers
+    i18n.css                      # .lang-en/.lang-tc/.lang-sc visibility rules
+  layout/                         # Page structure (3 files)
+    header.css                    # Site header, nav, mobile menu, dropdowns, toggles
+    footer.css                    # Footer columns, pagination
+    article-layout.css            # Article grid, sidebar, TOC
+  components/                     # UI components (21 files)
+    hero.css, buttons.css, breadcrumbs.css, calculator.css,
+    cards.css, faq.css, directory.css, newsletter.css, search.css,
+    comments.css, tables.css, share-buttons.css, readings.css,
+    bazi.css, trivia.css, content-elements.css, donate.css,
+    embeds.css, popup.css, cross-sell.css, content-upgrade.css,
+    compatibility.css, related.css, shop.css
+  themes/                         # Dark mode (2 files)
+    dark.css                      # All [data-theme="dark"] overrides consolidated
+    auto-dark.css                 # prefers-color-scheme: dark (OS-level)
+  utilities/                      # Helper classes (5 files)
+    spacing.css, text.css, animations.css, print.css, reduced-motion.css
+```
+
+**Legacy:** `src/styles.css` (5,590-line monolithic) remains in the repo but is no longer used by the build.
 
 ### 7.4 Search Index
 
@@ -913,22 +903,7 @@ Built at build time, output to `/search-index.json`. Each entry:
 }
 ```
 
-The index contains one entry per English page (~213 entries). Chinese variant pages are not separately indexed; the search page uses the active language to display results but searches against English text.
-
-### 7.5 CSS Architecture
-
-Single file: `src/styles.css` (~5,250 lines). No preprocessor, no CSS modules.
-
-Key sections:
-- CSS custom properties (design tokens for colors, spacing, typography, border radii, transitions, gold transparency scale)
-- Dark mode overrides via `[data-theme="dark"]` selector
-- Language visibility rules (`.lang-en`, `.lang-tc`, `.lang-sc` show/hide)
-- Responsive breakpoints: 500px, 600px, 700px, 800px, 900px
-- Component styles: header, footer, hero, cards, accordion, sidebar, TOC, trivia, shop, directory
-- Social embed grid: `.social-embed-grid` (auto-fit), `.social-embed-grid--1` (single video, max 640px), `.social-embed-grid--3` (3-column). Children: `.social-embed-card` → `.embed-responsive` → iframe + `.embed-caption`
-- Tweet embed overrides: `.embed-responsive--tweet` (static positioning for Twitter widget.js hydrated iframes)
-- Print styles
-- Utility classes
+The index contains one entry per English page (~293 entries). Chinese variant pages are not separately indexed; the search page uses the active language to display results but searches against English text.
 
 ---
 
@@ -992,54 +967,129 @@ Three signup entry points: sidebar widget on article pages, exit-intent/scroll p
 
 Each page's discussion thread is mapped by its URL pathname. Comments are stored as GitHub Discussion replies.
 
-### 8.6 Cloudflare Worker (BaZi Calculator)
+### 8.6 Cloudflare Worker (BaZi Calculator API)
 
 | Property          | Value              |
 |-------------------|--------------------|
-| Integration Point | `site.js` Zodiac Calculator module |
-| Purpose           | Server-side BaZi (Four Pillars) calculation |
-| Protocol          | HTTPS fetch from browser to Worker endpoint |
+| Integration Point | `src/js/features/bazi-client.js` → Worker endpoint |
+| Purpose           | Server-side BaZi (Four Pillars) calculation with resilience |
+| Protocol          | HTTPS POST from browser to Worker endpoint |
 | Runtime Entrypoint| `wrangler.jsonc` → `main: "worker/index.js"` |
-| Deployment        | Separate from main site; deployed via `wrangler deploy` |
+| Deployment        | Automated via CI (`deploy.yml` → `wrangler deploy`) |
+| Bindings          | `RATE_LIMIT_KV` (KV namespace), `ALLOWED_ORIGINS` (env var) |
 
-The BaZi calculator on the `/calculator/` page sends birth date/time to the Cloudflare Worker, which performs the complex Four Pillars calculation and returns structured results. This keeps the computation server-side to protect the algorithm and reduce client-side JS complexity.
+#### Worker Directory Structure
 
-The Worker runtime is modular under `worker/`, with `worker/index.js` as the actual edge entrypoint:
-
-```text
+```
 worker/
-  index.js
-  router.js
-  middleware/
+  index.js                    # Entry: router dispatch + CORS + error handler
+  router.js                   # Lightweight path/method router (no deps)
   routes/
+    bazi.js                   # POST /v1/bazi/calculate
+    health.js                 # GET /v1/health
   services/
+    bazi-service.js           # Orchestrates: cache → solar time → chart → cache
+    solar-time-service.js     # True Solar Time wrapper with circuit breaker + retry
   adapters/
+    windada-adapter.js        # Scraper: fate.windada.com (True Solar Time)
+    zhouyi-adapter.js         # Scraper: zhouyi.cc (BaZi chart parsing)
   models/
-  __tests__/
+    bazi-request.js           # Request validation & normalization
+    bazi-response.js          # Response schema typedefs + validation
+    pillar.js                 # Four Pillars helpers (buildPillar, extractDayMaster)
+    errors.js                 # ValidationError, UpstreamError, TimeoutError, CircuitOpenError
+  middleware/
+    cors.js                   # CORS origin resolution (ALLOWED_ORIGINS env var)
+    rate-limiter.js           # Dual-layer: in-memory (15 req/min) + KV (cross-edge)
+    error-handler.js          # Typed error → structured JSON response mapping
+  lib/
+    cache.js                  # Cache API wrapper (SHA-256 keyed, 24h TTL)
+    circuit-breaker.js        # Per-upstream state machine (5 failures → 30s recovery)
+    retry.js                  # Exponential backoff (2 retries, 500ms base)
+    html-parser.js            # stripTags(), cleanText() utilities
+  data/
+    stems.js                  # Heavenly Stems + Earthly Branches reference
+  __tests__/                  # 64 vitest tests (parsers, models, resilience)
+    adapters/, models/, lib/, routes/
+    fixtures/                 # Saved upstream HTML for deterministic testing
 ```
 
-**Legacy file status:** `worker/bazi-worker.js` is a legacy transitional file kept for backwards compatibility/reference; production runtime uses `worker/index.js` configured in root `wrangler.jsonc`.
+#### API Endpoints
+
+| Method | Path | Handler | Description |
+|--------|------|---------|-------------|
+| POST | `/v1/bazi/calculate` | `handleBaziCalculate` | Calculate BaZi chart |
+| POST | `/` | `handleBaziCalculate` | Legacy backwards-compatible alias |
+| GET | `/v1/health` | `handleHealth` | Health check |
+| OPTIONS | `*` | `handlePreflight` | CORS preflight (204) |
+
+#### Request Processing Pipeline
 
 ```
-Browser                    Cloudflare Worker
-   |                             |
-   |  POST /calculate            |
-   |  { date, time, gender }     |
-   |---------------------------->|
-   |                             |  Compute Four Pillars:
-   |                             |  - Year Pillar (stem + branch)
-   |                             |  - Month Pillar
-   |                             |  - Day Pillar
-   |                             |  - Hour Pillar
-   |                             |  - Element balance
-   |                             |  - Day Master analysis
-   |  200 OK                     |
-   |  { pillars, elements,       |
-   |    dayMaster, analysis }    |
-   |<----------------------------|
-   |                             |
-   |  Render results in DOM      |
+fetch(request, env)
+  → resolveCorsOrigin() → buildCorsHeaders()
+  → handlePreflight() [if OPTIONS]
+  → checkRateLimit() [Layer 1: in-memory | Layer 2: KV]
+  → router.match(method, pathname)
+  → handler()
+    → validateBaziRequest()
+    → bazi-service.calculate(input)
+      → cacheGet(input)                  [Cache API, SHA-256 key]
+      → getSolarTime(params)             [circuit breaker + retry]
+        → windada-adapter.fetchSolarTime()
+      → fetchChart()                     [circuit breaker + retry]
+        → zhouyi-adapter.fetchChart()
+      → cachePut(input, result)          [async, fire-and-forget]
+    → Response.json(result)
+    → errorToResponse(error)             [on failure]
 ```
+
+#### Resilience Stack
+
+| Layer | Mechanism | Configuration |
+|-------|-----------|---------------|
+| Caching | Cache API (deterministic BaZi charts) | SHA-256 keyed, 24h TTL, graceful degradation |
+| Circuit breaker | Per-upstream state machine | 5 failures → OPEN, 30s recovery → HALF_OPEN probe |
+| Retry | Exponential backoff | 2 retries, 500ms/1s delays, non-retryable errors bail immediately |
+| Rate limiting | Dual-layer (in-memory + KV) | 15 req/IP/min, ~60s cross-edge consistency |
+| Graceful degradation | Solar time fallback | If windada fails → use clock time instead |
+
+#### Error Mapping
+
+| Error Type | HTTP Status | Retryable |
+|-----------|-------------|-----------|
+| ValidationError | 400 | No |
+| UpstreamError | 502 | Yes |
+| TimeoutError | 504 | Yes |
+| CircuitOpenError | 503 | Yes |
+| Unrecognised | 500 | No |
+
+```
+Browser                    Cloudflare Worker            Upstream Services
+   |                             |                            |
+   |  POST /v1/bazi/calculate    |                            |
+   |  { year, month, day, hour,  |                            |
+   |    minute, lat, lng, tz,    |                            |
+   |    sex }                    |                            |
+   |---------------------------->|                            |
+   |                             |  1. Check cache (SHA-256)  |
+   |                             |  2. If miss:               |
+   |                             |     GET solar time -------->| fate.windada.com
+   |                             |     (circuit breaker+retry) |
+   |                             |     POST BaZi chart ------->| www.zhouyi.cc
+   |                             |     (circuit breaker+retry) |
+   |                             |  3. Store in cache (async)  |
+   |  200 OK                     |                            |
+   |  { pillars, dayMaster,      |                            |
+   |    hiddenStems, naYin,      |                            |
+   |    daYun, basicInfo,        |                            |
+   |    fiveElements,            |                            |
+   |    readingSections,         |                            |
+   |    trueSolarTime }          |                            |
+   |<----------------------------|                            |
+```
+
+**Legacy file status:** `worker/bazi-worker.js` and `worker/wrangler.toml` are legacy files superseded by the modular structure. Production uses `worker/index.js` configured in root `wrangler.jsonc`.
 
 ### 8.7 Decap CMS
 
@@ -1067,64 +1117,88 @@ Loaded via Google Fonts CDN with `display=swap` to prevent FOIT (flash of invisi
 
 ## 9. Deployment Flow
 
-### 9.1 Primary Deployment (GitHub Pages)
+### 9.1 CI/CD Pipeline (GitHub Actions)
 
-Triggered automatically on every push to the `main` branch.
+Triggered automatically on every push to the `main` branch. Four-job pipeline with dependency gates:
 
 ```
 Developer / Decap CMS
         |
         | git push to main
         v
-+-----------------------------------------------+
-|  GitHub Actions: deploy.yml                    |
-|                                                |
-|  trigger: push to main                         |
-|                                                |
-|  jobs:                                         |
-|    build:                                      |
-|      1. actions/checkout@v4                    |
-|      2. actions/setup-node@v4 (Node 20)        |
-|      3. npm ci                                 |
-|      4. npx @11ty/eleventy                     |
-|         - Builds 293 base pages                |
-|         - eleventy.after: minify CSS/JS        |
-|         - eleventy.after: generate i18n pages  |
-|         - Output: 879 files in _site/          |
-|      5. Build validation step                  |
-|         - Asserts base page count >= 250       |
-|         - Asserts zh-hant/zh-hans >= 200 each  |
-|         - Asserts CSS/JS minified (smaller)    |
-|         - Asserts critical files present       |
-|         - Spot-checks HTML structure           |
-|      6. actions/upload-pages-artifact           |
-|         - Uploads _site/ as deployment artifact|
-|                                                |
-|    deploy:                                     |
-|      needs: build                              |
-|      1. actions/deploy-pages                   |
-|         - Deploys artifact to GitHub Pages     |
-|         - Custom domain: chinesezodiacyear.com |
-+-----------------------------------------------+
-        |
-        v
-  GitHub Pages CDN
-  (chinesezodiacyear.com)
++-------------------------------------------------------+
+|  GitHub Actions: deploy.yml                            |
+|                                                        |
+|  Job 1: TEST                                           |
+|    1. actions/checkout@v4                               |
+|    2. actions/setup-node@v4 (Node 20)                  |
+|    3. npm ci                                            |
+|    4. npm test (vitest — 64 tests)                     |
+|    5. npm audit --audit-level=high                     |
+|                                                        |
+|  Job 2: BUILD (needs: test)                            |
+|    1. actions/checkout@v4                               |
+|    2. npm ci                                            |
+|    3. npx @11ty/eleventy                                |
+|       - Builds 298 base pages                          |
+|       - eleventy.after: esbuild CSS (44 files → 1)    |
+|       - eleventy.after: esbuild JS (22 modules → 1)   |
+|       - eleventy.after: generate i18n pages            |
+|       - Output: 634 pages in _site/                    |
+|    4. Build validation step                            |
+|       - Asserts base page count >= 250                 |
+|       - Asserts zh-hant/zh-hans >= 150 each           |
+|       - Asserts CSS bundle >= 50KB (esbuild ran)      |
+|       - Asserts JS bundle >= 1KB (esbuild ran)        |
+|       - Asserts critical files present                 |
+|       - Spot-checks HTML structure                     |
+|    5. actions/upload-pages-artifact                     |
+|                                                        |
+|  Job 3: DEPLOY-PAGES (needs: build)                   |
+|    1. actions/deploy-pages                              |
+|       - Deploys artifact to GitHub Pages               |
+|       - Custom domain: chinesezodiacyear.com           |
+|                                                        |
+|  Job 4: DEPLOY-WORKER (needs: test)                   |
+|    1. wrangler deploy                                   |
+|       - Deploys worker/index.js to Cloudflare Edge     |
+|       - Uses CLOUDFLARE_API_TOKEN secret               |
++-------------------------------------------------------+
+        |                          |
+        v                          v
+  GitHub Pages CDN         Cloudflare Edge Network
+  (static frontend)        (BaZi Calculator API)
 ```
 
-### 9.2 Cloudflare Worker Deployment
+### 9.2 Deployment Architecture
 
-Deployed separately from the main site. Not triggered by the GitHub Actions workflow.
+Frontend and Worker deploy independently but share the test gate:
 
 ```
-Developer
-    |
-    | wrangler deploy
-    v
-Cloudflare Edge Network
-    |
-    +-- BaZi Calculator Worker
-        (accessible via configured URL in site.json)
+                    +-------------------+
+                    |   npm packages    |
+                    | (package-lock.json)|
+                    +--------+----------+
+                             |
+                    +--------v----------+
+                    |  TEST (vitest +   |
+                    |  npm audit)       |
+                    +---+----------+----+
+                        |          |
+               +--------v---+  +--v-----------+
+               | BUILD      |  | DEPLOY-WORKER|
+               | (Eleventy) |  | (wrangler)   |
+               +-----+------+  +------+-------+
+                     |                 |
+               +-----v------+  +------v-------+
+               | DEPLOY-     |  | Cloudflare   |
+               | PAGES       |  | Edge Network |
+               +-----+------+  +--------------+
+                     |
+               +-----v------+
+               | GitHub      |
+               | Pages CDN   |
+               +-------------+
 ```
 
 The Worker is configured by root `wrangler.jsonc` (with `main: worker/index.js`) and is deployed manually or via a separate CI step. It does not depend on the Eleventy build.
@@ -1145,20 +1219,21 @@ The Worker is configured by root `wrangler.jsonc` (with `main: worker/index.js`)
 
 +----------------+  +-------------------+  +-------------------+
 | Worker source  |->| wrangler deploy   |->| Cloudflare Edge   |
-| (worker/)      |  | (manual/separate) |  | (worker/index.js) |
+| (worker/)      |  | (GitHub Actions)  |  | (worker/index.js) |
 +----------------+  +-------------------+  +-------------------+
 ```
 
 ### 9.4 Build Performance
 
-| Metric                         | Approximate Value     |
-|--------------------------------|-----------------------|
-| Eleventy template rendering    | ~2-4 seconds          |
-| CSS minification (CleanCSS)    | < 1 second            |
-| JS minification (Terser x 2)   | < 1 second            |
-| i18n page generation (879 files) | ~3-6 seconds       |
-| Image processing (if cache miss) | ~10-30 seconds      |
-| **Total CI/CD pipeline**       | **~1-2 minutes**      |
+| Metric                            | Approximate Value        |
+|-----------------------------------|--------------------------|
+| Eleventy template rendering       | ~2-4 seconds             |
+| CSS bundling (esbuild, 44 files)  | < 100ms                  |
+| JS bundling (esbuild, 22 modules) | < 100ms                  |
+| Trivia minification (esbuild)     | < 50ms                   |
+| i18n page generation (634 files)  | ~3-6 seconds             |
+| Image processing (if cache miss)  | ~10-30 seconds           |
+| **Total CI/CD pipeline**          | **~1-2 minutes**         |
 
 Image processing via `@11ty/eleventy-img` is cached between builds. First builds or builds with new images take longer.
 
@@ -1184,36 +1259,33 @@ Image processing via `@11ty/eleventy-img` is cached between builds. First builds
 | ~~Empty search index categories~~ | ~~Low~~ | ~~15 search index entries had empty `category` strings.~~ | **RESOLVED** -- Year pages now have `category: "encyclopedia"`; only homepage remains uncategorized (expected). |
 | ~~No `noindex` on `/search/`~~ | ~~Low~~ | ~~The `/search/` page was indexable by search engines.~~ | **RESOLVED** -- `noindex: true` in frontmatter; `base.njk` renders `<meta name="robots" content="noindex, follow">`. |
 | Client-side search scalability | Low (future) | Search loads the full JSON index (~302 entries, ~250KB) into memory and performs linear scanning. This works well at the current scale but will degrade past ~500 pages. | If page count grows significantly, consider a server-side search solution (e.g., Pagefind, Lunr pre-built index, or Algolia). |
-| Monolithic build config | Low | `eleventy.config.js` handles collections, filters, shortcodes, CSS/JS minification, and i18n generation in a single file. As the site grows, this becomes harder to maintain. | Modularize into separate files: `config/collections.js`, `config/filters.js`, `config/shortcodes.js`, `config/i18n.js`, `config/minify.js`. Import them into the main config. |
+| Monolithic build config | Low | `eleventy.config.js` handles collections, filters, shortcodes, CSS/JS bundling, and i18n generation in a single file. As the site grows, this becomes harder to maintain. | Modularize into separate files: `config/collections.js`, `config/filters.js`, `config/shortcodes.js`, `config/i18n.js`, `config/build.js`. Import them into the main config. |
 
 ### 10.2 Architecture Risks
 
-**Single point of failure: `eleventy.after` hook.** The i18n generation and asset minification both run in the `eleventy.after` event. If either fails, the build succeeds (Eleventy considers the build complete before `after` runs) but the output is incomplete -- missing i18n pages or unminified assets.
+**Single point of failure: `eleventy.after` hook.** The i18n generation and asset bundling both run in the `eleventy.after` event. If either fails, the build succeeds (Eleventy considers the build complete before `after` runs) but the output is incomplete — missing i18n pages or unbundled assets.
 
-**Mitigation (IMPLEMENTED):** A "Validate build output" step in the GitHub Actions workflow (`.github/workflows/deploy.yml`) runs after the Eleventy build and before artifact upload. It asserts:
-- `_site/` contains ≥250 base HTML pages
-- `_site/zh-hant/` contains ≥200 HTML files
-- `_site/zh-hans/` contains ≥200 HTML files
-- `_site/styles.css` is smaller than `src/styles.css` (confirms minification ran)
-- `_site/site.js` is smaller than `src/site.js`
+**Mitigation (IMPLEMENTED):** A 4-job CI pipeline in `deploy.yml` runs tests before build, and validates build output before deployment:
+- CSS bundle size >= 50KB (confirms esbuild CSS ran)
+- JS bundle size >= 1KB (confirms esbuild JS ran)
+- Base pages >= 250, i18n pages >= 150 each
 - Critical files exist: `sitemap.xml`, `robots.txt`, `feed.xml`, `search-index.json`, `llms.txt`
-- Homepage has valid `<html>` tag
 
-If any check fails, the workflow exits with a non-zero code and the deployment is blocked.
+**i18n stripping correctness.** The balanced tag matcher for `<div>` language blocks assumes well-formed HTML. Malformed nesting (e.g., an unclosed `<div>` inside a language block) could cause the stripper to consume too much or too little content.
 
-**i18n stripping correctness.** The balanced tag matcher for `<div>` language blocks assumes well-formed HTML. Malformed nesting (e.g., an unclosed `<div>` inside a language block) could cause the stripper to consume too much or too little content, resulting in broken output for a specific language variant. There are currently no automated tests for the i18n stripping logic.
+**Mitigation (PLANNED):** Phase 4 includes adding i18n validation and extracting stripping logic for independent unit testing.
 
-**Mitigation:** Add integration tests that process known HTML inputs through the stripping function and assert expected output.
+**No persistent database.** Revenue-critical data (directory listings, product catalog, content calendar) lives in git-committed JSON files. This prevents runtime updates, dynamic pricing, or transaction tracking without code deployment. See Section 11 for the migration plan.
 
 ### 10.3 Scaling Considerations
 
 | Threshold               | Current State       | Action Needed When Exceeded                          |
 |--------------------------|--------------------|----------------------------------------------------|
-| Total pages > 1,000     | ~879 (post-i18n)   | Evaluate build time; consider incremental builds    |
+| Total pages > 1,000     | ~634 (post-i18n)   | Evaluate build time; consider incremental builds    |
 | Search index > 500 entries | ~293            | Move to Pagefind or server-side search              |
-| CSS > 8,000 lines       | ~5,366             | Consider CSS modules or a utility framework         |
-| JS > 3,000 lines        | ~1,594             | Consider ES module splitting with a bundler         |
-| Data files > 20         | 12                 | Current approach is fine                             |
+| CSS modules > 60        | 43                 | Current approach is fine                             |
+| JS modules > 40         | 22                 | Current approach is fine                             |
+| Data files > 20         | 14                 | Consider D1 database for dynamic data               |
 | Images > 500            | Current count TBD  | Ensure eleventy-img cache is working in CI          |
 
 ### 10.4 Potential Improvements
@@ -1227,7 +1299,7 @@ If any check fails, the workflow exits with a non-zero code and the deployment i
      filters.js        # All Nunjucks filters
      shortcodes.js     # respimg and future shortcodes
      i18n.js           # Language block stripping logic
-     minify.js         # CleanCSS + Terser processing
+     build.js          # esbuild JS + CSS bundling
    ```
 
 3. **JSON-LD automation.** Rather than manually adding schemas per page, generate JSON-LD programmatically in `eleventyComputed.js` based on page type (article, FAQ, product, etc.) and front matter fields.
@@ -1235,6 +1307,194 @@ If any check fails, the workflow exits with a non-zero code and the deployment i
 4. **Content preview for Decap CMS.** Currently, Decap CMS authors cannot preview how trilingual content will render across all three language variants. A local preview proxy or Decap's custom preview feature could improve the authoring experience.
 
 5. **Incremental builds.** Eleventy 3.x supports `--incremental` mode. Enabling this in the CI workflow (with proper cache configuration) would reduce build times as the page count grows.
+
+---
+
+## 11. Data Layer Review & Database Plan
+
+> **Added:** 2026-03-27 (architecture review)
+> **Status:** Planned — not yet implemented
+
+### 11.1 Current Data Storage
+
+All data lives in files committed to git. There is no persistent database.
+
+| Storage Layer | What's Stored | Limitations |
+|---------------|---------------|-------------|
+| `src/_data/*.json` | Directory listings, products, content calendar, elements, dynasties | Read-only at runtime; changes require git commit + deploy |
+| `src/_data/*.js` | Generated data (zodiac years, compatibility pairs, computed links) | Deterministic; no limitation |
+| `src/js/data/*.js` | Client-side reference (zodiac, compatibility, famous figures, lichun) | Static; bundled into JS |
+| `worker/data/stems.js` | Heavenly Stems + Earthly Branches | Static reference; no limitation |
+| Cloudflare KV | Rate limit counters only | Underutilised |
+| Cloudflare Cache API | BaZi calculation results (24h TTL) | Ephemeral read-only cache |
+
+### 11.2 Data Classification
+
+| File | Size | Category | Database Candidate | Priority |
+|------|------|----------|-------------------|----------|
+| `directory.json` | 20 KB | Business listings | **YES — CRITICAL** | Revenue (lead-gen) |
+| `shop.json` | 26 KB | Product catalog + pricing | **YES — CRITICAL** | Revenue (sales tracking) |
+| `contentCalendar.json` | 7.3 KB | Editorial workflow | **YES — HIGH** | Ops (publication tracking) |
+| `elements.json` | 8.8 KB | Encyclopedic reference | Maybe | Low |
+| `cities.json` | 22 KB | Geolocation reference (183 cities) | Maybe | Low (if scaling) |
+| `dynastiesData.json` | 41 KB | Encyclopedic reference | Maybe | Low |
+| `site.json` | 1.4 KB | Configuration | No | — |
+| `nav.json` | 6.7 KB | Navigation structure | No | — |
+| `languages.json` | 315 B | i18n config | No | — |
+| `newsCategories.json` | 1.7 KB | Taxonomy | No | — |
+| `zodiacYears.js` | 3.3 KB | Generated (deterministic) | No | — |
+| `compatibilityPairs.js` | 41 KB | Generated (deterministic) | No | — |
+| `zodiac-data.js` (JS) | 2.1 KB | Static reference | No | — |
+| `compatibility-data.js` (JS) | 479 B | Static reference | No | — |
+| `famous-figures.js` (JS) | 3.9 KB | Static reference | No | — |
+| `lichun-dates.js` (JS) | 3.0 KB | Astronomical reference | No | — |
+
+### 11.3 Recommended Database: Cloudflare D1
+
+**Why D1:**
+- Same deployment pipeline as existing Worker (`wrangler deploy`)
+- SQLite at the edge — sub-millisecond reads
+- SQL queries for filtering, sorting, aggregation
+- Transactions for payment/order records
+- Free tier: 5M reads/day, 100K writes/day
+- No additional infrastructure or billing accounts
+
+**Supplementary: Cloudflare R2** (object storage) for generated PDF reports.
+
+### 11.4 Proposed Schema
+
+```sql
+-- Directory listings (currently directory.json)
+CREATE TABLE directory_listings (
+  id              INTEGER PRIMARY KEY,
+  slug            TEXT UNIQUE NOT NULL,
+  name            TEXT NOT NULL,
+  tier            TEXT NOT NULL DEFAULT 'free',  -- free | premium | featured
+  category        TEXT NOT NULL,
+  location        TEXT,
+  specialties     TEXT,  -- JSON array
+  description     TEXT,
+  url             TEXT,
+  contact         TEXT,
+  tier_expires_at TEXT,  -- ISO date, NULL for free tier
+  created_at      TEXT DEFAULT (datetime('now')),
+  updated_at      TEXT DEFAULT (datetime('now'))
+);
+
+-- Products (currently shop.json)
+CREATE TABLE products (
+  id              INTEGER PRIMARY KEY,
+  slug            TEXT UNIQUE NOT NULL,
+  type            TEXT NOT NULL,  -- reading | digital | physical
+  name            TEXT NOT NULL,
+  name_tc         TEXT,
+  name_sc         TEXT,
+  description     TEXT,
+  price_cents     INTEGER NOT NULL,
+  currency        TEXT DEFAULT 'USD',
+  payment_url     TEXT,
+  active          INTEGER DEFAULT 1,
+  created_at      TEXT DEFAULT (datetime('now'))
+);
+
+-- PDF report templates (for BaZi PDF revenue initiative)
+CREATE TABLE report_templates (
+  id              INTEGER PRIMARY KEY,
+  report_type     TEXT NOT NULL,  -- bazi_natal | compatibility
+  section_key     TEXT NOT NULL,
+  condition       TEXT,  -- JSON: matching criteria for template selection
+  content_en      TEXT NOT NULL,
+  content_tc      TEXT,
+  content_sc      TEXT,
+  sort_order      INTEGER DEFAULT 0
+);
+
+-- Transactions (track sales)
+CREATE TABLE transactions (
+  id              INTEGER PRIMARY KEY,
+  product_id      INTEGER REFERENCES products(id),
+  report_type     TEXT,
+  amount_cents    INTEGER NOT NULL,
+  currency        TEXT DEFAULT 'USD',
+  email           TEXT,
+  status          TEXT DEFAULT 'pending',  -- pending | completed | refunded
+  metadata        TEXT,  -- JSON
+  created_at      TEXT DEFAULT (datetime('now'))
+);
+```
+
+### 11.5 Worker Route Expansion (with D1)
+
+```
+worker/
+  routes/
+    bazi.js              # POST /v1/bazi/calculate        (existing)
+    health.js            # GET  /v1/health                (existing)
+    directory.js         # GET  /v1/directory              (planned)
+    products.js          # GET  /v1/products               (planned)
+    reports.js           # POST /v1/reports/generate       (planned)
+
+  services/
+    bazi-service.js      # BaZi calculation                (existing)
+    solar-time-service.js # Solar time                     (existing)
+    directory-service.js  # Directory CRUD + tier management (planned)
+    product-service.js    # Product catalog queries         (planned)
+    report-service.js     # PDF generation + template assembly (planned)
+
+  repositories/          # NEW — data access layer
+    directory-repo.js    # D1 queries for directory_listings
+    product-repo.js      # D1 queries for products
+    report-repo.js       # D1 queries for report_templates + transactions
+
+  lib/
+    db.js                # D1 connection helper             (planned)
+    pdf.js               # PDF generation                   (planned)
+    storage.js           # R2 wrapper for PDF uploads       (planned)
+```
+
+### 11.6 Wrangler Bindings (planned additions)
+
+```jsonc
+// wrangler.jsonc — additions needed
+{
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "czy-main",
+      "database_id": "<via wrangler d1 create>"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "REPORTS_BUCKET",
+      "bucket_name": "czy-reports"
+    }
+  ]
+}
+```
+
+### 11.7 Migration Path
+
+| Step | Action | Revenue Impact |
+|------|--------|----------------|
+| 1 | Create D1 database + R2 bucket via Wrangler CLI | None (infrastructure) |
+| 2 | Add `repositories/` layer, starting with `report-repo.js` | Unblocks BaZi PDF reports (item A) |
+| 3 | Migrate `shop.json` → `products` table | Enables transaction tracking |
+| 4 | Build `report-service.js` + PDF generation | **BaZi PDF revenue live** |
+| 5 | Build compatibility report templates | **Compatibility PDF revenue live** |
+| 6 | Migrate `directory.json` → `directory_listings` table | Enables dynamic lead-gen |
+| 7 | Add admin routes for managing listings/products | Removes need for git commits to update data |
+
+Steps 1–4 directly support the BaZi PDF revenue initiative (TODO items A and B). Step 6 supports directory lead-gen expansion (TODO item C).
+
+### 11.8 What Stays as Files
+
+The following data is correctly stored as files and should NOT migrate to a database:
+
+- **Reference data** (zodiac animals, compatibility rules, stems/branches, famous figures, lichun dates) — small, deterministic, frontend-cacheable
+- **Generated data** (zodiacYears.js, compatibilityPairs.js) — computed from deterministic logic
+- **Configuration** (site.json, nav.json, languages.json, newsCategories.json) — rarely changes, no query benefit
+- **Content graph** (contentGraph.json) — static topology for build-time link generation
 
 ---
 

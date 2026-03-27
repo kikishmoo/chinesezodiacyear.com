@@ -1,0 +1,39 @@
+/* --- Social Embed Enhancements --- */
+.social-embed-grid--1 {
+  display: grid;
+  grid-template-columns: minmax(300px, 640px);
+  gap: var(--sp-lg);
+  margin: var(--sp-lg) 0;
+}
+.social-embed-grid--3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-lg);
+}
+.social-embed-grid--4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-lg);
+}
+@media (max-width: 900px) {
+  .social-embed-grid--3 { grid-template-columns: 1fr; }
+  .social-embed-grid--4 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .social-embed-grid--4 { grid-template-columns: 1fr; }
+}
+.social-embed-card blockquote {
+  margin: 0;
+  border-left: none;
+  padding: 0;
+  background: none;
+  font-style: normal;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   Monetization Components
+   Shop, Pricing, Affiliate, Ads
+   ============================================ */
+

@@ -5,6 +5,54 @@
 
 ---
 
+## 2026-03-27 — Architecture Review & Documentation Update (Session 16, part 6)
+
+**Author:** kiki.peiqi.greene
+
+### Comprehensive Architecture Review + Data Layer Proposal
+
+Reviewed the full codebase architecture. Identified the absence of a persistent database as the key structural gap blocking revenue initiatives. Documented the review findings and proposed Cloudflare D1 + R2 as the data layer solution.
+
+**Documentation updates:**
+- `docs/architecture.md` — Major version bump (v1.1 → v2.0). Updated: technology stack (esbuild replaces terser/CleanCSS), build pipeline (esbuild CSS + JS bundling), client-side architecture (22 JS modules, 43 CSS modules), Worker architecture (full resilience stack detail), CI/CD pipeline (4-job structure), deployment flow (automated Worker deploy). Added new Section 11: Data Layer Review & Database Plan (D1 schema, migration path, data classification).
+- `docs/architecture-redesign.md` — Updated phase status: Phases 1, 2, 3, 5 marked COMPLETE. Phase 1 gaps marked RESOLVED. Added Phase 6: Data Layer + D1 Database (proposed). Retained original plans as reference.
+- `TODO.md` — Added item J (D1 database + R2 setup) and item K (migrate revenue data to D1).
+- `CLAUDE.md` — Added data layer attention point.
+
+---
+
+## 2026-03-27 — Phase 3: CSS Modularisation (Session 16, part 5)
+
+**Author:** kiki.peiqi.greene
+
+### Monolithic styles.css Decomposed into 43 Modular CSS Files
+
+Replaced the 5,590-line monolithic `src/styles.css` with a modular CSS architecture bundled by esbuild:
+
+**Directory structure:**
+- `src/css/main.css` — Entry point with `@import` chain (cascade order preserved)
+- `src/css/tokens/` — Design tokens: colors, typography, spacing, shadows, animations (5 files)
+- `src/css/base/` — Reset, accessibility, typography, i18n (4 files)
+- `src/css/layout/` — Header, footer, article layout (3 files)
+- `src/css/components/` — 21 component files: hero, buttons, breadcrumbs, calculator, cards, faq, directory, newsletter, search, comments, tables, share-buttons, readings, bazi, trivia, content-elements, donate, embeds, popup, cross-sell, content-upgrade, compatibility, related, shop
+- `src/css/themes/` — Consolidated dark mode + auto-dark (2 files)
+- `src/css/utilities/` — Spacing, text, animations, print, reduced-motion (5 files)
+
+**Build pipeline:**
+- esbuild replaces CleanCSS for CSS bundling (44 files → single minified output, 131.6KB → 100.4KB)
+- `clean-css` removed from devDependencies
+- CI validation updated: minimum output size check (50KB) replaces source/output comparison
+
+**Files changed:**
+- `src/css/` — 43 new CSS module files + `main.css` entry point
+- `eleventy.config.js` — esbuild CSS bundling replaces CleanCSS
+- `.github/workflows/deploy.yml` — Updated CSS validation check
+- `package.json` — Removed `clean-css` dependency
+- `TODO.md` — Item H marked as completed
+- `CLAUDE.md` — Updated CSS paths in Key File Locations
+
+---
+
 ## 2026-03-27 — Phase 2: JS Modularisation (Session 16, part 4)
 
 **Author:** kiki.peiqi.greene

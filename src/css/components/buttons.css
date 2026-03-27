@@ -1,0 +1,54 @@
+/* --- Buttons --- */
+.btn {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.8rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.35s var(--ease-out);
+  display: inline-block;
+}
+
+.btn-primary {
+  background: var(--vermillion);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #942E24;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-gold {
+  background: var(--imperial-gold);
+  color: var(--ink-black);
+}
+.btn-gold:hover {
+  background: var(--bright-gold);
+  color: var(--ink-black);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--deep-red);
+  border: 1.5px solid var(--deep-red);
+}
+.btn-outline:hover {
+  background: var(--deep-red);
+  color: #fff;
+}
+
+
+/* --- Small Button Variant --- */
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 0.5rem 1.2rem;
+}
+

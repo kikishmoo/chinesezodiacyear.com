@@ -1,0 +1,18 @@
+:root {
+  /* Shadows — soft, warm, ink-wash inspired */
+  --shadow-sm: 0 1px 6px rgba(22,18,14,0.05);
+  --shadow-md: 0 4px 20px rgba(22,18,14,0.07);
+  --shadow-lg: 0 8px 40px rgba(22,18,14,0.09);
+  --shadow-gold: 0 4px 24px rgba(191,147,40,0.10);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --transition-card: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  --transition-card-slow: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+
+  /* Border Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}

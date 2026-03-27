@@ -34,7 +34,7 @@ These are absolute rules. Security, hard constraints, and identity-level decisio
 - **noI18n pattern:** Pages without Chinese translations must set `noI18n: true` in frontmatter. This: (a) emits `<!-- no-i18n -->` marker instead of hreflang tags, (b) skips zh-hant/zh-hans variant generation, (c) excludes from sitemap language entries. Always check for lang-tc/lang-sc blocks before deciding.
 - **Git config:** user.email `kiki.shmoo@gmail.com`, user.name `Kiki Shmoo`.
 - **Build command:** `npx @11ty/eleventy` — always verify build succeeds before committing.
-- **JS bundling:** esbuild (ES modules → single IIFE bundle). CSS: clean-css.
+- **JS bundling:** esbuild (ES modules → single IIFE bundle). CSS: esbuild (43 CSS modules → single minified bundle).
 - **GA4 event pattern:** `track()` helper inside DOMContentLoaded; direct `if (window.gtag)` guards in standalone IIFEs.
 - **Never commit** `.env`, credentials, API keys, or PATs to the repo.
 
@@ -96,6 +96,7 @@ Current project direction. Stable for months but may shift based on data.
 | FAQ translation backlog | **NEARLY COMPLETE 2026-03-19.** Encyclopaedia/hub pages (23), zodiac animal pages (12), readings pages (12), and article pages (16) ALL DONE. Only remaining: `eleventyComputed.js` autoFaq function (English-only). | 2026-03-15 | 2026-04-15 | All FAQ items have TC/SC translations site-wide |
 | Technical audit follow-ups | **2026-03-18 audit completed.** All HIGH-priority items resolved 2026-03-20: CSP meta tag, `npm audit` in CI, `prefers-color-scheme`, BaZi date validation, security.txt, rate limiting on BaZi Worker. CSP refined 2026-03-24 (AdSense sub-resources). Rate limiting upgraded to dual-layer (in-memory + KV) 2026-03-24. ~~**Remaining:** Zero test coverage (no automated tests).~~ **RESOLVED 2026-03-27:** 40 vitest tests now gated in CI via `deploy.yml` test job. | 2026-03-18 | 2026-05-18 | All HIGH-priority audit items resolved |
 | CI/CD Phase 5 | **2026-03-27:** `deploy.yml` restructured into 4 jobs: test → build → deploy-pages + deploy-worker. Tests gate all deployments. Worker auto-deploys via `CLOUDFLARE_API_TOKEN` secret. Verify first workflow run succeeds after push. | 2026-03-27 | 2026-04-10 | First successful 4-job workflow run confirmed |
+| Data layer (Phase 6) | **2026-03-27 architecture review:** No persistent database. Revenue-critical data (directory, shop, report templates, transactions) needs Cloudflare D1. R2 needed for PDF reports. See `docs/architecture.md` Section 11 and `docs/architecture-redesign.md` Phase 6. Items J + K in TODO. | 2026-03-27 | 2026-06-27 | D1 tables created and first API endpoint live |
 
 ---
 
@@ -108,7 +109,11 @@ Current project direction. Stable for months but may shift based on data.
 | JS features | `src/js/features/*.js` (12 feature modules) |
 | JS data | `src/js/data/*.js` (zodiac, lichun, compatibility, figures) |
 | JS utils | `src/js/utils/*.js` (sanitise, base-path), `src/js/analytics.js` |
-| Main CSS | `src/styles.css` |
+| Main CSS (entry) | `src/css/main.css` (esbuild bundles → `_site/styles.css`) |
+| CSS tokens | `src/css/tokens/*.css` (colors, typography, spacing, shadows, animations) |
+| CSS components | `src/css/components/*.css` (21 component files) |
+| CSS themes | `src/css/themes/*.css` (dark, auto-dark) |
+| Main CSS (legacy) | `src/styles.css` (monolithic, superseded by `src/css/`) |
 | Base template | `src/_includes/layouts/base.njk` |
 | Article layout | `src/_includes/layouts/article.njk` |
 | Hero partial | `src/_includes/partials/hero.njk` |

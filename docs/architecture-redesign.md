@@ -2,8 +2,8 @@
 
 > **Date:** 2026-03-19
 > **Author:** Architecture review (via MuleRun Super Agent)
-> **Status:** Phase 1 (Worker restructure) complete (2026-03-21). Phase 1 gaps identified (2026-03-27). Phases 2–5 detailed planning complete (2026-03-27).
-> **Audited:** 2026-03-27 by kiki.peiqi.greene (via MuleRun Super Agent). Full codebase audit + competitive intelligence review.
+> **Status:** Phases 1, 2, 3, and 5 COMPLETE (2026-03-27). Phase 4 (template/data refactor) planned. Phase 6 (data layer + D1 database) proposed (2026-03-27).
+> **Audited:** 2026-03-27 by kiki.peiqi.greene (via MuleRun Super Agent). Full codebase audit + architecture review.
 > **Scope:** Full stack (Cloudflare Worker backend + Eleventy frontend)
 
 ---
@@ -283,15 +283,16 @@ No new runtime dependencies.
 
 ### Phase Order
 
-| Phase | Scope | Risk | Can Parallel? | Revenue Impact |
-|-------|-------|------|---------------|----------------|
-| **1. Worker restructure** | `worker/` | Low | Yes (with Phase 2) | **Unblocks PDF reports** (Priority A) |
-| **2. JS modularisation** | `src/js/` | Low–Med | Yes (with Phase 1) | Lazy-loading improves page speed |
-| **3. CSS modularisation** | `src/css/` | Low | After Phase 2 | Maintainability |
-| **4. Template/data refactor** | `src/_data/`, `partials/` | Low | After Phase 2 | Content velocity |
-| **5. CI/CD unification** | `.github/workflows/` | Low | After 1+2 | Prevents regressions |
+| Phase | Scope | Risk | Status | Revenue Impact |
+|-------|-------|------|--------|----------------|
+| **1. Worker restructure** | `worker/` | Low | **COMPLETE** (2026-03-27) | **Unblocks PDF reports** (Priority A) |
+| **2. JS modularisation** | `src/js/` | Low–Med | **COMPLETE** (2026-03-27) | Lazy-loading improves page speed |
+| **3. CSS modularisation** | `src/css/` | Low | **COMPLETE** (2026-03-27) | Maintainability |
+| **4. Template/data refactor** | `src/_data/`, `partials/` | Low | Planned | Content velocity |
+| **5. CI/CD unification** | `.github/workflows/` | Low | **COMPLETE** (2026-03-27) | Prevents regressions |
+| **6. Data layer + D1 database** | `worker/`, `wrangler.jsonc` | Med | **PROPOSED** (2026-03-27) | **Unblocks revenue** (PDF reports, lead-gen) |
 
-### Phase 1: Worker Restructure — COMPLETE (2026-03-21) + Gaps (2026-03-27)
+### Phase 1: Worker Restructure — COMPLETE (2026-03-21) + Gaps RESOLVED (2026-03-27)
 
 **Completed:**
 
@@ -306,36 +307,40 @@ No new runtime dependencies.
 9. ✅ Add rate limiting (dual-layer: in-memory + KV)
 10. ✅ Add CORS middleware with origin validation
 
-**Gaps identified in 2026-03-27 audit:**
+**Gaps identified and RESOLVED in 2026-03-27 session:**
 
-| Gap | File | Impact | Priority |
-|-----|------|--------|----------|
-| Cache middleware not implemented | `worker/lib/cache.js` | Every request hits upstream; no deterministic caching | HIGH |
-| Retry logic not implemented | `worker/lib/retry.js` | Single upstream failure = user-facing error | HIGH |
-| Circuit breaker not implemented | `worker/lib/circuit-breaker.js` | Sustained upstream outage floods timeouts | HIGH |
-| Solar time logic embedded in windada adapter | `worker/services/solar-time-service.js` | Not independently testable | MEDIUM |
-| Response schema not formalised | `worker/models/bazi-response.js` | API contract implicit, hard to version | MEDIUM |
-| Tests not running in CI | `.github/workflows/deploy.yml` | Broken tests don't prevent deployment | CRITICAL |
-| Worker not deployed via CI | `.github/workflows/deploy.yml` | Manual wrangler deploy only | HIGH |
-| Two escape functions in site.js (`esc()` + `escapeHtml()`) | `src/site.js` | Inconsistent XSS mitigation | MEDIUM |
+| Gap | File | Status |
+|-----|------|--------|
+| ~~Cache middleware not implemented~~ | `worker/lib/cache.js` | **RESOLVED** — Cache API wrapper with SHA-256 keying, 24h TTL |
+| ~~Retry logic not implemented~~ | `worker/lib/retry.js` | **RESOLVED** — Exponential backoff, 2 retries, 500ms base |
+| ~~Circuit breaker not implemented~~ | `worker/lib/circuit-breaker.js` | **RESOLVED** — Per-host state machine (5 failures → 30s recovery) |
+| ~~Solar time logic embedded in windada adapter~~ | `worker/services/solar-time-service.js` | **RESOLVED** — Extracted with circuit breaker + retry wrapping |
+| ~~Response schema not formalised~~ | `worker/models/bazi-response.js` | **RESOLVED** — JSDoc typedefs + validateResponse() |
+| ~~Tests not running in CI~~ | `.github/workflows/deploy.yml` | **RESOLVED** — 4-job pipeline: test → build → deploy-pages + deploy-worker |
+| ~~Worker not deployed via CI~~ | `.github/workflows/deploy.yml` | **RESOLVED** — deploy-worker job with CLOUDFLARE_API_TOKEN |
+| ~~Two escape functions in site.js~~ | `src/js/utils/sanitise.js` | **RESOLVED** — Unified in Phase 2 JS modularisation |
 
-**Phase 1 Completion Tasks (pre-Phase 2):**
+**Phase 1 Completion Tasks — ALL RESOLVED (2026-03-27):**
 
-1. Create `worker/lib/cache.js` — Cache API wrapper keyed on SHA-256 of canonical request JSON; 24h TTL
-2. Create `worker/lib/retry.js` — Retry with exponential backoff (max 2 retries, 500ms/1s delays)
-3. Create `worker/lib/circuit-breaker.js` — Per-host state machine (closed/open/half-open), 5 failures → open, 30s recovery
-4. Extract `worker/services/solar-time-service.js` from windada adapter
-5. Create `worker/models/bazi-response.js` — JSDoc-typed response shape definition
-6. Write tests for cache, retry, and circuit-breaker modules
-7. Wire cache + retry + circuit-breaker into `bazi-service.js`
+1. ✅ `worker/lib/cache.js` — Cache API wrapper keyed on SHA-256 of canonical request JSON; 24h TTL
+2. ✅ `worker/lib/retry.js` — Retry with exponential backoff (max 2 retries, 500ms/1s delays)
+3. ✅ `worker/lib/circuit-breaker.js` — Per-host state machine (closed/open/half-open), 5 failures → open, 30s recovery
+4. ✅ `worker/services/solar-time-service.js` — Extracted from windada adapter
+5. ✅ `worker/models/bazi-response.js` — JSDoc-typed response shape definition
+6. ✅ Tests for cache, retry, and circuit-breaker modules (24 new tests)
+7. ✅ Wired cache + retry + circuit-breaker into `bazi-service.js`
 
 **Verification:** Existing 55 tests still pass. New resilience tests pass. Manual comparison of response JSON before/after.
 
 ---
 
-### Phase 2: JS Modularisation — DETAILED PLAN (2026-03-27)
+### Phase 2: JS Modularisation — COMPLETE (2026-03-27)
 
-**Current state:** `src/site.js` (1,339 lines), `src/trivia.js` (199KB). Single DOMContentLoaded handler with nested IIFEs. Two separate escape functions (`esc()` at line 761, `escapeHtml()` at line 580). Terser post-build minification.
+**Completed:** 22 ES modules extracted from monolithic `src/site.js` (1,339 lines). esbuild bundles into single IIFE (59.8KB → 36.2KB). terser removed. See CHANGELOG for full details.
+
+**Original plan below retained for reference.**
+
+**Current state (pre-modularisation):** `src/site.js` (1,339 lines), `src/trivia.js` (199KB). Single DOMContentLoaded handler with nested IIFEs. Two separate escape functions (`esc()` at line 761, `escapeHtml()` at line 580). Terser post-build minification.
 
 **Target state:** ES module tree bundled by esbuild. Features isolated. Data extracted. Trivia lazy-loaded. Event bus for cross-feature communication. Single sanitisation utility.
 
@@ -414,9 +419,13 @@ No new runtime dependencies.
 
 ---
 
-### Phase 3: CSS Modularisation — DETAILED PLAN (2026-03-27)
+### Phase 3: CSS Modularisation — COMPLETE (2026-03-27)
 
-**Current state:** `src/styles.css` (5,590 lines, ~129KB source). Well-organised with section comments. 258 `[data-theme="dark"]` selectors scattered throughout. CleanCSS Level 2 minification.
+**Completed:** 43 modular CSS files extracted from monolithic `src/styles.css` (5,590 lines). esbuild bundles into single minified output (131.6KB → 100.4KB). CleanCSS removed. See CHANGELOG for full details.
+
+**Original plan below retained for reference.**
+
+**Current state (pre-modularisation):** `src/styles.css` (5,590 lines, ~129KB source). Well-organised with section comments. 258 `[data-theme="dark"]` selectors scattered throughout. CleanCSS Level 2 minification.
 
 **Target state:** Component-based CSS files. Design tokens extracted. Dark mode consolidated. esbuild bundling.
 
@@ -559,9 +568,13 @@ No new runtime dependencies.
 
 ---
 
-### Phase 5: CI/CD Unification — DETAILED PLAN (2026-03-27)
+### Phase 5: CI/CD Unification — COMPLETE (2026-03-27)
 
-**Current state:** Single `build` → `deploy` pipeline. No test job. No worker deployment. `npm test` not invoked. Vitest installed but never run in CI.
+**Completed:** `deploy.yml` restructured into 4 jobs: test → build → deploy-pages + deploy-worker. Tests gate all deployments. Worker auto-deploys via `CLOUDFLARE_API_TOKEN` secret. 64 vitest tests running in CI.
+
+**Original plan below retained for reference.**
+
+**Current state (pre-unification):** Single `build` → `deploy` pipeline. No test job. No worker deployment. `npm test` not invoked. Vitest installed but never run in CI.
 
 **Target state:** Test → Build → Deploy (frontend) + Test → Deploy (worker). Independent deployment tracks. Tests gate everything.
 
@@ -672,6 +685,41 @@ push to main
 **Verification:** Trigger a push. Confirm test job runs vitest. Confirm build is gated on test pass. Confirm worker deploys independently.
 
 **Risk:** Low. The main dependency is the `CLOUDFLARE_API_TOKEN` secret — owner must add this to the repo. Without it, the worker deploy job will fail (but frontend deploy is unaffected).
+
+---
+
+### Phase 6: Data Layer + D1 Database — PROPOSED (2026-03-27)
+
+> **Full details in `docs/architecture.md` Section 11.**
+
+**Current state:** All data in git-committed JSON/JS files. No persistent database. Revenue-critical data (directory listings, products, content calendar) cannot be updated at runtime. No transaction tracking. BaZi PDF report initiative (TODO items A/B) blocked — no storage for report templates or sales records.
+
+**Target state:** Cloudflare D1 database for dynamic data. R2 object storage for generated PDFs. Repository layer in Worker between services and database. Admin API routes for data management without git commits.
+
+**Proposed D1 tables:** `directory_listings`, `products`, `report_templates`, `transactions`
+
+**New Worker layers:**
+- `worker/repositories/` — Data access layer (SQL queries isolated from business logic)
+- `worker/lib/db.js` — D1 connection helper
+- `worker/lib/pdf.js` — PDF generation engine
+- `worker/lib/storage.js` — R2 upload/download wrapper
+- `worker/routes/directory.js`, `products.js`, `reports.js` — New API endpoints
+
+**Migration priority (aligned with revenue TODO items):**
+
+| Step | Action | Unblocks |
+|------|--------|----------|
+| 1 | `wrangler d1 create czy-main` + `wrangler r2 bucket create czy-reports` | Infrastructure |
+| 2 | Create `report_templates` table + `report-repo.js` | BaZi PDF reports (item A) |
+| 3 | Migrate `shop.json` → `products` table | Transaction tracking |
+| 4 | Build `report-service.js` + PDF generation | **BaZi PDF revenue live** |
+| 5 | Build compatibility report templates | **Compatibility PDF revenue live** (item B) |
+| 6 | Migrate `directory.json` → `directory_listings` table | Dynamic lead-gen (item C) |
+| 7 | Add admin API routes | Data management without git |
+
+**What stays as files:** Static reference data (zodiac animals, stems/branches, compatibility rules, lichun dates), generated data (zodiacYears.js, compatibilityPairs.js), site configuration (site.json, nav.json, languages.json). These are small, deterministic, and have no query/update requirements.
+
+**Risk:** Medium. D1 adds a persistence dependency. Mitigation: keep static site fully functional without D1 (database only serves API endpoints for dynamic features, not page rendering).
 
 ---
 

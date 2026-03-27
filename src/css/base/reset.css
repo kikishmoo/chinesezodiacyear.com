@@ -1,0 +1,26 @@
+/* ============================================
+   ChineseZodiacYear.com — Master Stylesheet
+   Aesthetic: Ethereal Paper · East Asian Ink-Wash
+   Warm xuan paper · Vermillion seal · Ink-wash mist
+   Gold leaf · Scholar's garden · Brushstroke accents
+   ============================================ */
+
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink-black);
+  background: var(--ivory);
+  background-image: var(--paper-noise), var(--ink-wash-mist);
+  line-height: 1.75;
+  overflow-x: hidden;
+}

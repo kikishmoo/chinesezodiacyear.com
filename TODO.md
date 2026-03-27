@@ -23,7 +23,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | **C** | **Expand directory for lead-gen (scrape + enrich)** | HIGH     | Medium-High | High  | Revenue    |
 | ~~**G**~~ | ~~**JS modularisation — Phase 2 architecture**~~ | ~~HIGH~~ | ~~High~~ | ~~Medium~~ | ~~Technical~~ → **DONE 2026-03-27** |
 | **D** | **Build embeddable BaZi API/widget**              | MEDIUM   | Medium | Medium       | Revenue    |
-| **H** | **CSS modularisation — Phase 3 architecture**     | MEDIUM     | Medium | Medium   | Technical  |
+| **H** | ~~**CSS modularisation — Phase 3 architecture**~~     | ~~MEDIUM~~     | ~~Medium~~ | ~~Medium~~   | ~~Technical~~ → **DONE 2026-03-27**  |
 | **I** | **Add Baby Gender Predictor tool**                | MEDIUM     | Medium | High     | Product    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
 | 9  | Set up Pinterest business account + first 20 pins (account created, linked on site) | HIGH | 3 hours | Medium | Marketing |
@@ -37,6 +37,8 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 19 | Create SOPs for content pipeline                      | LOW        | 4 hours  | Low      | Operations |
 | 20 | ~~Audit and optimize Cloudflare Worker caching rules~~    | ~~LOW~~        | ~~3 hours~~  | ~~Low~~      | ~~Technical~~ → Subsumed by item F (cache.js implementation) |
 | 42 | Template/data refactor — Phase 4 architecture         | LOW        | Medium | Medium   | Technical  |
+| **J** | **Set up Cloudflare D1 database + R2 bucket**     | **HIGH**   | Low    | **High** | **Technical** |
+| **K** | **Migrate revenue data to D1 (directory, shop, report templates)** | **HIGH** | Medium | **Very High** | **Revenue** |
 | 43 | Add daily/weekly horoscope feature                    | LOW        | High   | Medium   | Product    |
 | 44 | Add AI-powered BaZi chat (LLM integration)           | LOW        | High   | High     | Product    |
 

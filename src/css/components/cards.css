@@ -1,0 +1,475 @@
+/* --- Article Cards --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--sp-xl);
+}
+
+.article-card {
+  background: #fff;
+  background-image: var(--paper-noise);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-card-slow);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(191,147,40,0.08);
+  position: relative;
+  cursor: pointer;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(191,147,40,0.2);
+}
+
+/* Card link styling — JS handles full-card click via site.js */
+.article-card-body h2 a,
+.card-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: linear-gradient(135deg, var(--deep-red), var(--charcoal));
+}
+
+.card-image-placeholder {
+  width: 100%;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  background: linear-gradient(145deg, rgba(176,58,46,0.06), rgba(191,147,40,0.08), rgba(91,140,106,0.04));
+  color: var(--imperial-gold);
+  position: relative;
+}
+.card-image-placeholder::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--imperial-gold), transparent);
+  opacity: 0.3;
+}
+
+.card-body {
+  padding: var(--sp-lg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-sm);
+  font-size: 0.8rem;
+  color: var(--stone);
+}
+
+.card-tag,
+.article-tag {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 2px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tag-zodiac { background: #F5E0DF; color: var(--deep-red); }
+.tag-culture { background: #E0EDE4; color: var(--jade); }
+.tag-fengshui { background: #F0E8D8; color: #8B6914; }
+.tag-business { background: #DDE5EF; color: var(--indigo); }
+.tag-history { background: #EBE5EF; color: #5A4580; }
+.tag-calendar { background: #F5EDD8; color: #8B6914; }
+.tag-bazi { background: #E8E0D0; color: #6A5A30; }
+
+.card-title {
+  font-family: var(--font-editorial);
+  font-size: 1.3rem;
+  margin-bottom: var(--sp-sm);
+  line-height: 1.3;
+}
+
+.card-title a { color: var(--ink-black); }
+.card-title a:hover { color: var(--deep-red); }
+
+.card-excerpt {
+  font-size: 0.9rem;
+  color: var(--graphite);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.card-footer {
+  padding-top: var(--sp-md);
+  margin-top: auto;
+  border-top: 1px solid var(--gold-10);
+  font-size: 0.8rem;
+  color: var(--stone);
+}
+
+
+/* --- Zodiac Grid --- */
+.zodiac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--sp-lg);
+  margin: var(--sp-xl) 0;
+}
+
+.zodiac-card {
+  background: #fff;
+  background-image: var(--paper-noise);
+  border-radius: var(--radius-md);
+  padding: var(--sp-xl);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(191,147,40,0.08);
+  transition: var(--transition-card-slow), border-color 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.zodiac-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--vermillion), var(--imperial-gold));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.zodiac-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(196,153,43,0.25);
+}
+
+.zodiac-card:hover::before { opacity: 1; }
+
+.zodiac-emoji {
+  font-size: 3rem;
+  margin-bottom: var(--sp-sm);
+  display: block;
+}
+
+.zodiac-card h3 {
+  color: var(--deep-red);
+  margin-bottom: 0.25rem;
+}
+
+.zodiac-card .chinese-name {
+  font-family: var(--font-chinese);
+  font-size: 1rem;
+  color: var(--stone);
+  margin-bottom: var(--sp-md);
+}
+
+.zodiac-card .years {
+  font-size: 0.8rem;
+  color: var(--stone);
+  margin-bottom: var(--sp-sm);
+}
+
+.zodiac-card .traits {
+  font-size: 0.85rem;
+  color: var(--graphite);
+  line-height: 1.5;
+}
+
+
+/* --- Info Card Grid --- */
+.info-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--sp-lg);
+  margin: var(--sp-xl) 0;
+}
+
+.info-card-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--sp-sm);
+}
+
+.info-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: var(--sp-sm);
+  color: var(--deep-red);
+}
+
+.info-card p {
+  font-size: 0.88rem;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
+/* --- Guardian Deity entries --- */
+.guardian-deity {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-md);
+  padding: var(--sp-md) 0;
+  border-bottom: 1px solid var(--gold-08);
+}
+
+.guardian-deity:last-child { border-bottom: none; }
+
+.guardian-deity-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  width: 2.5rem;
+  text-align: center;
+}
+
+.guardian-deity h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.guardian-deity p {
+  font-size: 0.88rem;
+  color: var(--graphite);
+  line-height: 1.5;
+}
+
+
+/* --- Encyclopedia Feature Box --- */
+.feature-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--sp-lg);
+  margin: var(--sp-xl) 0;
+}
+
+.feature-item {
+  background: #fff;
+  background-image: var(--paper-noise);
+  border-radius: var(--radius-md);
+  padding: var(--sp-xl) var(--sp-lg);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  border: 1px solid rgba(191,147,40,0.06);
+  position: relative;
+}
+
+.feature-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 20%; right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--vermillion), transparent);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.feature-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-item:hover::after { opacity: 1; }
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: var(--sp-md);
+  display: block;
+}
+
+.feature-item h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--sp-sm);
+}
+
+.feature-item p {
+  font-size: 0.85rem;
+  color: var(--graphite);
+  margin: 0 auto;
+}
+
+.feature-item a {
+  display: inline-block;
+  margin-top: var(--sp-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* --- Article Author Box --- */
+.author-box {
+  display: flex;
+  gap: var(--sp-lg);
+  align-items: center;
+  padding: var(--sp-lg);
+  background: var(--parchment);
+  border-radius: var(--radius-sm);
+  margin: var(--sp-2xl) 0;
+  border-left: 3px solid var(--vermillion);
+}
+
+.author-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--deep-red), var(--imperial-gold));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.author-info h4 { margin-bottom: 0.2rem; }
+.author-info p { font-size: 0.85rem; color: var(--stone); margin: 0; }
+
+
+/* --- Magazine Card Grid (Colossal-style mixed sizes) --- */
+.card-grid-magazine {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-lg);
+}
+.card-grid-magazine .article-card:first-child .card-image-placeholder {
+  height: 240px;
+}
+@media (max-width: 900px) {
+  .card-grid-magazine { grid-template-columns: 1fr; }
+  .card-grid-magazine .article-card:first-child .card-image-placeholder {
+    height: 200px; min-height: auto;
+  }
+}
+
+
+/* --- Stat/Key-Fact Cards --- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--sp-lg);
+  margin: var(--sp-xl) 0;
+}
+.info-card {
+  background: linear-gradient(135deg, rgba(196,153,43,0.04), rgba(185,64,50,0.03));
+  border: 1px solid var(--gold-15);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-lg);
+  text-align: center;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-gold);
+}
+.info-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--sp-sm);
+  display: block;
+}
+.info-card-value {
+  font-family: var(--font-editorial);
+  font-size: 1.8rem;
+  color: var(--deep-red);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+.info-card-label {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--stone);
+  margin-bottom: var(--sp-sm);
+}
+.info-card-desc {
+  font-size: 0.88rem;
+  color: var(--graphite);
+  line-height: 1.5;
+}
+
+
+/* --- Comparison Cards (side by side) --- */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-lg);
+  margin: var(--sp-xl) 0;
+}
+@media (max-width: 600px) {
+  .comparison-grid { grid-template-columns: 1fr; }
+}
+.comparison-card {
+  border-radius: var(--radius-lg);
+  padding: var(--sp-lg);
+  border: 1px solid var(--gold-15);
+}
+.comparison-card--positive {
+  background: linear-gradient(135deg, #E8F0EA, #F5F8F5);
+  border-left: 4px solid var(--jade);
+}
+.comparison-card--negative {
+  background: linear-gradient(135deg, #F5ECEA, #FAF5F4);
+  border-left: 4px solid var(--vermillion);
+}
+.comparison-card--gold {
+  background: linear-gradient(135deg, var(--gold-06), var(--ivory));
+  border-left: 4px solid var(--imperial-gold);
+}
+.comparison-card h4 {
+  font-family: var(--font-editorial);
+  font-size: 1.1rem;
+  margin-bottom: var(--sp-sm);
+}
+.comparison-card--positive h4 { color: var(--jade); }
+.comparison-card--negative h4 { color: var(--deep-red); }
+.comparison-card--gold h4 { color: #8B6914; }
+.comparison-card ul {
+  list-style: none;
+  padding: 0;
+}
+.comparison-card li {
+  padding: 0.3rem 0;
+  font-size: 0.9rem;
+  color: var(--graphite);
+  padding-left: 1.5rem;
+  position: relative;
+}
+.comparison-card--positive li::before { content: '\2714'; position: absolute; left: 0; color: var(--jade); }
+.comparison-card--negative li::before { content: '\2718'; position: absolute; left: 0; color: var(--vermillion); }
+.comparison-card--gold li::before { content: '\25C6'; position: absolute; left: 0; color: var(--imperial-gold); font-size: 0.7rem; top: 0.5rem; }
+
+
+/* --- Magazine Card Grid --- */
+.card-grid-magazine {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-lg);
+}
+.card-grid-magazine > :first-child .card-image-placeholder {
+  height: 240px;
+}
+.card-grid-magazine > :first-child .card-title {
+  font-size: 1.3rem;
+}
+@media (max-width: 900px) {
+  .card-grid-magazine {
+    grid-template-columns: 1fr;
+  }
+  .card-grid-magazine > :first-child .card-image-placeholder {
+    height: 200px;
+  }
+}
+

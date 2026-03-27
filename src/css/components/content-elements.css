@@ -1,0 +1,494 @@
+/* --- Pullquote --- */
+.pullquote {
+  border-left: 3px solid var(--imperial-gold);
+  border-right: 3px solid var(--imperial-gold);
+  margin: var(--sp-xl) auto;
+  padding: var(--sp-lg) var(--sp-xl);
+  max-width: 640px;
+  text-align: center;
+  font-family: var(--font-accent);
+  font-size: 1.3rem;
+  line-height: 1.65;
+  color: var(--charcoal);
+  position: relative;
+  background: linear-gradient(135deg, rgba(191,147,40,0.02), transparent);
+}
+
+.pullquote::before,
+.pullquote::after {
+  content: '\2726  \2726  \2726';
+  display: block;
+  color: var(--imperial-gold);
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  opacity: 0.5;
+}
+
+.pullquote::before {
+  margin-bottom: var(--sp-sm);
+}
+
+.pullquote::after {
+  margin-top: var(--sp-sm);
+}
+
+/* --- Source Box (primary source citations) --- */
+.source-box {
+  border-left: 4px solid var(--vermillion);
+  background: rgba(185,64,50,0.03);
+  padding: var(--sp-md) var(--sp-lg);
+  margin: var(--sp-lg) 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.source-box cite {
+  display: block;
+  margin-top: var(--sp-sm);
+  font-family: var(--font-accent);
+  color: var(--graphite);
+  font-size: 0.88rem;
+}
+
+/* --- Historical Note (corrections / scholarly notes) --- */
+.historical-note {
+  border-left: 4px solid var(--jade);
+  background: rgba(91,140,106,0.04);
+  padding: var(--sp-md) var(--sp-lg);
+  margin: var(--sp-lg) 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  position: relative;
+  padding-left: calc(var(--sp-lg) + 1.8rem);
+}
+
+.historical-note::before {
+  content: '\1F4DC';
+  position: absolute;
+  left: var(--sp-md);
+  top: var(--sp-md);
+  font-size: 1.2rem;
+}
+
+/* --- Cloud Divider --- */
+.cloud-divider {
+  text-align: center;
+  margin: var(--sp-2xl) 0;
+  color: var(--imperial-gold);
+  font-size: 1rem;
+  letter-spacing: 0.8em;
+  opacity: 0.4;
+  position: relative;
+}
+
+.cloud-divider::before {
+  content: '\2726  \2726  \2726';
+}
+.cloud-divider::after {
+  content: '';
+  display: block;
+  width: 160px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(191,147,40,0.35), transparent);
+  margin: var(--sp-sm) auto 0;
+  opacity: 0.6;
+}
+
+/* --- Ornamental Border --- */
+.ornamental-border {
+  border: 2px double var(--imperial-gold);
+  padding: var(--sp-lg);
+  border-radius: 2px;
+  margin: var(--sp-xl) 0;
+}
+
+/* --- Chinese Border Top --- */
+.chinese-border-top {
+  border-top: 3px solid var(--vermillion);
+  position: relative;
+  padding-top: var(--sp-lg);
+  margin-top: var(--sp-xl);
+}
+
+.chinese-border-top::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--imperial-gold);
+}
+
+
+/* --- Elegant Background Section --- */
+.section-elegant-bg {
+  background-color: var(--cream);
+  background-image: var(--paper-noise),
+    radial-gradient(ellipse at 10% 90%, rgba(176,58,46,0.025) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 10%, rgba(191,147,40,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(91,140,106,0.015) 0%, transparent 50%);
+}
+
+
+/* --- Ornate Section Divider --- */
+.section-divider-ornate {
+  text-align: center;
+  margin: var(--sp-2xl) auto;
+  position: relative;
+}
+.section-divider-ornate::before {
+  content: '\2766';
+  display: block;
+  font-size: 1.3rem;
+  color: var(--imperial-gold);
+  opacity: 0.4;
+}
+.section-divider-ornate::after {
+  content: '';
+  display: block;
+  width: 240px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(191,147,40,0.3), transparent);
+  margin: var(--sp-sm) auto 0;
+  opacity: 0.5;
+}
+
+
+/* --- Highlight / Callout Boxes --- */
+.callout-box {
+  display: flex;
+  gap: var(--sp-lg);
+  align-items: flex-start;
+  background: linear-gradient(135deg, var(--cream), var(--ivory));
+  border-left: 4px solid var(--imperial-gold);
+  border-radius: 0 8px 8px 0;
+  padding: var(--sp-lg) var(--sp-xl);
+  margin: var(--sp-xl) 0;
+}
+.callout-box-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.callout-box-content {
+  flex: 1;
+}
+.callout-box-content h4 {
+  font-family: var(--font-editorial);
+  font-size: 1.15rem;
+  color: var(--deep-red);
+  margin-bottom: 0.3rem;
+}
+.callout-box-content p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* Variant colours */
+.callout-box--jade {
+  border-left-color: var(--jade);
+  background: linear-gradient(135deg, #E8F0EA, var(--ivory));
+}
+.callout-box--jade h4 { color: var(--jade); }
+.callout-box--red {
+  border-left-color: var(--vermillion);
+  background: linear-gradient(135deg, #F5ECEA, var(--ivory));
+}
+.callout-box--red h4 { color: var(--deep-red); }
+
+/* --- Visual Stat Bar --- */
+.stat-highlight {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-lg);
+  padding: var(--sp-lg) var(--sp-xl);
+  margin: var(--sp-xl) 0;
+  background: var(--ink-black);
+  color: var(--ivory);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+.stat-highlight::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--imperial-gold), var(--vermillion));
+}
+.stat-highlight-number {
+  font-family: var(--font-editorial);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--bright-gold);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.stat-highlight-text {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.stat-highlight-text strong {
+  color: var(--bright-gold);
+}
+
+
+/* --- Icon Feature Row (horizontal icon+text pairs) --- */
+.icon-feature-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sp-lg);
+  margin: var(--sp-xl) 0;
+}
+.icon-feature {
+  display: flex;
+  gap: var(--sp-md);
+  align-items: flex-start;
+}
+.icon-feature-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gold-08);
+  border-radius: 50%;
+}
+.icon-feature-text h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+  color: var(--ink-black);
+}
+.icon-feature-text p {
+  font-size: 0.88rem;
+  color: var(--graphite);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --- Image Panels (constrained, not full-bleed) --- */
+.image-panel {
+  margin: var(--sp-xl) 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+.image-panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.image-panel-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: var(--sp-lg) var(--sp-xl);
+  background: linear-gradient(transparent, rgba(26,21,16,0.85));
+  color: var(--ivory);
+}
+.image-panel-caption h3 {
+  font-family: var(--font-editorial);
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+}
+.image-panel-caption p {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* --- Image Grid (2-3 images side by side) --- */
+.image-grid {
+  display: grid;
+  gap: var(--sp-md);
+  margin: var(--sp-xl) 0;
+}
+.image-grid--2 { grid-template-columns: 1fr 1fr; }
+.image-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+.image-grid--featured {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.image-grid--featured > :first-child {
+  grid-row: auto;
+}
+.image-grid figure {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+.image-grid img {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-out);
+}
+.image-grid figure:hover img {
+  transform: scale(1.03);
+}
+.image-grid figcaption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: var(--sp-sm) var(--sp-md);
+  background: linear-gradient(transparent, rgba(26,21,16,0.75));
+  color: var(--ivory);
+  font-size: 0.8rem;
+}
+@media (max-width: 600px) {
+  .image-grid--2, .image-grid--3, .image-grid--featured {
+    grid-template-columns: 1fr;
+  }
+  .image-grid--featured > :first-child { grid-row: auto; }
+}
+/* div-based image grid items (used on dynasties page etc.) */
+.image-grid-item {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.image-grid-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.image-grid-caption {
+  font-size: 0.82rem;
+  color: var(--stone);
+  padding: var(--sp-sm) var(--sp-xs);
+  text-align: center;
+  background: var(--parchment);
+}
+[data-theme="dark"] .image-grid-caption {
+  background: var(--bg-surface, #23211f);
+  color: var(--text-muted);
+}
+
+
+/* --- Timeline Strip --- */
+.timeline {
+  position: relative;
+  margin: var(--sp-xl) 0;
+  padding-left: 2rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--imperial-gold), var(--vermillion), var(--imperial-gold));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--sp-xl);
+  padding-left: var(--sp-lg);
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: calc(-2rem + 0.25rem);
+  top: 0.35rem;
+  width: 12px;
+  height: 12px;
+  background: var(--imperial-gold);
+  border-radius: 50%;
+  border: 2px solid var(--ivory);
+  box-shadow: 0 0 0 2px var(--imperial-gold);
+}
+.timeline-date {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--imperial-gold);
+  margin-bottom: 0.15rem;
+}
+.timeline-item h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+.timeline-item p {
+  font-size: 0.9rem;
+  color: var(--graphite);
+  line-height: 1.55;
+  margin: 0;
+}
+
+
+/* --- Number Highlight (inline big number) --- */
+.num-highlight {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin: 0 0.2rem;
+}
+.num-highlight-val {
+  font-family: var(--font-editorial);
+  font-size: 1.4em;
+  color: var(--deep-red);
+  font-weight: 700;
+}
+
+/* --- Quote Card (wider, more visual pullquote) --- */
+.quote-card {
+  background: var(--ink-black);
+  color: var(--ivory);
+  padding: var(--sp-2xl);
+  border-radius: var(--radius-lg);
+  margin: var(--sp-2xl) 0;
+  position: relative;
+  text-align: center;
+}
+.quote-card::before {
+  content: '\201C';
+  font-family: var(--font-editorial);
+  font-size: 5rem;
+  color: var(--imperial-gold);
+  opacity: 0.3;
+  position: absolute;
+  top: -0.5rem;
+  left: 1.5rem;
+  line-height: 1;
+}
+.quote-card p {
+  font-family: var(--font-accent);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0 0 var(--sp-md);
+  position: relative;
+}
+.quote-card cite {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-style: normal;
+  color: var(--imperial-gold);
+}
+
+/* --- Section Visual Divider --- */
+.visual-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  margin: var(--sp-2xl) 0;
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--stone);
+}
+.visual-divider::before,
+.visual-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--imperial-gold), transparent);
+}
+

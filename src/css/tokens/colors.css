@@ -1,0 +1,26 @@
+:root {
+  /* Ethereal Ink-Wash Palette */
+  --vermillion: #B03A2E;
+  --deep-red: #7D2018;
+  --crimson: #BE3A24;
+  --cinnabar: #D45040;
+  --imperial-gold: #BF9328;
+  --bright-gold: #D4A848;
+  --pale-gold: #E5D2A0;
+  --ink-black: #16120E;
+  --charcoal: #28221C;
+  --graphite: #5C5248;
+  --stone: #807568;
+  --ivory: #FAF6EF;
+  --cream: #F5EDDE;
+  --parchment: #EDE4D3;
+  --warm-brown: #6B5A50;
+  --jade: #5B8C6A;
+  --jade-light: #7BA098;
+  --jade-muted: #6D9A7E;
+  --celadon: #9BB5A0;
+  --indigo: #384E6E;
+  --indigo-light: #5A7094;
+  --persimmon: #D67B40;
+  --mist: rgba(250,246,238,0.45);
+}

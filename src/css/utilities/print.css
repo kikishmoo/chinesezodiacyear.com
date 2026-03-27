@@ -1,0 +1,7 @@
+/* --- Print Styles --- */
+@media print {
+  .site-header, .site-footer, .newsletter-section, .share-buttons, .nav-toggle { display: none; }
+  body { font-size: 12pt; background: white; }
+  .article-layout { grid-template-columns: 1fr; }
+}
+

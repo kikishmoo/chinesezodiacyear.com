@@ -1,0 +1,65 @@
+/* --- Readings Grid --- */
+.reading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--sp-lg);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.reading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--sp-lg) var(--sp-md);
+  background: var(--cream);
+  background-image: var(--paper-noise);
+  border: 1px solid var(--gold-15);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--ink-black);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
+}
+.reading-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--imperial-gold);
+}
+.reading-card-featured {
+  border-color: var(--vermillion);
+  background: rgba(185,64,50,0.04);
+}
+.reading-card-featured:hover {
+  border-color: var(--deep-red);
+}
+
+.reading-card-emoji {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: var(--sp-sm);
+}
+.reading-card-cn {
+  font-family: var(--font-chinese);
+  font-size: 1.3rem;
+  color: var(--deep-red);
+  margin-bottom: 2px;
+}
+.reading-card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink-black);
+}
+.reading-card-year {
+  font-size: 0.78rem;
+  color: var(--stone);
+  margin-top: 4px;
+  letter-spacing: 0.03em;
+}
+
+.tag-readings {
+  background: rgba(185,64,50,0.08);
+  color: var(--vermillion);
+}
+

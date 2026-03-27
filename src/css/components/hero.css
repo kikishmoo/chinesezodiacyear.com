@@ -1,0 +1,189 @@
+/* --- Page Hero --- */
+.page-hero {
+  background: linear-gradient(175deg, var(--charcoal) 0%, var(--ink-black) 40%, #1C1710 100%);
+  color: var(--ivory);
+  padding: calc(var(--sp-3xl) + 1rem) var(--sp-lg) calc(var(--sp-3xl) + 2rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 45%, rgba(176,58,46,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 50%, rgba(191,147,40,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 90%, rgba(91,140,106,0.04) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--paper-noise);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width-narrow);
+  margin: 0 auto;
+}
+
+.page-hero h1,
+.page-hero .page-hero-title {
+  color: var(--ivory);
+  margin-bottom: var(--sp-md);
+}
+
+.page-hero .subtitle {
+  color: rgba(250,246,238,0.65);
+}
+
+/* --- Home Hero --- */
+.home-hero {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  /* Ethereal ink-wash landscape gradient */
+  background:
+    linear-gradient(175deg,
+      #28201A 0%,
+      #16120E 20%,
+      #1E1A14 45%,
+      #16120E 70%,
+      #0E0C08 100%
+    );
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 30%, rgba(176,58,46,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 55%, rgba(191,147,40,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 85%, rgba(91,140,106,0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 20%, rgba(250,246,238,0.03) 0%, transparent 50%);
+}
+
+.home-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--paper-noise);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: var(--sp-xl);
+  max-width: 900px;
+}
+
+.hero-content h1,
+.hero-content .page-hero-title {
+  color: var(--ivory);
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  margin-bottom: var(--sp-md);
+  line-height: 1.1;
+}
+
+.hero-content h1 em,
+.hero-content .page-hero-title em {
+  font-style: normal;
+  color: var(--bright-gold);
+  display: block;
+  font-size: 0.55em;
+  font-family: var(--font-accent);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  margin-top: 0.3em;
+}
+
+.hero-content .subtitle {
+  color: rgba(250,246,238,0.6);
+  max-width: 600px;
+  margin: 0 auto var(--sp-xl);
+}
+
+/* Zodiac Wheel */
+.zodiac-wheel {
+  width: 340px;
+  height: 340px;
+  margin: 0 auto var(--sp-xl);
+  position: relative;
+  animation: wheelSpin 120s linear infinite;
+}
+
+@keyframes wheelSpin { to { transform: rotate(360deg); } }
+
+.zodiac-wheel-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(196,153,43,0.25);
+  border-radius: 50%;
+}
+
+.zodiac-wheel-ring::before {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border: 1px solid var(--gold-15);
+  border-radius: 50%;
+}
+
+.wheel-animal {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--bright-gold);
+  font-family: var(--font-chinese);
+  background: rgba(26,21,16,0.7);
+  border: 1px solid rgba(196,153,43,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
+}
+
+.wheel-animal:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 0 20px rgba(196,153,43,0.3);
+}
+
+
+/* --- Hero Chinese Name (Shengxiao) --- */
+.hero-chinese-name {
+  font-family: var(--font-chinese);
+  font-size: 0.5em;
+  color: var(--bright-gold);
+  display: inline-block;
+  vertical-align: baseline;
+  margin-left: 0.3em;
+  opacity: 0.85;
+}
+.hero-pinyin {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 0.72em;
+  color: rgba(250,246,238,0.45);
+  display: block;
+  margin-top: 0.1em;
+  letter-spacing: 0.08em;
+}
+

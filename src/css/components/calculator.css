@@ -1,0 +1,181 @@
+/* --- Zodiac Calculator --- */
+.calc-section {
+  background: var(--cream);
+  background-image: var(--paper-noise), var(--ink-wash-mist);
+  padding: var(--sp-3xl) var(--sp-lg);
+  position: relative;
+}
+
+.calc-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--deep-red), var(--imperial-gold), var(--jade), transparent);
+}
+
+.calc-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.calc-form {
+  display: flex;
+  gap: var(--sp-md);
+  margin: var(--sp-xl) 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.calc-row {
+  display: flex;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.calc-input {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  padding: 0.75rem 1.25rem;
+  border: 2px solid rgba(196,153,43,0.3);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--ink-black);
+  width: 160px;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+
+.calc-input-sm {
+  width: 100px;
+}
+
+select.calc-input {
+  cursor: pointer;
+  appearance: auto;
+}
+
+.calc-input:focus {
+  outline: none;
+  border-color: var(--imperial-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.calc-result {
+  background: #fff;
+  border: 1px solid var(--gold-20);
+  border-radius: var(--radius-md);
+  padding: var(--sp-xl);
+  box-shadow: var(--shadow-md);
+  display: none;
+  position: relative;
+}
+
+.calc-result::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--vermillion), var(--imperial-gold));
+}
+
+.calc-result.show { display: block; animation: fadeUp 0.5s var(--ease-out); }
+
+.calc-result-animal {
+  font-size: 4rem;
+  margin-bottom: var(--sp-sm);
+}
+
+.calc-result h3 {
+  font-family: var(--font-display);
+  color: var(--deep-red);
+  margin-bottom: var(--sp-sm);
+}
+
+.calc-result-element {
+  display: inline-block;
+  padding: 0.3rem 1rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.element-wood { background: #E8EFE0; color: #3A6B3E; }
+.element-fire { background: #F5E0DF; color: #8B2520; }
+.element-earth { background: #F0E8D8; color: #8B6914; }
+.element-metal { background: #E8E5EF; color: #555080; }
+.element-water { background: #DDE8EF; color: #2A5070; }
+
+.lichun-note {
+  margin: 1.2rem auto 0;
+  max-width: 480px;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--imperial-gold);
+  border-radius: var(--radius-sm);
+  background: var(--gold-06);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--graphite);
+  text-align: left;
+}
+.lichun-note strong {
+  color: var(--deep-red);
+}
+.lichun-note-ok {
+  border-color: var(--jade);
+  background: rgba(91,140,106,0.06);
+}
+.lichun-note-ok strong {
+  color: var(--jade);
+}
+
+
+/* --- Famous Person Card (Zodiac Calculator) --- */
+.famous-person-card {
+  display: block;
+  margin-top: var(--sp-xl);
+  padding: var(--sp-lg);
+  background: linear-gradient(135deg, rgba(196,153,43,0.04), rgba(185,64,50,0.03));
+  border: 1px solid var(--gold-15);
+  border-radius: var(--radius-md);
+  text-align: left;
+  border-left: 3px solid var(--imperial-gold);
+}
+.famous-person-label {
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--imperial-gold);
+  margin-bottom: var(--sp-sm);
+}
+.famous-person-emoji {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+.famous-person-info h4 {
+  font-family: var(--font-editorial);
+  font-size: 1.1rem;
+  color: var(--deep-red);
+  margin-bottom: 0.25rem;
+}
+.famous-person-dates {
+  font-size: 0.82rem;
+  color: var(--stone);
+  font-style: italic;
+  margin-bottom: 0.5rem !important;
+}
+.famous-person-story {
+  font-size: 0.9rem;
+  color: var(--graphite);
+  line-height: 1.6;
+  margin-bottom: 0 !important;
+}
+

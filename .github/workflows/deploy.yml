@@ -83,12 +83,11 @@ jobs:
             exit 1
           fi
 
-          # 3. Check CSS was minified (output smaller than source)
-          SRC_CSS_SIZE=$(wc -c < src/styles.css)
+          # 3. Check CSS was bundled and minified (esbuild output must exist and be reasonable)
           OUT_CSS_SIZE=$(wc -c < _site/styles.css)
-          echo "CSS: source ${SRC_CSS_SIZE}B → output ${OUT_CSS_SIZE}B"
-          if [ "$OUT_CSS_SIZE" -ge "$SRC_CSS_SIZE" ]; then
-            echo "::error::CSS minification failed — output ($OUT_CSS_SIZE) >= source ($SRC_CSS_SIZE)."
+          echo "CSS: output ${OUT_CSS_SIZE}B"
+          if [ "$OUT_CSS_SIZE" -lt 50000 ]; then
+            echo "::error::CSS bundle too small ($OUT_CSS_SIZE bytes) — esbuild CSS bundling may have failed."
             exit 1
           fi
 

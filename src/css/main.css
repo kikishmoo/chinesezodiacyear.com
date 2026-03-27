@@ -1,0 +1,60 @@
+/* ============================================
+   ChineseZodiacYear.com — CSS Entry Point
+   Aesthetic: Ethereal Paper · East Asian Ink-Wash
+   esbuild bundles this into _site/styles.css
+   ============================================ */
+
+/* --- Design Tokens --- */
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/shadows.css';
+@import './tokens/animations.css';
+
+/* --- Base --- */
+@import './base/reset.css';
+@import './base/accessibility.css';
+@import './base/typography.css';
+@import './base/i18n.css';
+
+/* --- Layout --- */
+@import './layout/header.css';
+@import './layout/footer.css';
+@import './layout/article-layout.css';
+
+/* --- Components --- */
+@import './components/hero.css';
+@import './components/buttons.css';
+@import './components/breadcrumbs.css';
+@import './components/calculator.css';
+@import './components/cards.css';
+@import './components/faq.css';
+@import './components/directory.css';
+@import './components/newsletter.css';
+@import './components/search.css';
+@import './components/comments.css';
+@import './components/tables.css';
+@import './components/share-buttons.css';
+@import './components/readings.css';
+@import './components/bazi.css';
+@import './components/trivia.css';
+@import './components/content-elements.css';
+@import './components/donate.css';
+@import './components/embeds.css';
+@import './components/popup.css';
+@import './components/cross-sell.css';
+@import './components/content-upgrade.css';
+@import './components/compatibility.css';
+@import './components/related.css';
+@import './components/shop.css';
+
+/* --- Themes (after components so overrides win) --- */
+@import './themes/dark.css';
+@import './themes/auto-dark.css';
+
+/* --- Utilities (last — highest specificity intent) --- */
+@import './utilities/spacing.css';
+@import './utilities/text.css';
+@import './utilities/animations.css';
+@import './utilities/print.css';
+@import './utilities/reduced-motion.css';

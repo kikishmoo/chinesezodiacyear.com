@@ -1,0 +1,9 @@
+/* --- Utility --- */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--sp-lg); }
+.container-narrow { max-width: var(--max-width-narrow); margin: 0 auto; padding: 0 var(--sp-lg); }
+.mt-sm { margin-top: var(--sp-sm); }
+.mt-md { margin-top: var(--sp-md); }
+.mt-lg { margin-top: var(--sp-lg); }
+.mt-xl { margin-top: var(--sp-xl); }
+.mb-md { margin-bottom: var(--sp-md); }
+.mb-lg { margin-bottom: var(--sp-lg); }

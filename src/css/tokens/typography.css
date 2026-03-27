@@ -1,0 +1,8 @@
+:root {
+  /* Typography */
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-editorial: 'DM Serif Display', 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Noto Sans SC', Helvetica, Arial, sans-serif;
+  --font-accent: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --font-chinese: 'Noto Serif SC', 'SimSun', 'STSong', serif;
+}

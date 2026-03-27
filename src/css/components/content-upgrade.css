@@ -1,0 +1,60 @@
+/* ============================================
+   INLINE CONTENT UPGRADE CTA
+   ============================================ */
+.content-upgrade {
+  background: linear-gradient(135deg, #5A1612 0%, #4D1310 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-xl);
+  margin: var(--sp-2xl) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.content-upgrade::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(191,147,40,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.content-upgrade-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--sp-sm);
+}
+.content-upgrade h3 {
+  font-family: var(--font-display);
+  color: var(--ivory);
+  font-size: 1.2rem;
+  margin-bottom: var(--sp-xs);
+  position: relative;
+}
+.content-upgrade p {
+  color: rgba(255,250,240,0.6);
+  font-size: 0.9rem;
+  margin-bottom: var(--sp-lg);
+  position: relative;
+}
+.content-upgrade .newsletter-form {
+  display: flex;
+  gap: var(--sp-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.content-upgrade .newsletter-input {
+  flex: 1;
+  min-width: 180px;
+  max-width: 320px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(191,147,40,0.3);
+  color: var(--ivory);
+}
+.content-upgrade .newsletter-input::placeholder {
+  color: rgba(255,250,240,0.45);
+}
+.content-upgrade .newsletter-message {
+  margin-top: var(--sp-md);
+  position: relative;
+}
+

@@ -1,0 +1,13 @@
+/* --- Breadcrumbs --- */
+.breadcrumbs {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--sp-md) var(--sp-lg);
+  font-size: 0.8rem;
+  color: var(--stone);
+}
+
+.breadcrumbs a { color: var(--stone); }
+.breadcrumbs a:hover { color: var(--deep-red); }
+.breadcrumbs span { margin: 0 0.4rem; opacity: 0.5; }
+
