@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-03-27 — Phase 6 Step 1: D1/R2 Bootstrap Assets (Session 19)
+
+**Author:** Cody
+
+### Infrastructure Bootstrap Preparation
+
+Implemented the first architecture-priority item (D1 + R2 bootstrap) as executable project assets, so cloud provisioning can be run consistently without ad-hoc commands.
+
+**Changes:**
+- Added `scripts/bootstrap-d1-r2.sh` to validate Wrangler auth and create D1 (`czy-main`) + R2 (`czy-reports`) resources.
+- Added `docs/d1-r2-bootstrap.md` runbook with scripted/manual creation commands, binding snippet for `wrangler.jsonc`, and verification steps.
+- Added npm scripts in `package.json`: `infra:bootstrap`, `infra:d1:create`, `infra:r2:create`, `infra:list`.
+- Updated `TODO.md` with Phase 6 execution note for item J status (bootstrap assets done; actual cloud resource IDs pending).
+- Updated `CLAUDE.md` data-layer attention point to reflect bootstrap status and remaining provisioning action.
+
+---
+
 ## 2026-03-27 — Onboarding Audit Revision (Session 18)
 
 **Author:** Cody

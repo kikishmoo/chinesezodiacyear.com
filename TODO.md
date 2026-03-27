@@ -46,6 +46,12 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 43 | Add daily/weekly horoscope feature                    | LOW        | High   | Medium   | Product    |
 | 44 | Add AI-powered BaZi chat (LLM integration)           | LOW        | High   | High     | Product    |
 
+
+### Phase 6 Execution Notes (2026-03-27)
+
+- Item **J** bootstrap assets added: `scripts/bootstrap-d1-r2.sh` and `docs/d1-r2-bootstrap.md` (resource creation + binding instructions).
+- Still pending: actual resource creation in Cloudflare account and binding IDs committed to `wrangler.jsonc`.
+
 ### Completed Items (moved from matrix)
 
 | # | Item | Completed |
