@@ -772,9 +772,9 @@ push to main
 | File | Lines | Action |
 |------|-------|--------|
 | ~~`worker/bazi-worker.js`~~ | ~~359~~ | ~~Decompose into router/service/adapter (Phase 1)~~ DONE |
-| `worker/lib/cache.js` | 0 (new) | Implement Cache API wrapper (Phase 1 completion) |
-| `worker/lib/retry.js` | 0 (new) | Implement exponential backoff (Phase 1 completion) |
-| `worker/lib/circuit-breaker.js` | 0 (new) | Implement per-host circuit breaker (Phase 1 completion) |
+| `worker/lib/cache.js` | implemented | Cache API wrapper complete; monitor hit ratio + key cardinality |
+| `worker/lib/retry.js` | implemented | Retry logic complete; tune retryability map with production error data |
+| `worker/lib/circuit-breaker.js` | implemented | Circuit breaker complete; add metric counters for open/half-open transitions |
 | `src/site.js` | 1,339 | Decompose into ES modules (Phase 2) |
 | `src/styles.css` | 5,590 | Split into component files (Phase 3) |
 | `src/_data/eleventyComputed.js` | 545 | Split into testable modules (Phase 4) |
@@ -819,3 +819,34 @@ To align with mature production backends, the current architecture should add:
 7. **Asynchronous job model** for report generation (`report_jobs`) with retry/dead-letter semantics.
 
 These controls are mandatory before scaling paid-report volume or opening partner-facing APIs.
+
+
+
+## 11. Phase 6 Execution Blueprint (D1/R2)
+
+To convert the proposed data layer into implementation-ready work, execute in this order:
+
+1. **Schema + migration bootstrap**
+   - Add `migrations/` directory and a migration naming convention (`YYYYMMDDHHMM_description.sql`).
+   - First migration creates: `report_templates`, `report_jobs`, `transactions`, `directory_listings`, `directory_leads`, `products`.
+2. **Repository layer scaffold**
+   - Add `worker/repositories/` with one file per aggregate (`report-repository.js`, `transaction-repository.js`, etc.).
+   - Rule: services cannot issue raw SQL directly.
+3. **Route expansion (contract-first)**
+   - Add OpenAPI spec for current `/v1/bazi/calculate`, `/v1/health` and upcoming `/v1/bazi/report` endpoints before implementation.
+4. **Idempotent payment/report pipeline**
+   - Payment webhook writes transaction event + idempotency key.
+   - Report job queue/state machine transitions: `queued -> processing -> completed|failed`.
+5. **Governance + compliance controls**
+   - Define retention windows for birth data and generated reports.
+   - Add deletion endpoint/SOP and audit-log entries for access/deletion operations.
+6. **Observability and SLO baseline**
+   - Add request IDs, per-route latency/error metrics, and alerts for report generation failures and upstream provider outages.
+
+### Definition of Done for Phase 6
+
+- D1 schema migrations run successfully in CI and production.
+- At least one write endpoint and one read endpoint are backed by repository-layer D1 queries.
+- OpenAPI file published and validated in CI.
+- Retention/deletion policy documented and linked from docs + TODO.
+- End-to-end paid-report happy path completes with persisted transaction + report job record.

@@ -19,6 +19,19 @@ The project has moved from a fragile monolith to a strong modular baseline (fron
 3. **SEO/GEO foundations already present**: broad topical surface area, llms.txt, rich internal linking potential.
 4. **Low-CAPEX stack fit**: Eleventy + Cloudflare Worker + GitHub Pages is cost-efficient.
 
+
+## 2.1 Evidence Reviewed During Onboarding
+
+The audit was based on the currently implemented code and docs, with direct inspection of:
+
+- Worker entry/router/middleware wiring (`worker/index.js`, `worker/router.js`, `worker/middleware/*`).
+- Service/adapters/models contracts (`worker/services/*`, `worker/adapters/*`, `worker/models/*`).
+- Cloudflare runtime config (`wrangler.jsonc`).
+- CI gates and deployment dependencies (`.github/workflows/deploy.yml`).
+- Strategic and architecture docs (`CLAUDE.md`, `TODO.md`, `docs/architecture.md`, `docs/architecture-redesign.md`).
+
+This makes the recommendations implementation-linked (not generic).
+
 ---
 
 ## 3) Quick Architecture Audit (Industrial-Standard Lens)
@@ -39,6 +52,21 @@ The project has moved from a fragile monolith to a strong modular baseline (fron
 5. **No SLO/SLI runbook** (availability/error budget, incident handling, rollback).
 6. **No transaction/event model** for purchases, report generation status, refunds.
 7. **Data governance controls incomplete** (retention/deletion policy for personal birth data).
+
+
+### 3.3 Industrial-Standard Scorecard (Current)
+
+| Domain | Score | Status |
+|---|---:|---|
+| API modularity (router/service/adapter/model) | 8/10 | Strong baseline live |
+| Reliability patterns (retry/circuit/cache/rate-limit) | 8/10 | Implemented for current BaZi path |
+| CI/CD quality gates | 8/10 | Tests + audit + build + dual deploy jobs |
+| Data persistence architecture | 3/10 | D1/R2 planned, not operational |
+| Contract governance (OpenAPI/versioning discipline) | 4/10 | Versioned routes exist, spec missing |
+| Security + compliance for personal data | 4/10 | Guardrails partial, retention/deletion policy missing |
+| Observability + operations runbook | 4/10 | Basic logs available, no formal SLO/incident model |
+
+**Overall:** 5.6/10 production maturity for a monetising data product. Infrastructure is solid; governance/data-plane work is now the bottleneck.
 
 ---
 
