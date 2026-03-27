@@ -18,6 +18,9 @@ Added a versioned OpenAPI contract for Worker `/v1/*` routes and gated CI with a
 - Added `scripts/check-openapi-contract.js` to validate spec presence/shape (required paths + schemas).
 - Added npm script `infra:openapi:check` and wired it into `.github/workflows/deploy.yml` test job.
 - Updated `TODO.md` and `CLAUDE.md` to reflect Item M contract bootstrap completion and remaining governance focus.
+
+---
+
 ## 2026-03-27 — Phase 6 Step 4: Birth-Data Governance Policy (Session 22)
 
 **Author:** Cody
