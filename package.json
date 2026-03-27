@@ -10,7 +10,17 @@
     "serve": "npx @11ty/eleventy --serve --port=8080",
     "dev": "npx @11ty/eleventy --serve --port=8080",
     "deploy": "npm run build && wrangler deploy",
-    "preview": "npm run build && wrangler dev"
+    "preview": "npm run build && wrangler dev",
+    "infra:bootstrap": "./scripts/bootstrap-d1-r2.sh",
+    "infra:d1:create": "npx --no-install wrangler d1 create czy-main",
+    "infra:r2:create": "npx --no-install wrangler r2 bucket create czy-reports",
+    "infra:list": "npx --no-install wrangler d1 list && npx --no-install wrangler r2 bucket list",
+    "infra:migrations:check": "bash ./scripts/check-migrations.sh",
+    "infra:migrations:apply:local": "npx --no-install wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --local",
+    "infra:migrations:apply:remote": "npx --no-install wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --remote",
+    "infra:boundaries:check": "bash ./scripts/check-service-sql-boundary.sh",
+    "infra:architecture:check": "bash ./scripts/check-service-sql-boundary.sh",
+    "infra:repositories:check": "bash ./scripts/check-no-sql-in-services.sh"
   },
   "keywords": [
     "chinese-zodiac",

@@ -5,6 +5,89 @@
 
 ---
 
+## 2026-03-27 — Phase 6 Step 3: Repository Layer Scaffold (Session 21)
+
+**Author:** Cody
+
+### Worker Repository Pattern + SQL Boundary Guard
+
+Implemented the next architecture item by scaffolding repository ownership for D1 queries and adding a CI-enforced boundary that prevents SQL from being written in service files.
+
+**Changes:**
+- Added repository infrastructure: `worker/repositories/db-client.js`, `worker/repositories/report-templates-repository.js`, `worker/repositories/report-jobs-repository.js`, `worker/repositories/index.js`.
+- Added SQL boundary guard script: `scripts/check-service-sql-boundary.sh`.
+- Added npm script: `infra:boundaries:check`.
+- Updated CI (`.github/workflows/deploy.yml`) to run boundary checks in the test job.
+- Added repository unit tests in `worker/__tests__/repositories/` for report template/job query behavior.
+- Updated `TODO.md`, `CLAUDE.md`, and `docs/architecture-redesign.md` with Step 3 progress status.
+
+---
+
+## 2026-03-27 — Phase 6 Step 2: Migration Workflow Bootstrap (Session 20)
+
+**Author:** Cody
+
+### D1 Migration Baseline + CI Scaffolding
+
+Implemented Item 2 from the architecture priority order by introducing migration conventions, the first schema migration, and CI checks.
+
+**Changes:**
+- Added `migrations/202603271300_phase6_initial_schema.sql` with baseline Phase 6 tables: `report_templates`, `report_jobs`, `transactions`, `directory_listings`, `directory_leads`, `products`, plus supporting indexes.
+- Added `migrations/README.md` with naming convention, append-only rules, apply commands, and rollback SOP.
+- Added `scripts/check-migrations.sh` to validate migration filename format/order and execute SQL against in-memory SQLite as a syntax safety check.
+- Added npm scripts in `package.json`: `infra:migrations:check`, `infra:migrations:apply:local`, `infra:migrations:apply:remote`.
+- Updated `.github/workflows/deploy.yml` test job to run `npm run infra:migrations:check`.
+- Updated `docs/d1-r2-bootstrap.md`, `TODO.md`, and `CLAUDE.md` to reflect Step 2 migration bootstrap completion.
+
+---
+## 2026-03-27 — Phase 6 Step 1: D1/R2 Bootstrap Assets (Session 19)
+
+**Author:** Cody
+
+### Infrastructure Bootstrap Preparation
+
+Implemented the first architecture-priority item (D1 + R2 bootstrap) as executable project assets, so cloud provisioning can be run consistently without ad-hoc commands.
+
+**Changes:**
+- Added `scripts/bootstrap-d1-r2.sh` to validate Wrangler auth and create D1 (`czy-main`) + R2 (`czy-reports`) resources.
+- Added `docs/d1-r2-bootstrap.md` runbook with scripted/manual creation commands, binding snippet for `wrangler.jsonc`, and verification steps.
+- Added npm scripts in `package.json`: `infra:bootstrap`, `infra:d1:create`, `infra:r2:create`, `infra:list`.
+- Updated `TODO.md` with Phase 6 execution note for item J status (bootstrap assets done; actual cloud resource IDs pending).
+- Updated `CLAUDE.md` data-layer attention point to reflect bootstrap status and remaining provisioning action.
+
+---
+
+## 2026-03-27 — Onboarding Audit Revision (Session 18)
+
+**Author:** Cody
+
+### Follow-up Documentation Tightening
+
+Refined the onboarding audit and architecture redesign docs to make recommendations implementation-specific and to remove stale action wording.
+
+**Documentation updates:**
+- `docs/onboarding-audit-2026-03-27.md` — Added explicit evidence reviewed section (worker files, wrangler config, CI workflow, architecture docs) and an industrial-standard scorecard with quantified maturity ratings.
+- `docs/architecture-redesign.md` — Updated `Critical Files` table wording so completed Phase 1 modules are no longer shown as pending implementation; added Section 11 with a concrete Phase 6 D1/R2 execution blueprint and Definition of Done.
+- `TODO.md` — Added item O to scaffold a repository layer and enforce no-SQL-in-services rule.
+
+---
+
+## 2026-03-27 — Onboarding Audit, Industrial-Standard Gap Review & Documentation Revision (Session 17)
+
+**Author:** Cody
+
+### Quick Audit + Business Execution Baseline
+
+Completed an onboarding audit focused on minimum-fund business execution and production-readiness of the current architecture.
+
+**Documentation updates:**
+- `docs/onboarding-audit-2026-03-27.md` — New onboarding audit report covering business strengths, architecture gaps, D1 backend standards, 30-day execution plan, team-of-teams operating model, and decision requests.
+- `docs/architecture-redesign.md` — Corrected stale Phase 1 audit table entries (cache/retry/circuit breaker/solar-time/response-schema now marked implemented), and added Section 10 industrial-standard backend gap checklist (repository pattern, migrations, OpenAPI, auth, observability, governance, async job model).
+- `TODO.md` — Added items L/M/N for D1 migration workflow, Worker OpenAPI contract, and birth-data retention/deletion governance policy.
+- `CLAUDE.md` — Added temporary attention point to track industrial-standard backend controls from onboarding audit.
+
+---
+
 ## 2026-03-27 — Architecture Review & Documentation Update (Session 16, part 6)
 
 **Author:** kiki.peiqi.greene
@@ -1535,3 +1618,12 @@ Five new articles drafted and published, forming a Chinese New Year topical clus
 ### 2026-02-22 — Initial Upload
 
 - Initial file upload to repository.
+
+## 2026-03-27 (Session 22) — Repository Layer Scaffold + SQL Boundary Guard
+
+- **Author:** Cody
+- Added `worker/repositories/base-repository.js` and `worker/repositories/report-template-repository.js` to establish a dedicated D1 repository layer where SQL is owned.
+- Added `worker/services/report-template-service.js` as a service-layer example consuming repositories without inline SQL.
+- Added `scripts/check-no-sql-in-services.sh` and wired `npm run infra:architecture:check` to enforce the no-SQL-in-services rule.
+- Updated CI (`.github/workflows/deploy.yml`) test job to run the architecture boundary check after migration validation.
+

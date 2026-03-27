@@ -2,7 +2,7 @@
 
 > **Date:** 2026-03-19
 > **Author:** Architecture review (via MuleRun Super Agent)
-> **Status:** Phases 1, 2, 3, and 5 COMPLETE (2026-03-27). Phase 4 (template/data refactor) planned. Phase 6 (data layer + D1 database) proposed (2026-03-27).
+> **Status:** Phases 1, 2, 3, and 5 COMPLETE (2026-03-27). Phase 4 (template/data refactor) planned. Phase 6 (data layer + D1 database) is IN PROGRESS: Steps 1-3 scaffolded (2026-03-27).
 > **Audited:** 2026-03-27 by kiki.peiqi.greene (via MuleRun Super Agent). Full codebase audit + architecture review.
 > **Scope:** Full stack (Cloudflare Worker backend + Eleventy frontend)
 
@@ -290,7 +290,7 @@ No new runtime dependencies.
 | **3. CSS modularisation** | `src/css/` | Low | **COMPLETE** (2026-03-27) | Maintainability |
 | **4. Template/data refactor** | `src/_data/`, `partials/` | Low | Planned | Content velocity |
 | **5. CI/CD unification** | `.github/workflows/` | Low | **COMPLETE** (2026-03-27) | Prevents regressions |
-| **6. Data layer + D1 database** | `worker/`, `wrangler.jsonc` | Med | **PROPOSED** (2026-03-27) | **Unblocks revenue** (PDF reports, lead-gen) |
+| **6. Data layer + D1 database** | `worker/`, `wrangler.jsonc` | Med | **IN PROGRESS** (2026-03-27) | **Unblocks revenue** (PDF reports, lead-gen) |
 
 ### Phase 1: Worker Restructure — COMPLETE (2026-03-21) + Gaps RESOLVED (2026-03-27)
 
@@ -756,13 +756,13 @@ push to main
 | Pillar model | ✅ Done | Data structure definition |
 | Request validation | ✅ Done | Year/month/day/hour/lat/lon validation |
 | Tests (55 cases) | ✅ Done | Adapters, models, routes tested |
-| **Cache middleware** | ❌ Missing | Not implemented |
-| **Retry logic** | ❌ Missing | Not implemented |
-| **Circuit breaker** | ❌ Missing | Not implemented |
-| **Solar time service** | ⚠️ Partial | Logic in windada adapter, not extracted |
-| **Response schema** | ⚠️ Partial | Shape informal, no JSDoc/schema |
-| **PDF report route** | ❌ Missing | Blocks revenue initiative A |
-| **Compatibility route** | ❌ Missing | Blocks revenue initiative B |
+| **Cache middleware** | ✅ Implemented | `worker/lib/cache.js` with SHA-256 keying + 24h TTL |
+| **Retry logic** | ✅ Implemented | `worker/lib/retry.js` exponential backoff (max 2 retries) |
+| **Circuit breaker** | ✅ Implemented | `worker/lib/circuit-breaker.js` per-host state machine |
+| **Solar time service** | ✅ Implemented | Extracted to `worker/services/solar-time-service.js` |
+| **Response schema** | ✅ Implemented | Formalised in `worker/models/bazi-response.js` |
+| **PDF report route** | ❌ Missing | Still blocks revenue initiative A (next execution target) |
+| **Compatibility route** | ❌ Missing | Still blocks revenue initiative B (next execution target) |
 | **Widget route** | ❌ Missing | Low priority |
 
 ---
@@ -772,9 +772,9 @@ push to main
 | File | Lines | Action |
 |------|-------|--------|
 | ~~`worker/bazi-worker.js`~~ | ~~359~~ | ~~Decompose into router/service/adapter (Phase 1)~~ DONE |
-| `worker/lib/cache.js` | 0 (new) | Implement Cache API wrapper (Phase 1 completion) |
-| `worker/lib/retry.js` | 0 (new) | Implement exponential backoff (Phase 1 completion) |
-| `worker/lib/circuit-breaker.js` | 0 (new) | Implement per-host circuit breaker (Phase 1 completion) |
+| `worker/lib/cache.js` | implemented | Cache API wrapper complete; monitor hit ratio + key cardinality |
+| `worker/lib/retry.js` | implemented | Retry logic complete; tune retryability map with production error data |
+| `worker/lib/circuit-breaker.js` | implemented | Circuit breaker complete; add metric counters for open/half-open transitions |
 | `src/site.js` | 1,339 | Decompose into ES modules (Phase 2) |
 | `src/styles.css` | 5,590 | Split into component files (Phase 3) |
 | `src/_data/eleventyComputed.js` | 545 | Split into testable modules (Phase 4) |
@@ -803,3 +803,50 @@ push to main
 3. Daily/weekly horoscopes (recurring engagement driver)
 4. Flying Star annual charts (interactive feng shui tool)
 5. Advanced BaZi features (symbolic stars, Na Yin, day master strength)
+
+
+
+## 10. Industrial-Standard Gap Checklist (2026-03-27 Addendum)
+
+To align with mature production backends, the current architecture should add:
+
+1. **Repository layer standardisation** for all D1 access (`worker/repositories/*`) with query ownership separated from services.
+2. **Database migration workflow** (`migrations/` + CI migration checks + rollback notes).
+3. **Contract-first API docs** (OpenAPI spec for `/v1/*` routes, including error envelopes).
+4. **Admin authN/authZ** for future write endpoints (JWT/service token, role-scoped permissions, audit trail).
+5. **Observability baseline** (request IDs, structured JSON logs, route latency/error metrics, alert thresholds).
+6. **Data governance controls** (PII minimisation for birth data, retention windows, deletion workflow, access policy).
+7. **Asynchronous job model** for report generation (`report_jobs`) with retry/dead-letter semantics.
+
+These controls are mandatory before scaling paid-report volume or opening partner-facing APIs.
+
+
+
+## 11. Phase 6 Execution Blueprint (D1/R2)
+
+To convert the proposed data layer into implementation-ready work, execute in this order:
+
+1. **Schema + migration bootstrap**
+   - Add `migrations/` directory and a migration naming convention (`YYYYMMDDHHMM_description.sql`).
+   - First migration creates: `report_templates`, `report_jobs`, `transactions`, `directory_listings`, `directory_leads`, `products`.
+2. **Repository layer scaffold**
+   - Add `worker/repositories/` with one file per aggregate (`report-repository.js`, `transaction-repository.js`, etc.).
+   - Rule: services cannot issue raw SQL directly.
+3. **Route expansion (contract-first)**
+   - Add OpenAPI spec for current `/v1/bazi/calculate`, `/v1/health` and upcoming `/v1/bazi/report` endpoints before implementation.
+4. **Idempotent payment/report pipeline**
+   - Payment webhook writes transaction event + idempotency key.
+   - Report job queue/state machine transitions: `queued -> processing -> completed|failed`.
+5. **Governance + compliance controls**
+   - Define retention windows for birth data and generated reports.
+   - Add deletion endpoint/SOP and audit-log entries for access/deletion operations.
+6. **Observability and SLO baseline**
+   - Add request IDs, per-route latency/error metrics, and alerts for report generation failures and upstream provider outages.
+
+### Definition of Done for Phase 6
+
+- D1 schema migrations run successfully in CI and production.
+- At least one write endpoint and one read endpoint are backed by repository-layer D1 queries.
+- OpenAPI file published and validated in CI.
+- Retention/deletion policy documented and linked from docs + TODO.
+- End-to-end paid-report happy path completes with persisted transaction + report job record.
