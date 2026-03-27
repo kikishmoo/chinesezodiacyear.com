@@ -5,6 +5,37 @@
 
 ---
 
+## 2026-03-27 — Phase 2: JS Modularisation (Session 16, part 4)
+
+**Author:** kiki.peiqi.greene
+
+### Monolithic site.js Decomposed into ES Modules
+
+Replaced the 1,339-line monolithic `src/site.js` with a modular ES module architecture bundled by esbuild:
+
+**Directory structure:**
+- `src/js/main.js` — Entry point orchestrator
+- `src/js/analytics.js` — Centralised GA4 tracking (`track()`)
+- `src/js/utils/sanitise.js` — Unified `escapeHtml()` + `cleanText()` (replaces duplicate `esc()` and `escapeHtml()`)
+- `src/js/utils/base-path.js` — GitHub Pages subpath detection
+- `src/js/data/zodiac-data.js` — 12 zodiac animals + helper functions
+- `src/js/data/famous-figures.js` — Historical figures array
+- `src/js/data/lichun-dates.js` — 1900–2100 Lichun boundary table
+- `src/js/data/compatibility-data.js` — Six Harmonies, Three Harmonies, Clashes, Harms
+- `src/js/features/` — 12 feature modules: nav, theme, faq, calculator, compatibility, search, bazi-client, newsletter, filters, share-buttons, lightbox, language, popup, shop
+
+**Build pipeline:**
+- esbuild replaces terser for JS bundling (22 modules → single IIFE, 36.2KB minified)
+- `terser` removed from devDependencies
+- trivia.js also minified via esbuild with `charset: 'utf8'`
+- CI validation updated for esbuild output checks
+
+**XSS hardening:** Both `esc()` (DOM-based) and `escapeHtml()` (regex-based) replaced by single `escapeHtml()` in `utils/sanitise.js`, used consistently across all features.
+
+**Files changed:** `src/js/` (22 new files), `eleventy.config.js`, `package.json`, `package-lock.json`, `.github/workflows/deploy.yml`, `CHANGELOG.md`, `TODO.md`
+
+---
+
 ## 2026-03-27 — Phase 1 Completion: Cache, Retry, Circuit Breaker, Solar Time Service (Session 16, part 3)
 
 **Author:** kiki.peiqi.greene

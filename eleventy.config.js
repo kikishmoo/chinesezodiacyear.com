@@ -1,7 +1,7 @@
 import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
 import Image from '@11ty/eleventy-img';
 import CleanCSS from 'clean-css';
-import { minify as terserMinify } from 'terser';
+import esbuild from 'esbuild';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { join, dirname, relative } from 'path';
 
@@ -156,14 +156,14 @@ export default function(eleventyConfig) {
 
   // Watch targets
   eleventyConfig.addWatchTarget("src/styles.css");
-  eleventyConfig.addWatchTarget("src/site.js");
+  eleventyConfig.addWatchTarget("src/js/");
   eleventyConfig.addWatchTarget("src/trivia.js");
 
-  // Minify CSS and JS after build
+  // Minify CSS and bundle JS after build
   eleventyConfig.on('eleventy.after', async () => {
     const outputDir = '_site';
 
-    // Minify CSS
+    // Minify CSS (CleanCSS)
     try {
       const cssPath = join(outputDir, 'styles.css');
       const cssInput = readFileSync(join('src', 'styles.css'), 'utf8');
@@ -176,30 +176,41 @@ export default function(eleventyConfig) {
       console.error('[Minify] CSS error:', e.message);
     }
 
-    // Minify JS (site.js)
+    // Bundle + minify JS (esbuild) — replaces terser
     try {
-      const jsPath = join(outputDir, 'site.js');
-      const jsInput = readFileSync(join('src', 'site.js'), 'utf8');
-      const jsOutput = await terserMinify(jsInput, { compress: true, mangle: true });
-      if (jsOutput.code) {
-        writeFileSync(jsPath, jsOutput.code);
-        console.log('[Minify] site.js:', (jsInput.length / 1024).toFixed(1) + 'KB →', (jsOutput.code.length / 1024).toFixed(1) + 'KB');
-      }
+      const result = await esbuild.build({
+        entryPoints: ['src/js/main.js'],
+        bundle: true,
+        minify: true,
+        charset: 'utf8',
+        format: 'iife',
+        target: ['es2020'],
+        outfile: join(outputDir, 'site.js'),
+        metafile: true
+      });
+      const inputs = Object.keys(result.metafile.inputs);
+      const inputSize = inputs.reduce((sum, k) => sum + result.metafile.inputs[k].bytes, 0);
+      const outputSize = Object.values(result.metafile.outputs)[0].bytes;
+      console.log('[esbuild] site.js:', (inputSize / 1024).toFixed(1) + 'KB (' + inputs.length + ' modules) →', (outputSize / 1024).toFixed(1) + 'KB');
     } catch (e) {
-      console.error('[Minify] JS error:', e.message);
+      console.error('[esbuild] JS error:', e.message);
     }
 
-    // Minify JS (trivia.js — homepage only)
+    // Minify JS (trivia.js — homepage only, still uses terser-style approach via esbuild)
     try {
-      const triviaPath = join(outputDir, 'trivia.js');
-      const triviaInput = readFileSync(join('src', 'trivia.js'), 'utf8');
-      const triviaOutput = await terserMinify(triviaInput, { compress: true, mangle: true });
-      if (triviaOutput.code) {
-        writeFileSync(triviaPath, triviaOutput.code);
-        console.log('[Minify] trivia.js:', (triviaInput.length / 1024).toFixed(1) + 'KB →', (triviaOutput.code.length / 1024).toFixed(1) + 'KB');
-      }
+      const triviaResult = await esbuild.build({
+        entryPoints: ['src/trivia.js'],
+        bundle: false,
+        minify: true,
+        charset: 'utf8',
+        outfile: join(outputDir, 'trivia.js'),
+        metafile: true
+      });
+      const inputSize = statSync('src/trivia.js').size;
+      const outputSize = Object.values(triviaResult.metafile.outputs)[0].bytes;
+      console.log('[esbuild] trivia.js:', (inputSize / 1024).toFixed(1) + 'KB →', (outputSize / 1024).toFixed(1) + 'KB');
     } catch (e) {
-      console.error('[Minify] trivia.js error:', e.message);
+      console.error('[esbuild] trivia.js error:', e.message);
     }
 
     // ===== i18n: Generate /zh-hant/ and /zh-hans/ page copies =====

@@ -21,7 +21,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | ~~**E**~~ | ~~**Fix CI/CD: add test job + worker deploy (Phase 5)**~~ | ~~**CRITICAL**~~ | ~~Low~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
 | ~~**F**~~ | ~~**Complete Worker Phase 1 gaps (cache, retry, circuit breaker)**~~ | ~~**HIGH**~~ | ~~Medium~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
 | **C** | **Expand directory for lead-gen (scrape + enrich)** | HIGH     | Medium-High | High  | Revenue    |
-| **G** | **JS modularisation — Phase 2 architecture**      | HIGH       | High   | Medium   | Technical  |
+| ~~**G**~~ | ~~**JS modularisation — Phase 2 architecture**~~ | ~~HIGH~~ | ~~High~~ | ~~Medium~~ | ~~Technical~~ → **DONE 2026-03-27** |
 | **D** | **Build embeddable BaZi API/widget**              | MEDIUM   | Medium | Medium       | Revenue    |
 | **H** | **CSS modularisation — Phase 3 architecture**     | MEDIUM     | Medium | Medium   | Technical  |
 | **I** | **Add Baby Gender Predictor tool**                | MEDIUM     | Medium | High     | Product    |
@@ -76,6 +76,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 41 | Upgrade rate limiting to dual-layer (in-memory + Cloudflare KV) | 2026-03-24 |
 | E | Fix CI/CD: add test job + worker deploy (Phase 5) | 2026-03-27 |
 | F | Complete Worker Phase 1 gaps (cache, retry, circuit breaker) | 2026-03-27 |
+| G | JS modularisation — Phase 2 architecture (22 modules, esbuild) | 2026-03-27 |
 
 ---
 

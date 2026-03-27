@@ -92,12 +92,11 @@ jobs:
             exit 1
           fi
 
-          # 4. Check JS was minified
-          SRC_JS_SIZE=$(wc -c < src/site.js)
+          # 4. Check JS was bundled and minified (esbuild output must exist and be non-empty)
           OUT_JS_SIZE=$(wc -c < _site/site.js)
-          echo "JS:  source ${SRC_JS_SIZE}B → output ${OUT_JS_SIZE}B"
-          if [ "$OUT_JS_SIZE" -ge "$SRC_JS_SIZE" ]; then
-            echo "::error::JS minification failed — output ($OUT_JS_SIZE) >= source ($SRC_JS_SIZE)."
+          echo "JS:  output ${OUT_JS_SIZE}B"
+          if [ "$OUT_JS_SIZE" -lt 1000 ]; then
+            echo "::error::JS bundle too small ($OUT_JS_SIZE bytes) — esbuild may have failed."
             exit 1
           fi
 
