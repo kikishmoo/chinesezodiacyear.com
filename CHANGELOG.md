@@ -5,6 +5,22 @@
 
 ---
 
+## 2026-03-27 — Phase 6 Step 4 (partial): OpenAPI Contract Bootstrap (Session 22)
+
+**Author:** Cody
+
+### Contract-First API Spec + CI Check
+
+Added a versioned OpenAPI contract for Worker `/v1/*` routes and gated CI with a contract check script so API route/schema drift is caught during test workflow runs.
+
+**Changes:**
+- Added `docs/openapi/worker-v1.openapi.json` with contracts for `GET /v1/health`, `POST /v1/bazi/calculate`, and planned `POST /v1/bazi/report`.
+- Added `scripts/check-openapi-contract.js` to validate spec presence/shape (required paths + schemas).
+- Added npm script `infra:openapi:check` and wired it into `.github/workflows/deploy.yml` test job.
+- Updated `TODO.md` and `CLAUDE.md` to reflect Item M contract bootstrap completion and remaining governance focus.
+
+---
+
 ## 2026-03-27 — Phase 6 Step 3: Repository Layer Scaffold (Session 21)
 
 **Author:** Cody
