@@ -37,6 +37,9 @@ jobs:
       - name: Validate D1 migrations scaffold
         run: npm run infra:migrations:check
 
+      - name: Enforce repository SQL boundary
+        run: npm run infra:architecture:check
+
       - name: Audit dependencies
         run: npm audit --audit-level=high
 
