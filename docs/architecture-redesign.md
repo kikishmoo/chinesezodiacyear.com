@@ -2,7 +2,7 @@
 
 > **Date:** 2026-03-19
 > **Author:** Architecture review (via MuleRun Super Agent)
-> **Status:** Phases 1, 2, 3, and 5 COMPLETE (2026-03-27). Phase 4 (template/data refactor) planned. Phase 6 (data layer + D1 database) proposed (2026-03-27).
+> **Status:** Phases 1, 2, 3, and 5 COMPLETE (2026-03-27). Phase 4 (template/data refactor) planned. Phase 6 (data layer + D1 database) is IN PROGRESS: Steps 1-3 scaffolded (2026-03-27).
 > **Audited:** 2026-03-27 by kiki.peiqi.greene (via MuleRun Super Agent). Full codebase audit + architecture review.
 > **Scope:** Full stack (Cloudflare Worker backend + Eleventy frontend)
 
@@ -290,7 +290,7 @@ No new runtime dependencies.
 | **3. CSS modularisation** | `src/css/` | Low | **COMPLETE** (2026-03-27) | Maintainability |
 | **4. Template/data refactor** | `src/_data/`, `partials/` | Low | Planned | Content velocity |
 | **5. CI/CD unification** | `.github/workflows/` | Low | **COMPLETE** (2026-03-27) | Prevents regressions |
-| **6. Data layer + D1 database** | `worker/`, `wrangler.jsonc` | Med | **PROPOSED** (2026-03-27) | **Unblocks revenue** (PDF reports, lead-gen) |
+| **6. Data layer + D1 database** | `worker/`, `wrangler.jsonc` | Med | **IN PROGRESS** (2026-03-27) | **Unblocks revenue** (PDF reports, lead-gen) |
 
 ### Phase 1: Worker Restructure — COMPLETE (2026-03-21) + Gaps RESOLVED (2026-03-27)
 

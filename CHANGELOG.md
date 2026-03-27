@@ -5,6 +5,24 @@
 
 ---
 
+## 2026-03-27 — Phase 6 Step 3: Repository Layer Scaffold (Session 21)
+
+**Author:** Cody
+
+### Worker Repository Pattern + SQL Boundary Guard
+
+Implemented the next architecture item by scaffolding repository ownership for D1 queries and adding a CI-enforced boundary that prevents SQL from being written in service files.
+
+**Changes:**
+- Added repository infrastructure: `worker/repositories/db-client.js`, `worker/repositories/report-templates-repository.js`, `worker/repositories/report-jobs-repository.js`, `worker/repositories/index.js`.
+- Added SQL boundary guard script: `scripts/check-service-sql-boundary.sh`.
+- Added npm script: `infra:boundaries:check`.
+- Updated CI (`.github/workflows/deploy.yml`) to run boundary checks in the test job.
+- Added repository unit tests in `worker/__tests__/repositories/` for report template/job query behavior.
+- Updated `TODO.md`, `CLAUDE.md`, and `docs/architecture-redesign.md` with Step 3 progress status.
+
+---
+
 ## 2026-03-27 — Phase 6 Step 2: Migration Workflow Bootstrap (Session 20)
 
 **Author:** Cody
