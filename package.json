@@ -10,7 +10,11 @@
     "serve": "npx @11ty/eleventy --serve --port=8080",
     "dev": "npx @11ty/eleventy --serve --port=8080",
     "deploy": "npm run build && wrangler deploy",
-    "preview": "npm run build && wrangler dev"
+    "preview": "npm run build && wrangler dev",
+    "infra:bootstrap": "./scripts/bootstrap-d1-r2.sh",
+    "infra:d1:create": "wrangler d1 create czy-main",
+    "infra:r2:create": "wrangler r2 bucket create czy-reports",
+    "infra:list": "wrangler d1 list && wrangler r2 bucket list"
   },
   "keywords": [
     "chinese-zodiac",
