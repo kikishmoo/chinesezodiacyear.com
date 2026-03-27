@@ -13,7 +13,7 @@
 ### Option A — Scripted
 
 ```bash
-./scripts/bootstrap-d1-r2.sh
+npm run infra:bootstrap
 ```
 
 Optional custom names:
@@ -21,6 +21,8 @@ Optional custom names:
 ```bash
 ./scripts/bootstrap-d1-r2.sh czy-main czy-reports
 ```
+
+The script intentionally runs the repository-local Wrangler binary via `npx --no-install wrangler` (no global PATH dependency).
 
 ### Option B — Manual
 
@@ -58,7 +60,20 @@ npx wrangler d1 list
 npx wrangler r2 bucket list
 ```
 
-## 5) Scope note
+## 5) Migration bootstrap (Step 2)
+
+After binding D1 in `wrangler.jsonc`, run the migration workflow:
+
+```bash
+export D1_DATABASE_BINDING=DB
+npm run infra:migrations:check
+npm run infra:migrations:apply:local
+npm run infra:migrations:apply:remote
+```
+
+Migration naming rules and rollback SOP are documented in `migrations/README.md`.
+
+## 6) Scope note
 
 This runbook intentionally covers **infrastructure provisioning only** (Step 1).
 Schema/migrations, repository layer, and API contracts are handled in subsequent steps.
