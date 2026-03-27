@@ -5,6 +5,25 @@
 
 ---
 
+## 2026-03-27 — Phase 6 Step 3: Repository Layer Scaffold + Boundary Enforcement (Session 21)
+
+**Author:** Cody
+
+### Worker Repository Foundation
+
+Implemented the next architecture-priority item by scaffolding a Worker repository layer and adding an automated guardrail that keeps SQL out of service modules.
+
+**Changes:**
+- Added `worker/repositories/base-d1-repository.js` with shared D1 helpers (`first`, `all`, `run`).
+- Added `worker/repositories/report-template-repository.js` and `worker/repositories/report-job-repository.js` as initial data-access modules for report monetisation flows.
+- Added `worker/repositories/index.js` repository factory (`createRepositories(env)`) with graceful behavior when D1 binding is absent.
+- Added `scripts/check-no-sql-in-services.sh` and npm script `infra:repositories:check` to enforce the no-SQL-in-services boundary.
+- Updated CI test job in `.github/workflows/deploy.yml` to run `npm run infra:repositories:check`.
+- Added repository factory tests in `worker/__tests__/repositories/factory.test.js`.
+- Updated `TODO.md` Phase 6 notes to reflect Item O scaffolding completion state.
+
+---
+
 ## 2026-03-27 — Phase 6 Step 2: Migration Workflow Bootstrap (Session 20)
 
 **Author:** Cody
