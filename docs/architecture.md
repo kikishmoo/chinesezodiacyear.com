@@ -1,7 +1,8 @@
 # Site Architecture: chinesezodiacyear.com
 
 > **Document version:** 1.1
-> **Last updated:** 2026-03-08
+> **Last updated:** 2026-03-25
+> **Updated by:** OpenAI Codex (GPT-5.3-Codex)
 > **Stack:** Eleventy 3.1.2 (ESM) | Nunjucks | GitHub Pages | Cloudflare Workers
 
 ---
@@ -998,9 +999,14 @@ Each page's discussion thread is mapped by its URL pathname. Comments are stored
 | Integration Point | `site.js` Zodiac Calculator module |
 | Purpose           | Server-side BaZi (Four Pillars) calculation |
 | Protocol          | HTTPS fetch from browser to Worker endpoint |
+| Runtime Entrypoint| `wrangler.jsonc` → `main: "worker/index.js"` |
 | Deployment        | Separate from main site; deployed via `wrangler deploy` |
 
 The BaZi calculator on the `/calculator/` page sends birth date/time to the Cloudflare Worker, which performs the complex Four Pillars calculation and returns structured results. This keeps the computation server-side to protect the algorithm and reduce client-side JS complexity.
+
+The Worker runtime is modular (router/middleware/routes/services/adapters/models/tests) under `worker/`, with `worker/index.js` as the actual edge entrypoint.
+
+**Legacy file status:** `worker/bazi-worker.js` is a legacy transitional file kept for backwards compatibility/reference; production runtime uses `worker/index.js` configured in root `wrangler.jsonc`.
 
 ```
 Browser                    Cloudflare Worker
@@ -1101,7 +1107,7 @@ Deployed separately from the main site. Not triggered by the GitHub Actions work
 ```
 Developer
     |
-    | cd worker/ && wrangler deploy
+    | wrangler deploy
     v
 Cloudflare Edge Network
     |
@@ -1109,7 +1115,7 @@ Cloudflare Edge Network
         (accessible via configured URL in site.json)
 ```
 
-The Worker has its own `wrangler.toml` configuration and is deployed manually or via a separate CI step. It does not depend on the Eleventy build.
+The Worker is configured by root `wrangler.jsonc` (with `main: worker/index.js`) and is deployed manually or via a separate CI step. It does not depend on the Eleventy build.
 
 ### 9.3 Deployment Dependencies
 
@@ -1127,7 +1133,7 @@ The Worker has its own `wrangler.toml` configuration and is deployed manually or
 
 +----------------+  +-------------------+  +-------------------+
 | Worker source  |->| wrangler deploy   |->| Cloudflare Edge   |
-| (worker/)      |  | (manual/separate) |  | (Worker runtime)  |
+| (worker/)      |  | (manual/separate) |  | (worker/index.js) |
 +----------------+  +-------------------+  +-------------------+
 ```
 
