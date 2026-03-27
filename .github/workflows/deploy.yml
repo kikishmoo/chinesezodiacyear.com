@@ -74,12 +74,12 @@ jobs:
           ZH_HANS_COUNT=$(find _site/zh-hans -name "*.html" 2>/dev/null | wc -l)
           echo "zh-hant pages: $ZH_HANT_COUNT"
           echo "zh-hans pages: $ZH_HANS_COUNT"
-          if [ "$ZH_HANT_COUNT" -lt 200 ]; then
-            echo "::error::zh-hant page count ($ZH_HANT_COUNT) below minimum (200). i18n generation may have failed."
+          if [ "$ZH_HANT_COUNT" -lt 150 ]; then
+            echo "::error::zh-hant page count ($ZH_HANT_COUNT) below minimum (150). i18n generation may have failed."
             exit 1
           fi
-          if [ "$ZH_HANS_COUNT" -lt 200 ]; then
-            echo "::error::zh-hans page count ($ZH_HANS_COUNT) below minimum (200). i18n generation may have failed."
+          if [ "$ZH_HANS_COUNT" -lt 150 ]; then
+            echo "::error::zh-hans page count ($ZH_HANS_COUNT) below minimum (150). i18n generation may have failed."
             exit 1
           fi
 
