@@ -4,6 +4,9 @@ Encyclopaedia, directory, readings, and news platform for Chinese zodiac, BaZi, 
 
 **Live site:** https://chinesezodiacyear.com
 
+**Last updated:** 2026-03-27  
+**Timestamp:** 2026-03-27 — Author: Codex
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -93,14 +96,27 @@ src/
 └── year-pages.njk          # Generates /zodiac-year/{year}/ pages (121 years)
 
 worker/
-├── bazi-worker.js          # Cloudflare Worker for BaZi calculator
-└── wrangler.toml           # Worker config
+├── index.js                # Worker runtime entrypoint (configured in wrangler.jsonc)
+├── router.js               # Minimal route matcher/dispatcher
+├── middleware/             # CORS, rate limiting, and error handling
+├── routes/                 # Route handlers (e.g., /v1/bazi/calculate, /v1/health)
+├── services/               # BaZi orchestration/business logic
+├── adapters/               # External upstream integrations/parsers
+├── models/                 # Domain models and validation
+├── __tests__/              # Unit tests + fixtures
+└── bazi-worker.js          # Legacy transitional worker file (not runtime entrypoint)
+
+wrangler.jsonc              # Cloudflare Worker config (main: worker/index.js)
 
 eleventy.config.js          # Eleventy build config (collections, filters, i18n, minification)
 
 scripts/
 └── new-article.js          # Article scaffolding CLI tool
 ```
+
+### Legacy file status
+
+`worker/bazi-worker.js` is retained as a **transitional legacy file** for compatibility/reference. The active Cloudflare Worker runtime entrypoint is `worker/index.js` via root `wrangler.jsonc` (`main` field).
 
 ## Data Files
 
@@ -288,7 +304,7 @@ Pushes to `main` trigger the GitHub Actions workflow (`.github/workflows/deploy.
 3. Upload `_site/` as GitHub Pages artifact
 4. Deploy via `actions/deploy-pages@v4`
 
-The Cloudflare Worker (`worker/`) is deployed separately via `wrangler deploy`.
+The Cloudflare Worker (`worker/`) is deployed separately via `wrangler deploy`, using root `wrangler.jsonc` (`main: worker/index.js`).
 
 ## DNS & Domain Configuration
 
