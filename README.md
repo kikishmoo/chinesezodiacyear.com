@@ -4,7 +4,8 @@ Encyclopaedia, directory, readings, and news platform for Chinese zodiac, BaZi, 
 
 **Live site:** https://chinesezodiacyear.com
 
-**Last updated:** 2026-03-25 (OpenAI Codex, GPT-5.3-Codex)
+**Last updated:** 2026-03-27  
+**Timestamp:** 2026-03-27 — Author: Codex
 
 ## Tech Stack
 

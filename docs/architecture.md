@@ -1,8 +1,8 @@
 # Site Architecture: chinesezodiacyear.com
 
 > **Document version:** 1.1
-> **Last updated:** 2026-03-25
-> **Updated by:** OpenAI Codex (GPT-5.3-Codex)
+> **Last updated:** 2026-03-27
+> **Timestamp:** 2026-03-27 — Author: Codex
 > **Stack:** Eleventy 3.1.2 (ESM) | Nunjucks | GitHub Pages | Cloudflare Workers
 
 ---
@@ -1004,7 +1004,19 @@ Each page's discussion thread is mapped by its URL pathname. Comments are stored
 
 The BaZi calculator on the `/calculator/` page sends birth date/time to the Cloudflare Worker, which performs the complex Four Pillars calculation and returns structured results. This keeps the computation server-side to protect the algorithm and reduce client-side JS complexity.
 
-The Worker runtime is modular (router/middleware/routes/services/adapters/models/tests) under `worker/`, with `worker/index.js` as the actual edge entrypoint.
+The Worker runtime is modular under `worker/`, with `worker/index.js` as the actual edge entrypoint:
+
+```text
+worker/
+  index.js
+  router.js
+  middleware/
+  routes/
+  services/
+  adapters/
+  models/
+  __tests__/
+```
 
 **Legacy file status:** `worker/bazi-worker.js` is a legacy transitional file kept for backwards compatibility/reference; production runtime uses `worker/index.js` configured in root `wrangler.jsonc`.
 
