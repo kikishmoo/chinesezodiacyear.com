@@ -17,7 +17,8 @@
     "infra:list": "npx --no-install wrangler d1 list && npx --no-install wrangler r2 bucket list",
     "infra:migrations:check": "bash ./scripts/check-migrations.sh",
     "infra:migrations:apply:local": "npx --no-install wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --local",
-    "infra:migrations:apply:remote": "npx --no-install wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --remote"
+    "infra:migrations:apply:remote": "npx --no-install wrangler d1 migrations apply ${D1_DATABASE_BINDING:-DB} --remote",
+    "infra:boundaries:check": "bash ./scripts/check-service-sql-boundary.sh"
   },
   "keywords": [
     "chinese-zodiac",

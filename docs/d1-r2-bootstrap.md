@@ -75,5 +75,5 @@ Migration naming rules and rollback SOP are documented in `migrations/README.md`
 
 ## 6) Scope note
 
-This runbook intentionally covers **infrastructure provisioning only** (Step 1).
-Schema/migrations, repository layer, and API contracts are handled in subsequent steps.
+This runbook intentionally covers **infrastructure provisioning** (Step 1).
+Migration workflow (Step 2) and repository boundary scaffold (Step 3) are now in-repo; OpenAPI contract + governance controls remain subsequent steps.
