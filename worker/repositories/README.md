@@ -1,21 +1,17 @@
-# Worker repository layer (Item O)
+# Worker Repository Layer (Phase 6 Step 3)
 
-This folder owns all D1 SQL for the Worker backend.
+This directory owns **all SQL queries** for Worker runtime data access.
 
 ## Rule
 
-- `worker/services/*` must not contain raw SQL.
-- All SQL lives in `worker/repositories/*`.
-- Services orchestrate business logic and call repositories.
+- `worker/services/*` must not execute SQL directly.
+- Use repository modules in this folder for D1 access.
+- SQL boundary is CI-enforced via `npm run infra:boundaries:check`.
 
-## Current scaffolding
+## Current repositories
 
-- `db-context.js` — canonical D1 binding resolver (`env.DB`).
-- `report-template-repository.js` — read report templates.
-- `report-job-repository.js` — create/update report jobs.
-- `transaction-repository.js` — persist payment transactions.
-- `directory-lead-repository.js` — persist practitioner leads.
+- `report-templates-repository.js`
+- `report-jobs-repository.js`
+- `db-client.js`
 
-## Next step
-
-Wire upcoming `/v1/bazi/report` and webhook routes to these repositories.
+Use `index.js` to construct repository dependencies from `env`.

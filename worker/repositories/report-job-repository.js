@@ -1,44 +1,61 @@
-import { getDb } from './db-context.js';
+import { BaseD1Repository } from './base-d1-repository.js';
 
-/**
- * Create a report job row.
- * @param {Record<string, any>} env
- * @param {{jobId: string, transactionId: string, reportType: string, status?: string, requestPayload?: string|null}} input
- */
-export async function createReportJob(env, input) {
-  const db = getDb(env);
-  const status = input.status ?? 'queued';
+export class ReportJobRepository extends BaseD1Repository {
+  /**
+   * @param {{
+   *  jobId: string,
+   *  userEmail: string,
+   *  reportType: string,
+   *  status?: string,
+   *  paidAt?: string|null,
+   *  expiresAt?: string|null,
+   *  payloadJson?: string|null,
+   *  outputUrl?: string|null
+   * }} data
+   */
+  create(data) {
+    const {
+      jobId,
+      userEmail,
+      reportType,
+      status = 'queued',
+      paidAt = null,
+      expiresAt = null,
+      payloadJson = null,
+      outputUrl = null
+    } = data;
 
-  await db
-    .prepare(
-      `INSERT INTO report_jobs (
-         id, transaction_id, report_type, status, request_payload
-       ) VALUES (?, ?, ?, ?, ?)`
-    )
-    .bind(input.jobId, input.transactionId, input.reportType, status, input.requestPayload ?? null)
-    .run();
-}
+    return this.run(
+      `INSERT INTO report_jobs
+       (job_id, user_email, report_type, status, paid_at, expires_at, payload_json, output_url)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [jobId, userEmail, reportType, status, paidAt, expiresAt, payloadJson, outputUrl]
+    );
+  }
 
-/**
- * Update report job processing state.
- * @param {Record<string, any>} env
- * @param {{jobId: string, status: string, reportPath?: string|null, errorCode?: string|null, errorMessage?: string|null}} input
- */
-export async function updateReportJobStatus(env, input) {
-  const db = getDb(env);
+  /**
+   * @param {string} jobId
+   */
+  findByJobId(jobId) {
+    return this.first(
+      `SELECT id, job_id, user_email, report_type, status, paid_at, expires_at, payload_json, output_url, created_at, updated_at
+       FROM report_jobs
+       WHERE job_id = ?`,
+      [jobId]
+    );
+  }
 
-  await db
-    .prepare(
+  /**
+   * @param {string} jobId
+   * @param {'queued'|'processing'|'completed'|'failed'|'expired'} status
+   * @param {string|null} outputUrl
+   */
+  updateStatus(jobId, status, outputUrl = null) {
+    return this.run(
       `UPDATE report_jobs
-       SET status = ?, report_path = ?, error_code = ?, error_message = ?, updated_at = CURRENT_TIMESTAMP
-       WHERE id = ?`
-    )
-    .bind(
-      input.status,
-      input.reportPath ?? null,
-      input.errorCode ?? null,
-      input.errorMessage ?? null,
-      input.jobId
-    )
-    .run();
+       SET status = ?, output_url = COALESCE(?, output_url), updated_at = CURRENT_TIMESTAMP
+       WHERE job_id = ?`,
+      [status, outputUrl, jobId]
+    );
+  }
 }
