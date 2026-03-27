@@ -2,7 +2,8 @@
 
 > **Date:** 2026-03-19
 > **Author:** Architecture review (via MuleRun Super Agent)
-> **Status:** Phase 1 (Worker restructure) complete (2026-03-21). Phases 2–5 pending.
+> **Status:** Phase 1 (Worker restructure) complete (2026-03-21). Phase 1 gaps identified (2026-03-27). Phases 2–5 detailed planning complete (2026-03-27).
+> **Audited:** 2026-03-27 by kiki.peiqi.greene (via MuleRun Super Agent). Full codebase audit + competitive intelligence review.
 > **Scope:** Full stack (Cloudflare Worker backend + Eleventy frontend)
 
 ---
@@ -290,59 +291,387 @@ No new runtime dependencies.
 | **4. Template/data refactor** | `src/_data/`, `partials/` | Low | After Phase 2 | Content velocity |
 | **5. CI/CD unification** | `.github/workflows/` | Low | After 1+2 | Prevents regressions |
 
-### Phase 1: Worker Restructure
+### Phase 1: Worker Restructure — COMPLETE (2026-03-21) + Gaps (2026-03-27)
 
-1. Extract adapters (`windada-adapter.js`, `zhouyi-adapter.js`) from existing functions
-2. Extract data constants (`stems.js`, `branches.js`)
-3. Create service layer (`bazi-service.js`)
-4. Add router in `index.js` with single route delegating to service
-5. Add error classes and error handler
-6. Update `wrangler.jsonc` main to `worker/index.js`
-7. Save HTML fixtures, write parser tests
-8. Add vitest
+**Completed:**
 
-**Verification:** Compare response JSON from old vs new worker for same input. External API contract unchanged.
+1. ✅ Extract adapters (`windada-adapter.js`, `zhouyi-adapter.js`)
+2. ✅ Extract data constants (`stems.js` — branches merged here)
+3. ✅ Create service layer (`bazi-service.js`)
+4. ✅ Add router in `index.js` with `/v1/bazi/calculate` + `/v1/health`
+5. ✅ Add error classes (`ValidationError`, `UpstreamError`, `TimeoutError`, `CircuitOpenError`)
+6. ✅ Update `wrangler.jsonc` main to `worker/index.js`
+7. ✅ Save HTML fixtures (4 files), write parser tests (55 test cases)
+8. ✅ Add vitest
+9. ✅ Add rate limiting (dual-layer: in-memory + KV)
+10. ✅ Add CORS middleware with origin validation
 
-### Phase 2: JS Modularisation
+**Gaps identified in 2026-03-27 audit:**
 
-1. Add esbuild to `eleventy.config.js` (`eleventy.before`)
-2. Create `src/js/main.js` that re-exports current logic
-3. Verify esbuild output matches terser output functionally
-4. Extract features one at a time (simplest first: nav, faq, theme)
-5. Extract data arrays into `src/js/data/`
-6. Split trivia into lazy-loaded bundle
-7. Create event bus + analytics layer last
-8. Remove terser step, delete `src/site.js`
+| Gap | File | Impact | Priority |
+|-----|------|--------|----------|
+| Cache middleware not implemented | `worker/lib/cache.js` | Every request hits upstream; no deterministic caching | HIGH |
+| Retry logic not implemented | `worker/lib/retry.js` | Single upstream failure = user-facing error | HIGH |
+| Circuit breaker not implemented | `worker/lib/circuit-breaker.js` | Sustained upstream outage floods timeouts | HIGH |
+| Solar time logic embedded in windada adapter | `worker/services/solar-time-service.js` | Not independently testable | MEDIUM |
+| Response schema not formalised | `worker/models/bazi-response.js` | API contract implicit, hard to version | MEDIUM |
+| Tests not running in CI | `.github/workflows/deploy.yml` | Broken tests don't prevent deployment | CRITICAL |
+| Worker not deployed via CI | `.github/workflows/deploy.yml` | Manual wrangler deploy only | HIGH |
+| Two escape functions in site.js (`esc()` + `escapeHtml()`) | `src/site.js` | Inconsistent XSS mitigation | MEDIUM |
 
-**Verification:** After each extraction, test in all 3 languages + both themes.
+**Phase 1 Completion Tasks (pre-Phase 2):**
 
-### Phase 3: CSS Modularisation
+1. Create `worker/lib/cache.js` — Cache API wrapper keyed on SHA-256 of canonical request JSON; 24h TTL
+2. Create `worker/lib/retry.js` — Retry with exponential backoff (max 2 retries, 500ms/1s delays)
+3. Create `worker/lib/circuit-breaker.js` — Per-host state machine (closed/open/half-open), 5 failures → open, 30s recovery
+4. Extract `worker/services/solar-time-service.js` from windada adapter
+5. Create `worker/models/bazi-response.js` — JSDoc-typed response shape definition
+6. Write tests for cache, retry, and circuit-breaker modules
+7. Wire cache + retry + circuit-breaker into `bazi-service.js`
 
-1. Create `src/css/main.css` with `@import` chain
-2. Split by existing section comment headers
-3. Extract all `[data-theme="dark"]` blocks into `themes/dark.css`
-4. Extract `:root` tokens into `tokens/` files
-5. Add esbuild CSS entry point
-6. Diff minified output to verify no rules lost
-7. Delete `src/styles.css`
+**Verification:** Existing 55 tests still pass. New resilience tests pass. Manual comparison of response JSON before/after.
 
-**Verification:** Visual comparison across representative pages in both themes.
+---
 
-### Phase 4: Template/Data
+### Phase 2: JS Modularisation — DETAILED PLAN (2026-03-27)
 
-1. Split `eleventyComputed.js` into `computed/` modules
-2. Move partials into `layout/`, `content/`, `marketing/` subdirectories
-3. Update all `{% include %}` paths
-4. Add i18n validation to build
+**Current state:** `src/site.js` (1,339 lines), `src/trivia.js` (199KB). Single DOMContentLoaded handler with nested IIFEs. Two separate escape functions (`esc()` at line 761, `escapeHtml()` at line 580). Terser post-build minification.
 
-**Verification:** Diff build output HTML before/after.
+**Target state:** ES module tree bundled by esbuild. Features isolated. Data extracted. Trivia lazy-loaded. Event bus for cross-feature communication. Single sanitisation utility.
 
-### Phase 5: CI/CD
+#### Step-by-step execution order:
 
-1. Add test job to `deploy.yml`
-2. Gate build + deploy on test pass
-3. Add worker deployment job with Cloudflare API token secret
-4. Add i18n validation to build validation step
+**2a. Scaffolding (no functional change)**
+
+1. Create directory structure: `src/js/`, `src/js/features/`, `src/js/data/`, `src/js/trivia/`
+2. Add esbuild to `eleventy.config.js` in `eleventy.before` hook:
+   ```js
+   const esbuild = await import('esbuild');
+   await esbuild.build({
+     entryPoints: ['src/js/main.js'],
+     bundle: true, outfile: '_site/site.js',
+     minify: production, format: 'iife', target: ['es2020'],
+   });
+   ```
+3. Create `src/js/main.js` as thin orchestrator that imports and initialises features
+4. Verify esbuild output loads correctly before proceeding
+
+**2b. Extract data arrays (lowest risk)**
+
+5. Extract `zodiacData` (12-animal array) → `src/js/data/zodiac-data.js`
+6. Extract `famousFigures` → `src/js/data/famous-figures.js`
+7. Extract `lichunDates` (1900–2100 table) → `src/js/data/lichun-dates.js`
+8. Extract `relations` (compatibility data) → `src/js/data/compatibility-data.js`
+
+**2c. Extract features one at a time (simplest → most complex)**
+
+9. `src/js/features/theme.js` — Dark mode toggle + localStorage + `prefers-color-scheme` init
+10. `src/js/features/nav.js` — Mobile nav toggle, dropdown menus, active state
+11. `src/js/features/faq.js` — FAQ accordion open/close
+12. `src/js/features/calculator.js` — Zodiac calculator form + result rendering
+13. `src/js/features/compatibility.js` — Compatibility checker form + result rendering
+14. `src/js/features/search.js` — Search index fetch, weighted scoring, result rendering
+15. `src/js/features/bazi-client.js` — BaZi API client + chart result renderer
+16. `src/js/features/newsletter.js` — Beehiiv form submission + popup
+17. `src/js/features/popup.js` — Exit-intent email popup (30s delay + scroll trigger)
+18. `src/js/features/filters.js` — Directory/shop/news filter buttons
+19. `src/js/features/lightbox.js` — QR code lightbox (Alipay/WeChat)
+20. `src/js/features/language.js` — Language toggle + URL rewriting
+
+**2d. XSS hardening (during extraction)**
+
+21. Create `src/js/utils/sanitise.js` — Single `escapeHtml()` function replacing both `esc()` and `escapeHtml()` in site.js
+22. Migrate all `innerHTML` result renderers to use DOM API (`createElement`, `textContent`, `appendChild`) where user/API data is involved
+23. Keep `innerHTML` only for static/hardcoded template strings (zodiac results from hardcoded data)
+
+**2e. Cross-feature communication**
+
+24. Create `src/js/event-bus.js` — Lightweight pub/sub (~30 lines: `on`, `off`, `emit`)
+25. Create `src/js/analytics.js` — Centralised GA4 tracking layer wrapping `gtag()` calls
+26. Wire events: `bazi:calculated`, `compatibility:checked`, `language:changed`, `popup:shown`, `newsletter:subscribed`
+
+**2f. Trivia splitting**
+
+27. Create `src/js/trivia/trivia-game.js` — Game logic only (~100 lines)
+28. Create `src/js/trivia/trivia-data.js` — Quiz questions (data only)
+29. Add separate esbuild entry point for trivia bundle
+30. Lazy-load trivia via `import()` when `#trivia-container` exists on page
+
+**2g. Cleanup**
+
+31. Remove terser post-build step from `eleventy.config.js`
+32. Delete `src/site.js` and `src/trivia.js`
+33. Update `base.njk` script tag if path changes (should remain `_site/site.js`)
+
+**Verification per step:** After each extraction (steps 9–20), verify:
+- [ ] Build passes (`npx @11ty/eleventy`)
+- [ ] Page loads correctly in English, zh-Hant, zh-Hans
+- [ ] Light mode and dark mode both work
+- [ ] No console errors
+- [ ] Feature-specific interaction works (e.g., FAQ accordion opens/closes)
+
+**Risk:** Medium. The monolithic IIFE structure means features may have hidden coupling (e.g., calculator depends on zodiacData which is also used by compatibility). Extract data first (step 5-8) to expose these dependencies.
+
+---
+
+### Phase 3: CSS Modularisation — DETAILED PLAN (2026-03-27)
+
+**Current state:** `src/styles.css` (5,590 lines, ~129KB source). Well-organised with section comments. 258 `[data-theme="dark"]` selectors scattered throughout. CleanCSS Level 2 minification.
+
+**Target state:** Component-based CSS files. Design tokens extracted. Dark mode consolidated. esbuild bundling.
+
+#### Step-by-step execution order:
+
+**3a. Create file structure**
+
+1. Create directories: `src/css/`, `src/css/tokens/`, `src/css/base/`, `src/css/layout/`, `src/css/components/`, `src/css/themes/`, `src/css/utilities/`
+2. Create `src/css/main.css` with `@import` chain (order matters for cascade)
+
+**3b. Extract design tokens (`:root` custom properties)**
+
+3. `src/css/tokens/colors.css` — All colour custom properties (~40 variables)
+4. `src/css/tokens/typography.css` — Font stacks, sizes, line heights
+5. `src/css/tokens/spacing.css` — Spacing scale
+6. `src/css/tokens/shadows.css` — Shadow definitions
+7. `src/css/tokens/animations.css` — Transition durations, easing functions
+
+**3c. Extract base styles**
+
+8. `src/css/base/reset.css` — Box-sizing, margin reset, border-box
+9. `src/css/base/body.css` — Body defaults, paper texture background
+10. `src/css/base/typography.css` — Headings (h1-h6), paragraphs, lists, links, blockquotes
+11. `src/css/base/accessibility.css` — Focus styles, reduced motion, `.sr-only`, skip-to-content
+
+**3d. Extract layout styles**
+
+12. `src/css/layout/header.css` — Site header, primary nav, mobile menu, dropdowns
+13. `src/css/layout/footer.css` — Footer columns, social icons, copyright
+14. `src/css/layout/article-layout.css` — Article page grid, sidebar, TOC sidebar
+
+**3e. Extract component styles (one file per component)**
+
+15. `src/css/components/hero.css` — Hero section + variants
+16. `src/css/components/cards.css` — All card variants (zodiac-card, reading-card, product-card, etc.)
+17. `src/css/components/calculator.css` — Zodiac calculator form + results
+18. `src/css/components/bazi.css` — BaZi chart display + pillar grid
+19. `src/css/components/compatibility.css` — Compatibility checker results
+20. `src/css/components/faq.css` — FAQ accordion
+21. `src/css/components/newsletter.css` — Newsletter form + Beehiiv integration
+22. `src/css/components/popup.css` — Exit-intent popup modal
+23. `src/css/components/buttons.css` — Button variants (primary, secondary, ghost, CTA)
+24. `src/css/components/breadcrumbs.css` — Breadcrumb nav
+25. `src/css/components/shop.css` — Shop product grid + filter buttons
+26. `src/css/components/directory.css` — Directory listings + badges
+27. `src/css/components/share-buttons.css` — Social share buttons
+28. `src/css/components/search.css` — Search form + results
+29. `src/css/components/trivia.css` — Trivia game UI
+30. `src/css/components/tables.css` — Data tables (sexagenary, elements, compatibility matrix)
+31. `src/css/components/embeds.css` — Social embed grid (YouTube, Twitter)
+32. `src/css/components/lightbox.css` — QR code lightbox
+33. `src/css/components/comments.css` — Giscus comment wrapper
+34. `src/css/components/cross-sell.css` — Cross-sell CTA cards
+35. `src/css/components/content-upgrade.css` — Email capture CTA
+
+**3f. Consolidate dark mode**
+
+36. `src/css/themes/dark.css` — Extract ALL 258 `[data-theme="dark"]` selectors from component files into this single file. Each selector retains its original specificity.
+
+**3g. Extract utilities**
+
+37. `src/css/utilities/spacing.css` — `.mt-md`, `.mb-lg`, etc.
+38. `src/css/utilities/text.css` — `.text-center`, `.chinese-char`, `.pinyin`
+
+**3h. Wire esbuild**
+
+39. Add esbuild CSS entry point in `eleventy.config.js`:
+    ```js
+    await esbuild.build({
+      entryPoints: ['src/css/main.css'],
+      bundle: true, outfile: '_site/styles.css', minify: true,
+    });
+    ```
+40. Remove CleanCSS post-build step from `eleventy.config.js`
+
+**3i. Validation and cleanup**
+
+41. Diff minified output byte-for-byte against CleanCSS output — verify no rules lost
+42. Visual comparison across 10 representative pages × 2 themes × 3 languages
+43. Delete `src/styles.css`
+
+**Verification:** After step 41, use a CSS diff tool or screenshot comparison to confirm zero visual regressions.
+
+**Risk:** Low. CSS splitting is mechanical (cut along section comment headers). The main risk is import order affecting specificity cascade — maintain exact original order in `main.css`.
+
+---
+
+### Phase 4: Template/Data Refactor — DETAILED PLAN (2026-03-27)
+
+**Current state:** `src/_data/eleventyComputed.js` (545 lines) — monolithic computed data orchestrator. 12 partials in flat `src/_includes/partials/` directory. No i18n validation step.
+
+**Target state:** Modular computed data modules. Partials organised by function. i18n validation in build pipeline.
+
+#### Step-by-step execution order:
+
+**4a. Split eleventyComputed.js**
+
+1. Create `src/_data/computed/` directory
+2. Extract `auto-related.js` — Related links orchestrator per page type (~150 lines)
+3. Extract `auto-faq.js` — FAQ orchestrator (~100 lines)
+4. Create `src/_data/computed/faq/zodiac-faq.js` — 12-animal FAQ data (~200 lines of text)
+5. Create `src/_data/computed/faq/page-faq.js` — Hub page FAQ data
+6. Create `src/_data/computed/related/zodiac-related.js` — `/zodiac/{animal}/` link logic
+7. Create `src/_data/computed/related/reading-related.js` — `/readings/` link logic
+8. Create `src/_data/computed/related/year-related.js` — `/zodiac-year/` link logic
+9. Slim `eleventyComputed.js` to ~30-line orchestrator that imports modules
+
+**4b. Reorganise partials**
+
+10. Create subdirectories: `src/_includes/partials/layout/`, `src/_includes/partials/content/`, `src/_includes/partials/marketing/`
+11. Move partials:
+    - `layout/` ← `header.njk`, `footer.njk`, `breadcrumbs.njk`, `hero.njk`
+    - `content/` ← `share-buttons.njk`, `comments.njk`, `affiliate-disclosure.njk`
+    - `marketing/` ← `content-upgrade.njk`, `cross-sell-cta.njk`, `newsletter.njk`, `email-popup.njk`, `ad-unit.njk`
+12. Bulk-update all `{% include %}` paths across all templates:
+    - `{% include "partials/header.njk" %}` → `{% include "partials/layout/header.njk" %}`
+    - etc. for all 12 partials
+13. Verify build output HTML identical before/after (diff `_site/`)
+
+**4c. Add i18n validation**
+
+14. Create `scripts/i18n-validate.js` — Post-build scanner that:
+    - Reads all HTML files in `_site/zh-hant/` and `_site/zh-hans/`
+    - Checks for orphaned `class="lang-en"` blocks (should have been stripped)
+    - Checks for orphaned `class="lang-tc"` in zh-hans (should have been stripped)
+    - Checks for orphaned `class="lang-sc"` in zh-hant (should have been stripped)
+    - Fails build with specific file:line if any found
+15. Extract i18n stripping logic from `eleventy.config.js` into `scripts/i18n-strip.js` for independent unit testing
+16. Add i18n validation to `eleventy.after` hook (runs after stripping)
+
+**4d. Write tests for computed modules**
+
+17. Unit tests for `auto-related.js` — verify correct links for each page type
+18. Unit tests for `auto-faq.js` — verify FAQ arrays for representative pages
+19. Unit tests for `i18n-validate.js` — verify detection of orphaned lang classes
+
+**Verification:** Diff build output HTML before/after refactoring. Zero differences expected (pure restructuring).
+
+**Risk:** Low. The main complexity is the bulk `{% include %}` path update — use a script or find-and-replace to avoid missing any references.
+
+---
+
+### Phase 5: CI/CD Unification — DETAILED PLAN (2026-03-27)
+
+**Current state:** Single `build` → `deploy` pipeline. No test job. No worker deployment. `npm test` not invoked. Vitest installed but never run in CI.
+
+**Target state:** Test → Build → Deploy (frontend) + Test → Deploy (worker). Independent deployment tracks. Tests gate everything.
+
+#### Updated deploy.yml structure:
+
+```yaml
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ── Job 1: Run all tests ──────────────────────
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - run: npm test
+      - run: npm audit --audit-level=high
+
+  # ── Job 2: Build frontend (gated on tests) ────
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - run: npx @11ty/eleventy
+      - name: Validate build output
+        run: |
+          # ... existing validation script ...
+      - name: i18n validation
+        run: node scripts/i18n-validate.js
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
+
+  # ── Job 3: Deploy frontend (gated on build) ───
+  deploy-pages:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # ── Job 4: Deploy worker (gated on tests) ─────
+  deploy-worker:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - name: Deploy Cloudflare Worker
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+```
+
+#### Step-by-step execution order:
+
+1. Add `test` job to `deploy.yml` — runs `npm ci` + `npm test` + `npm audit`
+2. Add `needs: test` to existing `build` job
+3. Rename existing `deploy` job to `deploy-pages` for clarity
+4. Add `deploy-worker` job — runs `npx wrangler deploy` with Cloudflare API token from GitHub Secrets
+5. Add `i18n validation` step to build job (requires Phase 4 `scripts/i18n-validate.js`)
+6. **Owner action required:** Add `CLOUDFLARE_API_TOKEN` secret to GitHub repo settings
+
+**Post-Phase 5 pipeline flow:**
+
+```
+push to main
+  └─→ test (npm test + npm audit)
+       ├─→ build (Eleventy + validation + i18n check)
+       │    └─→ deploy-pages (GitHub Pages)
+       └─→ deploy-worker (wrangler deploy to Cloudflare)
+```
+
+**Verification:** Trigger a push. Confirm test job runs vitest. Confirm build is gated on test pass. Confirm worker deploys independently.
+
+**Risk:** Low. The main dependency is the `CLOUDFLARE_API_TOKEN` secret — owner must add this to the repo. Without it, the worker deploy job will fail (but frontend deploy is unaffected).
 
 ---
 
@@ -355,6 +684,38 @@ No new runtime dependencies.
 | CSS import order changes specificity cascade | Low | Medium | Maintain exact order from original; diff minified output |
 | i18n stripping breaks on new patterns | Medium | Medium | Add validation step; extract to testable module |
 | Trivia lazy-loading fails on old browsers | Low | Low | Graceful degradation — trivia doesn't appear |
+| Upstream service sustained outage (no circuit breaker) | Medium | High | Phase 1 completion: implement circuit-breaker + retry + cache |
+| Phase 2 feature extraction exposes hidden coupling | Medium | Medium | Extract data arrays first to reveal dependencies; test after each step |
+| Cloudflare API token misconfiguration in CI | Low | Medium | Fail-safe: worker deploy job fails but frontend unaffected |
+| i18n validation script false positives | Low | Low | Whitelist known edge cases; review first 3 builds manually |
+
+---
+
+## 8. Phase 1 Audit Summary (2026-03-27)
+
+### Implemented vs. Planned
+
+| Planned Component | Status | Notes |
+|-------------------|--------|-------|
+| Router (`index.js` + `router.js`) | ✅ Done | `/v1/bazi/calculate`, `/v1/health` |
+| Adapters (windada, zhouyi) | ✅ Done | With HTML fixtures |
+| Service layer (`bazi-service.js`) | ✅ Done | Validates → calls adapters → assembles response |
+| Error classes (`errors.js`) | ✅ Done | 4 typed error classes |
+| CORS middleware | ✅ Done | Origin validation from env var |
+| Rate limiter | ✅ Done (bonus) | Dual-layer (in-memory + KV) — exceeded spec |
+| Data constants (`stems.js`) | ✅ Done | Branches merged into stems.js |
+| HTML parser utilities | ✅ Done | `stripTags`, `extractText` |
+| Pillar model | ✅ Done | Data structure definition |
+| Request validation | ✅ Done | Year/month/day/hour/lat/lon validation |
+| Tests (55 cases) | ✅ Done | Adapters, models, routes tested |
+| **Cache middleware** | ❌ Missing | Not implemented |
+| **Retry logic** | ❌ Missing | Not implemented |
+| **Circuit breaker** | ❌ Missing | Not implemented |
+| **Solar time service** | ⚠️ Partial | Logic in windada adapter, not extracted |
+| **Response schema** | ⚠️ Partial | Shape informal, no JSDoc/schema |
+| **PDF report route** | ❌ Missing | Blocks revenue initiative A |
+| **Compatibility route** | ❌ Missing | Blocks revenue initiative B |
+| **Widget route** | ❌ Missing | Low priority |
 
 ---
 
@@ -362,10 +723,35 @@ No new runtime dependencies.
 
 | File | Lines | Action |
 |------|-------|--------|
-| `worker/bazi-worker.js` | 359 | Decompose into router/service/adapter (Phase 1) |
-| `src/site.js` | 1,313 | Decompose into ES modules (Phase 2) |
-| `src/styles.css` | 5,531 | Split into component files (Phase 3) |
+| ~~`worker/bazi-worker.js`~~ | ~~359~~ | ~~Decompose into router/service/adapter (Phase 1)~~ DONE |
+| `worker/lib/cache.js` | 0 (new) | Implement Cache API wrapper (Phase 1 completion) |
+| `worker/lib/retry.js` | 0 (new) | Implement exponential backoff (Phase 1 completion) |
+| `worker/lib/circuit-breaker.js` | 0 (new) | Implement per-host circuit breaker (Phase 1 completion) |
+| `src/site.js` | 1,339 | Decompose into ES modules (Phase 2) |
+| `src/styles.css` | 5,590 | Split into component files (Phase 3) |
 | `src/_data/eleventyComputed.js` | 545 | Split into testable modules (Phase 4) |
-| `eleventy.config.js` | 375 | Update for esbuild + revised pipeline (Phases 2-3) |
-| `.github/workflows/deploy.yml` | ~95 | Add test job + worker deploy (Phase 5) |
-| `wrangler.jsonc` | ~15 | Update main entry point (Phase 1) |
+| `eleventy.config.js` | 375 | Update for esbuild + revised pipeline (Phases 2–3) |
+| `.github/workflows/deploy.yml` | ~118 | Add test job + worker deploy (Phase 5) |
+| `scripts/i18n-validate.js` | 0 (new) | Post-build i18n orphan scanner (Phase 4) |
+
+---
+
+## 9. Competitive Context (2026-03-27)
+
+> For context on why these architecture improvements matter — the site currently does not rank in the top 10 for any of its four target keyword clusters ("chinese zodiac 2026", "bazi calculator", "chinese zodiac compatibility", "feng shui 2026"). Domain authority is the primary bottleneck, not content quality. Architecture improvements in Phases 2–3 directly improve page speed (Core Web Vitals), which is a confirmed Google ranking factor. Phase 5 (CI/CD) ensures the site can ship content and features faster, which compounds SEO gains over time.
+
+### Competitive Advantages to Protect
+
+1. **Pre-Qing classical scholarship** — No competitor frames content this way. Maintain this positioning.
+2. **GEO readiness** — `llms.txt` + permissive AI crawler policy is ahead of all competitors. Maintain.
+3. **Trilingual** — Most competitors are English-only. This is a moat for Chinese-language search.
+4. **Practitioner directory** — Unique among zodiac-focused sites. Expand.
+5. **Breadth of cultural content** — Wuxia, Hanfu, Tea, etc. create long-tail keyword surface area.
+
+### Competitive Gaps to Address (Not Architecture — See TODO.md)
+
+1. Baby Gender Predictor (high-traffic tool — chinesefortunecalendar.com's top driver)
+2. AI-powered BaZi chat (mastertsai.com, fatemaster.ai adopting this)
+3. Daily/weekly horoscopes (recurring engagement driver)
+4. Flying Star annual charts (interactive feng shui tool)
+5. Advanced BaZi features (symbolic stars, Na Yin, day master strength)

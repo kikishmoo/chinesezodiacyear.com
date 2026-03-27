@@ -5,6 +5,60 @@
 
 ---
 
+## 2026-03-27 — Phase 5 CI/CD: Test Gate + Worker Auto-Deploy (Session 16, part 2)
+
+**Author:** kiki.peiqi.greene
+
+### CI/CD Pipeline Restructured (deploy.yml)
+
+Rewrote `.github/workflows/deploy.yml` from 2 jobs to 4 jobs:
+
+- **Job 1 (`test`):** Runs `npm test` (40 vitest cases) + `npm audit --audit-level=high`. Gates all downstream jobs.
+- **Job 2 (`build`):** Eleventy build + output validation (page counts, CSS/JS minification, critical files). Depends on `test`.
+- **Job 3 (`deploy-pages`):** GitHub Pages deployment. Depends on `build`.
+- **Job 4 (`deploy-worker`):** Automated Cloudflare Worker deployment via `wrangler deploy`. Depends on `test`, runs in parallel with `build`. Uses `CLOUDFLARE_API_TOKEN` secret.
+
+This resolves two CRITICAL audit findings: (1) tests never ran in CI, and (2) Worker was deployed manually only.
+
+**Files changed:** `.github/workflows/deploy.yml`, `CLAUDE.md`, `TODO.md`, `CHANGELOG.md`, `docs/architecture-redesign.md`
+
+---
+
+## 2026-03-27 — Onboarding Audit + Architecture Phases 2–5 Detailed Planning (Session 16)
+
+**Author:** kiki.peiqi.greene
+
+### Full Codebase Audit
+
+Conducted comprehensive audit across all layers: worker backend (1,888 LOC), frontend JS (1,339 LOC), frontend CSS (5,590 LOC), build config, CI/CD pipeline, and all documentation. Key findings:
+
+- **CRITICAL:** Tests exist (55 vitest cases) but never run in CI — `deploy.yml` has no `npm test` step
+- **CRITICAL:** Worker deployed manually only — no CI automation for `wrangler deploy`
+- **HIGH:** Worker Phase 1 gaps: cache middleware, retry logic, and circuit breaker not implemented (per architecture-redesign.md spec)
+- **MEDIUM:** Two duplicate escape functions in `site.js` (`esc()` line 761, `escapeHtml()` line 580) — inconsistent XSS mitigation
+- **MEDIUM:** Solar time service logic embedded in windada adapter, not extracted as independent module
+- All innerHTML usage audited — no exploitable XSS found (all data sources are hardcoded or sanitised), but architecture fragile for future changes
+
+### Competitive Intelligence Research
+
+Analysed top 10 competitors and keyword landscape. ChineseZodiacYear.com does not rank in top 10 for any of four target keyword clusters tested ("chinese zodiac 2026", "bazi calculator", "chinese zodiac compatibility", "feng shui 2026"). Does not appear in AI-generated answers despite having GEO infrastructure (llms.txt, permissive robots.txt). Domain authority is the primary bottleneck. Identified competitive feature gaps: Baby Gender Predictor, AI BaZi chat, daily horoscopes, Flying Star charts, advanced BaZi features.
+
+### Architecture Phases 2–5 Detailed Planning
+
+Expanded architecture-redesign.md from high-level bullet points to step-by-step execution plans with numbered tasks, verification criteria, and risk assessments:
+
+- **Phase 1 Completion** (7 tasks): cache.js, retry.js, circuit-breaker.js, solar-time-service extraction, bazi-response schema, tests, wiring
+- **Phase 2 JS Modularisation** (33 tasks): esbuild scaffolding → data extraction → feature-by-feature extraction → XSS hardening → event bus → trivia splitting → cleanup
+- **Phase 3 CSS Modularisation** (43 tasks): file structure → token extraction → base styles → layout → 21 component files → dark mode consolidation → utilities → esbuild wiring → validation
+- **Phase 4 Template/Data** (19 tasks): eleventyComputed splitting → partials reorganisation → i18n validation script → tests
+- **Phase 5 CI/CD** (6 tasks): test job → build gate → worker deploy job → i18n validation step
+
+Added new sections: Phase 1 Audit Summary table, updated Risks & Mitigations, Competitive Context section, updated Critical Files table.
+
+**Files changed:** `docs/architecture-redesign.md`, `CHANGELOG.md`, `docs/prediction-log.md`
+
+---
+
 ## 2026-03-24 — CSP Refinement + KV-backed Rate Limiting (Session 15)
 
 **Author:** Claude (agent)

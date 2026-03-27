@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-20
+**Last updated:** 2026-03-27
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -18,8 +18,13 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 |----|-------------------------------------------------------|------------|----------|----------|------------|
 | **A** | **Build automated BaZi PDF report system**        | **CRITICAL** | Medium | **Very High** | **Revenue** |
 | **B** | **Build automated Compatibility PDF reports**     | **CRITICAL** | Low    | **High**     | **Revenue** |
+| ~~**E**~~ | ~~**Fix CI/CD: add test job + worker deploy (Phase 5)**~~ | ~~**CRITICAL**~~ | ~~Low~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
+| **F** | **Complete Worker Phase 1 gaps (cache, retry, circuit breaker)** | **HIGH** | Medium | **High** | **Technical** |
 | **C** | **Expand directory for lead-gen (scrape + enrich)** | HIGH     | Medium-High | High  | Revenue    |
+| **G** | **JS modularisation — Phase 2 architecture**      | HIGH       | High   | Medium   | Technical  |
 | **D** | **Build embeddable BaZi API/widget**              | MEDIUM   | Medium | Medium       | Revenue    |
+| **H** | **CSS modularisation — Phase 3 architecture**     | MEDIUM     | Medium | Medium   | Technical  |
+| **I** | **Add Baby Gender Predictor tool**                | MEDIUM     | Medium | High     | Product    |
 | 6  | Write and publish 6 remaining queued calendar articles          | HIGH       | 18 hours | High     | Content    |
 | 9  | Set up Pinterest business account + first 20 pins (account created, linked on site) | HIGH | 3 hours | Medium | Marketing |
 | 11 | Set up TikTok account + first 5 videos (account created, linked on site) | MEDIUM | 7 hours | Medium | Marketing |
@@ -30,7 +35,10 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 17 | Add Dragon Boat Festival content (June 7 deadline)   | LOW        | 3 hours  | Medium   | Content    |
 | 18 | Implement A/B testing on reading sales pages          | LOW        | 4 hours  | Medium   | Technical  |
 | 19 | Create SOPs for content pipeline                      | LOW        | 4 hours  | Low      | Operations |
-| 20 | Audit and optimize Cloudflare Worker caching rules    | LOW        | 3 hours  | Low      | Technical  |
+| 20 | ~~Audit and optimize Cloudflare Worker caching rules~~    | ~~LOW~~        | ~~3 hours~~  | ~~Low~~      | ~~Technical~~ → Subsumed by item F (cache.js implementation) |
+| 42 | Template/data refactor — Phase 4 architecture         | LOW        | Medium | Medium   | Technical  |
+| 43 | Add daily/weekly horoscope feature                    | LOW        | High   | Medium   | Product    |
+| 44 | Add AI-powered BaZi chat (LLM integration)           | LOW        | High   | High     | Product    |
 
 ### Completed Items (moved from matrix)
 
@@ -66,6 +74,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 39 | Add rate limiting to BaZi Worker | 2026-03-20 |
 | 40 | Refine CSP — add AdSense/GA4/FB Pixel sub-resource domains | 2026-03-24 |
 | 41 | Upgrade rate limiting to dual-layer (in-memory + Cloudflare KV) | 2026-03-24 |
+| E | Fix CI/CD: add test job + worker deploy (Phase 5) | 2026-03-27 |
 
 ---
 

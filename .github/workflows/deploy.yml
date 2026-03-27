@@ -15,7 +15,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  # ── Job 1: Run tests + audit ─────────────────────────
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,8 +31,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run tests
+        run: npm test
+
       - name: Audit dependencies
         run: npm audit --audit-level=high
+
+  # ── Job 2: Build frontend (gated on tests) ──────────
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build with Eleventy
         run: npx @11ty/eleventy
@@ -105,7 +126,8 @@ jobs:
         with:
           path: "_site"
 
-  deploy:
+  # ── Job 3: Deploy frontend to GitHub Pages ───────────
+  deploy-pages:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -115,3 +137,26 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # ── Job 4: Deploy Cloudflare Worker (gated on tests) ─
+  deploy-worker:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy Cloudflare Worker
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

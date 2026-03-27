@@ -232,4 +232,26 @@
 
 ---
 
+### 2026-03-27 — Onboarding audit: architecture improvement prioritisation
+
+**Decision:** Detailed Phase 2–5 architecture planning with step-by-step execution orders, verification criteria, and risk assessments. Phase 5 (CI/CD) elevated to execute in parallel with Phases 2–3 rather than sequentially after them, because the audit revealed tests are not running in CI at all — a critical gap that should be closed immediately regardless of frontend refactoring status.
+**Prediction:** Phase 5 (CI/CD unification) can be implemented independently in 1–2 sessions since it only touches `deploy.yml` and requires adding one GitHub secret (`CLOUDFLARE_API_TOKEN`). This will immediately gate deployments on test pass, catching regressions. Phase 2 (JS modularisation) is the riskiest because of potential hidden coupling between features in the monolithic `site.js`. Extracting data arrays first (step 2b) will reveal these dependencies before they become blockers. Phase 3 (CSS) is lowest risk — purely mechanical splitting along existing section comment headers.
+**Confidence:** High for Phase 5 independence. Medium for Phase 2 risk assessment — hidden coupling is by definition unknown until extraction begins.
+**Actual result:** (fill in after)
+**Delta:** (fill in after)
+**Adjustment:** (fill in after)
+
+---
+
+### 2026-03-27 — Competitive analysis: SEO ranking gap assessment
+
+**Decision:** Researched competitive landscape to inform architecture and content priorities. Tested four target keyword clusters against live search results and AI-generated answers.
+**Prediction:** ChineseZodiacYear.com is a new site competing against domains with 10–20+ years of age (chinesenewyear.net, chinahighlights.com, travelchinaguide.com). It will not rank in top 10 for any head keyword cluster yet. Domain authority takes 12–24 months to build with consistent content publishing + backlink acquisition. The site's competitive moats (pre-Qing scholarship, trilingual, practitioner directory, GEO readiness) are long-term advantages that compound over time, not short-term ranking factors.
+**Confidence:** High — domain age and authority are well-established SEO factors; a site launched in early 2026 cannot outrank 15-year-old travel sites on head terms within 3 months.
+**Actual result:** Confirmed. ChineseZodiacYear.com does not appear in top 10 for any of the four keyword clusters tested. Does not appear in AI-generated answers. Competitors with 10+ years of domain age dominate all clusters.
+**Delta:** None — prediction matched reality.
+**Adjustment:** Focus near-term SEO on long-tail keywords where competition is lower (e.g., specific compatibility pairs, fire horse 2026, qimen dunjia). Head terms will come with domain age + consistent publishing velocity + backlink growth. Architecture improvements (page speed via Phases 2–3) are a contributing factor but not the primary bottleneck.
+
+---
+
 <!-- Add new entries above this line -->
