@@ -42,12 +42,14 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | **L** | **Define D1 migration workflow (schema versioning + rollback SOP)** | **HIGH** | Low | **High** | **Technical** |
 | **M** | **Add OpenAPI contract for Worker `/v1/*` routes** | **MEDIUM** | Medium | **High** | **Technical** |
 | **N** | **Implement data governance policy for birth-data retention/deletion** | **HIGH** | Low | **High** | **Compliance** |
-| **O** | **Scaffold Worker repository layer (`worker/repositories/*`) and enforce no-SQL-in-services rule** | **HIGH** | Medium | **High** | **Technical** |
+| ~~**O**~~ | ~~**Scaffold Worker repository layer (`worker/repositories/*`) and enforce no-SQL-in-services rule~~ | ~~**HIGH**~~ | ~~Medium~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
 | 43 | Add daily/weekly horoscope feature                    | LOW        | High   | Medium   | Product    |
 | 44 | Add AI-powered BaZi chat (LLM integration)           | LOW        | High   | High     | Product    |
 
 
 ### Phase 6 Execution Notes (2026-03-27)
+
+- Item **O** scaffold completed: `worker/repositories/*` + `worker/lib/db.js` added, and CI boundary guard `npm run infra:service-boundary:check` enforces no SQL in `worker/services/*`.
 
 - Item **J** bootstrap assets added: `scripts/bootstrap-d1-r2.sh` and `docs/d1-r2-bootstrap.md` (resource creation + binding instructions).
 - Still pending: actual resource creation in Cloudflare account and binding IDs committed to `wrangler.jsonc`.
@@ -91,6 +93,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | E | Fix CI/CD: add test job + worker deploy (Phase 5) | 2026-03-27 |
 | F | Complete Worker Phase 1 gaps (cache, retry, circuit breaker) | 2026-03-27 |
 | G | JS modularisation — Phase 2 architecture (22 modules, esbuild) | 2026-03-27 |
+| O | Repository layer scaffold + no-SQL-in-services CI guard | 2026-03-27 |
 
 ---
 
