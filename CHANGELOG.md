@@ -5,6 +5,62 @@
 
 ---
 
+## 2026-03-29 — Item J: R2 Bucket Provisioned, Item J Complete (Session 23)
+
+**Author:** kiki.peiqi.greene
+
+### R2 Object Storage Live
+
+Created Cloudflare R2 bucket `czy-reports` for PDF report file storage. Combined with D1 `czy-main` (created earlier same day), all cloud infrastructure for the report generation pipeline is now provisioned. Item J is fully complete.
+
+**Changes:**
+- Created R2 bucket `czy-reports` via Cloudflare API.
+- Updated `wrangler.jsonc` — added `r2_buckets` binding (`REPORTS_BUCKET` → `czy-reports`).
+- Updated `TODO.md` — Item J marked DONE, Item A remaining list updated.
+- Updated `CLAUDE.md` — data layer attention point updated to reflect R2 completion.
+
+---
+
+## 2026-03-29 — Item J (partial): D1 Database Provisioned + Migration Applied (Session 23)
+
+**Author:** kiki.peiqi.greene
+
+### Production D1 Database Live
+
+Created Cloudflare D1 database `czy-main` in APAC region and applied the Phase 6 initial schema migration. 6 tables now live in production: `report_templates`, `report_jobs`, `transactions`, `directory_listings`, `directory_leads`, `products`. R2 bucket creation blocked — R2 needs enabling in Cloudflare dashboard.
+
+**Changes:**
+- Created D1 database `czy-main` (ID: `98bfa33f-eced-497c-9f73-cff9fe6d9b2b`, region: APAC).
+- Applied `migrations/202603271300_phase6_initial_schema.sql` — 13 queries, 6 tables, 6 indexes.
+- Updated `wrangler.jsonc` — added `d1_databases` binding (`DB` → `czy-main`).
+- Updated `CLAUDE.md` — data layer attention point updated with D1 status.
+- R2 bucket `czy-reports` creation failed — R2 not yet enabled on Cloudflare account. User action: enable R2 at dash.cloudflare.com → R2.
+
+---
+
+## 2026-03-28 — Item A (partial): Report Route + Service Infrastructure (Session 23)
+
+**Author:** kiki.peiqi.greene
+
+### Report API Routes, Service Layer, and Router Path Parameters
+
+Built the route, service, and validation layers for the BaZi report generation system (Item A). This wires the full request → validate → deduplicate → generate → store → poll flow, ready for D1/R2 once cloud resources are provisioned.
+
+**Changes:**
+- Upgraded `worker/router.js` to support named path parameters (e.g. `/v1/reports/:jobId`). `match()` now returns `{ route, params }` object.
+- Updated `worker/index.js` to use new match shape and wired 3 new report routes: `POST /v1/reports`, `GET /v1/reports/:jobId`, `GET /v1/reports/:jobId/download`.
+- Added `worker/routes/report.js` — route handlers for report creation, status polling, and download.
+- Added `worker/services/report-service.js` — orchestration layer with idempotency (SHA-256 request hash), synchronous MVP processing, R2 storage, and error state tracking.
+- Added `worker/models/report-request.js` — request validation (template slug format, birth data, optional email).
+- Added `NotFoundError` to `worker/models/errors.js` (404, non-retryable).
+- Added `getById()` method to `worker/repositories/report-jobs-repository.js`.
+- Updated `worker/__tests__/routes/router.test.js` — rewrote for new `{ route, params }` match shape + 5 new parameterised route tests.
+- Added `worker/__tests__/models/report-request.test.js` — 12 validation tests.
+- All 88 tests passing. Build verified. SQL boundary check passing.
+- Updated `CLAUDE.md` — marked CI/CD Phase 5 attention point resolved, added Node.js 20 deprecation attention point, updated data layer progress.
+
+---
+
 ## 2026-03-27 — Phase 6 Step 4 (partial): OpenAPI Contract Bootstrap (Session 22)
 
 **Author:** Cody

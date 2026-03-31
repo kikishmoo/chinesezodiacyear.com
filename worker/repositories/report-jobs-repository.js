@@ -26,6 +26,20 @@ export function createReportJobsRepository(env) {
 
   return {
     /**
+     * @param {string} id
+     */
+    async getById(id) {
+      return queryOne(
+        db,
+        `SELECT ${BASE_COLUMNS}
+         FROM report_jobs
+         WHERE id = ?
+         LIMIT 1`,
+        [id]
+      );
+    },
+
+    /**
      * @param {string} requestHash
      */
     async getByRequestHash(requestHash) {

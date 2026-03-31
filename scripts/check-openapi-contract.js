@@ -23,14 +23,14 @@ if (!spec.openapi || !String(spec.openapi).startsWith('3.')) {
   fail('openapi version must be 3.x');
 }
 
-const requiredPaths = ['/v1/health', '/v1/bazi/calculate', '/v1/bazi/report'];
+const requiredPaths = ['/v1/health', '/v1/bazi/calculate', '/v1/reports'];
 for (const path of requiredPaths) {
   if (!spec.paths?.[path]) fail(`missing required path: ${path}`);
 }
 
 if (!spec.paths['/v1/health'].get) fail('missing GET /v1/health operation');
 if (!spec.paths['/v1/bazi/calculate'].post) fail('missing POST /v1/bazi/calculate operation');
-if (!spec.paths['/v1/bazi/report'].post) fail('missing POST /v1/bazi/report operation');
+if (!spec.paths['/v1/reports'].post) fail('missing POST /v1/reports operation');
 
 const schemas = spec.components?.schemas ?? {};
 for (const name of [
@@ -38,8 +38,9 @@ for (const name of [
   'ErrorEnvelope',
   'BaziCalculateRequest',
   'BaziCalculateResponse',
-  'BaziReportRequest',
-  'BaziReportAccepted'
+  'ReportRequest',
+  'ReportJobEnvelope',
+  'ReportStatusEnvelope'
 ]) {
   if (!schemas[name]) fail(`missing schema: ${name}`);
 }

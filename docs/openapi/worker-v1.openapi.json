@@ -3,7 +3,7 @@
   "info": {
     "title": "ChineseZodiacYear Worker API",
     "version": "1.0.0",
-    "description": "Contract-first OpenAPI spec for Worker /v1 routes. Covers live endpoints and the planned report endpoint for Phase 6 sequencing."
+    "description": "OpenAPI spec for Worker /v1 routes. Covers BaZi calculator, health check, and report generation endpoints."
   },
   "servers": [
     {
@@ -98,35 +98,146 @@
         }
       }
     },
-    "/v1/bazi/report": {
+    "/v1/reports": {
       "post": {
-        "summary": "Create/report job for paid BaZi PDF (planned)",
-        "operationId": "createBaziReport",
-        "description": "Contract-first placeholder for Phase 6 report pipeline.",
-        "x-status": "planned",
+        "summary": "Request a new report generation",
+        "operationId": "createReport",
+        "description": "Validates input, checks template, deduplicates via request hash, creates job, and generates report. Idempotent: re-submitting identical input returns the existing job.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BaziReportRequest"
+                "$ref": "#/components/schemas/ReportRequest"
               }
             }
           }
         },
         "responses": {
-          "202": {
-            "description": "Report job accepted",
+          "201": {
+            "description": "New report job created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BaziReportAccepted"
+                  "$ref": "#/components/schemas/ReportJobEnvelope"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Existing job returned (idempotent dedup)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportJobEnvelope"
                 }
               }
             }
           },
           "400": {
             "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Template not found or inactive",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reports/{jobId}": {
+      "get": {
+        "summary": "Poll report job status",
+        "operationId": "getReportStatus",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportStatusEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reports/{jobId}/download": {
+      "get": {
+        "summary": "Download a completed report",
+        "operationId": "downloadReport",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Report file (JSON, future: PDF)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Report still being generated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job or file not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Report generation failed",
             "content": {
               "application/json": {
                 "schema": {
@@ -236,22 +347,53 @@
         },
         "additionalProperties": true
       },
-      "BaziReportRequest": {
+      "ReportRequest": {
         "type": "object",
-        "required": ["templateSlug", "input", "customerEmail"],
+        "required": ["templateSlug", "year", "month", "day"],
         "properties": {
-          "templateSlug": { "type": "string" },
-          "input": { "$ref": "#/components/schemas/BaziCalculateRequest" },
-          "customerEmail": { "type": "string", "format": "email" },
-          "locale": { "type": "string", "enum": ["en", "zh-hant", "zh-hans"], "default": "en" }
+          "templateSlug": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+          "year": { "type": "integer", "minimum": 1900, "maximum": 2100 },
+          "month": { "type": "integer", "minimum": 1, "maximum": 12 },
+          "day": { "type": "integer", "minimum": 1, "maximum": 31 },
+          "hour": { "type": ["integer", "null"], "minimum": 0, "maximum": 23 },
+          "minute": { "type": ["integer", "null"], "minimum": 0, "maximum": 59 },
+          "lat": { "type": ["number", "null"], "minimum": -90, "maximum": 90 },
+          "lng": { "type": ["number", "null"], "minimum": -180, "maximum": 180 },
+          "tz": { "type": ["string", "null"] },
+          "sex": { "type": "string", "enum": ["male", "female"], "default": "male" },
+          "email": { "type": ["string", "null"], "format": "email" }
         }
       },
-      "BaziReportAccepted": {
+      "ReportJobEnvelope": {
         "type": "object",
-        "required": ["jobId", "status"],
+        "required": ["data"],
         "properties": {
-          "jobId": { "type": "string" },
-          "status": { "type": "string", "const": "queued" }
+          "data": {
+            "type": "object",
+            "required": ["jobId", "status", "templateSlug"],
+            "properties": {
+              "jobId": { "type": "string", "format": "uuid" },
+              "status": { "type": "string", "enum": ["queued", "processing", "completed", "failed"] },
+              "templateSlug": { "type": "string" }
+            }
+          }
+        }
+      },
+      "ReportStatusEnvelope": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["jobId", "status", "createdAt"],
+            "properties": {
+              "jobId": { "type": "string", "format": "uuid" },
+              "status": { "type": "string", "enum": ["queued", "processing", "completed", "failed"] },
+              "downloadUrl": { "type": ["string", "null"] },
+              "error": { "type": ["string", "null"] },
+              "createdAt": { "type": "string", "format": "date-time" }
+            }
+          }
         }
       }
     }

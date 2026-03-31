@@ -17,5 +17,18 @@
       "binding": "RATE_LIMIT_KV",
       "id": "bfd6972986044803961150f924c8f40f"
     }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "czy-main",
+      "database_id": "98bfa33f-eced-497c-9f73-cff9fe6d9b2b"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "REPORTS_BUCKET",
+      "bucket_name": "czy-reports"
+    }
   ]
 }

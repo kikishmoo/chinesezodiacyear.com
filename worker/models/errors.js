@@ -35,6 +35,15 @@ export class TimeoutError extends Error {
   }
 }
 
+export class NotFoundError extends Error {
+  constructor(message = 'Resource not found') {
+    super(message);
+    this.name = 'NotFoundError';
+    this.status = 404;
+    this.retryable = false;
+  }
+}
+
 export class CircuitOpenError extends Error {
   constructor(source) {
     super(`Circuit breaker open for ${source} — upstream temporarily unavailable`);

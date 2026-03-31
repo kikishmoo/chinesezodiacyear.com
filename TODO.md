@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-27
+**Last updated:** 2026-03-29
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -37,7 +37,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | 19 | Create SOPs for content pipeline                      | LOW        | 4 hours  | Low      | Operations |
 | 20 | ~~Audit and optimize Cloudflare Worker caching rules~~    | ~~LOW~~        | ~~3 hours~~  | ~~Low~~      | ~~Technical~~ → Subsumed by item F (cache.js implementation) |
 | 42 | Template/data refactor — Phase 4 architecture         | LOW        | Medium | Medium   | Technical  |
-| **J** | **Set up Cloudflare D1 database + R2 bucket**     | **HIGH**   | Low    | **High** | **Technical** |
+| ~~**J**~~ | ~~**Set up Cloudflare D1 database + R2 bucket**~~ — D1 `czy-main` + R2 `czy-reports` both provisioned and bound in `wrangler.jsonc` | ~~**HIGH**~~ | ~~Low~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-29** |
 | **K** | **Migrate revenue data to D1 (directory, shop, report templates)** | **HIGH** | Medium | **Very High** | **Revenue** |
 | **L** | **Define D1 migration workflow (schema versioning + rollback SOP)** | **HIGH** | Low | **High** | **Technical** |
 | ~~**M**~~ | ~~**Add OpenAPI contract for Worker `/v1/*` routes~~ | ~~**MEDIUM**~~ | ~~Medium~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
@@ -49,12 +49,20 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 
 ### Phase 6 Execution Notes (2026-03-27)
 
-- Item **J** bootstrap assets added: `scripts/bootstrap-d1-r2.sh` and `docs/d1-r2-bootstrap.md` (resource creation + binding instructions).
-- Still pending: actual resource creation in Cloudflare account and binding IDs committed to `wrangler.jsonc`.
+- Item **J** completed 2026-03-29: D1 `czy-main` (APAC, migration applied) + R2 `czy-reports` both live. Bindings in `wrangler.jsonc`.
 - Item **L** bootstrap assets added: `migrations/202603271300_phase6_initial_schema.sql`, `migrations/README.md`, and CI migration scaffold (`scripts/check-migrations.sh`, `npm run infra:migrations:check`).
 - Item **M** contract bootstrap completed: `docs/openapi/worker-v1.openapi.json` plus CI contract guard (`scripts/check-openapi-contract.js`, `npm run infra:openapi:check`).
 - Item **O** scaffold completed: `worker/repositories/*` plus SQL-boundary CI guard (`scripts/check-service-sql-boundary.sh`, `npm run infra:boundaries:check`).
 - Item **N** policy completed: `docs/birth-data-governance-policy.md` defines minimisation, retention windows, deletion SOP, and audit-log requirements for birth-data handling.
+
+### Item A Progress (2026-03-28)
+
+- Report API routes wired: `POST /v1/reports`, `GET /v1/reports/:jobId`, `GET /v1/reports/:jobId/download`.
+- Router upgraded to support path parameters (`:param` syntax with regex matching).
+- Report service layer: idempotency via SHA-256 request hash, synchronous MVP processing, R2 storage, job state machine (queued → processing → completed/failed).
+- Request validation model: template slug format, birth data, optional email.
+- 88 tests passing (up from 55). SQL boundary check passing.
+- **Remaining for Item A:** ~~D1/R2 cloud resources (Item J)~~ DONE, report template content/seed data, PDF rendering (currently stores JSON — needs HTML-to-PDF or template-to-PDF layer), payment integration (Stripe/Gumroad webhook).
 
 ### Completed Items (moved from matrix)
 
