@@ -1,8 +1,12 @@
 /**
  * BaZi Service — Business Logic Orchestrator
  *
- * Coordinates the flow: cache check → solar time correction → chart fetch → cache store.
+ * Coordinates the flow: cache check → solar time correction → upstream chart fetch → cache store.
  * Has no HTTP knowledge — receives typed input, returns typed output.
+ *
+ * True Solar Time is computed via Windada, then passed directly to zhouyi.cc
+ * with zty=0 (disable zhouyi's own solar time correction) and city set to
+ * Beijing to avoid any upstream location-based adjustment.
  *
  * Resilience stack:
  *   - Cache: deterministic results cached 24h (Cache API)
@@ -54,7 +58,10 @@ export async function calculate(input) {
     }
   }
 
-  // Step 2: Get BaZi chart (with retry + circuit breaker)
+  // Step 2: Get BaZi chart from zhouyi.cc (with retry + circuit breaker)
+  //         We pass the Windada-corrected true solar time directly, with zty=0
+  //         (disable zhouyi's own solar time correction) and city=北京 to avoid
+  //         any upstream location-based adjustment doubling the correction.
   const zhBreaker = getBreaker('zhouyi');
   const chart = await zhBreaker.execute(() =>
     withRetry(
@@ -65,7 +72,7 @@ export async function calculate(input) {
         hour: solarHour,
         minute: solarMinute,
         sex,
-        useTrueSolarTime: (hasTime && hasLocation) ? 1 : 0
+        useTrueSolarTime: 0
       }),
       { maxRetries: 2, baseDelay: 500, label: 'zhouyi-chart' }
     )

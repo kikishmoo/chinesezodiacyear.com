@@ -23,6 +23,13 @@ function resolveTimezone(lat, lng) {
   return null;
 }
 
+function detectLang() {
+  var path = window.location.pathname;
+  if (path.indexOf('/zh-hant/') === 0) return 'tc';
+  if (path.indexOf('/zh-hans/') === 0) return 'sc';
+  return 'en';
+}
+
 function renderBaziChart(data, baziResult) {
   var pillars = data.pillars || {};
   var names = ['hour', 'day', 'month', 'year'];
@@ -30,6 +37,8 @@ function renderBaziChart(data, baziResult) {
   var cnLabels = ['\u65F6\u67F1', '\u65E5\u67F1', '\u6708\u67F1', '\u5E74\u67F1'];
   var hiddenStems = data.hiddenStems || {};
   var naYin = data.naYin || {};
+  var lang = detectLang();
+  var isCn = lang === 'tc' || lang === 'sc';
 
   var html = '';
 
@@ -56,7 +65,7 @@ function renderBaziChart(data, baziResult) {
       html += '<div class="pillar-pinyin">' + escapeHtml(p.stemPinyin || '') + ' ' + escapeHtml(p.branchPinyin || '') + '</div>';
       if (p.stemElement) html += '<span class="pillar-element ' + elClass + '">' + escapeHtml(p.stemElement) + '</span>';
       if (p.branchAnimal) html += '<div class="pillar-animal">' + escapeHtml(p.branchAnimal) + '</div>';
-      if (hiddenStems[name]) html += '<div class="pillar-hidden">\u85CF\u5E72: ' + escapeHtml(hiddenStems[name]) + '</div>';
+      if (hiddenStems[name]) html += '<div class="pillar-hidden">' + (isCn ? '\u85CF\u5E72' : 'Hidden Stems') + ': ' + escapeHtml(hiddenStems[name]) + '</div>';
       if (naYin[name]) html += '<div class="pillar-nayin">' + escapeHtml(naYin[name]) + '</div>';
     } else {
       html += '<div style="color:var(--stone);font-size:0.9rem;padding:1rem 0;">Not available</div>';
@@ -79,22 +88,34 @@ function renderBaziChart(data, baziResult) {
   if (data.basicInfo && Object.keys(data.basicInfo).length > 0) {
     var info = data.basicInfo;
     html += '<div class="bazi-info-grid">';
-    if (info.lunarDate) html += '<div><strong>\u8FB2\u66C6:</strong> ' + escapeHtml(info.lunarDate) + '</div>';
-    if (info.zodiac) html += '<div><strong>\u751F\u8096:</strong> ' + escapeHtml(info.zodiac) + '</div>';
-    if (info.constellation) html += '<div><strong>\u661F\u5EA7:</strong> ' + escapeHtml(info.constellation) + '</div>';
-    if (info.trueSolarTimeStr) html += '<div><strong>\u771F\u592A\u9633\u65F6:</strong> ' + escapeHtml(info.trueSolarTimeStr) + '</div>';
+    if (info.lunarDate) html += '<div><strong>' + (isCn ? '\u8FB2\u66C6' : 'Chinese Calendar Date') + ':</strong> ' + escapeHtml(info.lunarDate) + '</div>';
+    if (info.zodiac) html += '<div><strong>' + (isCn ? '\u751F\u8096' : 'Zodiac') + ':</strong> ' + escapeHtml(info.zodiac) + '</div>';
+    if (info.constellation) html += '<div><strong>' + (isCn ? '\u661F\u5EA7' : 'Constellation') + ':</strong> ' + escapeHtml(info.constellation) + '</div>';
+    if (info.trueSolarTimeStr) html += '<div><strong>' + (isCn ? '\u771F\u592A\u9633\u65F6' : 'True Solar Time') + ':</strong> ' + escapeHtml(info.trueSolarTimeStr) + '</div>';
     html += '</div>';
   }
 
   // Five Elements
   if (data.fiveElements) {
     var feText = cleanText(data.fiveElements);
-    html += '<div class="bazi-five-elements">';
-    html += '<h4>Five Elements Balance (\u4E94\u884C\u529B\u91CF)</h4>';
-    feText.split('\n').forEach(function(line) {
-      if (line.trim()) html += '<div>' + escapeHtml(line.trim()) + '</div>';
-    });
-    html += '</div>';
+    if (isCn) {
+      html += '<div class="bazi-five-elements">';
+      html += '<h4>\u4E94\u884C\u529B\u91CF</h4>';
+      feText.split('\n').forEach(function(line) {
+        if (line.trim()) html += '<div>' + escapeHtml(line.trim()) + '</div>';
+      });
+      html += '</div>';
+    } else {
+      html += '<div class="bazi-five-elements">';
+      html += '<h4>Five Elements Balance (\u4E94\u884C\u529B\u91CF)</h4>';
+      html += '<details><summary style="cursor:pointer;color:var(--stone);font-size:0.9rem;">View detailed breakdown (Chinese)</summary>';
+      html += '<div style="margin-top:var(--sp-sm);">';
+      feText.split('\n').forEach(function(line) {
+        if (line.trim()) html += '<div>' + escapeHtml(line.trim()) + '</div>';
+      });
+      html += '</div></details>';
+      html += '</div>';
+    }
   }
 
   // Da Yun
@@ -114,22 +135,46 @@ function renderBaziChart(data, baziResult) {
 
   // Reading sections
   if (data.readingSections && data.readingSections.length > 0) {
-    html += '<div class="bazi-sections">';
-    html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
-    data.readingSections.forEach(function(section) {
-      var cleaned = cleanText(section.content);
-      html += '<details>';
-      html += '<summary>' + escapeHtml(section.title) + '</summary>';
-      html += '<div class="section-content">' + escapeHtml(cleaned).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
-      html += '</details>';
-    });
-    html += '</div>';
+    if (isCn) {
+      html += '<div class="bazi-sections">';
+      html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">命盘分析</h4>';
+      data.readingSections.forEach(function(section) {
+        var cleaned = cleanText(section.content);
+        html += '<details>';
+        html += '<summary>' + escapeHtml(section.title) + '</summary>';
+        html += '<div class="section-content">' + escapeHtml(cleaned).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
+        html += '</details>';
+      });
+      html += '</div>';
+    } else {
+      html += '<div class="bazi-sections">';
+      html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
+      html += '<details><summary style="cursor:pointer;color:var(--stone);font-size:0.9rem;">View detailed analysis (Chinese)</summary>';
+      html += '<div style="margin-top:var(--sp-sm);">';
+      data.readingSections.forEach(function(section) {
+        var cleaned = cleanText(section.content);
+        html += '<div style="margin-bottom:var(--sp-md);">';
+        html += '<strong>' + escapeHtml(section.title) + '</strong>';
+        html += '<div class="section-content">' + escapeHtml(cleaned).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
+        html += '</div>';
+      });
+      html += '</div></details>';
+      html += '</div>';
+    }
   } else if (data.rawExcerpt) {
     var cleanExcerpt = cleanText(data.rawExcerpt).substring(0, 2000);
-    html += '<div style="margin-top:var(--sp-xl);">';
-    html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
-    html += '<div class="bazi-reading-text">' + escapeHtml(cleanExcerpt).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
-    html += '</div>';
+    if (isCn) {
+      html += '<div style="margin-top:var(--sp-xl);">';
+      html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">命盘分析</h4>';
+      html += '<div class="bazi-reading-text">' + escapeHtml(cleanExcerpt).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
+      html += '</div>';
+    } else {
+      html += '<div style="margin-top:var(--sp-xl);">';
+      html += '<h4 style="font-family:var(--font-display);color:var(--deep-red);margin-bottom:var(--sp-md);">Chart Analysis</h4>';
+      html += '<details><summary style="cursor:pointer;color:var(--stone);font-size:0.9rem;">View detailed analysis (Chinese)</summary>';
+      html += '<div class="bazi-reading-text" style="margin-top:var(--sp-sm);">' + escapeHtml(cleanExcerpt).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
+      html += '</details></div>';
+    }
   }
 
   // Parse error

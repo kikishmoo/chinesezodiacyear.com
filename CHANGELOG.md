@@ -5,6 +5,66 @@
 
 ---
 
+## 2026-04-04 — BaZi Calculator: Language-Aware Result Rendering (Session 25 continued)
+
+**Author:** kiki.shmoo
+
+### i18n Fix: Chinese-Only Analysis Sections on English Pages
+
+The BaZi result page rendered Five Elements analysis, reading sections, and basic info labels entirely in Chinese regardless of the active language. Now the renderer detects the page language from the URL path and adapts:
+
+- **English pages:** Basic info labels show in English (Chinese Calendar Date, Zodiac, Constellation, True Solar Time). Hidden stems label shows "Hidden Stems" instead of "藏干". Five Elements breakdown and Chart Analysis sections are collapsed behind a "View detailed analysis (Chinese)" disclosure toggle, so they don't dominate the English experience.
+- **Terminology fix:** "Lunar Date" changed to "Chinese Calendar Date" per editorial rule 2.1 — the Chinese calendar is lunisolar, not lunar.
+- **Chinese pages (TC/SC):** Everything renders in Chinese as before, with section headings in Chinese (五行力量, 命盘分析).
+
+**Changes:**
+- **Modified:** `src/js/features/bazi-client.js` — added `detectLang()` function (derives language from URL path `/zh-hant/` or `/zh-hans/`). All display strings and section visibility now branch on `isCn` flag.
+
+---
+
+## 2026-04-03 — BaZi Calculator: Fix True Solar Time by Splitting Windada + Zhouyi Responsibilities (Session 25)
+
+**Author:** kiki.shmoo
+
+### Bug Fix: Time Pillar Accuracy (Revised Approach)
+
+Reverted from the local `lunar-javascript` calculation engine back to zhouyi.cc, but with a critical fix: true solar time is now computed by Windada first, then the corrected time is passed directly to zhouyi.cc with `zty=0` (disable zhouyi's own solar time correction) and city hardcoded to `北京` to prevent any upstream location-based double-correction.
+
+The previous local calculation approach (Session 24) was reverted because zhouyi.cc provides richer output (Da Yun, reading sections, hidden stems from HTML, etc.) that the frontend depends on. The root cause was that zhouyi.cc's own solar time correction was broken/changed — by handling solar time correction ourselves via Windada and passing the corrected time as-is, both services do what they're best at.
+
+**Changes:**
+- **Modified:** `worker/services/bazi-service.js` — reverted to use `fetchChart()` from zhouyi adapter with retry + circuit breaker. Now always passes `useTrueSolarTime: 0` to zhouyi (we handle solar time via Windada).
+- **Modified:** `worker/adapters/zhouyi-adapter.js` — changed `pid`/`cid` from `'0'` to `'北京'`/`'北京'` so zhouyi uses Beijing as the reference city.
+- **Retained:** `worker/adapters/lunar-adapter.js` and its 13 tests (kept as fallback/reference).
+
+**Verified:** `curl` test with 1996-09-20 16:04 (Windada-corrected true solar time) + Beijing + zty=0 returns correct hour pillar 甲申.
+
+---
+
+## 2026-04-01 — BaZi Calculator: Replace zhouyi.cc with Local Calculation Engine (Session 24)
+
+**Author:** kiki.shmoo
+
+### Critical Bug Fix: Time Pillar Accuracy
+
+Replaced the upstream zhouyi.cc HTML scraper with a local BaZi calculation engine powered by `lunar-javascript` (by 6tail, 34k weekly downloads, zero dependencies). This fixes a critical accuracy bug where zhouyi.cc returned incorrect time pillars (e.g. 庚辰 instead of 甲申 for 1996-09-20 16:25 Guangzhou female). The upstream service's true solar time option had silently changed/disappeared, causing wildly wrong hour branch calculations.
+
+**What changed:**
+- **New:** `worker/adapters/lunar-adapter.js` — local BaZi four pillar calculator using `lunar-javascript`. Computes year/month/day/hour pillars, hidden stems, Na Yin, Da Yun, day master, five elements, and basic info (lunar date, zodiac). Pure arithmetic, zero network calls.
+- **Modified:** `worker/services/bazi-service.js` — replaced `fetchChart()` (zhouyi.cc upstream call with retry + circuit breaker) with `calculateChart()` (local computation). Windada true solar time correction is retained.
+- **New:** `worker/__tests__/adapters/lunar-adapter.test.js` — 13 tests covering four pillar accuracy, metadata enrichment, hidden stems, Na Yin, Da Yun, day master, gender, null hour handling, solar term boundaries (立春), and basic info.
+- **Dependency:** Added `lunar-javascript@1.7.7` to `package.json`.
+
+**Impact:**
+- Eliminates fragile upstream HTML scraping that broke twice (Regression #6, and this bug)
+- Zero network latency for pillar calculation (was ~500ms+ round-trip to zhouyi.cc)
+- No more circuit breaker / retry overhead for chart computation
+- 101 tests passing (up from 88)
+
+**Note:** `worker/adapters/zhouyi-adapter.js` is retained but no longer imported. It may be removed in a future cleanup pass, or kept as fallback reference.
+
+---
+
 ## 2026-03-29 — Item J: R2 Bucket Provisioned, Item J Complete (Session 23)
 
 **Author:** kiki.peiqi.greene

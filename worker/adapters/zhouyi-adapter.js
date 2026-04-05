@@ -29,8 +29,8 @@ function buildParams({ year, month, day, hour, minute, sex, useTrueSolarTime }) 
     cboDay: String(day),
     cboHour: hour !== null ? String(hour) : '-1',
     cboMinute: minute !== null ? String(minute) : '0',
-    pid: '0',
-    cid: '0',
+    pid: '北京',
+    cid: '北京',
     zty: String(useTrueSolarTime),
     txtName: '',
     rdoSex: sex === 'female' ? '0' : '1'
