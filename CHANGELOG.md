@@ -5,20 +5,20 @@
 
 ---
 
-## 2026-04-04 — BaZi Calculator: Language-Aware Result Rendering (Session 25 continued)
+## 2026-04-05 — BaZi Calculator: Proper i18n for English Result Page (Session 25 continued)
 
 **Author:** kiki.shmoo
 
-### i18n Fix: Chinese-Only Analysis Sections on English Pages
+### i18n Fix: Translate Values + Hide Untranslatable Chinese Content
 
-The BaZi result page rendered Five Elements analysis, reading sections, and basic info labels entirely in Chinese regardless of the active language. Now the renderer detects the page language from the URL path and adapts:
+The BaZi result page rendered all content from zhouyi.cc in Chinese regardless of the active language. Translating labels alone while leaving Chinese values was useless. Now the renderer properly adapts content for each language:
 
-- **English pages:** Basic info labels show in English (Chinese Calendar Date, Zodiac, Constellation, True Solar Time). Hidden stems label shows "Hidden Stems" instead of "藏干". Five Elements breakdown and Chart Analysis sections are collapsed behind a "View detailed analysis (Chinese)" disclosure toggle, so they don't dominate the English experience.
-- **Terminology fix:** "Lunar Date" changed to "Chinese Calendar Date" per editorial rule 2.1 — the Chinese calendar is lunisolar, not lunar.
-- **Chinese pages (TC/SC):** Everything renders in Chinese as before, with section headings in Chinese (五行力量, 命盘分析).
+- **English pages:** Zodiac animal names translated (鼠→Rat, 龙→Dragon, etc.) and Western constellation signs translated (处女座→Virgo, 白羊座→Aries, etc.) via client-side lookup maps. Chinese-only content is completely hidden: Chinese calendar date (Chinese numerals), Na Yin (Chinese element names), Five Elements analysis, and reading sections (untranslatable Chinese passages). Hidden stems label shows "Hidden Stems" instead of "藏干".
+- **Chinese pages (TC/SC):** Everything renders in Chinese as before — full Chinese calendar date, Na Yin, Five Elements (五行力量), and reading sections (命盘分析).
+- **Terminology:** "Lunar Date" removed from English rendering entirely per editorial rule 2.1.
 
 **Changes:**
-- **Modified:** `src/js/features/bazi-client.js` — added `detectLang()` function (derives language from URL path `/zh-hant/` or `/zh-hans/`). All display strings and section visibility now branch on `isCn` flag.
+- **Modified:** `src/js/features/bazi-client.js` — added `detectLang()`, `ZODIAC_MAP`, `CONSTELLATION_MAP`, `translateZodiac()`, `translateConstellation()`. All sections branch on `isCn` flag; untranslatable content hidden on EN.
 
 ---
 
