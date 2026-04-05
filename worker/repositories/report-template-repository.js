@@ -10,7 +10,7 @@ export async function listActiveReportTemplates(env) {
 
   return queryAll(
     db,
-    `SELECT id, slug, title, price_cents, currency, is_active, updated_at
+    `SELECT id, slug, title, description, price_cents, currency, is_active, updated_at
      FROM report_templates
      WHERE is_active = 1
      ORDER BY updated_at DESC`
@@ -26,7 +26,7 @@ export async function getReportTemplateBySlug(env, slug) {
 
   return queryFirst(
     db,
-    `SELECT id, slug, title, description, price_cents, currency, content_version, is_active, updated_at
+    `SELECT id, slug, title, description, price_cents, currency, version, is_active, updated_at
      FROM report_templates
      WHERE slug = ?
      LIMIT 1`,

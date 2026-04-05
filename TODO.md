@@ -1,6 +1,6 @@
 # ChineseZodiacYear.com -- Strategic TODO Roadmap
 
-**Last updated:** 2026-03-29
+**Last updated:** 2026-04-05
 **Planning horizon:** 90 days (March -- June 2026)
 **Status:** Active
 
@@ -62,7 +62,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 - Report service layer: idempotency via SHA-256 request hash, synchronous MVP processing, R2 storage, job state machine (queued → processing → completed/failed).
 - Request validation model: template slug format, birth data, optional email.
 - 88 tests passing (up from 55). SQL boundary check passing.
-- **Remaining for Item A:** ~~D1/R2 cloud resources (Item J)~~ DONE, report template content/seed data, PDF rendering (currently stores JSON — needs HTML-to-PDF or template-to-PDF layer), payment integration (Stripe/Gumroad webhook).
+- **Remaining for Item A:** ~~D1/R2 cloud resources (Item J)~~ DONE, ~~report template seed data~~ DONE (2026-04-05: `bazi-basic-en` seeded with 10-section structure, $8.99, schema columns fixed), PDF rendering (currently stores JSON — needs template-to-PDF layer using pdf-lib), payment integration (PayPal REST API).
 
 ### Completed Items (moved from matrix)
 

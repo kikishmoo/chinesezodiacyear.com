@@ -5,6 +5,40 @@
 
 ---
 
+## 2026-04-05 — Item A: Seed BaZi Report Template + Schema Fix
+
+**Author:** kiki.peiqi.li
+
+### Report Template Seeded into D1
+
+Created the first purchasable report template (`bazi-basic-en`) and fixed a schema/repository mismatch that would have blocked checkout flow.
+
+**Migration 1 — `202604050001_add_template_pricing.sql`:**
+- Added `description`, `price_cents`, and `currency` columns to `report_templates` table.
+- These columns were referenced by `report-template-repository.js` but missing from the Phase 6 initial schema.
+
+**Migration 2 — `202604050002_seed_bazi_basic_template.sql`:**
+- Inserted `bazi-basic-en` template: "BaZi Four Pillars of Destiny — Personal Analysis", $8.99 USD, 10 sections (cover, Day Master, Four Pillars, Five Elements, personality, career, relationships, health, luck cycles, 2026 forecast).
+- `template_json` defines report structure (section keys, ordering, types, data keys, estimated pages) plus PDF theme configuration (A4, imperial red/gold, Helvetica).
+
+**Repository fixes:**
+- `report-template-repository.js` — fixed `content_version` → `version` column reference; added `description` to SELECT.
+- `report-templates-repository.js` — added `description`, `price_cents`, `currency` to `BASE_COLUMNS`.
+
+**Convenience scripts:**
+- Added `npm run infra:seed:local` and `npm run infra:seed:remote` to `package.json`.
+
+**Verified locally:** All 3 migrations apply cleanly, template queryable via `json_extract()`, 88 tests pass, Eleventy build succeeds.
+
+**Changes:**
+- `migrations/202604050001_add_template_pricing.sql` (new)
+- `migrations/202604050002_seed_bazi_basic_template.sql` (new)
+- `worker/repositories/report-template-repository.js` (fixed column references)
+- `worker/repositories/report-templates-repository.js` (added pricing columns)
+- `package.json` (added seed scripts)
+
+---
+
 ## 2026-04-05 — BaZi Calculator: Proper i18n for English Result Page (Session 25 continued)
 
 **Author:** kiki.shmoo
@@ -42,32 +76,6 @@ The previous local calculation approach (Session 24) was reverted because zhouyi
 ---
 
 ## 2026-04-01 — BaZi Calculator: Replace zhouyi.cc with Local Calculation Engine (Session 24)
-
-**Author:** kiki.shmoo
-
-### Critical Bug Fix: Time Pillar Accuracy
-
-Replaced the upstream zhouyi.cc HTML scraper with a local BaZi calculation engine powered by `lunar-javascript` (by 6tail, 34k weekly downloads, zero dependencies). This fixes a critical accuracy bug where zhouyi.cc returned incorrect time pillars (e.g. 庚辰 instead of 甲申 for 1996-09-20 16:25 Guangzhou female). The upstream service's true solar time option had silently changed/disappeared, causing wildly wrong hour branch calculations.
-
-**What changed:**
-- **New:** `worker/adapters/lunar-adapter.js` — local BaZi four pillar calculator using `lunar-javascript`. Computes year/month/day/hour pillars, hidden stems, Na Yin, Da Yun, day master, five elements, and basic info (lunar date, zodiac). Pure arithmetic, zero network calls.
-- **Modified:** `worker/services/bazi-service.js` — replaced `fetchChart()` (zhouyi.cc upstream call with retry + circuit breaker) with `calculateChart()` (local computation). Windada true solar time correction is retained.
-- **New:** `worker/__tests__/adapters/lunar-adapter.test.js` — 13 tests covering four pillar accuracy, metadata enrichment, hidden stems, Na Yin, Da Yun, day master, gender, null hour handling, solar term boundaries (立春), and basic info.
-- **Dependency:** Added `lunar-javascript@1.7.7` to `package.json`.
-
-**Impact:**
-- Eliminates fragile upstream HTML scraping that broke twice (Regression #6, and this bug)
-- Zero network latency for pillar calculation (was ~500ms+ round-trip to zhouyi.cc)
-- No more circuit breaker / retry overhead for chart computation
-- 101 tests passing (up from 88)
-
-**Note:** `worker/adapters/zhouyi-adapter.js` is retained but no longer imported. It may be removed in a future cleanup pass, or kept as fallback reference.
-
----
-
-## 2026-03-29 — Item J: R2 Bucket Provisioned, Item J Complete (Session 23)
-
-**Author:** kiki.peiqi.greene
 
 ### R2 Object Storage Live
 
