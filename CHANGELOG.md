@@ -5,6 +5,21 @@
 
 ---
 
+## 2026-04-06 — CI: Add Manual D1 Migration Workflow
+
+**Author:** kiki.peiqi.li
+
+### D1 Migrations Now Runnable from GitHub Actions
+
+Added `migrate-d1.yml` — a `workflow_dispatch` workflow that applies D1 migrations to the remote `czy-main` database using the existing `CLOUDFLARE_API_TOKEN` secret. Triggered manually from the Actions tab. Allows applying migrations without local Cloudflare credentials.
+
+Both new migrations (`202604050001_add_template_pricing` + `202604050002_seed_bazi_basic_template`) applied to production D1 successfully via this workflow.
+
+**Changes:**
+- `.github/workflows/migrate-d1.yml` (new)
+
+---
+
 ## 2026-04-05 — Item A: Seed BaZi Report Template + Schema Fix
 
 **Author:** kiki.peiqi.li
