@@ -31,6 +31,33 @@ The report pipeline now renders actual PDFs instead of storing raw JSON. Uses pd
 
 ---
 
+## 2026-04-08 — Item A: PayPal Checkout Integration (Payment Layer)
+
+**Author:** kiki.peiqi.li
+
+### PayPal REST API Payment Flow for BaZi Reports
+
+Built the complete server-side PayPal checkout flow for the $8.99 BaZi report purchase. Three new API endpoints enable the frontend PayPal Smart Buttons integration.
+
+**New files:**
+- `worker/services/paypal.js` — PayPal REST API client: OAuth2 token management (with in-memory caching), order creation (Orders v2 API), and order capture. Supports sandbox/live mode via `PAYPAL_MODE` env var.
+- `worker/routes/checkout.js` — Three route handlers:
+  - `GET /v1/checkout/client-id` — Returns PayPal client ID for frontend SDK initialisation (no secrets exposed)
+  - `POST /v1/checkout/create-order` — Looks up template price from D1, creates PayPal order, records pending transaction
+  - `POST /v1/checkout/capture-order` — Captures approved payment, validates completion, triggers report generation, updates transaction status. Includes double-capture prevention via DB lookup.
+- `worker/__tests__/services/paypal.test.js` — 10 tests: token caching, sandbox/live URL selection, error handling, cents-to-dollars conversion
+- `worker/__tests__/routes/checkout.test.js` — 11 tests: all three handlers with mocked dependencies, edge cases (missing fields, inactive templates, double-capture, no-price)
+
+**Modified files:**
+- `worker/index.js` — Registered 3 new checkout routes in route table
+- `worker/repositories/transaction-repository.js` — Rewritten to match D1 schema: fixed column names (`provider_ref` → `provider_transaction_id`, removed non-existent columns), added `updateTransactionStatus()` with `reportJobId`/`paidAt` support, added `getTransactionByProviderId()` for double-capture prevention
+
+**Test results:** 113 tests passing (up from 92). Build succeeds.
+
+**Setup required:** `wrangler secret put PAYPAL_CLIENT_ID`, `wrangler secret put PAYPAL_CLIENT_SECRET`, `wrangler secret put PAYPAL_MODE` (start with `sandbox`).
+
+---
+
 ## 2026-04-06 — CI: Add Manual D1 Migration Workflow
 
 **Author:** kiki.peiqi.li

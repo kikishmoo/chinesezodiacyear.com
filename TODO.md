@@ -62,7 +62,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 - Report service layer: idempotency via SHA-256 request hash, synchronous MVP processing, R2 storage, job state machine (queued → processing → completed/failed).
 - Request validation model: template slug format, birth data, optional email.
 - 88 tests passing (up from 55). SQL boundary check passing.
-- **Remaining for Item A:** ~~D1/R2 cloud resources (Item J)~~ DONE, ~~report template seed data~~ DONE (2026-04-05: `bazi-basic-en` seeded with 10-section structure, $8.99, schema columns fixed), ~~PDF rendering~~ DONE (2026-04-08 — pdf-lib renderer produces styled A4 PDFs with CJK→pinyin transliteration, 5 tests passing), payment integration (PayPal REST API), frontend CTA on BaZi calculator page, GA4 conversion tracking.
+- **Remaining for Item A:** ~~D1/R2 cloud resources (Item J)~~ DONE, ~~report template seed data~~ DONE (2026-04-05), ~~PDF rendering~~ DONE (2026-04-08 — pdf-lib renderer produces styled A4 PDFs with CJK→pinyin transliteration, 5 tests passing), ~~payment integration (PayPal REST API)~~ DONE (2026-04-08: PayPal service + checkout routes + transaction repository rewrite + 21 new tests), frontend PayPal Smart Buttons integration (CTA on bazi-calculator page), GA4 conversion tracking.
 
 ### Completed Items (moved from matrix)
 

@@ -11,6 +11,9 @@
  *   POST /v1/reports                 → Request report generation
  *   GET  /v1/reports/:jobId          → Poll report job status
  *   GET  /v1/reports/:jobId/download → Download completed report
+ *   GET  /v1/checkout/client-id      → PayPal client ID for frontend SDK
+ *   POST /v1/checkout/create-order   → Create PayPal order for report purchase
+ *   POST /v1/checkout/capture-order  → Capture approved PayPal payment + trigger report
  */
 
 import { Router } from './router.js';
@@ -20,6 +23,7 @@ import { errorToResponse } from './middleware/error-handler.js';
 import { handleBaziCalculate } from './routes/bazi.js';
 import { handleHealth } from './routes/health.js';
 import { handleCreateReport, handleGetReport, handleDownloadReport } from './routes/report.js';
+import { handleGetClientId, handleCreateOrder, handleCaptureOrder } from './routes/checkout.js';
 
 /* ── Route table ──────────────────────────────────────── */
 
@@ -33,6 +37,11 @@ router.get('/v1/health', handleHealth);
 router.post('/v1/reports', handleCreateReport);
 router.get('/v1/reports/:jobId', handleGetReport);
 router.get('/v1/reports/:jobId/download', handleDownloadReport);
+
+// Canonical v1 routes — Checkout (PayPal)
+router.get('/v1/checkout/client-id', handleGetClientId);
+router.post('/v1/checkout/create-order', handleCreateOrder);
+router.post('/v1/checkout/capture-order', handleCaptureOrder);
 
 // Legacy: POST / → same handler (backwards-compatible)
 router.post('/', handleBaziCalculate);

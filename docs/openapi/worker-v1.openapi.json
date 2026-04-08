@@ -3,7 +3,7 @@
   "info": {
     "title": "ChineseZodiacYear Worker API",
     "version": "1.0.0",
-    "description": "OpenAPI spec for Worker /v1 routes. Covers BaZi calculator, health check, and report generation endpoints."
+    "description": "OpenAPI spec for Worker /v1 routes. Covers BaZi calculator, health check, report generation, and PayPal checkout endpoints."
   },
   "servers": [
     {
@@ -248,6 +248,123 @@
           }
         }
       }
+    },
+    "/v1/checkout/client-id": {
+      "get": {
+        "summary": "Get PayPal client ID for frontend SDK",
+        "operationId": "getCheckoutClientId",
+        "description": "Returns the PayPal client ID (public) and mode (sandbox/live) for frontend JS SDK initialisation. No secrets exposed.",
+        "responses": {
+          "200": {
+            "description": "PayPal client configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutClientIdEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "PayPal not configured",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/checkout/create-order": {
+      "post": {
+        "summary": "Create a PayPal order for a report purchase",
+        "operationId": "createCheckoutOrder",
+        "description": "Looks up the template price from D1, creates a PayPal order via Orders v2 API, and records a pending transaction.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "PayPal order created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrderEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error (missing slug, template not found, no price)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/checkout/capture-order": {
+      "post": {
+        "summary": "Capture an approved PayPal payment and trigger report generation",
+        "operationId": "captureCheckoutOrder",
+        "description": "Captures the PayPal payment, validates completion, triggers report generation, and updates the transaction. Idempotent: re-submitting an already-captured order returns the existing data.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaptureOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Payment captured and report triggered (or already captured)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaptureOrderEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Payment not completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -392,6 +509,67 @@
               "downloadUrl": { "type": ["string", "null"] },
               "error": { "type": ["string", "null"] },
               "createdAt": { "type": "string", "format": "date-time" }
+            }
+          }
+        }
+      },
+      "CheckoutClientIdEnvelope": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["clientId", "mode"],
+            "properties": {
+              "clientId": { "type": "string" },
+              "mode": { "type": "string", "enum": ["sandbox", "live"] }
+            }
+          }
+        }
+      },
+      "CreateOrderRequest": {
+        "type": "object",
+        "required": ["templateSlug"],
+        "properties": {
+          "templateSlug": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" }
+        }
+      },
+      "CreateOrderEnvelope": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["orderId", "status"],
+            "properties": {
+              "orderId": { "type": "string" },
+              "status": { "type": "string" }
+            }
+          }
+        }
+      },
+      "CaptureOrderRequest": {
+        "type": "object",
+        "required": ["orderId", "baziData"],
+        "properties": {
+          "orderId": { "type": "string" },
+          "baziData": { "$ref": "#/components/schemas/ReportRequest" }
+        }
+      },
+      "CaptureOrderEnvelope": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["orderId", "paymentStatus"],
+            "properties": {
+              "orderId": { "type": "string" },
+              "paymentStatus": { "type": "string", "enum": ["paid"] },
+              "captureId": { "type": ["string", "null"] },
+              "reportJobId": { "type": ["string", "null"] },
+              "reportStatus": { "type": ["string", "null"] },
+              "message": { "type": ["string", "null"] }
             }
           }
         }
