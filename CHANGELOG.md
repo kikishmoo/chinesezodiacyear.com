@@ -5,6 +5,32 @@
 
 ---
 
+## 2026-04-08 — BaZi PDF Report: Rendering Layer (Item A Progress)
+
+**Author:** kiki.shmoo
+
+### PDF Rendering Layer — pdf-lib Integration
+
+The report pipeline now renders actual PDFs instead of storing raw JSON. Uses pdf-lib (pure JS, Cloudflare Workers compatible) with standard Helvetica fonts. CJK characters are transliterated to pinyin via lookup maps covering all Heavenly Stems and Earthly Branches.
+
+**PDF structure (A4 portrait, 50pt margins):**
+- **Cover page:** Deep red header bar, gold accents, subject birth data info box, disclaimer, generation date.
+- **Chart overview:** Four Pillars table (stem pinyin, branch pinyin, element/animal), Day Master highlight, basic info (zodiac + constellation translated to English).
+- **Da Yun cycles:** Horizontal card layout with pinyin stem-branch, start age, and year.
+- **Template sections:** Word-wrapped body text with auto-pagination via `ensureSpace()`.
+- **Page footers:** Page numbers and site URL on every page, gold top border on non-cover pages.
+
+**CJK handling:** `latinize()` strips CJK characters and replaces known stems/branches with pinyin. `combinedToPinyin()` converts stem-branch pairs (e.g. 丙子 → Bing Zi). `translateZodiac()` and `translateConstellation()` convert Chinese animal/constellation names to English.
+
+**Changes:**
+- **New:** `worker/lib/pdf-renderer.js` — PDF renderer using pdf-lib with design tokens, CJK-to-pinyin transliteration, word wrapping, and auto-pagination.
+- **New:** `worker/__tests__/lib/pdf-renderer.test.js` — 5 tests: valid PDF bytes, multi-page output, empty chart handling, missing sections, long content pagination.
+- **Modified:** `worker/services/report-service.js` — pipeline now calls `renderPdf()` and stores PDF bytes in R2 (was JSON).
+- **Modified:** `worker/routes/report.js` — download handler serves `application/pdf` with proper Content-Disposition header.
+- **Modified:** `package.json` — added `pdf-lib ^1.17.1` dependency.
+
+---
+
 ## 2026-04-06 — CI: Add Manual D1 Migration Workflow
 
 **Author:** kiki.peiqi.li

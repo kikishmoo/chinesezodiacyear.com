@@ -19,6 +19,7 @@ import { NotFoundError, ValidationError } from '../models/errors.js';
 import { createReportTemplatesRepository } from '../repositories/report-templates-repository.js';
 import { createReportJobsRepository } from '../repositories/report-jobs-repository.js';
 import { calculate } from './bazi-service.js';
+import { renderPdf } from '../lib/pdf-renderer.js';
 
 /**
  * Generate a deterministic request hash for idempotency.
@@ -132,9 +133,12 @@ export async function requestReport(env, input) {
     // 5b. Assemble report from template + chart data
     const reportContent = assembleReport(template, chart, input);
 
-    // 5c. Store in R2
-    const r2Key = `reports/${jobId}.json`;
-    await storeReport(env, r2Key, reportContent);
+    // 5c. Render to PDF
+    const pdfBytes = await renderPdf(reportContent);
+
+    // 5d. Store in R2
+    const r2Key = `reports/${jobId}.pdf`;
+    await storeReport(env, r2Key, pdfBytes);
 
     // 5d. Mark completed
     await jobs.updateStatus(jobId, 'completed', { outputR2Key: r2Key });
@@ -218,19 +222,19 @@ function assembleReport(template, chart, input) {
 }
 
 /**
- * Store assembled report content in R2.
+ * Store rendered PDF report in R2.
  *
  * @param {Record<string, unknown>} env
  * @param {string} key — R2 object key
- * @param {Object} content — report content object
+ * @param {Uint8Array} pdfBytes — rendered PDF bytes
  */
-async function storeReport(env, key, content) {
+async function storeReport(env, key, pdfBytes) {
   const bucket = env.REPORTS_BUCKET;
   if (!bucket) {
     throw new ValidationError('R2 binding REPORTS_BUCKET is not configured');
   }
 
-  await bucket.put(key, JSON.stringify(content), {
-    httpMetadata: { contentType: 'application/json' }
+  await bucket.put(key, pdfBytes, {
+    httpMetadata: { contentType: 'application/pdf' }
   });
 }

@@ -82,6 +82,7 @@ Current project direction. Stable for months but may shift based on data.
 | 5 | 2026-03-08 | Language toggle showed English content when navigating between pages on TC/SC | Language detection must derive from URL path (`/zh-hant/`, `/zh-hans/`), not localStorage. Nav links must be rewritten to preserve language prefix. |
 | 6 | 2026-03-16 | BaZi upstream service (zhouyi.cc) changed CSS class `bazilist` → `bazilist1`, breaking parser silently | Upstream HTML scrapers are fragile. Use defensive regex (e.g. `bazilist1?`) and always validate that parsed pillars are non-empty before returning results. Monitor upstream format changes. |
 | 7 | 2026-03-16 | FAQ items rendered empty in TC/SC when no translations existed — English text wrapped in `lang-en` spans got stripped by i18n build | When content may lack translations, only wrap in `lang-en` spans when alternative language content exists. Untranslated content must render as plain text to survive i18n stripping. |
+| 8 | 2026-04-01 | BaZi upstream (zhouyi.cc) silently broke true solar time — returned 庚辰 (Dragon hour 07:00-09:00) for 16:25 birth time. Root cause: zhouyi.cc removed/changed its true solar time option. | Never depend on upstream HTML scrapers for core calculation logic. BaZi four pillars are now computed locally via `lunar-javascript`. Upstream scrapers may only be used for non-critical supplementary data. |
 
 ---
 

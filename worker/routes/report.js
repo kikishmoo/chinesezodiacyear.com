@@ -68,9 +68,9 @@ export async function handleGetReport(request, env, corsHeaders, params) {
 }
 
 /**
- * GET /v1/reports/:jobId/download — Download a completed report.
+ * GET /v1/reports/:jobId/download — Download a completed report PDF.
  *
- * Streams the report JSON from R2. Future: render to PDF on-the-fly.
+ * Streams the rendered PDF from R2.
  *
  * @param {Request} request
  * @param {Object} env
@@ -120,8 +120,8 @@ export async function handleDownloadReport(request, env, corsHeaders, params) {
     status: 200,
     headers: {
       ...corsHeaders,
-      'Content-Type': 'application/json',
-      'Content-Disposition': `attachment; filename="report-${jobId}.json"`,
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="bazi-report-${jobId}.pdf"`,
       'Cache-Control': 'private, max-age=3600'
     }
   });
