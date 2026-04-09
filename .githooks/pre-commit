@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Git pre-commit hook — runs .claude/hooks/* safety checks
+#
+# Install: cp .githooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+# Or:     git config core.hooksPath .githooks
+
+set -euo pipefail
+
+HOOKS_DIR="$(git rev-parse --show-toplevel)/.claude/hooks"
+
+if [ ! -d "$HOOKS_DIR" ]; then
+  exit 0
+fi
+
+for hook in "$HOOKS_DIR"/*; do
+  if [ -x "$hook" ]; then
+    echo "[pre-commit] Running $(basename "$hook")..."
+    if ! "$hook"; then
+      echo "[pre-commit] FAILED: $(basename "$hook")"
+      exit 1
+    fi
+  fi
+done
+
+echo "[pre-commit] All checks passed."
+exit 0

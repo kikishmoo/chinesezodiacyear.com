@@ -5,6 +5,32 @@
 
 ---
 
+## 2026-04-09 — Optimise CLAUDE.md + Add Safety Hooks
+
+**Author:** kiki.peiqi.li
+
+### CLAUDE.md Restructured (150 → 119 lines)
+
+Applied Nav Toor's `.claude/` folder recommendations. Restructured CLAUDE.md for density and scan-ability: consolidated Project Identity into a table, merged Content Standards into Editorial section, added Worker architecture boundary rules, added new file paths (checkout routes, PayPal service, pdf-renderer), grouped Key File Locations by domain (Frontend / Worker / Ops). Graduated 4 expired/resolved Temporary Attention Points to `docs/attention-archive.md`. Condensed verbose Data Layer narrative into a status summary.
+
+### Safety Hooks Added
+
+Created `.claude/` project directory with hook scripts:
+- `.claude/hooks/pre-commit-secrets` — Regex scan of staged content for API keys, tokens, private keys
+- `.claude/hooks/validate-no-env-files` — Block `.env`, `.pem`, `credentials.json` from being staged
+- `.claude/settings.json` — Claude Code hook configuration (PreCommit)
+- `.githooks/pre-commit` — Standard git hook that runs all `.claude/hooks/*` scripts
+
+**Changes:**
+- `CLAUDE.md` — Restructured (150 → 119 lines)
+- `docs/attention-archive.md` (new) — Graduated attention points
+- `.claude/settings.json` (new) — Project-level Claude Code settings
+- `.claude/hooks/pre-commit-secrets` (new)
+- `.claude/hooks/validate-no-env-files` (new)
+- `.githooks/pre-commit` (new) — Git pre-commit hook runner
+
+---
+
 ## 2026-04-08 — BaZi PDF Report: Rendering Layer (Item A Progress)
 
 **Author:** kiki.shmoo

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://docs.anthropic.com/claude-code/settings-schema.json",
+  "description": "Project-level Claude Code settings for chinesezodiacyear.com",
+  "hooks": {
+    "PreCommit": [
+      {
+        "command": "bash .claude/hooks/pre-commit-secrets",
+        "description": "Scan staged files for accidental secret/credential commits"
+      },
+      {
+        "command": "bash .claude/hooks/validate-no-env-files",
+        "description": "Block .env and credential files from being committed"
+      }
+    ]
+  }
+}
