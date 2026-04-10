@@ -23,7 +23,8 @@
     "infra:boundaries:check": "bash ./scripts/check-service-sql-boundary.sh",
     "infra:architecture:check": "bash ./scripts/check-service-sql-boundary.sh",
     "infra:repositories:check": "bash ./scripts/check-no-sql-in-services.sh",
-    "infra:openapi:check": "node ./scripts/check-openapi-contract.js"
+    "infra:openapi:check": "node ./scripts/check-openapi-contract.js",
+    "postinstall": "git config core.hooksPath .githooks"
   },
   "keywords": [
     "chinese-zodiac",
