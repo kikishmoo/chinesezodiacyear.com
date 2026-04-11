@@ -5,6 +5,34 @@
 
 ---
 
+## 2026-04-10 — Item A: Frontend PayPal Smart Buttons + GA4 Conversion Tracking
+
+**Author:** kiki.shmoo
+
+### PayPal Smart Buttons CTA on BaZi Calculator
+
+After a user calculates their BaZi chart, a styled CTA now appears offering a paid PDF report ($8.99). The flow: PayPal Smart Buttons → create order → approve → capture payment → generate report → poll for completion → download PDF link.
+
+**Implementation details:**
+- PayPal JS SDK loaded dynamically (singleton promise pattern, idempotent across repeat calculations).
+- Full state machine: idle → loading → processing → success (download link) → error (with retry). Complies with regression rule #3 (no dead-end loading states).
+- English-only: CTA skipped entirely on zh-hant/zh-hans pages (detected from URL path per rule #5).
+- Birth data from the calculator form is passed to `capture-order` with `templateSlug: 'bazi-basic-en'`.
+- Report polling: 2.5s interval, max 30 attempts (75s timeout), with progress indicator.
+
+**GA4 ecommerce events (with required parameters):**
+- `begin_checkout` — fired when user clicks PayPal button (includes `value`, `currency`, `items`).
+- `purchase` — fired on successful capture (includes `transaction_id`, `value`, `currency`, `items`).
+- `checkout_cancelled`, `checkout_error`, `report_download_ready`, `report_generation_error` — lifecycle events.
+
+**Changes:**
+- **New:** `src/js/features/report-checkout.js` — PayPal Smart Buttons integration, checkout flow, report polling, GA4 tracking.
+- **New:** `src/css/components/report-checkout.css` — CTA styling with dark theme overrides and mobile responsive.
+- **Modified:** `src/js/features/bazi-client.js` — imports and calls `showReportOffer()` after chart render.
+- **Modified:** `src/css/main.css` — added `report-checkout.css` import.
+
+---
+
 ## 2026-04-09 — Optimise CLAUDE.md + Add Safety Hooks
 
 **Author:** kiki.peiqi.li

@@ -47,6 +47,7 @@
 @import './components/compatibility.css';
 @import './components/related.css';
 @import './components/shop.css';
+@import './components/report-checkout.css';
 
 /* --- Themes (after components so overrides win) --- */
 @import './themes/dark.css';

@@ -69,9 +69,9 @@
 
 | Focus | Status | Expiry |
 |-------|--------|--------|
-| **BaZi PDF report system** | PDF rendering done (pdf-lib). PayPal checkout done (3 endpoints). Remaining: frontend Smart Buttons CTA, GA4 conversion tracking. | 2026-05-10 |
+| **BaZi PDF report system** | **MVP FEATURE-COMPLETE.** PDF rendering (pdf-lib), PayPal checkout (3 endpoints), frontend Smart Buttons CTA, GA4 conversion tracking (begin_checkout + purchase) all done. Remaining: end-to-end smoke test with PayPal sandbox, template content refinement. | 2026-05-10 |
 | **GitHub Actions Node.js 20** | Upgrade `@v4` → `@v5` before 2 June 2026 forced migration. | 2026-06-01 |
-| **Data layer (Phase 6)** | D1 `czy-main` + R2 `czy-reports` live. 6 tables, template seeded, PayPal checkout wired. 113 tests. Remaining: frontend integration. | 2026-06-27 |
+| **Data layer (Phase 6)** | D1 `czy-main` + R2 `czy-reports` live. 6 tables, template seeded, PayPal checkout wired. 131 tests. Frontend checkout integration done (Smart Buttons CTA). Remaining: smoke test, template content polish. | 2026-06-27 |
 | **Backend controls** | SQL boundary + OpenAPI contract CI-enforced. Birth-data governance documented. Remaining: deletion enforcement, audit-log wiring. | 2026-05-27 |
 
 ---

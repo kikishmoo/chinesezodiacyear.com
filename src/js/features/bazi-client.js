@@ -5,6 +5,7 @@
 import { track } from '../analytics.js';
 import { basePath } from '../utils/base-path.js';
 import { escapeHtml, cleanText } from '../utils/sanitise.js';
+import { showReportOffer } from './report-checkout.js';
 
 let citiesData = null;
 let selectedCity = null;
@@ -348,6 +349,7 @@ export function initBaziClient() {
       const data = await resp.json();
       if (data.error) throw new Error(data.error);
       renderBaziChart(data, baziResult);
+      showReportOffer(WORKER_URL, payload, baziResult);
       track('bazi_calculate', {
         event_category: 'Calculator',
         event_label: (data.dayMaster ? data.dayMaster.element + ' ' + data.dayMaster.stem : 'chart'),
