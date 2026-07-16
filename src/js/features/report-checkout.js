@@ -1,8 +1,9 @@
 /**
- * Report Checkout — PayPal Smart Buttons for BaZi PDF report purchase.
+ * Report Checkout — PayPal Smart Buttons for PDF report purchases.
  *
- * Renders a CTA after the BaZi chart result, loads the PayPal JS SDK
- * dynamically, and handles the full checkout + report download flow.
+ * Supports two report types:
+ *   - BaZi report ($8.99): showReportOffer()
+ *   - Compatibility report ($4.99): showCompatibilityOffer()
  *
  * Flow: CTA → PayPal buttons → create-order → approve → capture-order
  *       → poll report status → download PDF.
@@ -318,6 +319,188 @@ async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
       }
 
     }).render('#paypal-button-container');
+
+  } catch (err) {
+    setState(wrapper, 'error', 'Could not load payment system. Please try again later.');
+  }
+}
+
+/* ── Compatibility Report ── */
+const COMPAT_TEMPLATE_SLUG = 'compat-en';
+const COMPAT_PRICE = '4.99';
+
+/**
+ * Show the compatibility report purchase CTA on a pair page or after
+ * the compatibility checker result.
+ *
+ * @param {string} workerUrl — Worker base URL (no trailing slash)
+ * @param {Object} pairData — pair data object (animalA, animalB, relType, etc.)
+ * @param {HTMLElement} containerEl — element to append the CTA to
+ */
+export function showCompatibilityOffer(workerUrl, pairData, containerEl) {
+  // English-only
+  if (detectLang() !== 'en') return;
+
+  var baseUrl = workerUrl.replace(/\/+$/, '');
+
+  // Remove any previous CTA
+  var existing = containerEl.querySelector('.report-checkout');
+  if (existing) existing.remove();
+
+  // Derive pair slug from animal names
+  var pairSlug = (pairData.animalA + '-' + pairData.animalB).toLowerCase();
+
+  // Build CTA DOM
+  var wrapper = document.createElement('div');
+  wrapper.className = 'report-checkout report-checkout--compat';
+  wrapper.innerHTML =
+    '<div class="rc-cta-content">' +
+      '<div class="rc-header">' +
+        '<h4>Get Your Detailed Compatibility Report</h4>' +
+        '<p class="rc-price">$' + COMPAT_PRICE + ' <span class="rc-currency">' + CURRENCY + '</span></p>' +
+      '</div>' +
+      '<ul class="rc-features">' +
+        '<li>In-depth relationship dynamics analysis</li>' +
+        '<li>Five Element interaction breakdown</li>' +
+        '<li>Love &amp; romance compatibility guide</li>' +
+        '<li>Career &amp; business partnership insights</li>' +
+        '<li>Communication &amp; conflict resolution tips</li>' +
+        '<li>Professional PDF download \u2014 yours to keep</li>' +
+      '</ul>' +
+      '<div id="paypal-compat-buttons" class="rc-paypal-buttons"></div>' +
+      '<p class="rc-guarantee">Instant delivery \u00B7 Secure PayPal checkout</p>' +
+    '</div>' +
+    '<div class="rc-state-loading" style="display:none">' +
+      '<div class="bazi-loading rc-loading-text">Processing\u2026</div>' +
+    '</div>' +
+    '<div class="rc-state-success" style="display:none">' +
+      '<div class="rc-success-content">' +
+        '<div class="rc-success-icon">\u2713</div>' +
+        '<h4>Payment Successful!</h4>' +
+        '<p>Your compatibility report is ready.</p>' +
+        '<a class="btn btn-primary rc-download-link" download>Download Your Report (PDF)</a>' +
+      '</div>' +
+    '</div>' +
+    '<div class="rc-state-error" style="display:none">' +
+      '<div class="rc-error-content">' +
+        '<p class="rc-error-text">Something went wrong.</p>' +
+        '<button class="btn btn-primary rc-retry-btn" type="button">Try Again</button>' +
+      '</div>' +
+    '</div>';
+
+  containerEl.appendChild(wrapper);
+
+  // Retry button resets to idle
+  wrapper.querySelector('.rc-retry-btn').addEventListener('click', function () {
+    setState(wrapper, 'idle');
+  });
+
+  // Fetch client ID and initialise PayPal buttons
+  initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper);
+}
+
+async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
+  try {
+    var clientData = await apiGet(baseUrl + '/v1/checkout/client-id');
+    var clientId = clientData.data.clientId;
+
+    if (!clientId) {
+      setState(wrapper, 'error', 'Payment system is not available. Please try again later.');
+      return;
+    }
+
+    await loadPayPalSdk(clientId);
+
+    var buttonContainer = wrapper.querySelector('#paypal-compat-buttons');
+    if (!buttonContainer || !window.paypal) return;
+
+    window.paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        color: 'gold',
+        shape: 'rect',
+        label: 'pay',
+        height: 45
+      },
+
+      createOrder: async function () {
+        track('begin_checkout', {
+          currency: CURRENCY,
+          value: parseFloat(COMPAT_PRICE),
+          items: [{ item_name: 'Compatibility Report', price: COMPAT_PRICE, quantity: 1 }]
+        });
+
+        var result = await apiPost(baseUrl + '/v1/checkout/create-order', {
+          templateSlug: COMPAT_TEMPLATE_SLUG
+        });
+        return result.data.orderId;
+      },
+
+      onApprove: async function (data) {
+        setState(wrapper, 'loading', 'Capturing payment\u2026');
+
+        try {
+          var captureResult = await apiPost(baseUrl + '/v1/checkout/capture-order', {
+            orderId: data.orderID,
+            compatibilityData: {
+              templateSlug: COMPAT_TEMPLATE_SLUG,
+              pairSlug: pairSlug,
+              locale: 'en',
+              pairData: pairData
+            }
+          });
+
+          var captureData = captureResult.data;
+
+          track('purchase', {
+            transaction_id: captureData.captureId || captureData.orderId,
+            value: parseFloat(COMPAT_PRICE),
+            currency: CURRENCY,
+            items: [{ item_name: 'Compatibility Report', price: COMPAT_PRICE, quantity: 1 }]
+          });
+
+          var downloadUrl;
+          if (captureData.reportStatus === 'completed') {
+            downloadUrl = baseUrl + '/v1/reports/' + captureData.reportJobId + '/download';
+          } else {
+            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, wrapper);
+          }
+
+          var dlLink = wrapper.querySelector('.rc-download-link');
+          dlLink.href = downloadUrl;
+          setState(wrapper, 'success');
+
+          track('report_download_ready', {
+            event_category: 'Revenue',
+            event_label: COMPAT_TEMPLATE_SLUG,
+            job_id: captureData.reportJobId
+          });
+
+        } catch (err) {
+          setState(wrapper, 'error', 'Payment was processed but report generation failed: ' + err.message + '. Please contact support.');
+          track('report_generation_error', {
+            event_category: 'Revenue',
+            event_label: err.message.substring(0, 80)
+          });
+        }
+      },
+
+      onCancel: function () {
+        track('checkout_cancelled', {
+          event_category: 'Revenue',
+          event_label: COMPAT_TEMPLATE_SLUG
+        });
+      },
+
+      onError: function (err) {
+        setState(wrapper, 'error', 'Payment could not be completed. Please try again.');
+        track('checkout_error', {
+          event_category: 'Revenue',
+          event_label: String(err).substring(0, 80)
+        });
+      }
+
+    }).render('#paypal-compat-buttons');
 
   } catch (err) {
     setState(wrapper, 'error', 'Could not load payment system. Please try again later.');

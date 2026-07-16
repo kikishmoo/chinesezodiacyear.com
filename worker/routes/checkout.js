@@ -1,5 +1,5 @@
 /**
- * Checkout Routes — PayPal payment flow for BaZi reports
+ * Checkout Routes — PayPal payment flow for reports
  *
  *   POST /v1/checkout/create-order   → Create PayPal order for a report template
  *   POST /v1/checkout/capture-order  → Capture approved PayPal payment + trigger report
@@ -12,6 +12,7 @@ import { createReportTemplatesRepository } from '../repositories/report-template
 import { createTransaction, getTransactionByProviderId, updateTransactionStatus } from '../repositories/transaction-repository.js';
 import { requestReport } from '../services/report-service.js';
 import { validateReportRequest } from '../models/report-request.js';
+import { validateCompatibilityReportRequest } from '../models/compatibility-report-request.js';
 
 /**
  * GET /v1/checkout/client-id
@@ -67,7 +68,7 @@ export async function handleCreateOrder(request, env, corsHeaders) {
   const result = await createOrder(env, {
     priceCents: template.price_cents,
     currency: template.currency || 'USD',
-    description: `BaZi Report: ${template.title}`,
+    description: template.title,
     referenceId
   });
 
@@ -97,20 +98,21 @@ export async function handleCreateOrder(request, env, corsHeaders) {
 /**
  * POST /v1/checkout/capture-order
  *
- * Body: { orderId: string, baziData: { templateSlug, year, month, day, ... } }
+ * Body: { orderId: string, baziData?: {...}, compatibilityData?: {...} }
  *
  * Captures the PayPal payment, then triggers report generation.
+ * Accepts either baziData (BaZi report) or compatibilityData (compatibility report).
  * Returns the report jobId for the frontend to poll/download.
  */
 export async function handleCaptureOrder(request, env, corsHeaders) {
   const body = await request.json();
-  const { orderId, baziData } = body;
+  const { orderId, baziData, compatibilityData } = body;
 
   if (!orderId || typeof orderId !== 'string') {
     throw new ValidationError('orderId is required');
   }
-  if (!baziData || typeof baziData !== 'object') {
-    throw new ValidationError('baziData is required');
+  if (!baziData && !compatibilityData) {
+    throw new ValidationError('baziData or compatibilityData is required');
   }
 
   // Prevent double-capture: check if already paid
@@ -147,7 +149,9 @@ export async function handleCaptureOrder(request, env, corsHeaders) {
   }
 
   // Validate and trigger report generation
-  const reportInput = validateReportRequest(baziData);
+  const reportInput = compatibilityData
+    ? validateCompatibilityReportRequest(compatibilityData)
+    : validateReportRequest(baziData);
   const reportResult = await requestReport(env, reportInput);
 
   // Update transaction with paid status and link to report job

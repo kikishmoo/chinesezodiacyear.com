@@ -6,10 +6,14 @@
  *   2. Compute idempotency hash from input
  *   3. Check for existing job (deduplication)
  *   4. Create job record
- *   5. Generate BaZi chart
- *   6. Assemble report content from template + chart
+ *   5. Generate content (BaZi chart OR compatibility assembly)
+ *   6. Assemble report content from template + data
  *   7. Store PDF in R2
  *   8. Update job status
+ *
+ * Supports two report categories:
+ *   - 'bazi': computes a BaZi chart, then assembles a personalised report
+ *   - 'compatibility': assembles pair content from frontend data + worker traits
  *
  * Has no HTTP knowledge — receives typed input, returns typed output.
  * No SQL allowed — all data access via repositories.
@@ -20,28 +24,34 @@ import { createReportTemplatesRepository } from '../repositories/report-template
 import { createReportJobsRepository } from '../repositories/report-jobs-repository.js';
 import { calculate } from './bazi-service.js';
 import { renderPdf } from '../lib/pdf-renderer.js';
+import { generateSectionContent } from '../data/compatibility-content.js';
 
 /**
  * Generate a deterministic request hash for idempotency.
  * Same input → same hash → same report (no duplicate work).
  *
+ * For BaZi: hashes birth data fields.
+ * For compatibility: hashes pairSlug + locale (deterministic content).
+ *
  * @param {string} templateSlug
- * @param {import('../models/report-request.js').ReportInput} input
+ * @param {Object} input — validated input (BaZi or compatibility)
  * @returns {Promise<string>}
  */
 async function computeRequestHash(templateSlug, input) {
-  const payload = JSON.stringify({
-    t: templateSlug,
-    y: input.year,
-    m: input.month,
-    d: input.day,
-    h: input.hour,
-    min: input.minute,
-    lat: input.lat,
-    lng: input.lng,
-    tz: input.tz,
-    sex: input.sex
-  });
+  const payload = input.pairSlug
+    ? JSON.stringify({ t: templateSlug, pair: input.pairSlug, locale: input.locale })
+    : JSON.stringify({
+        t: templateSlug,
+        y: input.year,
+        m: input.month,
+        d: input.day,
+        h: input.hour,
+        min: input.minute,
+        lat: input.lat,
+        lng: input.lng,
+        tz: input.tz,
+        sex: input.sex
+      });
 
   const data = new TextEncoder().encode(payload);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -63,7 +73,7 @@ function generateId() {
  * Idempotent: if the same input was already submitted, returns the existing job.
  *
  * @param {Record<string, unknown>} env — Worker env bindings
- * @param {import('../models/report-request.js').ReportInput} input — validated input
+ * @param {Object} input — validated input (BaZi ReportInput or CompatibilityReportInput)
  * @returns {Promise<{ jobId: string, status: string, templateSlug: string, isNew: boolean }>}
  */
 export async function requestReport(env, input) {
@@ -90,20 +100,25 @@ export async function requestReport(env, input) {
     };
   }
 
+  // Determine report category
+  const isCompatibility = template.category === 'compatibility';
+
   // 4. Create job record
   const jobId = generateId();
-  const inputPayload = JSON.stringify({
-    year: input.year,
-    month: input.month,
-    day: input.day,
-    hour: input.hour,
-    minute: input.minute,
-    lat: input.lat,
-    lng: input.lng,
-    tz: input.tz,
-    sex: input.sex,
-    email: input.email
-  });
+  const inputPayload = isCompatibility
+    ? JSON.stringify({ pairSlug: input.pairSlug, locale: input.locale, pairData: input.pairData })
+    : JSON.stringify({
+        year: input.year,
+        month: input.month,
+        day: input.day,
+        hour: input.hour,
+        minute: input.minute,
+        lat: input.lat,
+        lng: input.lng,
+        tz: input.tz,
+        sex: input.sex,
+        email: input.email
+      });
 
   await jobs.create({
     id: jobId,
@@ -117,21 +132,28 @@ export async function requestReport(env, input) {
   try {
     await jobs.updateStatus(jobId, 'processing');
 
-    // 5a. Generate BaZi chart
-    const chart = await calculate({
-      year: input.year,
-      month: input.month,
-      day: input.day,
-      hour: input.hour,
-      minute: input.minute,
-      lat: input.lat,
-      lng: input.lng,
-      tz: input.tz,
-      sex: input.sex
-    });
+    let reportContent;
 
-    // 5b. Assemble report from template + chart data
-    const reportContent = assembleReport(template, chart, input);
+    if (isCompatibility) {
+      // 5a. Assemble compatibility report (no calculation needed)
+      reportContent = assembleCompatibilityReport(template, input);
+    } else {
+      // 5a. Generate BaZi chart
+      const chart = await calculate({
+        year: input.year,
+        month: input.month,
+        day: input.day,
+        hour: input.hour,
+        minute: input.minute,
+        lat: input.lat,
+        lng: input.lng,
+        tz: input.tz,
+        sex: input.sex
+      });
+
+      // 5b. Assemble BaZi report from template + chart data
+      reportContent = assembleReport(template, chart, input);
+    }
 
     // 5c. Render to PDF
     const pdfBytes = await renderPdf(reportContent);
@@ -140,7 +162,7 @@ export async function requestReport(env, input) {
     const r2Key = `reports/${jobId}.pdf`;
     await storeReport(env, r2Key, pdfBytes);
 
-    // 5d. Mark completed
+    // 5e. Mark completed
     await jobs.updateStatus(jobId, 'completed', { outputR2Key: r2Key });
 
     return {
@@ -176,8 +198,6 @@ export async function getReportStatus(env, jobId) {
 
   let downloadUrl = null;
   if (job.status === 'completed' && job.output_r2_key) {
-    // Return a pre-signed or direct URL
-    // For MVP: return the R2 key; the route handler will generate a signed URL
     downloadUrl = job.output_r2_key;
   }
 
@@ -191,8 +211,7 @@ export async function getReportStatus(env, jobId) {
 }
 
 /**
- * Assemble a report document from template + chart data.
- * Returns a JSON structure that will later be rendered to PDF.
+ * Assemble a BaZi report document from template + chart data.
  *
  * @param {Object} template — report_templates row
  * @param {Object} chart — BaZi chart result
@@ -218,6 +237,45 @@ function assembleReport(template, chart, input) {
     chart,
     sections: templateData.sections || [],
     title: template.title
+  };
+}
+
+/**
+ * Assemble a compatibility report from template + pair data.
+ * Uses generateSectionContent() to fill section content from pairData.
+ *
+ * @param {Object} template — report_templates row
+ * @param {import('../models/compatibility-report-request.js').CompatibilityReportInput} input
+ * @returns {Object} — assembled report content (with `pair` instead of `chart`)
+ */
+function assembleCompatibilityReport(template, input) {
+  const { pairData, locale } = input;
+
+  const sections = generateSectionContent(pairData, locale || 'en');
+
+  return {
+    meta: {
+      templateId: template.id,
+      templateSlug: template.slug,
+      templateVersion: template.version,
+      generatedAt: new Date().toISOString(),
+      locale: locale || template.locale
+    },
+    pair: {
+      animalA: pairData.animalA,
+      animalB: pairData.animalB,
+      emojiA: pairData.emojiA || '',
+      emojiB: pairData.emojiB || '',
+      relType: pairData.relType,
+      relLabel: pairData.relLabel || pairData.relType,
+      fixedElementA: pairData.fixedElementA || '',
+      fixedElementB: pairData.fixedElementB || '',
+      combinedElement: pairData.combinedElement || null,
+      triadElement: pairData.triadElement || null,
+      elInteraction: pairData.elInteraction || null
+    },
+    sections,
+    title: `${pairData.animalA} & ${pairData.animalB} Compatibility Report`
   };
 }
 

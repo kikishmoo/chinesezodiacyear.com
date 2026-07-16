@@ -17,7 +17,7 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 | #  | Item                                                  | Priority   | Effort   | Impact   | Category   |
 |----|-------------------------------------------------------|------------|----------|----------|------------|
 | **A** | **Build automated BaZi PDF report system**        | **CRITICAL** | Medium | **Very High** | **Revenue** |
-| **B** | **Build automated Compatibility PDF reports**     | **CRITICAL** | Low    | **High**     | **Revenue** |
+| ~~**B**~~ | ~~**Build automated Compatibility PDF reports**~~ | ~~**CRITICAL**~~ | ~~Low~~ | ~~**High**~~ | ~~**Revenue**~~ → **DONE 2026-04-13** |
 | ~~**E**~~ | ~~**Fix CI/CD: add test job + worker deploy (Phase 5)**~~ | ~~**CRITICAL**~~ | ~~Low~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
 | ~~**F**~~ | ~~**Complete Worker Phase 1 gaps (cache, retry, circuit breaker)**~~ | ~~**HIGH**~~ | ~~Medium~~ | ~~**High**~~ | ~~**Technical**~~ → **DONE 2026-03-27** |
 | **C** | **Expand directory for lead-gen (scrape + enrich)** | HIGH     | Medium-High | High  | Revenue    |
@@ -63,6 +63,18 @@ ChineseZodiacYear.com has a solid technical foundation (898 i18n pages, validate
 - Request validation model: template slug format, birth data, optional email.
 - 88 tests passing (up from 55). SQL boundary check passing.
 - **Remaining for Item A:** ~~D1/R2 cloud resources (Item J)~~ DONE, ~~report template seed data~~ DONE (2026-04-05), ~~PDF rendering~~ DONE (2026-04-08), ~~payment integration (PayPal REST API)~~ DONE (2026-04-08), ~~frontend PayPal Smart Buttons CTA~~ DONE (2026-04-10: report-checkout.js with full checkout flow, polling, download link), ~~GA4 conversion tracking~~ DONE (2026-04-10: begin_checkout + purchase events with ecommerce params). **Item A is feature-complete for MVP.** Remaining polish: end-to-end smoke test with live PayPal sandbox, report template content refinement.
+
+### Item B Progress (2026-04-13)
+
+- **Item B is feature-complete.** $4.99 compatibility PDF report system fully wired.
+- D1 migration seeds `compat-en` template (499 cents, 9 sections).
+- Worker generalised: `report-service.js` branches on `template.category === 'compatibility'`, skips BaZi calculation, uses `assembleCompatibilityReport()` with worker-side content data.
+- PDF renderer draws compatibility-specific cover page (pair info box, relationship label, elements).
+- Checkout routes accept `compatibilityData` alongside `baziData` in `capture-order`.
+- Frontend `showCompatibilityOffer()` on all 66 pair pages (embedded JSON data) and after compatibility checker results.
+- GA4 tracking: begin_checkout + purchase events with `item_name: 'Compatibility Report'`, value `4.99`.
+- 18 new validation tests + 1 new checkout route test. 132 tests passing.
+- **Remaining:** End-to-end smoke test with PayPal sandbox, template content refinement.
 
 ### Completed Items (moved from matrix)
 

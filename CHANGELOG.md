@@ -5,6 +5,39 @@
 
 ---
 
+## 2026-04-13 — Item B: Automated Compatibility PDF Reports ($4.99)
+
+**Author:** kiki.peiqi.li
+
+### Compatibility PDF report system
+
+Adds a $4.99 downloadable compatibility PDF report for all 66 zodiac pair pages and the compatibility checker. Reuses the existing BaZi report payment + PDF infrastructure (PayPal checkout, report service, pdf-lib renderer, R2 storage).
+
+**Architecture:**
+- No new worker — the existing worker generalises to handle both `bazi` and `compatibility` report categories via `template.category` branching.
+- Compatibility reports are deterministic (no BaZi calculation needed). Content is assembled from animal traits + pair relationship data.
+- Idempotency: same pair + locale = same request hash = deduplicated job.
+
+**Backend changes:**
+- **New:** `migrations/202604120001_seed_compatibility_template.sql` — seeds `compat-en` template (499 cents, 9 sections).
+- **New:** `worker/models/compatibility-report-request.js` — validates `{ templateSlug, pairSlug, locale, pairData }`.
+- **New:** `worker/data/compatibility-content.js` — worker-side animal traits + section content generator.
+- **Modified:** `worker/services/report-service.js` — category branch: compatibility skips BaZi calc, uses `assembleCompatibilityReport()`.
+- **Modified:** `worker/lib/pdf-renderer.js` — detects `report.pair` → draws compatibility cover page + reuses template sections.
+- **Modified:** `worker/routes/checkout.js` — `capture-order` accepts `compatibilityData` alongside `baziData`.
+
+**Frontend changes:**
+- **Modified:** `src/js/features/report-checkout.js` — new `showCompatibilityOffer()` export with PayPal Smart Buttons, GA4 tracking (begin_checkout + purchase), polling, download.
+- **Modified:** `src/js/features/compatibility.js` — CTA shown after checker result + pair page init from embedded JSON data.
+- **Modified:** `src/compatibility-pair-pages.njk` — embedded `#pair-data` JSON + `#compatibility-report-cta` container replaces old static callout.
+
+**Tests:**
+- **New:** `worker/__tests__/models/compatibility-report-request.test.js` — 18 validation tests.
+- **Modified:** `worker/__tests__/routes/checkout.test.js` — added compatibility capture test, updated error message assertion.
+- All 132 tests passing.
+
+---
+
 ## 2026-04-10 — Item A: Frontend PayPal Smart Buttons + GA4 Conversion Tracking
 
 **Author:** kiki.shmoo

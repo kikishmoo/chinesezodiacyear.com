@@ -42,6 +42,7 @@ const FONT_SIZE = {
 
 /**
  * Render an assembled report into a PDF buffer.
+ * Detects report type: `report.chart` = BaZi, `report.pair` = compatibility.
  *
  * @param {Object} report — assembled report from report-service
  * @param {Object} [options] — rendering options
@@ -49,10 +50,18 @@ const FONT_SIZE = {
  */
 export async function renderPdf(report, options = {}) {
   const doc = await PDFDocument.create();
-  doc.setTitle(report.title || 'BaZi Report');
   doc.setAuthor('ChineseZodiacYear.com');
-  doc.setSubject('Personal BaZi Four Pillars Analysis');
-  doc.setCreator('ChineseZodiacYear.com BaZi Report Generator');
+  doc.setCreator('ChineseZodiacYear.com Report Generator');
+
+  if (report.pair) {
+    // Compatibility report
+    doc.setTitle(report.title || 'Compatibility Report');
+    doc.setSubject('Chinese Zodiac Compatibility Analysis');
+  } else {
+    // BaZi report
+    doc.setTitle(report.title || 'BaZi Report');
+    doc.setSubject('Personal BaZi Four Pillars Analysis');
+  }
 
   const helvetica = await doc.embedFont(StandardFonts.Helvetica);
   const helveticaBold = await doc.embedFont(StandardFonts.HelveticaBold);
@@ -61,18 +70,19 @@ export async function renderPdf(report, options = {}) {
   const fonts = { regular: helvetica, bold: helveticaBold, italic: helveticaOblique };
   const ctx = { doc, fonts, y: 0, page: null };
 
-  // Page 1: Cover
-  drawCoverPage(ctx, report);
-
-  // Page 2+: Chart overview
-  newPage(ctx);
-  drawChartOverview(ctx, report);
-
-  // Da Yun cycles
-  drawDaYun(ctx, report);
-
-  // Template sections
-  drawTemplateSections(ctx, report);
+  if (report.pair) {
+    // Compatibility report layout
+    drawCompatibilityCoverPage(ctx, report);
+    newPage(ctx);
+    drawTemplateSections(ctx, report);
+  } else {
+    // BaZi report layout
+    drawCoverPage(ctx, report);
+    newPage(ctx);
+    drawChartOverview(ctx, report);
+    drawDaYun(ctx, report);
+    drawTemplateSections(ctx, report);
+  }
 
   // Footer on every page
   addPageFooters(ctx);
@@ -169,6 +179,105 @@ function drawCoverPage(ctx, report) {
   // Disclaimer
   const disclaimer = 'This report is generated for informational and entertainment purposes. ' +
     'For a comprehensive reading, consult a qualified BaZi practitioner.';
+  drawWrappedText(ctx, disclaimer, {
+    size: FONT_SIZE.small, font: ctx.fonts.italic, color: COLOURS.midGrey,
+  });
+
+  // Generation date
+  ctx.y -= 20;
+  const genDate = report.meta?.generatedAt
+    ? new Date(report.meta.generatedAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
+    : new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+  page.drawText(`Generated: ${genDate}`, {
+    x: MARGIN, y: ctx.y,
+    size: FONT_SIZE.small, font: regular, color: COLOURS.midGrey,
+  });
+}
+
+/* ── Compatibility cover page ── */
+
+function drawCompatibilityCoverPage(ctx, report) {
+  const page = newPage(ctx);
+  const { bold, regular, italic } = ctx.fonts;
+  const pair = report.pair || {};
+
+  // Background accent bar
+  page.drawRectangle({
+    x: 0, y: PAGE_H - 120, width: PAGE_W, height: 120,
+    color: COLOURS.deepRed,
+  });
+
+  // Site name
+  page.drawText('ChineseZodiacYear.com', {
+    x: MARGIN, y: PAGE_H - 45,
+    size: FONT_SIZE.small, font: regular, color: COLOURS.gold,
+  });
+
+  // Title
+  const title = report.title || 'Compatibility Report';
+  page.drawText(title, {
+    x: MARGIN, y: PAGE_H - 85,
+    size: FONT_SIZE.title, font: bold, color: COLOURS.white,
+    maxWidth: CONTENT_W,
+  });
+
+  // Subtitle — relationship label
+  const subtitle = pair.relLabel || 'Zodiac Compatibility Analysis';
+  page.drawText(subtitle, {
+    x: MARGIN, y: PAGE_H - 108,
+    size: FONT_SIZE.subtitle, font: italic, color: COLOURS.gold,
+  });
+
+  // Pair info box
+  ctx.y = PAGE_H - 180;
+
+  const infoLines = [];
+  if (pair.animalA && pair.animalB) {
+    infoLines.push(`${pair.animalA} & ${pair.animalB}`);
+  }
+  if (pair.relType) {
+    const typeLabel = pair.relLabel || pair.relType;
+    infoLines.push(`Relationship: ${typeLabel}`);
+  }
+  if (pair.fixedElementA && pair.fixedElementB) {
+    infoLines.push(`Elements: ${pair.fixedElementA} & ${pair.fixedElementB}`);
+  }
+  if (pair.combinedElement) {
+    infoLines.push(`Combined Element: ${pair.combinedElement}`);
+  }
+  if (pair.triadElement) {
+    infoLines.push(`Triad Element: ${pair.triadElement}`);
+  }
+
+  const boxH = infoLines.length * 22 + 20;
+  page.drawRectangle({
+    x: MARGIN, y: ctx.y - boxH, width: CONTENT_W, height: boxH,
+    color: COLOURS.bgCream, borderColor: COLOURS.gold, borderWidth: 1,
+  });
+
+  let infoY = ctx.y - 18;
+  for (const line of infoLines) {
+    page.drawText(line, {
+      x: MARGIN + 15, y: infoY,
+      size: FONT_SIZE.body, font: regular, color: COLOURS.darkGrey,
+    });
+    infoY -= 22;
+  }
+
+  ctx.y = ctx.y - boxH - 30;
+
+  // Decorative divider
+  page.drawLine({
+    start: { x: MARGIN, y: ctx.y },
+    end: { x: PAGE_W - MARGIN, y: ctx.y },
+    thickness: 0.5, color: COLOURS.gold,
+  });
+
+  ctx.y -= 30;
+
+  // Disclaimer
+  const disclaimer = 'This report is generated for informational and entertainment purposes. ' +
+    'For a personalised reading based on your full BaZi chart, consult a qualified practitioner.';
   drawWrappedText(ctx, disclaimer, {
     size: FONT_SIZE.small, font: ctx.fonts.italic, color: COLOURS.midGrey,
   });

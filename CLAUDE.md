@@ -1,7 +1,7 @@
 # CLAUDE.md — Agent Boot File for chinesezodiacyear.com
 
 > Loaded at the start of every agent session. Rules, regressions, and context that persist across conversations.
-> **Last updated:** 2026-04-09 | **Owner:** kiki.shmoo@gmail.com (Kiki Shmoo)
+> **Last updated:** 2026-04-13 | **Owner:** kiki.shmoo@gmail.com (Kiki Shmoo)
 
 ---
 
@@ -70,8 +70,9 @@
 | Focus | Status | Expiry |
 |-------|--------|--------|
 | **BaZi PDF report system** | **MVP FEATURE-COMPLETE.** PDF rendering (pdf-lib), PayPal checkout (3 endpoints), frontend Smart Buttons CTA, GA4 conversion tracking (begin_checkout + purchase) all done. Remaining: end-to-end smoke test with PayPal sandbox, template content refinement. | 2026-05-10 |
+| **Compatibility PDF report system** | **FEATURE-COMPLETE.** $4.99 compatibility reports on all 66 pair pages + checker. Worker generalised (category branch), compatibility cover page, embedded pair data, GA4 tracking. Remaining: end-to-end smoke test, template content refinement. | 2026-05-10 |
 | **GitHub Actions Node.js 20** | Upgrade `@v4` → `@v5` before 2 June 2026 forced migration. | 2026-06-01 |
-| **Data layer (Phase 6)** | D1 `czy-main` + R2 `czy-reports` live. 6 tables, template seeded, PayPal checkout wired. 131 tests. Frontend checkout integration done (Smart Buttons CTA). Remaining: smoke test, template content polish. | 2026-06-27 |
+| **Data layer (Phase 6)** | D1 `czy-main` + R2 `czy-reports` live. 7 tables (incl. compat template), PayPal checkout wired for both BaZi + compatibility. 132 tests. Remaining: smoke test, template content polish. | 2026-06-27 |
 | **Backend controls** | SQL boundary + OpenAPI contract CI-enforced. Birth-data governance documented. Remaining: deletion enforcement, audit-log wiring. | 2026-05-27 |
 
 ---
@@ -97,6 +98,7 @@
 | BaZi routes | `worker/routes/bazi.js` |
 | Report routes | `worker/routes/report.js` |
 | Checkout routes | `worker/routes/checkout.js` (PayPal create/capture) |
+| Compatibility content | `worker/data/compatibility-content.js` (animal traits, section generator) |
 | PayPal service | `worker/services/paypal.js` (OAuth + Orders v2) |
 | Report service | `worker/services/report-service.js` |
 | PDF renderer | `worker/lib/pdf-renderer.js` (pdf-lib) |

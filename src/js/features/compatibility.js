@@ -6,6 +6,7 @@ import { track } from '../analytics.js';
 import { basePath } from '../utils/base-path.js';
 import { zodiacData, getZodiac, getElement } from '../data/zodiac-data.js';
 import { sixHarmonies, threeHarmonies, sixClashes, sixHarms, selfPenalty } from '../data/compatibility-data.js';
+import { showCompatibilityOffer } from './report-checkout.js';
 
 function findRelation(a, b) {
   const relations = [];
@@ -95,5 +96,40 @@ export function initCompatibility() {
       animal_b: zB.animal,
       result_type: relations[0].type
     });
+
+    // Show compatibility report CTA after result
+    var checkerCta = document.getElementById('compat-report-cta');
+    if (!checkerCta) {
+      checkerCta = document.createElement('div');
+      checkerCta.id = 'compat-report-cta';
+      compatResult.parentNode.insertBefore(checkerCta, compatResult.nextSibling);
+    }
+    var workerUrl = 'https://bazi-calculator.kiki-peiqi-li.workers.dev';
+    var relTypeMap = { harmony6: 'liuHe', harmony3: 'sanHe', clash: 'clash', harm: 'harm', same: 'self', neutral: 'neutral', 'self-penalty': 'self' };
+    showCompatibilityOffer(workerUrl, {
+      animalA: zA.animal,
+      animalB: zB.animal,
+      emojiA: zA.emoji,
+      emojiB: zB.emoji,
+      relType: relTypeMap[relations[0].type] || 'neutral',
+      relLabel: relations[0].label
+    }, checkerCta);
   });
+
+  // Pair page CTA: read embedded pair data
+  initPairPageCta();
+}
+
+function initPairPageCta() {
+  var pairDataEl = document.getElementById('pair-data');
+  var ctaContainer = document.getElementById('compatibility-report-cta');
+  if (!pairDataEl || !ctaContainer) return;
+
+  try {
+    var pair = JSON.parse(pairDataEl.textContent);
+    var workerUrl = ctaContainer.dataset.workerUrl || 'https://bazi-calculator.kiki-peiqi-li.workers.dev';
+    showCompatibilityOffer(workerUrl, pair, ctaContainer);
+  } catch (_) {
+    // Silently fail if pair data is malformed
+  }
 }

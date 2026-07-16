@@ -31,6 +31,10 @@ vi.mock('../../models/report-request.js', () => ({
   validateReportRequest: vi.fn((data) => data)
 }));
 
+vi.mock('../../models/compatibility-report-request.js', () => ({
+  validateCompatibilityReportRequest: vi.fn((data) => data)
+}));
+
 import { handleGetClientId, handleCreateOrder, handleCaptureOrder } from '../../routes/checkout.js';
 import { createOrder, captureOrder } from '../../services/paypal.js';
 import { createReportTemplatesRepository } from '../../repositories/report-templates-repository.js';
@@ -200,9 +204,32 @@ describe('handleCaptureOrder', () => {
     await expect(handleCaptureOrder(req, {}, CORS)).rejects.toThrow('orderId is required');
   });
 
-  it('throws when baziData is missing', async () => {
+  it('throws when both baziData and compatibilityData are missing', async () => {
     const req = makeRequest({ orderId: 'ORDER-1' });
-    await expect(handleCaptureOrder(req, {}, CORS)).rejects.toThrow('baziData is required');
+    await expect(handleCaptureOrder(req, {}, CORS)).rejects.toThrow('baziData or compatibilityData is required');
+  });
+
+  it('captures payment with compatibilityData', async () => {
+    const compatibilityData = {
+      templateSlug: 'compat-en',
+      pairSlug: 'dragon-rooster',
+      locale: 'en',
+      pairData: { animalA: 'Dragon', animalB: 'Rooster', relType: 'liuHe' }
+    };
+
+    getTransactionByProviderId.mockResolvedValue({ id: 'tx-c1', status: 'pending' });
+    captureOrder.mockResolvedValue({ status: 'COMPLETED', captureId: 'CAP-C1', amount: '4.99' });
+    requestReport.mockResolvedValue({ jobId: 'job-c1', status: 'queued' });
+    updateTransactionStatus.mockResolvedValue();
+
+    const req = makeRequest({ orderId: 'ORDER-C1', compatibilityData });
+    const resp = await handleCaptureOrder(req, {}, CORS);
+    const data = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(data.data.paymentStatus).toBe('paid');
+    expect(data.data.reportJobId).toBe('job-c1');
+    expect(requestReport).toHaveBeenCalledWith({}, compatibilityData);
   });
 
   it('creates transaction if none existed during create-order', async () => {
