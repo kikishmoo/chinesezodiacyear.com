@@ -39,17 +39,16 @@
       "name_tc": "詳細解讀",
       "name_sc": "详细解读",
       "price": 79,
-      "description": "Full Four Pillars (BaZi) chart analysis with comprehensive PDF report and video walkthrough.",
-      "description_tc": "完整四柱（八字）命盤分析，附詳盡PDF報告及視頻講解。",
-      "description_sc": "完整四柱（八字）命盘分析，附详尽PDF报告及视频讲解。",
+      "description": "Full Four Pillars (BaZi) chart analysis with comprehensive written PDF report.",
+      "description_tc": "完整四柱（八字）命盤分析，附詳盡PDF報告。",
+      "description_sc": "完整四柱（八字）命盘分析，附详尽PDF报告。",
       "features": [
         "Complete Four Pillars chart",
         "Day Master analysis",
         "Ten Gods interpretation",
         "Five Elements balance",
         "Career and relationship insights",
-        "20-page PDF report",
-        "15-minute video walkthrough"
+        "20-page PDF report"
       ],
       "features_tc": [
         "完整四柱命盤",
@@ -57,8 +56,7 @@
         "十神解讀",
         "五行平衡",
         "事業與感情分析",
-        "20頁PDF報告",
-        "15分鐘視頻講解"
+        "20頁PDF報告"
       ],
       "features_sc": [
         "完整四柱命盘",
@@ -66,8 +64,7 @@
         "十神解读",
         "五行平衡",
         "事业与感情分析",
-        "20页PDF报告",
-        "15分钟视频讲解"
+        "20页PDF报告"
       ],
       "delivery": "5–7 business days",
       "delivery_tc": "5至7個工作天",
@@ -81,17 +78,16 @@
       "name_tc": "全面解讀",
       "name_sc": "全面解读",
       "price": 149,
-      "description": "Everything in the Detailed reading plus compatibility analysis, feng shui recommendations, and extended video consultation.",
-      "description_tc": "包含詳細解讀所有內容，另加配對分析、風水建議及延長視頻諮詢。",
-      "description_sc": "包含详细解读所有内容，另加配对分析、风水建议及延长视频咨询。",
+      "description": "Everything in the Detailed reading plus compatibility analysis, feng shui recommendations, and extended written analysis.",
+      "description_tc": "包含詳細解讀所有內容，另加配對分析、風水建議及延伸書面分析。",
+      "description_sc": "包含详细解读所有内容，另加配对分析、风水建议及延伸书面分析。",
       "features": [
         "Everything in Detailed Reading",
         "Compatibility analysis (partner/business)",
         "Feng shui home recommendations",
         "Lucky directions and colors",
         "10-year fortune forecast",
-        "40-page PDF report",
-        "30-minute video consultation"
+        "40-page PDF report"
       ],
       "features_tc": [
         "包含詳細解讀全部內容",
@@ -99,8 +95,7 @@
         "家居風水建議",
         "吉利方位與顏色",
         "10年運程預測",
-        "40頁PDF報告",
-        "30分鐘視頻諮詢"
+        "40頁PDF報告"
       ],
       "features_sc": [
         "包含详细解读全部内容",
@@ -108,8 +103,7 @@
         "家居风水建议",
         "吉利方位与颜色",
         "10年运程预测",
-        "40页PDF报告",
-        "30分钟视频咨询"
+        "40页PDF报告"
       ],
       "delivery": "7–10 business days",
       "delivery_tc": "7至10個工作天",
