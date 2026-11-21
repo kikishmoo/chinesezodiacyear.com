@@ -2,7 +2,18 @@
 
 **Last updated:** 2026-04-05
 **Planning horizon:** 90 days (March -- June 2026)
-**Status:** Active
+**Status:** Historical March–June roadmap; security launch gate supersedes its dates (2026-11-21).
+
+---
+
+## Security launch gate (2026-11-21)
+
+- [x] Prepare paid-only report routes, per-order checkout claims, amount checks and tests in draft PR #13.
+- [x] Apply compatible dependency fixes and upgrade image tooling and Node 24; audit has no high/critical findings on the PR branch.
+- [ ] Apply new checkout-claim migration to D1 remote, after validating pre-production/backups.
+- [ ] Complete PayPal sandbox create/capture/retry/download smoke tests and ensure Worker/frontend coordinated release.
+- [ ] Implement and verify 30-day report/birth-data cleanup, audit logging and secure customer recovery before broad launch.
+- [ ] Review/merge PR #13 only after all release gates are satisfied. The main branch is not yet fixed.
 
 ---
 
