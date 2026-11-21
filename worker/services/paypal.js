@@ -161,7 +161,8 @@ export async function captureOrder(env, orderId) {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'PayPal-Request-Id': `czy-capture-${orderId}`
     }
   });
 
@@ -183,6 +184,7 @@ export async function captureOrder(env, orderId) {
     status: order.status,
     payerEmail: order.payer?.email_address || null,
     captureId: capture?.id || null,
-    amount: capture?.amount?.value || null
+    amount: capture?.amount?.value || null,
+    currency: capture?.amount?.currency_code || null
   };
 }
