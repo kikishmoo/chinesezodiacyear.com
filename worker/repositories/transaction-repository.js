@@ -20,7 +20,9 @@ import { getDb } from './db-context.js';
  *   amountCents: number,
  *   currency: string,
  *   status: string,
- *   paidAt: string|null
+ *   paidAt: string|null,
+ *   checkoutTokenHash: string,
+ *   templateSlug: string
  * }} tx
  */
 export async function createTransaction(env, tx) {
@@ -30,8 +32,8 @@ export async function createTransaction(env, tx) {
     .prepare(
       `INSERT INTO transactions (
          id, provider, provider_transaction_id, report_job_id,
-         amount_cents, currency, status, paid_at
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+         amount_cents, currency, status, paid_at, checkout_token_hash, template_slug
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
     .bind(
       tx.id,
@@ -41,7 +43,9 @@ export async function createTransaction(env, tx) {
       tx.amountCents,
       tx.currency,
       tx.status,
-      tx.paidAt ?? null
+      tx.paidAt ?? null,
+      tx.checkoutTokenHash,
+      tx.templateSlug
     )
     .run();
 }
@@ -81,7 +85,8 @@ export async function getTransactionByProviderId(env, providerTransactionId) {
   const stmt = db
     .prepare(
       `SELECT id, provider, provider_transaction_id, report_job_id,
-              amount_cents, currency, status, paid_at, created_at
+              amount_cents, currency, status, paid_at, created_at,
+              checkout_token_hash, template_slug
        FROM transactions
        WHERE provider_transaction_id = ?
        LIMIT 1`
@@ -89,4 +94,15 @@ export async function getTransactionByProviderId(env, providerTransactionId) {
     .bind(providerTransactionId);
 
   return stmt.first();
+}
+
+/** Look up a paid report claim; this query never exposes the claim hash to clients. */
+export async function getPaidTransactionByReportJobId(env, jobId) {
+  return getDb(env)
+    .prepare(`SELECT report_job_id, status, checkout_token_hash
+              FROM transactions
+              WHERE report_job_id = ? AND status = 'paid'
+              LIMIT 1`)
+    .bind(jobId)
+    .first();
 }
