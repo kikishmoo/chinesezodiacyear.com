@@ -89,6 +89,41 @@ jobs:
           retention-days: 14
 
 
+  # TEMPORARY: one-off lockfile remediation on owner-controlled PR #13.
+  # Must be removed before this security PR can merge.
+  temporary-lock-refresh:
+    if: github.event_name == 'pull_request' && github.event.pull_request.number == 13 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout PR head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Update compatible lockfile dependencies
+        run: npm audit fix --package-lock-only --ignore-scripts || true
+
+      - name: Commit lockfile changes to review branch only
+        run: |
+          git add package-lock.json
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore(deps): apply compatible npm security fixes"
+            git push origin HEAD:${{ github.head_ref }}
+          fi
+
   # ── Job 2: Build frontend (gated on tests) ──────────
   build:
     needs: test
