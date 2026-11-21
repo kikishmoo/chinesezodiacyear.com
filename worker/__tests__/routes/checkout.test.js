@@ -190,7 +190,7 @@ describe('handleCaptureOrder', () => {
     const data = await resp.json();
 
     expect(resp.status).toBe(200);
-    expect(data.data.message).toBe('Payment already captured');
+    expect(data.data.paymentStatus).toBe('paid');
     expect(data.data.reportJobId).toBe('job-existing');
     expect(captureOrder).not.toHaveBeenCalled();
   });
