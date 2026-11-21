@@ -70,6 +70,10 @@ export async function handleDownloadReport(request, env, corsHeaders, params) {
     throw new ValidationError('jobId path parameter is required');
   }
 
+  if (!await requirePaidReportClaim(request, env, jobId)) {
+    return Response.json({ error: { code: 'NotFound', message: 'Report not found' } },
+      { status: 404, headers: { ...corsHeaders, 'Cache-Control': 'no-store' } });
+  }
   const result = await getReportStatus(env, jobId);
 
   if (result.status !== 'completed' || !result.downloadUrl) {
