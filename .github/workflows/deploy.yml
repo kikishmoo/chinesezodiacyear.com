@@ -43,8 +43,27 @@ jobs:
       - name: Validate OpenAPI contract
         run: npm run infra:openapi:check
 
+  # ── Security gate for the dynamic Worker runtime ──────
+  # Keep audit failures visible and block backend deployment, while allowing
+  # independently tested static-content fixes to publish.
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Audit dependencies
         run: npm audit --audit-level=high
+
 
   # ── Job 2: Build frontend (gated on tests) ──────────
   build:
@@ -147,7 +166,7 @@ jobs:
 
   # ── Job 4: Deploy Cloudflare Worker (gated on tests) ─
   deploy-worker:
-    needs: test
+    needs: [test, security-audit]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
