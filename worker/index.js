@@ -24,6 +24,7 @@ import { handleBaziCalculate } from './routes/bazi.js';
 import { handleHealth } from './routes/health.js';
 import { handleGetReport, handleDownloadReport } from './routes/report.js';
 import { handleGetClientId, handleCreateOrder, handleCaptureOrder } from './routes/checkout.js';
+import { runReportRetention } from './services/report-retention.js';
 
 /* ── Route table ──────────────────────────────────────── */
 
@@ -49,6 +50,9 @@ router.post('/', handleBaziCalculate);
 /* ── Worker entry ─────────────────────────────────────── */
 
 export default {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(runReportRetention(env));
+  },
   async fetch(request, env) {
     const corsOrigin = resolveCorsOrigin(request, env);
     const corsHeaders = buildCorsHeaders(corsOrigin);
