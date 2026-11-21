@@ -1,0 +1,30 @@
+# Paid report access controls — 2026-11-21
+
+## Scope
+This PR is a security hardening change for the Cloudflare Worker and its PayPal-based digital PDF checkout flow. No physical goods, video, live consultations or chat services are introduced.
+
+## Controls
+- Disable public `POST /v1/reports` to prevent bypassing checkout and generating a paid PDF for free.
+- Generate a cryptographically random per-order checkout claim; store only its SHA-256 hash in D1. The browser receives the clear claim at checkout creation and retains it in the payment flow.
+- Require matching checkout claim, product slug and a locally created transaction before attempting capture.
+- Validate report inputs before capture and verify PayPal's captured amount, currency and order ID against the locally priced transaction.
+- Persist paid state before PDF fulfilment so failed fulfilment can be retried without an automatic second capture.
+- Require a paid transaction and valid claim for report status and PDF download; load the PDF using an authenticated fetch rather than exposing a token in the URL.
+- Allow multiple separate purchasers of identical, deduplicated report content to access their report with their own checkout claim.
+- Keep the dependency audit as a mandatory gate for Worker deployment; allow review-only PR CI and save audit evidence.
+
+## Deployment gate (do not deploy prematurely)
+1. Apply migration `202611210100_checkout_claim_tokens.sql` to the **remote D1 database** before deploying this Worker.
+2. Verify the security audit; the currently failing `npm audit --audit-level=high` remains a blocker to Worker deployment.
+3. Run all GitHub CI checks; test PayPal sandbox create/capture, duplicate capture, mismatch rejection, report download, and failure/retry before production.
+4. Coordinate the frontend and Worker release; older frontend checkout sessions cannot use the changed protocol after the Worker is deployed.
+5. **Pre-existing order data:** old `transactions` records have no checkout claim and cannot pass new report access checks. Customer support must reconcile prior orders through a secure manual process; do not grant blanket unauthenticated access.
+6. **Open issue:** a buyer whose tab is closed loses the in-memory claim, so a verified email-based secure recovery flow is required before broad launch. Do not include the claim in analytics, URLs or customer-service logs.
+7. **Open issue:** synchronous generation, report-job deduplication of failed jobs, and capture/network concurrency need additional reliability testing and recovery design. Neither this PR nor a unit-test pass proves production readiness.
+
+## Outstanding data governance
+The separate 30-day retention/deletion policy still requires confirmed scheduled cleanup, authenticated deletion handling and audit records; treat those as launch blockers for personally identifiable birth data.
+
+## Test intent
+Negative tests: POST /v1/reports disabled; status and download without token denied; unrelated/malformed token denied; product switching and unknown order denied; mismatched price denied.
+Positive tests: purchase claim creation, already-paid retry without recapture, valid paid download, unique checkout claim generation.
