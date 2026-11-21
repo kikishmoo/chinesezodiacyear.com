@@ -33,3 +33,14 @@ The separate 30-day retention/deletion policy still requires confirmed scheduled
 ## Test intent
 Negative tests: POST /v1/reports disabled; status and download without token denied; unrelated/malformed token denied; product switching and unknown order denied; mismatched price denied.
 Positive tests: purchase claim creation, already-paid retry without recapture, valid paid download, unique checkout claim generation.
+
+
+## Scheduled retention implementation (draft PR; not deployed)
+- Added a daily 03:00 UTC Worker cron for bounded 30-day cleanup (up to 1,000 raw jobs and 1,000 report objects per invocation).
+- Raw birth inputs and error text in `report_jobs` are redacted 30 days after creation.
+- PDF objects are deleted 30 days after completion or creation fallback, and R2 deletion must succeed before the corresponding D1 reference is cleared.
+- `retention_cleanup_runs` records counts, outcome, and cutoff timestamps without copying birth data or transaction details. Accounting rows are retained.
+- Partial failures are recorded and surfaced to Worker observability for remediation; job IDs and request payloads are not printed.
+- **Unverified:** Production schedule, live D1/R2 expiry, alert delivery, access audit, user-requested deletion, and prior over-retention cleanup. Do not mark these operationally complete until Cloudflare validation.
+- Require both migrations `202611210100_checkout_claim_tokens.sql` and `202611210200_retention_audit.sql` before Worker deployment. This branch has not run any remote migrations.
+- Read-only `Security Release Preflight` workflow added for future manual use once present on the default branch.
