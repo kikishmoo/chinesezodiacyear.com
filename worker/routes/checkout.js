@@ -184,7 +184,7 @@ export async function handleCaptureOrder(request, env, corsHeaders) {
   let reportJobId = existingTx.report_job_id;
   let reportStatus = 'completed';
   if (!reportJobId) {
-    const reportResult = await requestReport(env, reportInput);
+    const reportResult = await requestReport(env, { ...reportInput, purchaseId: existingTx.id });
     reportJobId = reportResult.jobId;
     reportStatus = reportResult.status;
     await updateTransactionStatus(env, existingTx.id, 'paid', { reportJobId });
