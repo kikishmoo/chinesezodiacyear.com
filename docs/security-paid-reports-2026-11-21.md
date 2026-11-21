@@ -15,12 +15,17 @@ This PR is a security hardening change for the Cloudflare Worker and its PayPal-
 
 ## Deployment gate (do not deploy prematurely)
 1. Apply migration `202611210100_checkout_claim_tokens.sql` to the **remote D1 database** before deploying this Worker.
-2. Verify the security audit; the currently failing `npm audit --audit-level=high` remains a blocker to Worker deployment.
+2. **Dependency audit gate cleared on review branch:** `npm audit --audit-level=high` passes after upgrading Node 24, Eleventy Image v7.1.1, esbuild v0.28.2, and compatible dependencies. Do not bypass this gate on main.
 3. Run all GitHub CI checks; test PayPal sandbox create/capture, duplicate capture, mismatch rejection, report download, and failure/retry before production.
 4. Coordinate the frontend and Worker release; older frontend checkout sessions cannot use the changed protocol after the Worker is deployed.
 5. **Pre-existing order data:** old `transactions` records have no checkout claim and cannot pass new report access checks. Customer support must reconcile prior orders through a secure manual process; do not grant blanket unauthenticated access.
 6. **Open issue:** a buyer whose tab is closed loses the in-memory claim, so a verified email-based secure recovery flow is required before broad launch. Do not include the claim in analytics, URLs or customer-service logs.
 7. **Open issue:** synchronous generation, report-job deduplication of failed jobs, and capture/network concurrency need additional reliability testing and recovery design. Neither this PR nor a unit-test pass proves production readiness.
+
+## CI verification (21 November 2026)
+- The latest completed PR run passed test, dependency-security audit and Eleventy build checks. GitHub Pages and Worker deployments were deliberately skipped for the PR.
+- The temporary GitHub Actions jobs used to regenerate the dependency lockfile were removed and are not part of the proposed merge.
+- This is **not** PayPal sandbox certification or a production privacy/security penetration test.
 
 ## Outstanding data governance
 The separate 30-day retention/deletion policy still requires confirmed scheduled cleanup, authenticated deletion handling and audit records; treat those as launch blockers for personally identifiable birth data.
