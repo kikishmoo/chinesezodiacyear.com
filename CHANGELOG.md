@@ -5,6 +5,18 @@
 
 ---
 
+## 2026-11-21 — Security hardening (DRAFT, NOT DEPLOYED)
+
+**Review branch:** PR #13, paid PDF entitlement and dependency remediation.
+
+- Added private, per-checkout payment claims (only hashes stored in D1) and protected report status/download routes.
+- Disabled public unpaid PDF generation; validated checkout product, amount and currency; improved retry handling.
+- Upgraded Node.js build/runtime, Eleventy image processing, esbuild, Wrangler and transitive dependencies. Security audit and unit tests pass on the PR branch.
+- Added D1 migration and documented launch prerequisites, including a sandbox payment test, migration sequencing and customer data retention enforcement.
+- No production deployment or customer data changes; PR remains a draft pending operational approval and checks.
+
+---
+
 ## 2026-04-13 — Item B: Automated Compatibility PDF Reports ($4.99)
 
 **Author:** kiki.peiqi.li
