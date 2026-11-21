@@ -13,6 +13,7 @@ import { createTransaction, getTransactionByProviderId, updateTransactionStatus 
 import { requestReport } from '../services/report-service.js';
 import { validateReportRequest } from '../models/report-request.js';
 import { validateCompatibilityReportRequest } from '../models/compatibility-report-request.js';
+import { createCheckoutToken, hashCheckoutToken, checkoutTokenMatches } from '../lib/checkout-token.js';
 
 /**
  * GET /v1/checkout/client-id
@@ -72,6 +73,10 @@ export async function handleCreateOrder(request, env, corsHeaders) {
     referenceId
   });
 
+  // Browser-held bearer claim: do not persist the clear text token or put it in URLs.
+  const checkoutToken = createCheckoutToken();
+  const checkoutTokenHash = await hashCheckoutToken(checkoutToken);
+
   // Record pending transaction
   await createTransaction(env, {
     id: crypto.randomUUID(),
@@ -81,13 +86,16 @@ export async function handleCreateOrder(request, env, corsHeaders) {
     amountCents: template.price_cents,
     currency: template.currency || 'USD',
     status: 'pending',
-    paidAt: null
+    paidAt: null,
+    checkoutTokenHash,
+    templateSlug
   });
 
   return Response.json(
     {
       data: {
         orderId: result.orderId,
+        checkoutToken,
         status: result.status
       }
     },
@@ -106,7 +114,7 @@ export async function handleCreateOrder(request, env, corsHeaders) {
  */
 export async function handleCaptureOrder(request, env, corsHeaders) {
   const body = await request.json();
-  const { orderId, baziData, compatibilityData } = body;
+  const { orderId, checkoutToken, baziData, compatibilityData } = body;
 
   if (!orderId || typeof orderId !== 'string') {
     throw new ValidationError('orderId is required');
@@ -114,76 +122,84 @@ export async function handleCaptureOrder(request, env, corsHeaders) {
   if (!baziData && !compatibilityData) {
     throw new ValidationError('baziData or compatibilityData is required');
   }
-
-  // Prevent double-capture: check if already paid
-  const existingTx = await getTransactionByProviderId(env, orderId);
-  if (existingTx && existingTx.status === 'paid') {
-    // Already captured — return existing data
-    return Response.json(
-      {
-        data: {
-          orderId,
-          paymentStatus: 'paid',
-          reportJobId: existingTx.report_job_id,
-          message: 'Payment already captured'
-        }
-      },
-      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+  if (baziData && compatibilityData) {
+    throw new ValidationError('Provide only one report type');
   }
 
-  // Capture the PayPal payment
-  const capture = await captureOrder(env, orderId);
+  // Validate all input BEFORE requesting payment capture.
+  const reportInput = compatibilityData
+    ? validateCompatibilityReportRequest(compatibilityData)
+    : validateReportRequest(baziData);
 
-  if (capture.status !== 'COMPLETED') {
-    return Response.json(
-      {
+  const existingTx = await getTransactionByProviderId(env, orderId);
+  if (!existingTx || !await checkoutTokenMatches(checkoutToken, existingTx.checkout_token_hash)) {
+    // Avoid revealing whether an order exists.
+    return Response.json({ error: { code: 'NotFound', message: 'Order not found' } },
+      { status: 404, headers: { ...corsHeaders, 'Cache-Control': 'no-store' } });
+  }
+  // Prevent switching products after PayPal order creation.
+  if (existingTx.template_slug !== reportInput.templateSlug) {
+    throw new ValidationError('Report type does not match purchased product');
+  }
+
+  if (existingTx.status !== 'pending' && existingTx.status !== 'paid') {
+    throw new ValidationError('Order is not eligible for capture');
+  }
+
+  let captureId = null;
+  if (existingTx.status !== 'paid') {
+    const capture = await captureOrder(env, orderId);
+    if (capture.status !== 'COMPLETED') {
+      return Response.json({
         error: {
           code: 'PaymentNotCompleted',
           message: `Payment status: ${capture.status}. Expected COMPLETED.`,
           retryable: false
         }
-      },
-      { status: 422, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-  }
+      }, { status: 422, headers: { ...corsHeaders, 'Cache-Control': 'no-store' } });
+    }
 
-  // Validate and trigger report generation
-  const reportInput = compatibilityData
-    ? validateCompatibilityReportRequest(compatibilityData)
-    : validateReportRequest(baziData);
-  const reportResult = await requestReport(env, reportInput);
+    // Cross-check the actual captured amount and currency against the
+    // transaction established from the server-side product template.
+    const amount = capture.amount;
+    const cents = typeof amount === 'string' && /^\d+\.\d{2}$/.test(amount)
+      ? Number(amount.replace('.', '')) : NaN;
+    if (capture.orderId !== orderId ||
+        cents !== existingTx.amount_cents ||
+        capture.currency !== existingTx.currency) {
+      // A captured payment requiring manual reconciliation must NOT fulfil
+      // a mismatched order. Record the incident via operational logging.
+      console.error('[Checkout] Captured PayPal order mismatch; reconciliation required', { orderId });
+      throw new ValidationError('Captured payment does not match the purchased product; contact support');
+    }
 
-  // Update transaction with paid status and link to report job
-  if (existingTx) {
+    captureId = capture.captureId;
+    // Persist paid status BEFORE generating a PDF. A failed generation can
+    // then be safely retried without capturing the customer twice.
     await updateTransactionStatus(env, existingTx.id, 'paid', {
-      paidAt: new Date().toISOString(),
-      reportJobId: reportResult.jobId
-    });
-  } else {
-    // Transaction wasn't created in create-order (edge case) — create it now
-    await createTransaction(env, {
-      id: crypto.randomUUID(),
-      provider: 'paypal',
-      providerTransactionId: orderId,
-      reportJobId: reportResult.jobId,
-      amountCents: parseInt(capture.amount * 100) || 899,
-      currency: 'USD',
-      status: 'paid',
       paidAt: new Date().toISOString()
     });
   }
 
-  return Response.json(
-    {
-      data: {
-        orderId,
-        paymentStatus: 'paid',
-        captureId: capture.captureId,
-        reportJobId: reportResult.jobId,
-        reportStatus: reportResult.status
-      }
-    },
-    { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-  );
+  let reportJobId = existingTx.report_job_id;
+  let reportStatus = 'completed';
+  if (!reportJobId) {
+    const reportResult = await requestReport(env, reportInput);
+    reportJobId = reportResult.jobId;
+    reportStatus = reportResult.status;
+    await updateTransactionStatus(env, existingTx.id, 'paid', { reportJobId });
+  }
+
+  return Response.json({
+    data: {
+      orderId,
+      paymentStatus: 'paid',
+      captureId,
+      reportJobId,
+      reportStatus
+    }
+  }, {
+    status: 200,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+  });
 }
