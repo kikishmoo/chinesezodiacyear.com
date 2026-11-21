@@ -65,6 +65,8 @@
 
 ## 5. Active Attention Points
 
+**2026-11-21 security launch gate:** Draft PR #13 contains paid-report entitlement controls and dependency security updates (PR CI passing); it is **not deployed**. Do not merge before remote D1 migration, sandbox payment verification, written customer recovery, and birth-data retention enforcement. Older 2026-05/06 attention rows below are historical and require revalidation.
+
 > Remove when resolved. See `docs/attention-archive.md` for graduated items.
 
 | Focus | Status | Expiry |
