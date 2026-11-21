@@ -8,15 +8,17 @@
 
 import { getReportStatus } from '../services/report-service.js';
 import { getPaidTransactionByReportJobId } from '../repositories/transaction-repository.js';
-import { bearerCheckoutToken, checkoutTokenMatches } from '../lib/checkout-token.js';
+import { bearerCheckoutToken, hashCheckoutToken } from '../lib/checkout-token.js';
 import { NotFoundError, ValidationError } from '../models/errors.js';
 
 /** Paid checkout is the only route allowed to invoke report generation. */
 async function requirePaidReportClaim(request, env, jobId) {
   const token = bearerCheckoutToken(request);
   if (!token) return false;
-  const tx = await getPaidTransactionByReportJobId(env, jobId);
-  return Boolean(tx && await checkoutTokenMatches(token, tx.checkout_token_hash));
+  const tokenHash = await hashCheckoutToken(token);
+  if (!tokenHash) return false;
+  const tx = await getPaidTransactionByReportJobId(env, jobId, tokenHash);
+  return Boolean(tx);
 }
 
 /**
