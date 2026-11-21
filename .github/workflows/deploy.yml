@@ -89,6 +89,37 @@ jobs:
           retention-days: 14
 
 
+  # TEMPORARY: update lockfile for patched image tooling on owner PR #13.
+  temporary-lock-sync:
+    if: github.event_name == 'pull_request' && github.event.pull_request.number == 13 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Synchronise updated dependencies without lifecycle scripts
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Commit regenerated lockfile
+        run: |
+          git add package-lock.json
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore(deps): lock patched image tooling"
+            git push origin HEAD:${{ github.head_ref }}
+          fi
+
   # ── Job 2: Build frontend (gated on tests) ──────────
   build:
     needs: test
