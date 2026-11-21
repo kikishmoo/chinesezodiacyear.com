@@ -6,9 +6,9 @@
       "name_tc": "基本解讀",
       "name_sc": "基本解读",
       "price": 29,
-      "description": "Your zodiac animal and element analysis with a personalized PDF report.",
-      "description_tc": "您的生肖與五行分析，附個人化PDF報告。",
-      "description_sc": "您的生肖与五行分析，附个人化PDF报告。",
+      "description": "Your zodiac animal and element analysis with a personalized PDF report. Delivered as a written digital PDF only; no video, call, or live chat.",
+      "description_tc": "您的生肖與五行分析，附個人化PDF報告。 僅提供數位PDF書面報告，不包含影片、通話或即時聊天。",
+      "description_sc": "您的生肖与五行分析，附个人化PDF报告。 仅提供数字PDF书面报告，不包含视频、通话或实时聊天。",
       "features": [
         "Zodiac animal personality profile",
         "Birth element analysis",
@@ -39,9 +39,9 @@
       "name_tc": "詳細解讀",
       "name_sc": "详细解读",
       "price": 79,
-      "description": "Full Four Pillars (BaZi) chart analysis with comprehensive written PDF report.",
-      "description_tc": "完整四柱（八字）命盤分析，附詳盡PDF報告。",
-      "description_sc": "完整四柱（八字）命盘分析，附详尽PDF报告。",
+      "description": "Full Four Pillars (BaZi) chart analysis with comprehensive written PDF report. Delivered as a written digital PDF only; no video, call, or live chat.",
+      "description_tc": "完整四柱（八字）命盤分析，附詳盡PDF報告。 僅提供數位PDF書面報告，不包含影片、通話或即時聊天。",
+      "description_sc": "完整四柱（八字）命盘分析，附详尽PDF报告。 仅提供数字PDF书面报告，不包含视频、通话或实时聊天。",
       "features": [
         "Complete Four Pillars chart",
         "Day Master analysis",
@@ -78,9 +78,9 @@
       "name_tc": "全面解讀",
       "name_sc": "全面解读",
       "price": 149,
-      "description": "Everything in the Detailed reading plus compatibility analysis, feng shui recommendations, and extended written analysis.",
-      "description_tc": "包含詳細解讀所有內容，另加配對分析、風水建議及延伸書面分析。",
-      "description_sc": "包含详细解读所有内容，另加配对分析、风水建议及延伸书面分析。",
+      "description": "Everything in the Detailed reading plus compatibility analysis, feng shui recommendations, and extended written analysis. Delivered as a written digital PDF only; no video, call, or live chat.",
+      "description_tc": "包含詳細解讀所有內容，另加配對分析、風水建議及延伸書面分析。 僅提供數位PDF書面報告，不包含影片、通話或即時聊天。",
+      "description_sc": "包含详细解读所有内容，另加配对分析、风水建议及延伸书面分析。 仅提供数字PDF书面报告，不包含视频、通话或实时聊天。",
       "features": [
         "Everything in Detailed Reading",
         "Compatibility analysis (partner/business)",
@@ -124,9 +124,21 @@
       "price": 9.99,
       "category": "forecasts",
       "featured": true,
-      "features": ["All 12 animal forecasts", "Monthly breakdowns", "Lucky dates calendar"],
-      "features_tc": ["十二生肖運程", "每月運勢分析", "吉日曆表"],
-      "features_sc": ["十二生肖运程", "每月运势分析", "吉日历表"],
+      "features": [
+        "All 12 animal forecasts",
+        "Monthly breakdowns",
+        "Lucky dates calendar"
+      ],
+      "features_tc": [
+        "十二生肖運程",
+        "每月運勢分析",
+        "吉日曆表"
+      ],
+      "features_sc": [
+        "十二生肖运程",
+        "每月运势分析",
+        "吉日历表"
+      ],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/ktryqq"
     },
     {
@@ -140,9 +152,21 @@
       "price": 14.99,
       "category": "guides",
       "featured": false,
-      "features": ["144 pairing analyses", "Compatibility scores", "Relationship advice"],
-      "features_tc": ["144種配對分析", "配對指數", "感情建議"],
-      "features_sc": ["144种配对分析", "配对指数", "感情建议"],
+      "features": [
+        "144 pairing analyses",
+        "Compatibility scores",
+        "Relationship advice"
+      ],
+      "features_tc": [
+        "144種配對分析",
+        "配對指數",
+        "感情建議"
+      ],
+      "features_sc": [
+        "144种配对分析",
+        "配对指数",
+        "感情建议"
+      ],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/zrrnxt"
     },
     {
@@ -156,9 +180,21 @@
       "price": 19.99,
       "category": "education",
       "featured": false,
-      "features": ["Beginner-friendly guide", "Practice worksheets", "Reference charts"],
-      "features_tc": ["初學者指南", "練習工作紙", "參考圖表"],
-      "features_sc": ["初学者指南", "练习工作纸", "参考图表"],
+      "features": [
+        "Beginner-friendly guide",
+        "Practice worksheets",
+        "Reference charts"
+      ],
+      "features_tc": [
+        "初學者指南",
+        "練習工作紙",
+        "參考圖表"
+      ],
+      "features_sc": [
+        "初学者指南",
+        "练习工作纸",
+        "参考图表"
+      ],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/vxbdv"
     },
     {
@@ -172,9 +208,21 @@
       "price": 12.99,
       "category": "guides",
       "featured": false,
-      "features": ["Room-by-room checklist", "Bagua map guide", "Cure recommendations"],
-      "features_tc": ["逐房清單", "八宮圖指南", "化煞建議"],
-      "features_sc": ["逐房清单", "八宫图指南", "化煞建议"],
+      "features": [
+        "Room-by-room checklist",
+        "Bagua map guide",
+        "Cure recommendations"
+      ],
+      "features_tc": [
+        "逐房清單",
+        "八宮圖指南",
+        "化煞建議"
+      ],
+      "features_sc": [
+        "逐房清单",
+        "八宫图指南",
+        "化煞建议"
+      ],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/vfewk"
     },
     {
@@ -188,9 +236,21 @@
       "price": 3.99,
       "category": "calendars",
       "featured": false,
-      "features": ["Auspicious date finder", "Lunar phase tracker", "Festival reminders"],
-      "features_tc": ["吉日查詢", "月相追蹤", "節慶提醒"],
-      "features_sc": ["吉日查询", "月相追踪", "节庆提醒"],
+      "features": [
+        "Auspicious date finder",
+        "Lunar phase tracker",
+        "Festival reminders"
+      ],
+      "features_tc": [
+        "吉日查詢",
+        "月相追蹤",
+        "節慶提醒"
+      ],
+      "features_sc": [
+        "吉日查询",
+        "月相追踪",
+        "节庆提醒"
+      ],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/ukvqqr"
     },
     {
@@ -204,9 +264,21 @@
       "price": 16.99,
       "category": "education",
       "featured": false,
-      "features": ["Self-assessment quiz", "Balance exercises", "Seasonal living guide"],
-      "features_tc": ["自我評估測試", "平衡練習", "四季養生指南"],
-      "features_sc": ["自我评估测试", "平衡练习", "四季养生指南"],
+      "features": [
+        "Self-assessment quiz",
+        "Balance exercises",
+        "Seasonal living guide"
+      ],
+      "features_tc": [
+        "自我評估測試",
+        "平衡練習",
+        "四季養生指南"
+      ],
+      "features_sc": [
+        "自我评估测试",
+        "平衡练习",
+        "四季养生指南"
+      ],
       "gumroadUrl": "https://chinesezodiacyear.gumroad.com/l/ngzmx"
     }
   ],
