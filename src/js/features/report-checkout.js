@@ -230,6 +230,7 @@ export function showReportOffer(workerUrl, baziPayload, containerEl) {
 }
 
 async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
+  var checkoutToken = null;
   try {
     // Fetch PayPal client ID
     var clientData = await apiGet(baseUrl + '/v1/checkout/client-id');
@@ -267,7 +268,7 @@ async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
         var result = await apiPost(baseUrl + '/v1/checkout/create-order', {
           templateSlug: TEMPLATE_SLUG
         });
-        wrapper.dataset.checkoutToken = result.data.checkoutToken;
+        checkoutToken = result.data.checkoutToken;
         return result.data.orderId;
       },
 
@@ -277,7 +278,7 @@ async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
         try {
           var captureResult = await apiPost(baseUrl + '/v1/checkout/capture-order', {
             orderId: data.orderID,
-            checkoutToken: wrapper.dataset.checkoutToken,
+            checkoutToken: checkoutToken,
             baziData: {
               templateSlug: TEMPLATE_SLUG,
               year: baziPayload.year,
@@ -308,12 +309,11 @@ async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
             downloadUrl = baseUrl + '/v1/reports/' + captureData.reportJobId + '/download';
           } else {
             // Poll for completion
-            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, wrapper.dataset.checkoutToken, wrapper);
+            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, checkoutToken, wrapper);
           }
 
           // Show success + download link
-          var dlLink = wrapper.querySelector('.rc-download-link');
-          attachReportDownload(wrapper, downloadUrl, wrapper.dataset.checkoutToken);
+          attachReportDownload(wrapper, downloadUrl, checkoutToken);
           setState(wrapper, 'success');
 
           track('report_download_ready', {
@@ -428,6 +428,7 @@ export function showCompatibilityOffer(workerUrl, pairData, containerEl) {
 }
 
 async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
+  var checkoutToken = null;
   try {
     var clientData = await apiGet(baseUrl + '/v1/checkout/client-id');
     var clientId = clientData.data.clientId;
@@ -461,7 +462,7 @@ async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
         var result = await apiPost(baseUrl + '/v1/checkout/create-order', {
           templateSlug: COMPAT_TEMPLATE_SLUG
         });
-        wrapper.dataset.checkoutToken = result.data.checkoutToken;
+        checkoutToken = result.data.checkoutToken;
         return result.data.orderId;
       },
 
@@ -471,7 +472,7 @@ async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
         try {
           var captureResult = await apiPost(baseUrl + '/v1/checkout/capture-order', {
             orderId: data.orderID,
-            checkoutToken: wrapper.dataset.checkoutToken,
+            checkoutToken: checkoutToken,
             compatibilityData: {
               templateSlug: COMPAT_TEMPLATE_SLUG,
               pairSlug: pairSlug,
@@ -493,11 +494,10 @@ async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
           if (captureData.reportStatus === 'completed') {
             downloadUrl = baseUrl + '/v1/reports/' + captureData.reportJobId + '/download';
           } else {
-            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, wrapper.dataset.checkoutToken, wrapper);
+            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, checkoutToken, wrapper);
           }
 
-          var dlLink = wrapper.querySelector('.rc-download-link');
-          attachReportDownload(wrapper, downloadUrl, wrapper.dataset.checkoutToken);
+          attachReportDownload(wrapper, downloadUrl, checkoutToken);
           setState(wrapper, 'success');
 
           track('report_download_ready', {
