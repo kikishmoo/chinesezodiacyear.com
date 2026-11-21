@@ -87,7 +87,7 @@ If over-retention or unauthorised access is detected:
 
 ## 9) Implementation checklist
 
-- [ ] Add scheduled deletion Worker/cron route for D1 + R2 cleanup.
+- [x] Implement scheduled D1/R2 cleanup in draft security PR #13 (unit tests added; **not deployed or production-verified**).
 - [ ] Add admin-protected deletion endpoint/SOP implementation.
-- [ ] Add structured audit-log sink for sensitive operations.
-- [ ] Add tests that assert TTL/deletion behavior for report jobs.
+- [ ] Add comprehensive structured audit-log sink for sensitive read/export/deletion operations (scheduled cleanup aggregates drafted, but not production-verified).
+- [x] Add unit tests for 30-day expiry cutoff, R2-before-D1 deletion order and partial failure audit in draft PR #13; integration/production verification outstanding.
