@@ -97,12 +97,12 @@ export async function getTransactionByProviderId(env, providerTransactionId) {
 }
 
 /** Look up a paid report claim; this query never exposes the claim hash to clients. */
-export async function getPaidTransactionByReportJobId(env, jobId) {
+export async function getPaidTransactionByReportJobId(env, jobId, tokenHash) {
   return getDb(env)
     .prepare(`SELECT report_job_id, status, checkout_token_hash
               FROM transactions
-              WHERE report_job_id = ? AND status = 'paid'
+              WHERE report_job_id = ? AND checkout_token_hash = ? AND status = 'paid'
               LIMIT 1`)
-    .bind(jobId)
+    .bind(jobId, tokenHash)
     .first();
 }
