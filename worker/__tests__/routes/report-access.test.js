@@ -51,7 +51,9 @@ describe('paid report access', () => {
   it('returns status to a purchaser with a paid, matching claim', async () => {
     const response = await handleGetReport(req(), env, cors, { jobId });
     expect(response.status).toBe(200);
-    expect((await response.json()).data.jobId).toBe(jobId);
+    const body = await response.json();
+    expect(body.data.jobId).toBe(jobId);
+    expect(body.data.downloadUrl).toBeUndefined();
     expect(response.headers.get('Cache-Control')).toBe('no-store');
   });
 
