@@ -76,6 +76,10 @@ export async function handleDownloadReport(request, env, corsHeaders, params) {
   }
   const result = await getReportStatus(env, jobId);
 
+  if (result.status === 'completed' && !result.downloadUrl) {
+    return Response.json({ error: { code: 'ReportExpired', message: 'Report is no longer available; contact support', retryable: false } },
+      { status: 410, headers: { ...corsHeaders, 'Cache-Control': 'no-store' } });
+  }
   if (result.status !== 'completed' || !result.downloadUrl) {
     return Response.json(
       {
