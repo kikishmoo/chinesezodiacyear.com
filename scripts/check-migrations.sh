@@ -41,25 +41,29 @@ for file in "${files[@]}"; do
   fi
   prev_ts="$timestamp"
 
-  python3 - "$file" <<'PY'
-import sqlite3
-import sys
-
-path = sys.argv[1]
-with open(path, 'r', encoding='utf-8') as f:
-    sql = f.read()
-
-conn = sqlite3.connect(':memory:')
-try:
-    conn.executescript(sql)
-except Exception as exc:  # noqa: BLE001
-    print(f"[error] SQL parse/execute failed for {path}: {exc}")
-    raise SystemExit(1)
-finally:
-    conn.close()
-PY
 
   echo "[ok] $base"
 done
+
+# Validate the complete migration sequence against one in-memory SQLite database.
+# Later migrations depend on the schema/columns established by earlier files.
+python3 - "${files[@]}" <<'PY'
+import sqlite3
+import sys
+
+conn = sqlite3.connect(':memory:')
+try:
+    for path in sys.argv[1:]:
+        with open(path, 'r', encoding='utf-8') as handle:
+            sql = handle.read()
+        try:
+            conn.executescript(sql)
+        except sqlite3.Error as exc:
+            print(f"[error] SQL migration failed for {path}: {exc}")
+            raise SystemExit(1)
+    print(f"[ok] Migration sequence applied successfully ({len(sys.argv) - 1} file(s))")
+finally:
+    conn.close()
+PY
 
 echo "[ok] Migration checks passed (${#files[@]} file(s))"
