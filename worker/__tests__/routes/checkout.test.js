@@ -177,6 +177,7 @@ describe('handleCaptureOrder', () => {
     expect(data.data.paymentStatus).toBe('paid');
     expect(data.data.captureId).toBe('CAP-1');
     expect(data.data.reportJobId).toBe('job-1');
+    expect(requestReport).toHaveBeenCalledWith({}, { ...baziData, purchaseId: 'tx-1' });
     expect(updateTransactionStatus).toHaveBeenCalledWith({}, 'tx-1', 'paid', expect.objectContaining({
       reportJobId: 'job-1'
     }));
@@ -237,7 +238,7 @@ describe('handleCaptureOrder', () => {
     expect(resp.status).toBe(200);
     expect(data.data.paymentStatus).toBe('paid');
     expect(data.data.reportJobId).toBe('job-c1');
-    expect(requestReport).toHaveBeenCalledWith({}, compatibilityData);
+    expect(requestReport).toHaveBeenCalledWith({}, { ...compatibilityData, purchaseId: 'tx-c1' });
   });
 
   it('rejects orders not created on the site', async () => {
