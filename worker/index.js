@@ -22,7 +22,7 @@ import { checkRateLimit } from './middleware/rate-limiter.js';
 import { errorToResponse } from './middleware/error-handler.js';
 import { handleBaziCalculate } from './routes/bazi.js';
 import { handleHealth } from './routes/health.js';
-import { handleCreateReport, handleGetReport, handleDownloadReport } from './routes/report.js';
+import { handleGetReport, handleDownloadReport } from './routes/report.js';
 import { handleGetClientId, handleCreateOrder, handleCaptureOrder } from './routes/checkout.js';
 
 /* ── Route table ──────────────────────────────────────── */
@@ -34,7 +34,7 @@ router.post('/v1/bazi/calculate', handleBaziCalculate);
 router.get('/v1/health', handleHealth);
 
 // Canonical v1 routes — Reports
-router.post('/v1/reports', handleCreateReport);
+// Security: report generation is only permitted through paid checkout capture.
 router.get('/v1/reports/:jobId', handleGetReport);
 router.get('/v1/reports/:jobId/download', handleDownloadReport);
 
