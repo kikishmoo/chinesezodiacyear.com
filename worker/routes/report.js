@@ -43,8 +43,10 @@ export async function handleGetReport(request, env, corsHeaders, params) {
   }
   const result = await getReportStatus(env, jobId);
 
+  // Internal R2 object keys must never be returned by the status endpoint.
+  const { downloadUrl: _internalR2Key, ...publicStatus } = result;
   return Response.json(
-    { data: result },
+    { data: publicStatus },
     {
       status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
