@@ -6,38 +6,17 @@
  *   GET  /v1/reports/:jobId/download → Download completed report
  */
 
-import { validateReportRequest } from '../models/report-request.js';
-import { requestReport, getReportStatus } from '../services/report-service.js';
+import { getReportStatus } from '../services/report-service.js';
+import { getPaidTransactionByReportJobId } from '../repositories/transaction-repository.js';
+import { bearerCheckoutToken, checkoutTokenMatches } from '../lib/checkout-token.js';
 import { NotFoundError, ValidationError } from '../models/errors.js';
 
-/**
- * POST /v1/reports — Request a new report.
- *
- * @param {Request} request
- * @param {Object} env
- * @param {Object} corsHeaders
- * @returns {Promise<Response>}
- */
-export async function handleCreateReport(request, env, corsHeaders) {
-  const body = await request.json();
-  const input = validateReportRequest(body);
-  const result = await requestReport(env, input);
-
-  const status = result.isNew ? 201 : 200;
-
-  return Response.json(
-    {
-      data: {
-        jobId: result.jobId,
-        status: result.status,
-        templateSlug: result.templateSlug
-      }
-    },
-    {
-      status,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-    }
-  );
+/** Paid checkout is the only route allowed to invoke report generation. */
+async function requirePaidReportClaim(request, env, jobId) {
+  const token = bearerCheckoutToken(request);
+  if (!token) return false;
+  const tx = await getPaidTransactionByReportJobId(env, jobId);
+  return Boolean(tx && await checkoutTokenMatches(token, tx.checkout_token_hash));
 }
 
 /**
@@ -56,13 +35,17 @@ export async function handleGetReport(request, env, corsHeaders, params) {
     throw new ValidationError('jobId path parameter is required');
   }
 
+  if (!await requirePaidReportClaim(request, env, jobId)) {
+    return Response.json({ error: { code: 'NotFound', message: 'Report not found' } },
+      { status: 404, headers: { ...corsHeaders, 'Cache-Control': 'no-store' } });
+  }
   const result = await getReportStatus(env, jobId);
 
   return Response.json(
     { data: result },
     {
       status: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
     }
   );
 }
@@ -122,7 +105,8 @@ export async function handleDownloadReport(request, env, corsHeaders, params) {
       ...corsHeaders,
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="bazi-report-${jobId}.pdf"`,
-      'Cache-Control': 'private, max-age=3600'
+      'Cache-Control': 'private, no-store',
+      'Referrer-Policy': 'no-referrer'
     }
   });
 }
