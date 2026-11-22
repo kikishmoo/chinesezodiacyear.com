@@ -368,7 +368,7 @@ export default function(eleventyConfig) {
         // and an English mainEntityOfPage even at /zh-hant/ or /zh-hans/.
         const localizedCanonical = out.match(/<link rel="canonical" href="([^"]+)">/);
         if (localizedCanonical) {
-          out = out.replace(/<script type="application\\/ld\\+json">([\\s\\S]*?)<\\/script>/g, (tag, raw) => {
+          out = out.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (tag, raw) => {
             let schema;
             try {
               schema = JSON.parse(raw);
