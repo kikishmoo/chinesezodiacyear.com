@@ -112,6 +112,23 @@ for (const route of relatedPages) {
   }
 }
 
+// Search Console driven copy updates must be reflected in the built pages.
+// These checks ensure the landing-page titles remain faithful to the functionality.
+const baziLanding = htmlAt('/bazi-calculator/');
+check(baziLanding.includes('Four Pillars Birth Chart by Year, Month, Day &amp; Hour') ||
+      baziLanding.includes('Four Pillars Birth Chart by Year, Month, Day & Hour'),
+  'BaZi calculator title must describe birth year/month/day/hour search intent');
+check(baziLanding.includes('What the BaZi calculator shows'),
+  'BaZi page missing the informational introduction');
+const compatLanding = htmlAt('/compatibility/');
+check(compatLanding.includes('Chinese Zodiac Compatibility Chart — All 12 Animals'),
+  'Compatibility hub missing chart heading');
+const dragonMonkey = htmlAt('/compatibility/dragon-monkey/');
+check(dragonMonkey.includes('Chinese Zodiac Compatibility'),
+  'Pair page missing Chinese zodiac context');
+check(dragonMonkey.includes('complete Chinese zodiac compatibility chart'),
+  'Pair page missing link back to main compatibility chart');
+
 // Year pages are intentionally English-only; do not emit fictional translations.
 const yearPath = '/zodiac-year/2027/';
 const year = htmlAt(yearPath);
