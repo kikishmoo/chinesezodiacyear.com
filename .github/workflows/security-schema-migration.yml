@@ -1,0 +1,118 @@
+name: Apply Paid Report Security D1 Schema
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: "Type APPLY_SECURITY_SCHEMA to authorise ONLY two additive schema migrations"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-d1-migrations
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    if: github.ref == 'refs/heads/main'
+    name: Guarded security schema migration
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Require explicit confirmation
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          if [ "$CONFIRMATION" != "APPLY_SECURITY_SCHEMA" ]; then
+            echo "::error::Exact confirmation APPLY_SECURITY_SCHEMA required."
+            exit 1
+          fi
+
+      - name: Checkout main
+        uses: actions/checkout@v5
+
+      - name: Node 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install pinned CLI without package lifecycle scripts
+        run: npm ci --ignore-scripts
+
+      - name: Validate complete migration sequence locally
+        run: npm run infra:migrations:check
+
+      - name: Check Cloudflare environment
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "::error::Cloudflare API token missing"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "::error::Cloudflare account ID missing"; exit 1; }
+
+      - name: Verify EXACTLY two expected remote migrations are pending
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler d1 migrations list DB --remote | tee /tmp/pending-d1.txt
+          mapfile -t pending < <(grep -oE '[0-9]{12}_[A-Za-z0-9_-]+\.sql' /tmp/pending-d1.txt | sort -u)
+          expected=(
+            202611210100_checkout_claim_tokens.sql
+            202611210200_retention_audit.sql
+          )
+          if [ "${#pending[@]}" -ne 2 ] || [ "${pending[0]}" != "${expected[0]}" ] || [ "${pending[1]}" != "${expected[1]}" ]; then
+            echo "::error::Pending migrations differ from the two expected schema updates; refusing to write."
+            exit 1
+          fi
+
+      - name: Check schema and payment history before writes
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler d1 execute DB --remote --json --command "SELECT (SELECT COUNT(*) FROM transactions) AS transactions_count, (SELECT COUNT(*) FROM report_templates WHERE slug='compat-en' AND id='tpl_compat_en_v1' AND price_cents=499 AND currency='USD') AS compat_seed_count, (SELECT COUNT(*) FROM pragma_table_info('transactions') WHERE name IN ('checkout_token_hash','template_slug')) AS new_column_count, (SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='retention_cleanup_runs') AS retention_table_count" > /tmp/security-schema-check.json
+          python3 - <<'PY'
+          import json
+          with open('/tmp/security-schema-check.json', encoding='utf-8') as fh:
+              parsed=json.load(fh)
+          rows=parsed if isinstance(parsed,list) else [parsed]
+          if len(rows)!=1 or rows[0].get('success') is not True:
+              raise SystemExit('Schema inspection incomplete; refusing migration')
+          data=rows[0].get('results')
+          if not isinstance(data,list) or len(data)!=1:
+              raise SystemExit('Unexpected schema response; refusing migration')
+          d=data[0]
+          for key, val in {'transactions_count':0,'compat_seed_count':1,'new_column_count':0,'retention_table_count':0}.items():
+              if d.get(key)!=val:
+                  raise SystemExit(f'Unsafe {key} state: observed {d.get(key)}; expected {val}. No writes attempted.')
+          print('[ok] Schema prereqs verified: no existing purchases or new fields, compatibility template seeded.')
+          PY
+
+      - name: Capture pre-migration Time Travel recovery bookmark (read only)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler d1 info DB
+          npx wrangler d1 time-travel info DB
+          echo "::notice::Cloudflare Time Travel is limited-window recovery, not a durable independent backup."
+
+      - name: Apply ONLY two validated security schema migrations
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler d1 migrations apply DB --remote
+
+      - name: Verify new schema (read only)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler d1 execute DB --remote --command "SELECT name FROM pragma_table_info('transactions') WHERE name IN ('checkout_token_hash','template_slug') ORDER BY name"
+          npx wrangler d1 execute DB --remote --command "SELECT name FROM sqlite_master WHERE type='table' AND name='retention_cleanup_runs'"
+          npx wrangler d1 migrations list DB --remote
