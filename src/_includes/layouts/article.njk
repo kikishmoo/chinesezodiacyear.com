@@ -14,6 +14,8 @@
 
     {{ content | safe }}
 
+    {% include "partials/new-year-naming-crosslink.njk" %}
+
     {# --- Cross-sell CTA: placed after main content, before FAQ --- #}
     {% if crossSellHidden !== true %}
       {% include "partials/cross-sell-cta.njk" %}
