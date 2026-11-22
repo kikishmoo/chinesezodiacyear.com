@@ -3,6 +3,7 @@
   "name": "bazi-calculator",
   "main": "worker/index.js",
   "compatibility_date": "2025-09-27",
+  "triggers": { "crons": ["0 3 * * *"] },
   "observability": {
     "enabled": true
   },

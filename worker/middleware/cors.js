@@ -6,7 +6,7 @@
  */
 
 const CORS_METHODS = 'POST, OPTIONS';
-const CORS_ALLOWED_HEADERS = 'Content-Type';
+const CORS_ALLOWED_HEADERS = 'Content-Type, Authorization';
 const CORS_MAX_AGE = '86400';
 
 /**

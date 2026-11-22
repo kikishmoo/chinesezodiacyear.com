@@ -35,6 +35,12 @@ vi.mock('../../models/compatibility-report-request.js', () => ({
   validateCompatibilityReportRequest: vi.fn((data) => data)
 }));
 
+vi.mock('../../lib/checkout-token.js', () => ({
+  createCheckoutToken: vi.fn(() => 'a'.repeat(64)),
+  hashCheckoutToken: vi.fn(async () => 'b'.repeat(64)),
+  checkoutTokenMatches: vi.fn(async (token, hash) =>
+    token === 'a'.repeat(64) && hash === 'b'.repeat(64))
+}));
 import { handleGetClientId, handleCreateOrder, handleCaptureOrder } from '../../routes/checkout.js';
 import { createOrder, captureOrder } from '../../services/paypal.js';
 import { createReportTemplatesRepository } from '../../repositories/report-templates-repository.js';
@@ -43,6 +49,10 @@ import { requestReport } from '../../services/report-service.js';
 
 const CORS = { 'Access-Control-Allow-Origin': '*' };
 
+const TOKEN = 'a'.repeat(64);
+const HASH = 'b'.repeat(64);
+const pending = { id: 'tx-1', status: 'pending', template_slug: 'bazi-basic-en',
+  checkout_token_hash: HASH, amount_cents: 899, currency: 'USD' };
 function makeRequest(body) {
   return { json: () => Promise.resolve(body) };
 }
@@ -154,12 +164,12 @@ describe('handleCaptureOrder', () => {
   };
 
   it('captures payment and triggers report generation', async () => {
-    getTransactionByProviderId.mockResolvedValue({ id: 'tx-1', status: 'pending' });
-    captureOrder.mockResolvedValue({ status: 'COMPLETED', captureId: 'CAP-1', amount: '8.99' });
+    getTransactionByProviderId.mockResolvedValue(pending);
+    captureOrder.mockResolvedValue({ orderId: 'ORDER-1', status: 'COMPLETED', captureId: 'CAP-1', amount: '8.99', currency: 'USD' });
     requestReport.mockResolvedValue({ jobId: 'job-1', status: 'queued' });
     updateTransactionStatus.mockResolvedValue();
 
-    const req = makeRequest({ orderId: 'ORDER-1', baziData });
+    const req = makeRequest({ orderId: 'ORDER-1', checkoutToken: TOKEN, baziData });
     const resp = await handleCaptureOrder(req, {}, CORS);
     const data = await resp.json();
 
@@ -167,31 +177,30 @@ describe('handleCaptureOrder', () => {
     expect(data.data.paymentStatus).toBe('paid');
     expect(data.data.captureId).toBe('CAP-1');
     expect(data.data.reportJobId).toBe('job-1');
+    expect(requestReport).toHaveBeenCalledWith({}, { ...baziData, purchaseId: 'tx-1' });
     expect(updateTransactionStatus).toHaveBeenCalledWith({}, 'tx-1', 'paid', expect.objectContaining({
       reportJobId: 'job-1'
     }));
   });
 
   it('returns existing data if already captured', async () => {
-    getTransactionByProviderId.mockResolvedValue({
-      id: 'tx-1', status: 'paid', report_job_id: 'job-existing'
-    });
+    getTransactionByProviderId.mockResolvedValue({ ...pending, status: 'paid', report_job_id: 'job-existing' });
 
-    const req = makeRequest({ orderId: 'ORDER-1', baziData });
+    const req = makeRequest({ orderId: 'ORDER-1', checkoutToken: TOKEN, baziData });
     const resp = await handleCaptureOrder(req, {}, CORS);
     const data = await resp.json();
 
     expect(resp.status).toBe(200);
-    expect(data.data.message).toBe('Payment already captured');
+    expect(data.data.paymentStatus).toBe('paid');
     expect(data.data.reportJobId).toBe('job-existing');
     expect(captureOrder).not.toHaveBeenCalled();
   });
 
   it('returns 422 when payment not completed', async () => {
-    getTransactionByProviderId.mockResolvedValue(null);
+    getTransactionByProviderId.mockResolvedValue(pending);
     captureOrder.mockResolvedValue({ status: 'PENDING', captureId: null });
 
-    const req = makeRequest({ orderId: 'ORDER-1', baziData });
+    const req = makeRequest({ orderId: 'ORDER-1', checkoutToken: TOKEN, baziData });
     const resp = await handleCaptureOrder(req, {}, CORS);
     const data = await resp.json();
 
@@ -217,34 +226,78 @@ describe('handleCaptureOrder', () => {
       pairData: { animalA: 'Dragon', animalB: 'Rooster', relType: 'liuHe' }
     };
 
-    getTransactionByProviderId.mockResolvedValue({ id: 'tx-c1', status: 'pending' });
-    captureOrder.mockResolvedValue({ status: 'COMPLETED', captureId: 'CAP-C1', amount: '4.99' });
+    getTransactionByProviderId.mockResolvedValue({ ...pending, id: 'tx-c1', template_slug: 'compat-en', amount_cents: 499 });
+    captureOrder.mockResolvedValue({ orderId: 'ORDER-C1', status: 'COMPLETED', captureId: 'CAP-C1', amount: '4.99', currency: 'USD' });
     requestReport.mockResolvedValue({ jobId: 'job-c1', status: 'queued' });
     updateTransactionStatus.mockResolvedValue();
 
-    const req = makeRequest({ orderId: 'ORDER-C1', compatibilityData });
+    const req = makeRequest({ orderId: 'ORDER-C1', checkoutToken: TOKEN, compatibilityData });
     const resp = await handleCaptureOrder(req, {}, CORS);
     const data = await resp.json();
 
     expect(resp.status).toBe(200);
     expect(data.data.paymentStatus).toBe('paid');
     expect(data.data.reportJobId).toBe('job-c1');
-    expect(requestReport).toHaveBeenCalledWith({}, compatibilityData);
+    expect(requestReport).toHaveBeenCalledWith({}, { ...compatibilityData, purchaseId: 'tx-c1' });
   });
 
-  it('creates transaction if none existed during create-order', async () => {
+  it('rejects orders not created on the site', async () => {
     getTransactionByProviderId.mockResolvedValue(null);
-    captureOrder.mockResolvedValue({ status: 'COMPLETED', captureId: 'CAP-2', amount: '8.99' });
-    requestReport.mockResolvedValue({ jobId: 'job-2', status: 'queued' });
-    createTransaction.mockResolvedValue();
-
-    const req = makeRequest({ orderId: 'ORDER-NEW', baziData });
-    const resp = await handleCaptureOrder(req, {}, CORS);
-
-    expect(resp.status).toBe(200);
-    expect(createTransaction).toHaveBeenCalledOnce();
-    const txArg = createTransaction.mock.calls[0][1];
-    expect(txArg.status).toBe('paid');
-    expect(txArg.reportJobId).toBe('job-2');
+    const resp = await handleCaptureOrder(makeRequest({
+      orderId: 'unknown', checkoutToken: TOKEN, baziData
+    }), {}, CORS);
+    expect(resp.status).toBe(404);
+    expect(captureOrder).not.toHaveBeenCalled();
   });
+
+  it('rejects a mismatched checkout claim without payment', async () => {
+    getTransactionByProviderId.mockResolvedValue(pending);
+    const resp = await handleCaptureOrder(makeRequest({
+      orderId: 'ORDER-1', checkoutToken: 'wrong', baziData
+    }), {}, CORS);
+    expect(resp.status).toBe(404);
+    expect(captureOrder).not.toHaveBeenCalled();
+  });
+
+  it('blocks changing the product after the order is created', async () => {
+    getTransactionByProviderId.mockResolvedValue(pending);
+    await expect(handleCaptureOrder(makeRequest({
+      orderId: 'ORDER-1', checkoutToken: TOKEN,
+      compatibilityData: { templateSlug: 'compat-en' }
+    }), {}, CORS)).rejects.toThrow('Report type does not match');
+    expect(captureOrder).not.toHaveBeenCalled();
+  });
+
+  it('keeps the paid state if PDF generation fails', async () => {
+    getTransactionByProviderId.mockResolvedValue(pending);
+    captureOrder.mockResolvedValue({ orderId: 'ORDER-1', status: 'COMPLETED',
+      amount: '8.99', currency: 'USD' });
+    requestReport.mockRejectedValue(new Error('R2 failure'));
+    await expect(handleCaptureOrder(makeRequest({
+      orderId: 'ORDER-1', checkoutToken: TOKEN, baziData
+    }), {}, CORS)).rejects.toThrow('R2 failure');
+    expect(updateTransactionStatus).toHaveBeenCalledWith({},
+      'tx-1', 'paid', expect.objectContaining({ paidAt: expect.any(String) }));
+  });
+
+  it('rejects the wrong captured amount without delivering a PDF', async () => {
+    getTransactionByProviderId.mockResolvedValue(pending);
+    captureOrder.mockResolvedValue({ orderId: 'ORDER-1', status: 'COMPLETED',
+      amount: '4.99', currency: 'USD' });
+    await expect(handleCaptureOrder(makeRequest({
+      orderId: 'ORDER-1', checkoutToken: TOKEN, baziData
+    }), {}, CORS)).rejects.toThrow('Captured payment does not match');
+    expect(requestReport).not.toHaveBeenCalled();
+  });
+
+  it('retries an already-paid order without recapturing payment', async () => {
+    getTransactionByProviderId.mockResolvedValue({ ...pending, status: 'paid', report_job_id: null });
+    requestReport.mockResolvedValue({ jobId: 'recovered-job', status: 'completed' });
+    const resp = await handleCaptureOrder(makeRequest({
+      orderId: 'ORDER-1', checkoutToken: TOKEN, baziData
+    }), {}, CORS);
+    expect((await resp.json()).data.reportJobId).toBe('recovered-job');
+    expect(captureOrder).not.toHaveBeenCalled();
+  });
+
 });

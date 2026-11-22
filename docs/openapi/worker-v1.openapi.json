@@ -98,65 +98,6 @@
         }
       }
     },
-    "/v1/reports": {
-      "post": {
-        "summary": "Request a new report generation",
-        "operationId": "createReport",
-        "description": "Validates input, checks template, deduplicates via request hash, creates job, and generates report. Idempotent: re-submitting identical input returns the existing job.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReportRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "New report job created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ReportJobEnvelope"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Existing job returned (idempotent dedup)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ReportJobEnvelope"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorEnvelope"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Template not found or inactive",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorEnvelope"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/reports/{jobId}": {
       "get": {
         "summary": "Poll report job status",
@@ -166,7 +107,10 @@
             "name": "jobId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
@@ -190,7 +134,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "CheckoutClaimBearer": []
+          }
+        ],
+        "description": " Requires a valid Bearer checkout claim tied to a paid transaction for this report; otherwise returns 404."
       }
     },
     "/v1/reports/{jobId}/download": {
@@ -202,7 +152,10 @@
             "name": "jobId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
@@ -246,7 +199,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "CheckoutClaimBearer": []
+          }
+        ],
+        "description": " Requires a valid Bearer checkout claim tied to a paid transaction for this report; otherwise returns 404."
       }
     },
     "/v1/checkout/client-id": {
@@ -282,7 +241,7 @@
       "post": {
         "summary": "Create a PayPal order for a report purchase",
         "operationId": "createCheckoutOrder",
-        "description": "Looks up the template price from D1, creates a PayPal order via Orders v2 API, and records a pending transaction.",
+        "description": "Looks up the template price from D1, creates a PayPal order via Orders v2 API, and records a pending transaction. Returns a private checkoutToken to the browser; never put this token in URLs, analytics, or logs.",
         "requestBody": {
           "required": true,
           "content": {
@@ -321,7 +280,7 @@
       "post": {
         "summary": "Capture an approved PayPal payment and trigger report generation",
         "operationId": "captureCheckoutOrder",
-        "description": "Captures the PayPal payment, validates completion, triggers report generation, and updates the transaction. Idempotent: re-submitting an already-captured order returns the existing data.",
+        "description": "Captures the PayPal payment, validates completion, triggers report generation, and updates the transaction. Idempotent: re-submitting an already-captured order returns the existing data. Requires the private checkoutToken issued during create-order, the original orderId, and a matching purchased product. Validates the captured amount and currency. A successful paid retry does not recapture.",
         "requestBody": {
           "required": true,
           "content": {
@@ -371,80 +330,210 @@
     "schemas": {
       "HealthResponse": {
         "type": "object",
-        "required": ["status", "timestamp"],
+        "required": [
+          "status",
+          "timestamp"
+        ],
         "properties": {
-          "status": { "type": "string", "const": "ok" },
-          "timestamp": { "type": "string", "format": "date-time" }
+          "status": {
+            "type": "string",
+            "const": "ok"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "ErrorEnvelope": {
         "type": "object",
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "properties": {
           "error": {
             "type": "object",
-            "required": ["code", "message", "retryable"],
+            "required": [
+              "code",
+              "message",
+              "retryable"
+            ],
             "properties": {
-              "code": { "type": "string" },
-              "message": { "type": "string" },
-              "retryable": { "type": "boolean" }
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "retryable": {
+                "type": "boolean"
+              }
             }
           }
         }
       },
       "BaziCalculateRequest": {
         "type": "object",
-        "required": ["year", "month", "day"],
+        "required": [
+          "year",
+          "month",
+          "day"
+        ],
         "properties": {
-          "year": { "type": "integer", "minimum": 1900, "maximum": 2100 },
-          "month": { "type": "integer", "minimum": 1, "maximum": 12 },
-          "day": { "type": "integer", "minimum": 1, "maximum": 31 },
-          "hour": { "type": ["integer", "null"], "minimum": 0, "maximum": 23 },
-          "minute": { "type": ["integer", "null"], "minimum": 0, "maximum": 59 },
-          "lat": { "type": ["number", "null"], "minimum": -90, "maximum": 90 },
-          "lng": { "type": ["number", "null"], "minimum": -180, "maximum": 180 },
-          "tz": { "type": ["string", "null"] },
-          "sex": { "type": "string", "enum": ["male", "female"] }
+          "year": {
+            "type": "integer",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "month": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          "day": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          },
+          "hour": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 23
+          },
+          "minute": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 59
+          },
+          "lat": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": -90,
+            "maximum": 90
+          },
+          "lng": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": -180,
+            "maximum": 180
+          },
+          "tz": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sex": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ]
+          }
         }
       },
       "BaziPillar": {
         "type": "object",
-        "required": ["stem", "branch"],
+        "required": [
+          "stem",
+          "branch"
+        ],
         "properties": {
-          "stem": { "type": "string" },
-          "branch": { "type": "string" },
-          "stemPinyin": { "type": "string" },
-          "branchPinyin": { "type": "string" },
-          "stemElement": { "type": "string" },
-          "branchElement": { "type": "string" },
-          "animal": { "type": "string" },
-          "combined": { "type": "string" }
+          "stem": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "stemPinyin": {
+            "type": "string"
+          },
+          "branchPinyin": {
+            "type": "string"
+          },
+          "stemElement": {
+            "type": "string"
+          },
+          "branchElement": {
+            "type": "string"
+          },
+          "animal": {
+            "type": "string"
+          },
+          "combined": {
+            "type": "string"
+          }
         }
       },
       "BaziCalculateResponse": {
         "type": "object",
-        "required": ["pillars", "gender", "daYun", "readingSections", "input"],
+        "required": [
+          "pillars",
+          "gender",
+          "daYun",
+          "readingSections",
+          "input"
+        ],
         "properties": {
           "pillars": {
             "type": "object",
-            "required": ["year", "month", "day", "hour"],
+            "required": [
+              "year",
+              "month",
+              "day",
+              "hour"
+            ],
             "properties": {
-              "year": { "$ref": "#/components/schemas/BaziPillar" },
-              "month": { "$ref": "#/components/schemas/BaziPillar" },
-              "day": { "$ref": "#/components/schemas/BaziPillar" },
-              "hour": { "$ref": "#/components/schemas/BaziPillar" }
+              "year": {
+                "$ref": "#/components/schemas/BaziPillar"
+              },
+              "month": {
+                "$ref": "#/components/schemas/BaziPillar"
+              },
+              "day": {
+                "$ref": "#/components/schemas/BaziPillar"
+              },
+              "hour": {
+                "$ref": "#/components/schemas/BaziPillar"
+              }
             }
           },
-          "gender": { "type": "string", "enum": ["male", "female"] },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
           "daYun": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["combined", "startAge", "startYear"],
+              "required": [
+                "combined",
+                "startAge",
+                "startYear"
+              ],
               "properties": {
-                "combined": { "type": "string" },
-                "startAge": { "type": "string" },
-                "startYear": { "type": "string" }
+                "combined": {
+                  "type": "string"
+                },
+                "startAge": {
+                  "type": "string"
+                },
+                "startYear": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -452,127 +541,326 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["title", "content"],
+              "required": [
+                "title",
+                "content"
+              ],
               "properties": {
-                "title": { "type": "string" },
-                "content": { "type": "string" }
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
               }
             }
           },
-          "input": { "$ref": "#/components/schemas/BaziCalculateRequest" },
-          "_cached": { "type": "boolean" }
+          "input": {
+            "$ref": "#/components/schemas/BaziCalculateRequest"
+          },
+          "_cached": {
+            "type": "boolean"
+          }
         },
         "additionalProperties": true
       },
       "ReportRequest": {
         "type": "object",
-        "required": ["templateSlug", "year", "month", "day"],
+        "required": [
+          "templateSlug",
+          "year",
+          "month",
+          "day"
+        ],
         "properties": {
-          "templateSlug": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
-          "year": { "type": "integer", "minimum": 1900, "maximum": 2100 },
-          "month": { "type": "integer", "minimum": 1, "maximum": 12 },
-          "day": { "type": "integer", "minimum": 1, "maximum": 31 },
-          "hour": { "type": ["integer", "null"], "minimum": 0, "maximum": 23 },
-          "minute": { "type": ["integer", "null"], "minimum": 0, "maximum": 59 },
-          "lat": { "type": ["number", "null"], "minimum": -90, "maximum": 90 },
-          "lng": { "type": ["number", "null"], "minimum": -180, "maximum": 180 },
-          "tz": { "type": ["string", "null"] },
-          "sex": { "type": "string", "enum": ["male", "female"], "default": "male" },
-          "email": { "type": ["string", "null"], "format": "email" }
+          "templateSlug": {
+            "type": "string",
+            "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+          },
+          "year": {
+            "type": "integer",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "month": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          "day": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          },
+          "hour": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 23
+          },
+          "minute": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 59
+          },
+          "lat": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": -90,
+            "maximum": 90
+          },
+          "lng": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": -180,
+            "maximum": 180
+          },
+          "tz": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sex": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ],
+            "default": "male"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "email"
+          }
         }
       },
       "ReportJobEnvelope": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
-            "required": ["jobId", "status", "templateSlug"],
+            "required": [
+              "jobId",
+              "status",
+              "templateSlug"
+            ],
             "properties": {
-              "jobId": { "type": "string", "format": "uuid" },
-              "status": { "type": "string", "enum": ["queued", "processing", "completed", "failed"] },
-              "templateSlug": { "type": "string" }
+              "jobId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "queued",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "templateSlug": {
+                "type": "string"
+              }
             }
           }
         }
       },
       "ReportStatusEnvelope": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
-            "required": ["jobId", "status", "createdAt"],
+            "required": [
+              "jobId",
+              "status",
+              "createdAt"
+            ],
             "properties": {
-              "jobId": { "type": "string", "format": "uuid" },
-              "status": { "type": "string", "enum": ["queued", "processing", "completed", "failed"] },
-              "downloadUrl": { "type": ["string", "null"] },
-              "error": { "type": ["string", "null"] },
-              "createdAt": { "type": "string", "format": "date-time" }
+              "jobId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "queued",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "downloadUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "error": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              }
             }
           }
         }
       },
       "CheckoutClientIdEnvelope": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
-            "required": ["clientId", "mode"],
+            "required": [
+              "clientId",
+              "mode"
+            ],
             "properties": {
-              "clientId": { "type": "string" },
-              "mode": { "type": "string", "enum": ["sandbox", "live"] }
+              "clientId": {
+                "type": "string"
+              },
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "sandbox",
+                  "live"
+                ]
+              }
             }
           }
         }
       },
       "CreateOrderRequest": {
         "type": "object",
-        "required": ["templateSlug"],
+        "required": [
+          "templateSlug"
+        ],
         "properties": {
-          "templateSlug": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" }
+          "templateSlug": {
+            "type": "string",
+            "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+          }
         }
       },
       "CreateOrderEnvelope": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
-            "required": ["orderId", "status"],
+            "required": [
+              "orderId",
+              "status"
+            ],
             "properties": {
-              "orderId": { "type": "string" },
-              "status": { "type": "string" }
+              "orderId": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
             }
           }
         }
       },
       "CaptureOrderRequest": {
         "type": "object",
-        "required": ["orderId", "baziData"],
+        "required": [
+          "orderId",
+          "baziData"
+        ],
         "properties": {
-          "orderId": { "type": "string" },
-          "baziData": { "$ref": "#/components/schemas/ReportRequest" }
+          "orderId": {
+            "type": "string"
+          },
+          "baziData": {
+            "$ref": "#/components/schemas/ReportRequest"
+          }
         }
       },
       "CaptureOrderEnvelope": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
-            "required": ["orderId", "paymentStatus"],
+            "required": [
+              "orderId",
+              "paymentStatus"
+            ],
             "properties": {
-              "orderId": { "type": "string" },
-              "paymentStatus": { "type": "string", "enum": ["paid"] },
-              "captureId": { "type": ["string", "null"] },
-              "reportJobId": { "type": ["string", "null"] },
-              "reportStatus": { "type": ["string", "null"] },
-              "message": { "type": ["string", "null"] }
+              "orderId": {
+                "type": "string"
+              },
+              "paymentStatus": {
+                "type": "string",
+                "enum": [
+                  "paid"
+                ]
+              },
+              "captureId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reportJobId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reportStatus": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "message": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
             }
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "CheckoutClaimBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Private 256-bit per-order checkout claim, issued during checkout creation. Requires a matching paid transaction for the requested report."
       }
     }
   }

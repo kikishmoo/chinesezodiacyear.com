@@ -63,8 +63,8 @@ function detectLang() {
 }
 
 /* ── API helpers ── */
-async function apiGet(url) {
-  var resp = await fetch(url);
+async function apiGet(url, checkoutToken) {
+  var resp = await fetch(url, checkoutToken ? { headers: { Authorization: 'Bearer ' + checkoutToken } } : undefined);
   if (!resp.ok) throw new Error('Request failed: ' + resp.status);
   return resp.json();
 }
@@ -108,7 +108,7 @@ function setState(container, state, message) {
 }
 
 /* ── Poll for report completion ── */
-async function pollReport(workerUrl, jobId, container) {
+async function pollReport(workerUrl, jobId, checkoutToken, container) {
   var attempts = 0;
 
   while (attempts < MAX_POLL_ATTEMPTS) {
@@ -116,7 +116,7 @@ async function pollReport(workerUrl, jobId, container) {
     setState(container, 'loading', 'Generating your report\u2026 (' + attempts + '/' + MAX_POLL_ATTEMPTS + ')');
 
     try {
-      var result = await apiGet(workerUrl + '/v1/reports/' + jobId);
+      var result = await apiGet(workerUrl + '/v1/reports/' + jobId, checkoutToken);
       var data = result.data;
 
       if (data.status === 'completed') {
@@ -133,6 +133,32 @@ async function pollReport(workerUrl, jobId, container) {
   }
 
   throw new Error('Report generation timed out. Please contact support.');
+}
+
+/* ── Authenticated PDF download; never put checkout secrets in URLs ── */
+function attachReportDownload(wrapper, url, checkoutToken) {
+  var link = wrapper.querySelector('.rc-download-link');
+  link.href = '#';
+  link.onclick = async function (event) {
+    event.preventDefault();
+    try {
+      var response = await fetch(url, {
+        headers: { Authorization: 'Bearer ' + checkoutToken }
+      });
+      if (!response.ok) throw new Error('Download failed: ' + response.status);
+      var blob = await response.blob();
+      var objectUrl = URL.createObjectURL(blob);
+      var anchor = document.createElement('a');
+      anchor.href = objectUrl;
+      anchor.download = 'chinese-zodiac-report.pdf';
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 60000);
+    } catch (err) {
+      setState(wrapper, 'error', 'PDF download failed. Please contact support.');
+    }
+  };
 }
 
 /* ── Main entry point ── */
@@ -204,6 +230,7 @@ export function showReportOffer(workerUrl, baziPayload, containerEl) {
 }
 
 async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
+  var checkoutToken = null;
   try {
     // Fetch PayPal client ID
     var clientData = await apiGet(baseUrl + '/v1/checkout/client-id');
@@ -241,6 +268,7 @@ async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
         var result = await apiPost(baseUrl + '/v1/checkout/create-order', {
           templateSlug: TEMPLATE_SLUG
         });
+        checkoutToken = result.data.checkoutToken;
         return result.data.orderId;
       },
 
@@ -250,6 +278,7 @@ async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
         try {
           var captureResult = await apiPost(baseUrl + '/v1/checkout/capture-order', {
             orderId: data.orderID,
+            checkoutToken: checkoutToken,
             baziData: {
               templateSlug: TEMPLATE_SLUG,
               year: baziPayload.year,
@@ -280,12 +309,11 @@ async function initPayPalButtons(baseUrl, baziPayload, wrapper) {
             downloadUrl = baseUrl + '/v1/reports/' + captureData.reportJobId + '/download';
           } else {
             // Poll for completion
-            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, wrapper);
+            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, checkoutToken, wrapper);
           }
 
           // Show success + download link
-          var dlLink = wrapper.querySelector('.rc-download-link');
-          dlLink.href = downloadUrl;
+          attachReportDownload(wrapper, downloadUrl, checkoutToken);
           setState(wrapper, 'success');
 
           track('report_download_ready', {
@@ -400,6 +428,7 @@ export function showCompatibilityOffer(workerUrl, pairData, containerEl) {
 }
 
 async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
+  var checkoutToken = null;
   try {
     var clientData = await apiGet(baseUrl + '/v1/checkout/client-id');
     var clientId = clientData.data.clientId;
@@ -433,6 +462,7 @@ async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
         var result = await apiPost(baseUrl + '/v1/checkout/create-order', {
           templateSlug: COMPAT_TEMPLATE_SLUG
         });
+        checkoutToken = result.data.checkoutToken;
         return result.data.orderId;
       },
 
@@ -442,6 +472,7 @@ async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
         try {
           var captureResult = await apiPost(baseUrl + '/v1/checkout/capture-order', {
             orderId: data.orderID,
+            checkoutToken: checkoutToken,
             compatibilityData: {
               templateSlug: COMPAT_TEMPLATE_SLUG,
               pairSlug: pairSlug,
@@ -463,11 +494,10 @@ async function initCompatPayPalButtons(baseUrl, pairSlug, pairData, wrapper) {
           if (captureData.reportStatus === 'completed') {
             downloadUrl = baseUrl + '/v1/reports/' + captureData.reportJobId + '/download';
           } else {
-            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, wrapper);
+            downloadUrl = await pollReport(baseUrl, captureData.reportJobId, checkoutToken, wrapper);
           }
 
-          var dlLink = wrapper.querySelector('.rc-download-link');
-          dlLink.href = downloadUrl;
+          attachReportDownload(wrapper, downloadUrl, checkoutToken);
           setState(wrapper, 'success');
 
           track('report_download_ready', {
