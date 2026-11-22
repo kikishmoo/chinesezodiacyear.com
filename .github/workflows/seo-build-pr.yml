@@ -1,6 +1,8 @@
 name: Validate SEO Build (Pull Request)
 
 on:
+  push:
+    branches: ['seo/**']
   pull_request:
     branches: [main]
 
