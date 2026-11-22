@@ -362,6 +362,31 @@ export default function(eleventyConfig) {
           `<meta property="og:url" content="$1/${variant.prefix}$2">`
         );
 
+        // Keep article structured data consistent with the localized
+        // canonical URL. The base template is rendered in English first,
+        // so without this correction alternate articles claim inLanguage=en
+        // and an English mainEntityOfPage even at /zh-hant/ or /zh-hans/.
+        const localizedCanonical = out.match(/<link rel="canonical" href="([^"]+)">/);
+        if (localizedCanonical) {
+          out = out.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (tag, raw) => {
+            let schema;
+            try {
+              schema = JSON.parse(raw);
+            } catch {
+              return tag; // Validation below flags malformed structured data.
+            }
+            if (schema['@type'] !== 'Article') return tag;
+            schema.url = localizedCanonical[1];
+            schema.inLanguage = variant.lang;
+            if (schema.mainEntityOfPage && typeof schema.mainEntityOfPage === 'object') {
+              schema.mainEntityOfPage['@id'] = localizedCanonical[1];
+            }
+            // Encode HTML-sensitive characters before embedding JSON in HTML.
+            return '<script type="application/ld+json">' +
+              JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>';
+          });
+        }
+
         // Strip non-active language blocks (fix trilingual content bloat)
         out = stripLangBlocks(out, variant.dataLang);
 

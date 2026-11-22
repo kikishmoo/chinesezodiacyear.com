@@ -85,6 +85,9 @@ jobs:
       - name: Build with Eleventy
         run: npx @11ty/eleventy
 
+      - name: Validate multilingual SEO in generated site
+        run: node scripts/check-seo-build.mjs
+
       - name: Validate build output
         run: |
           echo "=== Build Output Validation ==="
