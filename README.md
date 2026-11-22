@@ -39,7 +39,7 @@ npm run build
 
 The dev server runs at `http://localhost:8080`. The production build outputs to `_site/`.
 
-**Requirements:** Node.js 20+
+**Requirements:** Node.js 24+ (Wrangler and current build tooling).
 
 ## Project Structure
 

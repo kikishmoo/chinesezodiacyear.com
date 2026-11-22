@@ -28,10 +28,10 @@ import { generateSectionContent } from '../data/compatibility-content.js';
 
 /**
  * Generate a deterministic request hash for idempotency.
- * Same input → same hash → same report (no duplicate work).
+ * Same purchase + input → same hash → same report (no duplicate work).
  *
- * For BaZi: hashes birth data fields.
- * For compatibility: hashes pairSlug + locale (deterministic content).
+ * For BaZi: hashes birth data fields scoped to the verified internal purchase ID.
+ * For compatibility: hashes pairSlug + locale scoped to the verified internal purchase ID.
  *
  * @param {string} templateSlug
  * @param {Object} input — validated input (BaZi or compatibility)
@@ -39,9 +39,10 @@ import { generateSectionContent } from '../data/compatibility-content.js';
  */
 async function computeRequestHash(templateSlug, input) {
   const payload = input.pairSlug
-    ? JSON.stringify({ t: templateSlug, pair: input.pairSlug, locale: input.locale })
+    ? JSON.stringify({ t: templateSlug, purchase: input.purchaseId, pair: input.pairSlug, locale: input.locale })
     : JSON.stringify({
         t: templateSlug,
+        purchase: input.purchaseId,
         y: input.year,
         m: input.month,
         d: input.day,
@@ -89,9 +90,13 @@ export async function requestReport(env, input) {
   // 2. Compute idempotency hash
   const requestHash = await computeRequestHash(input.templateSlug, input);
 
-  // 3. Check for existing job (deduplication)
+  // 3. Check for an existing job from THIS purchase, never another buyer.
   const existingJob = await jobs.getByRequestHash(requestHash);
-  if (existingJob) {
+  const needsRetry = existingJob && (
+    existingJob.status === 'failed' ||
+    (existingJob.status === 'completed' && !existingJob.output_r2_key)
+  );
+  if (existingJob && !needsRetry) {
     return {
       jobId: existingJob.id,
       status: existingJob.status,
@@ -104,7 +109,7 @@ export async function requestReport(env, input) {
   const isCompatibility = template.category === 'compatibility';
 
   // 4. Create job record
-  const jobId = generateId();
+  const jobId = existingJob ? existingJob.id : generateId();
   const inputPayload = isCompatibility
     ? JSON.stringify({ pairSlug: input.pairSlug, locale: input.locale, pairData: input.pairData })
     : JSON.stringify({
@@ -120,13 +125,15 @@ export async function requestReport(env, input) {
         email: input.email
       });
 
-  await jobs.create({
-    id: jobId,
-    templateId: template.id,
-    requestHash,
-    status: 'queued',
-    inputPayloadJson: inputPayload
-  });
+  if (!existingJob) {
+    await jobs.create({
+      id: jobId,
+      templateId: template.id,
+      requestHash,
+      status: 'queued',
+      inputPayloadJson: inputPayload
+    });
+  }
 
   // 5. Process synchronously for MVP (future: queue + async)
   try {
@@ -169,7 +176,7 @@ export async function requestReport(env, input) {
       jobId,
       status: 'completed',
       templateSlug: input.templateSlug,
-      isNew: true
+      isNew: !existingJob
     };
   } catch (err) {
     // Record failure but don't lose the job
