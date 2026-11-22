@@ -1,6 +1,12 @@
 {
   "description": "Editorial content calendar for 2026. Articles are prioritized by SEO value, seasonal relevance, and topical authority building.",
-  "categories": ["zodiac", "culture", "fengshui", "bazi", "business"],
+  "categories": [
+    "zodiac",
+    "culture",
+    "fengshui",
+    "bazi",
+    "business"
+  ],
   "pipeline": [
     {
       "slug": "chinese-zodiac-elements-guide",
@@ -105,14 +111,14 @@
       "notes": "Foundational concept. Links to wuxing, bazi, fengshui, TCM."
     },
     {
-      "slug": "chinese-new-year-2027-snake",
-      "title": "Chinese New Year 2027 — Year of the Fire Snake Preview",
+      "slug": "chinese-new-year-2027-goat",
+      "title": "Chinese New Year 2027 — Year of the Fire Goat Preview",
       "category": "zodiac",
       "priority": "medium",
       "status": "queued",
-      "targetDate": "2026-10-01",
-      "targetKeywords": "Chinese New Year 2027, Year of the Snake 2027, Fire Snake",
-      "notes": "Publish Q4 2026 to capture early search interest."
+      "targetDate": "2026-11-25",
+      "targetKeywords": "Chinese New Year 2027, Year of the Goat 2027, Fire Goat, Ding Wei, February 6 2027",
+      "notes": "Publish/refresh promptly for February 6, 2027. Ding Wei (丁未) Fire Goat, not Fire Snake. Pre-Qing historical framing needs primary-source review. Date reference: Smithsonian https://www.si.edu/spotlight/lunar-year-goat."
     },
     {
       "slug": "chinese-new-year-vs-lunar-new-year",
