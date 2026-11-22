@@ -77,6 +77,36 @@ for (const route of translatedRoutes) {
   }
 }
 
+// Related New Year articles and hubs must visibly link to the naming essay
+// and the three major context pages, without fabricating a Chinese translation
+// of the English-only naming essay.
+const relatedPages = [
+  '/spring-festival/',
+  '/calendar/',
+  '/chinese-new-year-influence/',
+  '/chinese-new-year-2027/',
+  '/chinese-new-year-spring-festival/',
+  '/chinese-new-year-traditions/',
+  '/fifteen-days-chinese-new-year/',
+  '/chinese-new-year-global-celebration/',
+  '/why-red-and-gold-chinese-new-year/'
+];
+for (const route of relatedPages) {
+  const localized = !['/chinese-new-year-global-celebration/', '/why-red-and-gold-chinese-new-year/'].includes(route);
+  const prefixes = localized ? ['', '/zh-hant', '/zh-hans'] : [''];
+  for (const prefix of prefixes) {
+    const path = prefix + route;
+    const html = htmlAt(path);
+    if (!html) continue;
+    check(html.includes('href="/chinese-new-year-vs-lunar-new-year/"'),
+      path + ' missing naming essay crosslink');
+    for (const destination of ['/spring-festival/', '/calendar/', '/chinese-new-year-influence/']) {
+      check(html.includes('href="' + (prefix || '') + destination + '"'),
+        path + ' missing cluster link to ' + destination);
+    }
+  }
+}
+
 // Year pages are intentionally English-only; do not emit fictional translations.
 const yearPath = '/zodiac-year/2027/';
 const year = htmlAt(yearPath);
