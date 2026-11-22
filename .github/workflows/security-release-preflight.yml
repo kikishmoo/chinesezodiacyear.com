@@ -2,6 +2,11 @@ name: Security Release Preflight (read only)
 
 on:
   workflow_dispatch:
+  # A change to this read-only workflow automatically tests it on main.
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/security-release-preflight.yml"
 
 permissions:
   contents: read
