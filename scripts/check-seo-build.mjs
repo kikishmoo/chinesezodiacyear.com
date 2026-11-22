@@ -46,7 +46,7 @@ check(new Set(urls).size === urls.length, 'Duplicate <loc> URL in sitemap');
 check(!urls.includes(origin + '/search/'), 'Noindex internal search must not be in sitemap');
 check(urls.every(url => url.startsWith(origin + '/')), 'Sitemap includes a noncanonical domain');
 
-const translatedRoutes = ['/', '/zodiac/', '/readings/', '/readings/2026-rat/'];
+const translatedRoutes = ['/', '/zodiac/', '/readings/', '/readings/2026-rat/', '/chinese-new-year-2027/'];
 for (const route of translatedRoutes) {
   for (const [prefix, language] of [['', 'en'], ['/zh-hant', 'zh-Hant'], ['/zh-hans', 'zh-Hans']]) {
     const path = prefix + route;
@@ -63,7 +63,7 @@ for (const route of translatedRoutes) {
       ['x-default', origin + route]
     ]) check(alt.get(locale) === href, path + ' missing/mismatched hreflang ' + locale);
     check(urls.includes(canonical), path + ' absent from sitemap');
-    if (route.includes('2026-rat')) {
+    if (route.includes('2026-rat') || route.includes('chinese-new-year-2027')) {
       const article = schemas(html, path).find(schema => schema['@type'] === 'Article');
       check(Boolean(article), path + ' missing Article schema');
       if (article) {
