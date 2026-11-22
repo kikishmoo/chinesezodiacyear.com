@@ -129,6 +129,21 @@ check(dragonMonkey.includes('Chinese Zodiac Compatibility'),
 check(dragonMonkey.includes('complete Chinese zodiac compatibility chart'),
   'Pair page missing link back to main compatibility chart');
 
+// Search demand for both orderings of Dragon–Monkey / Dragon–Rooster is
+// supported with factual, localized branch relationship explanations.
+for (const [route, markers] of [
+  ['/compatibility/dragon-monkey/', ['Water Three Harmonies', '三合水局', '三合水局']],
+  ['/compatibility/dragon-rooster/', ['Six Harmonies', '辰酉六合', '辰酉六合']]
+]) {
+  for (const [i, prefix] of ['', '/zh-hant', '/zh-hans'].entries()) {
+    const path = prefix + route;
+    const html = htmlAt(path);
+    if (!html) continue;
+    check(html.includes(markers[i]), path + ' missing localized pair explanation');
+    check(html.includes('href="/compatibility/"'), path + ' missing chart reference');
+  }
+}
+
 // Year pages are intentionally English-only; do not emit fictional translations.
 const yearPath = '/zodiac-year/2027/';
 const year = htmlAt(yearPath);
