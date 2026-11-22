@@ -92,7 +92,12 @@ const relatedPages = [
   '/why-red-and-gold-chinese-new-year/'
 ];
 for (const route of relatedPages) {
-  const localized = !['/chinese-new-year-global-celebration/', '/why-red-and-gold-chinese-new-year/'].includes(route);
+  const localized = ![
+    '/chinese-new-year-global-celebration/',
+    '/why-red-and-gold-chinese-new-year/',
+    '/chinese-new-year-traditions/',
+    '/fifteen-days-chinese-new-year/'
+  ].includes(route);
   const prefixes = localized ? ['', '/zh-hant', '/zh-hans'] : [''];
   for (const prefix of prefixes) {
     const path = prefix + route;
