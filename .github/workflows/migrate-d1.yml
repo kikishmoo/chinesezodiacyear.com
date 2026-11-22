@@ -2,24 +2,110 @@ name: Apply D1 Migrations
 
 on:
   workflow_dispatch:
+    inputs:
+      confirmation:
+        description: "Type APPLY_COMPATIBILITY_SEED to authorise the single pending seed migration"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-d1-migrations
+  cancel-in-progress: false
 
 jobs:
   migrate:
+    name: Guarded compatibility seed migration
+    # Only this specific, preflighted April seed is permitted by this workflow.
+    # New security migrations must use a separately reviewed rollout.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Require explicit release confirmation
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          if [ "$CONFIRMATION" != "APPLY_COMPATIBILITY_SEED" ]; then
+            echo "::error::Confirmation must exactly equal APPLY_COMPATIBILITY_SEED"
+            exit 1
+          fi
+
+      - name: Checkout immutable release commit
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: "24"
+          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install pinned dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts
 
-      - name: Apply D1 migrations (remote)
-        run: npx wrangler d1 migrations apply DB --remote
+      - name: Validate migration SQL locally
+        run: npm run infra:migrations:check
+
+      - name: Verify Cloudflare credentials
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "::error::CLOUDFLARE_API_TOKEN is missing"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "::error::CLOUDFLARE_ACCOUNT_ID is missing"; exit 1; }
+
+      - name: Verify exact pending migration list (no writes)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler d1 migrations list DB --remote | tee /tmp/pending-d1-migrations.txt
+          mapfile -t files < <(grep -oE '[0-9]{12}_[A-Za-z0-9_-]+\.sql' /tmp/pending-d1-migrations.txt | sort -u)
+          if [ "${#files[@]}" -ne 1 ] || [ "${files[0]}" != "202604120001_seed_compatibility_template.sql" ]; then
+            echo "::error::Expected exactly the compatibility seed pending; refusing any other migration."
+            exit 1
+          fi
+
+      - name: Check compatibility seed is absent on remote database (no writes)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler d1 execute DB --remote --json --command "SELECT COUNT(*) AS matches FROM report_templates WHERE slug = 'compat-en' OR id = 'tpl_compat_en_v1'" > /tmp/compat-seed-check.json
+          python3 - <<'PY'
+          import json
+          with open('/tmp/compat-seed-check.json', encoding='utf-8') as handle:
+              response = json.load(handle)
+          entries = response if isinstance(response, list) else [response]
+          if len(entries) != 1 or not entries[0].get('success'):
+              raise SystemExit('Cannot verify the live seed count; refusing migration')
+          values = entries[0].get('results', [])
+          if len(values) != 1 or values[0].get('matches') != 0:
+              raise SystemExit('Compatibility template already present or response uncertain; refusing migration')
+          print('[ok] Compatibility seed absent. No customer rows were read.')
+          PY
+
+      - name: Record Cloudflare recovery point (read only)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "Confirm this recovery bookmark is recorded in the access-controlled run log."
+          npx wrangler d1 info DB
+          npx wrangler d1 time-travel info DB
+
+      - name: Apply the single permitted migration to remote D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler d1 migrations apply DB --remote
+
+      - name: Verify compatibility template now exists (read only)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler d1 execute DB --remote --command "SELECT slug, id, price_cents, currency, is_active FROM report_templates WHERE slug = 'compat-en'"
+          npx wrangler d1 migrations list DB --remote
