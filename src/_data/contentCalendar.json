@@ -111,14 +111,14 @@
       "notes": "Foundational concept. Links to wuxing, bazi, fengshui, TCM."
     },
     {
-      "slug": "chinese-new-year-2027-goat",
+      "slug": "chinese-new-year-2027",
       "title": "Chinese New Year 2027 — Year of the Fire Goat Preview",
       "category": "zodiac",
       "priority": "medium",
-      "status": "queued",
-      "targetDate": "2026-11-25",
+      "status": "published",
+      "targetDate": "2026-11-22",
       "targetKeywords": "Chinese New Year 2027, Year of the Goat 2027, Fire Goat, Ding Wei, February 6 2027",
-      "notes": "Publish/refresh promptly for February 6, 2027. Ding Wei (丁未) Fire Goat, not Fire Snake. Pre-Qing historical framing needs primary-source review. Date reference: Smithsonian https://www.si.edu/spotlight/lunar-year-goat."
+      "notes": "Published at /chinese-new-year-2027/. HKO 2027 conversion table and Smithsonian confirm Feb 6 Chinese New Year; Li Chun Feb 4. Includes English, Traditional Chinese and Simplified Chinese, with pre-Qing calendrical context and clearly distinguished year-boundary conventions."
     },
     {
       "slug": "chinese-new-year-vs-lunar-new-year",
