@@ -144,6 +144,22 @@ for (const [route, markers] of [
   }
 }
 
+// Verify direct, culturally qualified answer and year transition on the 2026
+// lucky-colors page, our highest-impression seasonal article in recent GSC data.
+for (const prefix of ['', '/zh-hant', '/zh-hans']) {
+  const route = prefix + '/lucky-colors-numbers-2026/';
+  const html = htmlAt(route);
+  if (!html) continue;
+  check(html.includes('2026') && html.includes('2027'),
+    route + ' should distinguish 2026 advice from 2027 New Year');
+  check(html.includes('href="/chinese-new-year-2027/"'),
+    route + ' is missing its 2027 year transition');
+  check(html.includes('href="/wuxing/"') && html.includes('href="/calendar/"'),
+    route + ' is missing relevant cultural explanation links');
+}
+check(htmlAt('/lucky-colors-numbers-2026/').includes('What Are the Lucky Colors and Numbers for 2026?'),
+  '2026 lucky colors article missing query-intent question heading');
+
 // Year pages are intentionally English-only; do not emit fictional translations.
 const yearPath = '/zodiac-year/2027/';
 const year = htmlAt(yearPath);
