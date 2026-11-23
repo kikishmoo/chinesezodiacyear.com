@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      deploy_worker:
+        description: "Deploy production Worker only after payment sandbox QA and explicit release approval"
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -171,7 +177,9 @@ jobs:
   deploy-worker:
     needs: [test, security-audit]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    # Production API stays opt-in even after dependency audit passes.
+    # Ordinary pushes publish only GitHub Pages; paid-report Worker is deferred.
+    if: github.event_name == 'workflow_dispatch' && inputs.deploy_worker == true && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
