@@ -160,6 +160,21 @@ for (const prefix of ['', '/zh-hant', '/zh-hans']) {
 check(htmlAt('/lucky-colors-numbers-2026/').includes('What Are the Lucky Colors and Numbers for 2026?'),
   '2026 lucky colors article missing query-intent question heading');
 
+// Every localized compatibility form must have a real, in-language result area.
+for (const [route, formId, resultId] of [
+  ['/compatibility/', 'compat-form', 'compat-result'],
+  ['/zh-hant/compatibility/', 'compat-form-tc', 'compat-result-tc'],
+  ['/zh-hans/compatibility/', 'compat-form-sc', 'compat-result-sc']
+]) {
+  const html = htmlAt(route);
+  check(html.includes('id="' + formId + '"'),
+    route + ' missing compatibility form: ' + formId);
+  check(html.includes('id="' + resultId + '"'),
+    route + ' missing compatibility result: ' + resultId);
+  check(!html.includes('onsubmit="event.preventDefault()'),
+    route + ' still forwards to a hidden English form');
+}
+
 // Year pages are intentionally English-only; do not emit fictional translations.
 const yearPath = '/zodiac-year/2027/';
 const year = htmlAt(yearPath);

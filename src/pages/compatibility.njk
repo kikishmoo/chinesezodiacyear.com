@@ -524,20 +524,21 @@ sidebarProducts:
     <h2>生肖配對計算器</h2>
     <p class="subtitle" style="margin:0.5rem auto 1.5rem;">輸入兩個出生年份，了解兩個生肖之間的古典關係。</p>
 
-    <form id="compat-form-tc" class="calc-form" aria-label="配對計算器" onsubmit="event.preventDefault();document.getElementById('year-a').value=this.querySelector('[name=ya]').value;document.getElementById('year-b').value=this.querySelector('[name=yb]').value;document.getElementById('compat-form').dispatchEvent(new Event('submit'));document.getElementById('compat-result').scrollIntoView({behavior:'smooth'});">
+    <form id="compat-form-tc" class="calc-form" aria-label="配對計算器">
       <div style="text-align:center;">
-        <label style="font-weight:600;display:block;margin-bottom:0.3rem;">甲方</label>
-        <input type="number" name="ya" class="calc-input" placeholder="例如 1990" min="1900" max="2100" required>
+        <label for="year-a-tc" style="font-weight:600;display:block;margin-bottom:0.3rem;">甲方</label>
+        <input type="number" id="year-a-tc" name="ya" class="calc-input" placeholder="例如 1990" min="1900" max="2100" required>
       </div>
       <div style="font-size:1.8rem;color:var(--imperial-gold);padding-top:1.2rem;">&amp;</div>
       <div style="text-align:center;">
-        <label style="font-weight:600;display:block;margin-bottom:0.3rem;">乙方</label>
-        <input type="number" name="yb" class="calc-input" placeholder="例如 1994" min="1900" max="2100" required>
+        <label for="year-b-tc" style="font-weight:600;display:block;margin-bottom:0.3rem;">乙方</label>
+        <input type="number" id="year-b-tc" name="yb" class="calc-input" placeholder="例如 1994" min="1900" max="2100" required>
       </div>
       <div style="width:100%;text-align:center;margin-top:0.5rem;">
         <button type="submit" class="btn btn-primary">查看配對</button>
       </div>
     </form>
+    <div id="compat-result-tc" class="calc-result" role="status" aria-live="polite" aria-label="配對結果"></div>
   </div>
 </section>
 
@@ -898,20 +899,21 @@ sidebarProducts:
     <h2>生肖配对计算器</h2>
     <p class="subtitle" style="margin:0.5rem auto 1.5rem;">输入两个出生年份，了解两个生肖之间的古典关系。</p>
 
-    <form id="compat-form-sc" class="calc-form" aria-label="配对计算器" onsubmit="event.preventDefault();document.getElementById('year-a').value=this.querySelector('[name=ya]').value;document.getElementById('year-b').value=this.querySelector('[name=yb]').value;document.getElementById('compat-form').dispatchEvent(new Event('submit'));document.getElementById('compat-result').scrollIntoView({behavior:'smooth'});">
+    <form id="compat-form-sc" class="calc-form" aria-label="配对计算器">
       <div style="text-align:center;">
-        <label style="font-weight:600;display:block;margin-bottom:0.3rem;">甲方</label>
-        <input type="number" name="ya" class="calc-input" placeholder="例如 1990" min="1900" max="2100" required>
+        <label for="year-a-sc" style="font-weight:600;display:block;margin-bottom:0.3rem;">甲方</label>
+        <input type="number" id="year-a-sc" name="ya" class="calc-input" placeholder="例如 1990" min="1900" max="2100" required>
       </div>
       <div style="font-size:1.8rem;color:var(--imperial-gold);padding-top:1.2rem;">&amp;</div>
       <div style="text-align:center;">
-        <label style="font-weight:600;display:block;margin-bottom:0.3rem;">乙方</label>
-        <input type="number" name="yb" class="calc-input" placeholder="例如 1994" min="1900" max="2100" required>
+        <label for="year-b-sc" style="font-weight:600;display:block;margin-bottom:0.3rem;">乙方</label>
+        <input type="number" id="year-b-sc" name="yb" class="calc-input" placeholder="例如 1994" min="1900" max="2100" required>
       </div>
       <div style="width:100%;text-align:center;margin-top:0.5rem;">
         <button type="submit" class="btn btn-primary">查看配对</button>
       </div>
     </form>
+    <div id="compat-result-sc" class="calc-result" role="status" aria-live="polite" aria-label="配对结果"></div>
   </div>
 </section>
 
