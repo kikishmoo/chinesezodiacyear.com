@@ -48,6 +48,7 @@
 @import './components/related.css';
 @import './components/shop.css';
 @import './components/report-checkout.css';
+@import './components/consent.css';
 
 /* --- Themes (after components so overrides win) --- */
 @import './themes/dark.css';

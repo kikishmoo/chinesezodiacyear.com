@@ -1,0 +1,53 @@
+/* Consent preferences: unobtrusive, readable and keyboard accessible. */
+.czy-consent-panel[hidden] { display: none; }
+.czy-consent-panel {
+  position: fixed;
+  z-index: 10000;
+  bottom: 1rem;
+  left: max(1rem, env(safe-area-inset-left));
+  right: max(1rem, env(safe-area-inset-right));
+  max-width: 680px;
+  max-height: min(85vh, 650px);
+  overflow-y: auto;
+  margin: 0 auto;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--imperial-gold, #bc8e48);
+  border-radius: 12px;
+  color: var(--ink, #26221f);
+  background: var(--parchment, #fff8ee);
+  box-shadow: 0 12px 36px rgba(0,0,0,.25);
+}
+.czy-consent-panel h2 { margin: 0 0 .45rem; font-size: 1.15rem; }
+.czy-consent-panel p { margin: .4rem 0; font-size: .9rem; line-height: 1.5; }
+.czy-consent-options { display: flex; gap: .75rem 1.25rem; margin: .85rem 0; flex-wrap: wrap; }
+.czy-consent-options label { display: inline-flex; align-items: center; gap: .3rem; cursor: pointer; font-size: .92rem; }
+.czy-consent-options input { width: 1rem; height: 1rem; }
+.czy-consent-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.czy-consent-actions button, .czy-consent-settings {
+  cursor: pointer;
+  border: 1px solid currentColor;
+  border-radius: .4rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: .45rem .65rem;
+}
+.czy-consent-actions button[data-choice="accept"], .czy-consent-actions button[data-choice="save"] {
+  background: var(--imperial-red, #7d2018);
+  color: #fff;
+  border-color: var(--imperial-red, #7d2018);
+}
+.czy-consent-actions button:focus-visible, .czy-consent-settings:focus-visible {
+  outline: 3px solid #4675cc;
+  outline-offset: 2px;
+}
+.czy-consent-settings { font-size: .85rem; padding: .2rem .5rem; }
+@media (max-width: 480px) {
+  .czy-consent-panel { bottom: .5rem; padding: .9rem; }
+  .czy-consent-actions button { flex: 1 1 44%; }
+}
+[data-theme="dark"] .czy-consent-panel {
+  background: #211c19;
+  color: #faf2e9;
+  border-color: #aa8b56;
+}

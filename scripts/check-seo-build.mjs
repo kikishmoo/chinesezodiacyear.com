@@ -175,6 +175,26 @@ for (const [route, formId, resultId] of [
     route + ' still forwards to a hidden English form');
 }
 
+check(existsSync(join(root, 'consent.js')), 'Consent controller missing from published assets');
+
+// The base layout must not unconditionally request optional analytics or ad tags.
+for (const route of ['/', '/zh-hant/', '/zh-hans/', '/compatibility/']) {
+  const html = htmlAt(route);
+  check(html.includes('src="/consent.js"'), route + ' missing preferences controller');
+  check(!html.includes('src="https://www.googletagmanager.com/gtag/js'),
+    route + ' loads GA4 before consent');
+  check(!html.includes('src="https://pagead2.googlesyndication.com/pagead/js'),
+    route + ' loads AdSense before consent');
+  check(!html.includes('src="https://www.facebook.com/tr?'),
+    route + ' embeds a Meta noscript tracker');
+  check(!html.includes('https://connect.facebook.net/en_US/fbevents.js'),
+    route + ' contains unconditional Meta Pixel');
+  check(!html.includes('https://www.clarity.ms/tag/'),
+    route + ' contains unconditional Clarity');
+  check(html.includes('id="czy-consent-settings"'),
+    route + ' missing accessible settings control');
+}
+
 // Year pages are intentionally English-only; do not emit fictional translations.
 const yearPath = '/zodiac-year/2027/';
 const year = htmlAt(yearPath);
