@@ -81,13 +81,21 @@
         window.fbq = window.fbq || function () {
           (window.fbq.queue = window.fbq.queue || []).push(arguments);
         };
+        window.fbq.loaded = true;
+        window.fbq.version = '2.0';
+        window.fbq.push = window.fbq;
         window.fbq('init', config.meta);
         window.fbq('track', 'PageView');
         loadScript('https://connect.facebook.net/en_US/fbevents.js');
       }
       if (config.adsense) {
-        loadScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(config.adsense),
+        const ads = loadScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(config.adsense),
           { crossorigin: 'anonymous' });
+        ads.addEventListener('load', () => {
+          document.querySelectorAll('.adsbygoogle').forEach(() => {
+            try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (_) {}
+          });
+        });
       }
     }
   }
