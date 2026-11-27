@@ -161,19 +161,19 @@ check(htmlAt('/lucky-colors-numbers-2026/').includes('What Are the Lucky Colors 
   '2026 lucky colors article missing query-intent question heading');
 
 // Every localized compatibility form must have a real, in-language result area.
-const compatibilityMarkup = htmlAt('/compatibility/');
-for (const [formId, resultId] of [
-  ['compat-form', 'compat-result'],
-  ['compat-form-tc', 'compat-result-tc'],
-  ['compat-form-sc', 'compat-result-sc']
+for (const [route, formId, resultId] of [
+  ['/compatibility/', 'compat-form', 'compat-result'],
+  ['/zh-hant/compatibility/', 'compat-form-tc', 'compat-result-tc'],
+  ['/zh-hans/compatibility/', 'compat-form-sc', 'compat-result-sc']
 ]) {
-  check(compatibilityMarkup.includes('id="' + formId + '"'),
-    'Compatibility form missing: ' + formId);
-  check(compatibilityMarkup.includes('id="' + resultId + '"'),
-    'Compatibility result missing: ' + resultId);
+  const html = htmlAt(route);
+  check(html.includes('id="' + formId + '"'),
+    route + ' missing compatibility form: ' + formId);
+  check(html.includes('id="' + resultId + '"'),
+    route + ' missing compatibility result: ' + resultId);
+  check(!html.includes('onsubmit="event.preventDefault()'),
+    route + ' still forwards to a hidden English form');
 }
-check(!compatibilityMarkup.includes('onsubmit="event.preventDefault()'),
-  'Chinese form still delegates submit to the hidden English form');
 
 // Year pages are intentionally English-only; do not emit fictional translations.
 const yearPath = '/zodiac-year/2027/';
