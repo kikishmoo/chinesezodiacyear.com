@@ -175,6 +175,8 @@ for (const [route, formId, resultId] of [
     route + ' still forwards to a hidden English form');
 }
 
+check(existsSync(join(root, 'consent.js')), 'Consent controller missing from published assets');
+
 // The base layout must not unconditionally request optional analytics or ad tags.
 for (const route of ['/', '/zh-hant/', '/zh-hans/', '/compatibility/']) {
   const html = htmlAt(route);
