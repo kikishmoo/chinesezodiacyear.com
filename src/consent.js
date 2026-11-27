@@ -54,6 +54,7 @@
     el.src = src;
     Object.entries(attrs).forEach(([name, value]) => el.setAttribute(name, value));
     document.head.appendChild(el);
+    return el;
   }
   function activate() {
     if (!preference || loaded) return;
